@@ -6,10 +6,17 @@ $order = "ASC";
 
 require_once "includes/inc_all_admin.php";
 
+if (isset($_GET['type'])) {
+    $type_filter = intval($_GET['type']);
+} else {
+    $type_filter = 1;
+}
+
 $sql = mysqli_query(
     $mysqli,
     "SELECT SQL_CALC_FOUND_ROWS * FROM tags
     WHERE tag_name LIKE '%$q%'
+    AND tag_type = $type_filter
     ORDER BY $sort $order LIMIT $record_from, $record_to"
 );
 
@@ -21,7 +28,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
         <div class="card-header py-2">
             <h3 class="card-title mt-2"><i class="fas fa-fw fa-tags mr-2"></i>Tags</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/tag/tag_add.php"><i class="fas fa-plus mr-2"></i>New Tag</button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/tag/tag_add.php?type=<?= $type_filter ?>"><i class="fas fa-plus mr-2"></i>New Tag</button>
             </div>
         </div>
 
@@ -38,6 +45,45 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </form>
                 </div>
                 <div class="col-sm-8">
+                    <div class="btn-group float-right">
+                        <a href="?type=1"
+                            class="btn <?php if ($type_filter == 1) {
+                                echo 'btn-primary';
+                            } else {
+                                echo 'btn-default';
+                            } ?>">Client</a>
+                        <a href="?type=2"
+                            class="btn <?php if ($type_filter == 2) {
+                                echo 'btn-primary';
+                            } else {
+                                echo 'btn-default';
+                            } ?>">Location</a>
+                        <a href="?type=3"
+                            class="btn <?php if ($type_filter == 3) {
+                                echo 'btn-primary';
+                            } else {
+                                echo 'btn-default';
+                            } ?>">Contact</a>
+                        <a href="?type=4"
+                           class="btn <?php if ($type_filter == 4) {
+                               echo 'btn-primary';
+                           } else {
+                               echo 'btn-default';
+                           } ?>">Credential</a>
+                        <a href="?type=5"
+                           class="btn <?php if ($type_filter == 5) {
+                               echo 'btn-primary';
+                           } else {
+                               echo 'btn-default';
+                           } ?>">Asset</a>
+                        <a href="?<?php echo $url_query_strings_sort ?>&archived=1"
+                            class="btn <?php if (isset($_GET['archived'])) {
+                                echo 'btn-primary';
+                            } else {
+                                echo 'btn-default';
+                            } ?>"><i
+                                class="fas fa-fw fa-archive mr-2"></i>Archived</a>
+                    </div>
                 </div>
             </div>
 
