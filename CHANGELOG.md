@@ -12,6 +12,7 @@ This file documents all notable changes made to ITFlow.
 - Fixed problem with bulk ticket merging.
 - Corrected issue where decimal inputs (e.g., price, cost) weren’t displaying on iPhones in certain forms.
 - Added CSV escaping to the sample export data in areas where a sample CSV template is provided.
+- Fix a race condition where dupe tickets, invoices, recurring invoices, recurring tickets, quotes will be created using the same number if created in parallel espcecially when using the API.
 
 ### New Features & Updates
 - Introduced automatic subject-based ticket merging/reply detection. Now, if an email comes from a known contact or domain and the subject matches 95% of a ticket opened in the last 7 days, it will be merged automatically.
@@ -26,6 +27,10 @@ This file documents all notable changes made to ITFlow.
 - Reworked the bulk action function to pass the name arrays, instead of a generic `selected_ids` array. This allows multiple bulk name arrays to be passed at once, currently used for the new file-document merge.
 - Big task: Converted the remaining modals to use the new `ajax-modal` system, enabling more flexible flow expansion going forward.
 - Mail queue: Added a `--no-mx-validation` flag to bypass recipient domain MX validation.
+- Bump PHPMailer from 7.0.0 to 7.0.1.
+- Bump stripe-php from 18.1.0 to 19.0.0.
+- Bump TCPDF from 6.10.0 to 6.10.1.
+- Bump TinyMCE from 8.2.0 to 8.2.2.
 
 ## [25.11.1] Maint Release
 
