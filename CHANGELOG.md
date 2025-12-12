@@ -2,6 +2,20 @@
 
 This file documents all notable changes made to ITFlow.
 
+## [25.12.1] Maint Release
+
+### Major Changes
+- Unified the Client/Agent Login and process (Note only Client Users can Reset passwords from the login page, does not apply to agent users).
+
+### Bug Fixes
+- Fix Payment Provider not adding an account.
+- Fix New ticket button in contact details in the related tickets section.
+
+### New Features & Updates
+- You can now Set Payment Provider income/expense account, expense vendor and expense category upond creation or editing.
+- Moved Saved Payment Provider Methods away from admin side nav to the count link within Payment Providers page.
+- Moved AI Models from the admin side nav to the model count link within AI Providers.
+
 ## [25.12] Stable Release
 
 ### Breaking Changes ###
