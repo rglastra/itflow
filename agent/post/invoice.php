@@ -659,7 +659,7 @@ if (isset($_POST['export_invoices_csv'])) {
         $file_name_date = date('Y-m-d_H-i-s');
     }
 
-    $sql = mysqli_query($mysqli,"SELECT * FROM invoices LEFT JOIN clients ON invoice_client_id = client_id WHERE $date_query $client_query ORDER BY invoice_number ASC");
+    $sql = mysqli_query($mysqli,"SELECT * FROM invoices LEFT JOIN clients ON invoice_client_id = client_id WHERE $date_query AND $client_query ORDER BY invoice_number ASC");
 
     $num_rows = mysqli_num_rows($sql);
 
