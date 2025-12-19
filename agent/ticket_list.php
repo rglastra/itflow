@@ -40,7 +40,7 @@
                             <?php if ($config_module_enable_accounting && lookupUserPermission("module_sales") >= 2) { ?>
                             <th class="text-center">
                                 <a class="text-secondary" href="?<?= $url_query_strings_sort ?>&sort=ticket_billable&order=<?= $disp ?>">
-                                    Billable <?php if ($sort == 'recurring_ticket_billable') { echo $order_icon; } ?>
+                                    Billable <?php if ($sort == 'ticket_billable') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php } ?>
