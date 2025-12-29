@@ -87,13 +87,13 @@ ob_start();
                             <option value="0">- Choose a Template -</option>
                             <?php
                                 $sql_ticket_templates = mysqli_query($mysqli, "
-                                    SELECT tt.ticket_template_id, 
+                                    SELECT tt.ticket_template_id,
                                            tt.ticket_template_name,
-                                           tt.ticket_template_subject, 
+                                           tt.ticket_template_subject,
                                            tt.ticket_template_details,
                                            COUNT(ttt.task_template_id) as task_count
                                     FROM ticket_templates tt
-                                    LEFT JOIN task_templates ttt 
+                                    LEFT JOIN task_templates ttt
                                         ON tt.ticket_template_id = ttt.task_template_ticket_template_id
                                     WHERE tt.ticket_template_archived_at IS NULL
                                     GROUP BY tt.ticket_template_id
@@ -463,32 +463,25 @@ ob_start();
     </div>
 </form>
 
+<!-- Ticket Templates -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var templateSelect = $('#ticket_template_select');
-    var subjectInput = document.getElementById('subjectInput');
-    var detailsInput = document.getElementById('detailsInput');
+$(document).on('change', '#ticket_template_select', function () {
+    const $opt = $(this).find(':selected');
+    const templateSubject = $opt.data('subject') || '';
+    const templateDetails = $opt.data('details') || '';
 
-    templateSelect.on('select2:select', function(e) {
-        var selectedOption = e.params.data.element;
-        var templateSubject = selectedOption.getAttribute('data-subject');
-        var templateDetails = selectedOption.getAttribute('data-details');
+    $('#subjectInput').val(templateSubject);
 
-        // Update Subject
-        subjectInput.value = templateSubject || '';
-
-        // Update Details
-        if (typeof tinymce !== 'undefined') {
-            var editor = tinymce.get('detailsInput');
-            if (editor) {
-                editor.setContent(templateDetails || '');
-            } else {
-                detailsInput.value = templateDetails || '';
-            }
+    if (window.tinymce) {
+        const editor = tinymce.get('detailsInput');
+        if (editor) {
+            editor.setContent(templateDetails);
         } else {
-            detailsInput.value = templateDetails || '';
+            $('#detailsInput').val(templateDetails);
         }
-    });
+    } else {
+        $('#detailsInput').val(templateDetails);
+    }
 });
 </script>
 
