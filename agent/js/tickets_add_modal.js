@@ -174,3 +174,85 @@ function populateVendorsDropdown(client_id) {
         }
     );
 }
+
+const TEMPLATE_AJAX_URL = "/agent/ajax.php";
+
+function applyTemplateToForm(subject, details) {
+  const subjectEl = document.getElementById("subjectInput");
+  if (subjectEl) subjectEl.value = subject || "";
+
+  if (typeof tinymce !== "undefined") {
+    const ed = tinymce.get("detailsInput");
+    if (ed) {
+      ed.setContent(details || "");
+      return;
+    }
+  }
+
+  const detailsEl = document.getElementById("detailsInput");
+  if (detailsEl) detailsEl.value = details || "";
+}
+
+function loadTemplatesIfPresent() {
+  const select = document.getElementById("ticket_template_select");
+  if (!select) return;
+
+  // If already loaded, do nothing
+  if (select.dataset.loaded === "1") return;
+
+  // Mark as loading to prevent duplicate fetches
+  select.dataset.loaded = "1";
+
+  fetch(`${TEMPLATE_AJAX_URL}?get_ticket_templates=true`, { credentials: "same-origin" })
+    .then(r => r.json())
+    .then(data => {
+      select.innerHTML = `<option value="0">- Choose a Template -</option>`;
+
+      (data.templates || []).forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t.ticket_template_id;
+        opt.textContent = `${t.ticket_template_name} (${t.task_count} tasks)`;
+        select.appendChild(opt);
+      });
+    })
+    .catch(err => {
+      // allow retry if it failed
+      select.dataset.loaded = "0";
+      console.error("Template list load failed:", err);
+    });
+}
+
+// 1) Run once now (in case modal is already present)
+loadTemplatesIfPresent();
+
+// 2) Watch for AJAX-injected modal content
+const ticketTemplateObserver = new MutationObserver(() => {
+  loadTemplatesIfPresent();
+});
+
+ticketTemplateObserver.observe(document.body, { childList: true, subtree: true });
+
+// 3) When user changes template, fetch details
+document.addEventListener("change", function (e) {
+  if (e.target && e.target.id === "ticket_template_select") {
+    const templateId = e.target.value;
+
+    if (!templateId || templateId === "0") {
+      applyTemplateToForm("", "");
+      return;
+    }
+
+    fetch(`${TEMPLATE_AJAX_URL}?get_ticket_template_details=true&ticket_template_id=${encodeURIComponent(templateId)}`, {
+      credentials: "same-origin"
+    })
+      .then(r => r.json())
+      .then(resp => {
+        if (resp.success !== "TRUE") {
+          applyTemplateToForm("", "");
+          return;
+        }
+        applyTemplateToForm(resp.subject, resp.details);
+      })
+      .catch(err => console.error("Template details load failed:", err));
+  }
+});
