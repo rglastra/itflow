@@ -524,6 +524,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                           </div>";
                     } else {
 
+                        $user_id          = intval($selectedRow['contact_user_id']);
                         $client_id        = intval($selectedRow['contact_client_id']);
                         $contact_id       = intval($selectedRow['contact_id']);
                         $user_auth_method = sanitizeInput($selectedRow['user_auth_method']);
