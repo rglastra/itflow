@@ -570,15 +570,13 @@ if (isset($_GET['email_invoice'])) {
     }
 
     // Queue Mail
-    $data = [
-        [
+    $data[] = [
             'from' => $config_invoice_from_email,
             'from_name' => $config_invoice_from_name,
             'recipient' => $contact_email,
             'recipient_name' => $contact_name,
             'subject' => $subject,
             'body' => $body
-        ]
     ];
 
     addToMailQueue($data);
@@ -613,15 +611,13 @@ if (isset($_GET['email_invoice'])) {
         $billing_contact_name = sanitizeInput($billing_contact['contact_name']);
         $billing_contact_email = sanitizeInput($billing_contact['contact_email']);
 
-        $data = [
-            [
+        $data[] = [
                 'from' => $config_invoice_from_email,
                 'from_name' => $config_invoice_from_name,
                 'recipient' => $billing_contact_email,
                 'recipient_name' => $billing_contact_name,
                 'subject' => $subject,
                 'body' => $body
-            ]
         ];
 
         logAction("Invoice", "Email", "$session_name Emailed $billing_contact_email Invoice $invoice_prefix$invoice_number Email queued Email ID: $email_id", $client_id, $invoice_id);
