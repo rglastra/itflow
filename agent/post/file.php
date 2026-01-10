@@ -246,10 +246,40 @@ if (isset($_POST['bulk_delete_files'])) {
             logAction("File", "Delete", "$session_name deleted file $file_name", $client_id);
         }
 
-        logAction("File", "Bulk Delete", "$session_name deleted $file_count file(s)", $client_id);
-
-        flash_alert("You deleted <strong>$file_count</strong> files", 'error');
     }
+
+    // Delete documents loop
+    if (isset($_POST['document_ids'])) {
+
+        // Get selected document count
+        $document_count = count($_POST['document_ids']);
+
+        // Delete document loop
+        foreach($_POST['document_ids'] as $document_id) {
+            $document_id = intval($document_id);
+            // Get document name for logging
+            $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
+            $row = mysqli_fetch_array($sql);
+            $document_name = sanitizeInput($row['document_name']);
+            $client_id = intval($row['document_client_id']);
+
+            mysqli_query($mysqli,"DELETE FROM documents WHERE document_id = $document_id");
+
+            // Delete all versions associated with the master document
+            mysqli_query($mysqli,"DELETE FROM document_versions WHERE document_version_document_id = $document_id");
+
+            // Delete uploads/document/$document_id if exists
+            removeDirectory($_SERVER['DOCUMENT_ROOT'] . "/uploads/documents/" . $document_id);
+
+            logAction("Document", "Delete", "$session_name deleted document $document_name and all versions", $client_id);
+
+        }
+
+    }
+
+    logAction("File", "Bulk Delete", "$session_name deleted $document_count document(s) and all versions and $file_count file(s)", $client_id);
+
+    flash_alert("Deleted <strong>$document_count</strong> Documents and associated document versions and <strong>$file_count</strong> files", 'error');
 
     redirect();
 

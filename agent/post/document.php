@@ -17,7 +17,7 @@ if (isset($_POST['add_document'])) {
 
     // Document add query
     mysqli_query($mysqli,"INSERT INTO documents SET document_name = '$name', document_description = '$description', document_content = '', document_content_raw = '$content_raw', document_folder_id = $folder, document_created_by = $session_user_id, document_client_id = $client_id");
-    
+
     $document_id = mysqli_insert_id($mysqli);
 
     $processed_content = mysqli_escape_string(
@@ -62,7 +62,7 @@ if (isset($_POST['add_document_from_template'])) {
     // Get template
     $sql_document = mysqli_query(
         $mysqli,
-        "SELECT * FROM document_templates 
+        "SELECT * FROM document_templates
          WHERE document_template_id = $document_template_id"
     );
 
@@ -246,7 +246,7 @@ if (isset($_POST['move_document'])) {
     $sql_folder = mysqli_query($mysqli,"SELECT folder_name FROM folders WHERE folder_id = $folder_id");
     $row = mysqli_fetch_array($sql_folder);
     $folder_name = sanitizeInput($row['folder_name']);
-    
+
     // Document edit query
     mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id WHERE document_id = $document_id");
 
@@ -579,7 +579,7 @@ if (isset($_GET['unlink_software_from_document'])) {
     mysqli_query($mysqli,"DELETE FROM software_documents WHERE software_id = $software_id AND document_id = $document_id");
 
     logAction("Document", "Unlink", "$session_name unlinked software $software_name from document $document_name", $client_id, $document_id);
-    
+
     flash_alert("Software <strong>$software_name</strong> unlinked from Document <strong>$document_name</strong>", 'error');
 
     redirect();
@@ -755,47 +755,5 @@ if (isset($_GET['delete_document'])) {
         // Default behavior — redirect back to previous page
         redirect();
     }
-
-}
-
-if (isset($_POST['bulk_delete_documents'])) {
-
-    validateCSRFToken($_POST['csrf_token']);
-
-    enforceUserPermission('module_support', 3);
-    
-    if (isset($_POST['document_ids'])) {     
-
-        // Get selected document count
-        $count = count($_POST['document_ids']);
-        
-        // Delete document loop
-        foreach($_POST['document_ids'] as $document_id) {
-            $document_id = intval($document_id);
-            // Get document name for logging
-            $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
-            $row = mysqli_fetch_array($sql);
-            $document_name = sanitizeInput($row['document_name']);
-            $client_id = intval($row['document_client_id']);
-
-            mysqli_query($mysqli,"DELETE FROM documents WHERE document_id = $document_id");
-
-            // Delete all versions associated with the master document
-            mysqli_query($mysqli,"DELETE FROM document_versions WHERE document_version_document_id = $document_id");
-
-            // Delete uploads/document/$document_id if exists
-            removeDirectory($_SERVER['DOCUMENT_ROOT'] . "/uploads/documents/" . $document_id);
-
-            logAction("Document", "Delete", "$session_name deleted document $document_name and all versions", $client_id);  
-
-        }
-
-        logAction("Document", "Bulk Delete", "$session_name deleted $count document(s) and all versions", $client_id);
-
-        flash_alert("Deleted <strong>$count</strong> Documents and associated document versions", 'error');
-    
-    }
-
-    redirect();
 
 }
