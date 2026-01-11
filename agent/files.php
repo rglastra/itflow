@@ -256,6 +256,7 @@ if ($view == 1) {
         $file_mime_type     = nullable_htmlentities($row['file_mime_type']);
         $file_uploaded_by   = nullable_htmlentities($row['user_name']);
         $file_created_at    = nullable_htmlentities($row['file_created_at']);
+        $file_archived_at     = $row['file_archived_at'];
 
         // determine icon
         if ($file_ext == 'pdf') {
@@ -293,6 +294,7 @@ if ($view == 1) {
             'size'              => $file_size,
             'created_at'        => $file_created_at,
             'created_by'        => $file_uploaded_by,
+            'archived_at'       => $file_archived_at,
         ];
     }
 
@@ -303,6 +305,7 @@ if ($view == 1) {
         $document_description     = nullable_htmlentities($row['document_description']);
         $document_created_by_name = nullable_htmlentities($row['user_name']);
         $document_created_at      = $row['document_created_at'];
+        $document_archived_at     = $row['document_archived_at'];
 
         $items[] = [
             'kind'              => 'document',
@@ -313,6 +316,7 @@ if ($view == 1) {
             'size'              => null,
             'created_at'        => $document_created_at,
             'created_by'        => $document_created_by_name,
+            'archived_at'       => $document_archived_at,
         ];
     }
 
@@ -462,11 +466,24 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                             data-bulk="true">
                                                 <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move Files
                                             </a>
+                                            <?php if ($archived) { ?>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-info"
+                                                type="submit" form="bulkActions" name="bulk_restore_files">
+                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore Files
+                                            </button>
                                             <div class="dropdown-divider"></div>
                                             <button class="dropdown-item text-danger text-bold"
-                                                    type="submit" form="bulkActions" name="bulk_delete_files">
+                                                type="submit" form="bulkActions" name="bulk_delete_files">
                                                 <i class="fas fa-fw fa-trash mr-2"></i>Delete Files
                                             </button>
+                                            <?php } else { ?>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-danger"
+                                                type="submit" form="bulkActions" name="bulk_archive_files">
+                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive Files
+                                            </button>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -512,6 +529,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                             $file_size_KB       = number_format($file_size / 1024);
                             $file_mime_type     = nullable_htmlentities($row['file_mime_type']);
                             $file_uploaded_by   = nullable_htmlentities($row['user_name']);
+                            $file_archived_at   = nullable_htmlentities($row['file_archived_at']);
 
                             $files[] = [
                                 'id'      => $file_id,
@@ -547,16 +565,23 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                 <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                             </a>
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#linkAssetToFileModal<?php echo $file_id; ?>">
-                                                <i class="fas fa-fw fa-desktop mr-2"></i>Asset
+                                                <i class="fas fa-fw fa-desktop mr-2"></i>Link Asset
                                             </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?php echo $file_id; ?>">
-                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
-                                            </a>
-                                            <?php if ($session_user_role == 3) { ?>
+                                            <?php if ($file_archived_at) { ?>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
-                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                <a class="dropdown-item text-info" href="post.php?restore_file=<?= $file_id ?>">
+                                                    <i class="fas fa-fw fa-redo mr-2"></i>Restore
+                                                </a>
+                                                <?php if ($session_user_role == 3) { ?>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
+                                                        <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                    </a>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?= $file_id ?>">
+                                                    <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                 </a>
                                             <?php } ?>
                                         </div>
@@ -629,6 +654,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         $file_mime_type     = $item['mime'];
                                         $file_uploaded_by   = $item['created_by'];
                                         $file_created_at    = $item['created_at'];
+                                        $file_archived_at    = $item['archived_at'];
 
                                         // Shared?
                                         $sql_shared = mysqli_query(
@@ -707,16 +733,23 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                             <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#linkAssetToFileModal<?php echo $file_id; ?>">
-                                                            <i class="fas fa-fw fa-desktop mr-2"></i>Asset
+                                                            <i class="fas fa-fw fa-desktop mr-2"></i>Link Asset
                                                         </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?php echo $file_id; ?>">
-                                                            <i class="fas fa-fw fa-archive mr-2"></i>Archive
-                                                        </a>
-                                                        <?php if ($session_user_role == 3) { ?>
+                                                        <?php if ($file_archived_at) { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
-                                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                            <a class="dropdown-item text-info" href="post.php?restore_file=<?= $file_id ?>">
+                                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore
+                                                            </a>
+                                                            <?php if ($session_user_role == 3) { ?>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
+                                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                                </a>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?= $file_id ?>">
+                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                             </a>
                                                         <?php } ?>
                                                     </div>
@@ -733,6 +766,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         $document_description     = $item['description'];
                                         $document_created_by_name = $item['created_by'];
                                         $document_created_at      = date("m/d/Y", strtotime($item['created_at']));
+                                        $document_archived_at     = $item['archived_at'];
 
                                         $sql_shared = mysqli_query(
                                             $mysqli,
@@ -819,14 +853,21 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                            data-modal-url="modals/document/document_move.php?id=<?= $document_id ?>">
                                                             <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                                         </a>
-                                                        <?php if ($session_user_role == 3) { ?>
+                                                        <?php if ($document_archived_at) { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_document=<?php echo $document_id; ?>">
-                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
+                                                            <a class="dropdown-item text-info" href="post.php?restore_document=<?= $document_id ?>">
+                                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore
                                                             </a>
+                                                            <?php if ($session_user_role == 3) { ?>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item text-danger text-bold" href="post.php?delete_document=<?= $document_id ?>">
+                                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                                </a>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_document=<?php echo $document_id; ?>">
-                                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                            <a class="dropdown-item text-danger" href="post.php?archive_document=<?= $document_id ?>">
+                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                             </a>
                                                         <?php } ?>
                                                     </div>

@@ -700,6 +700,28 @@ if (isset($_GET['archive_document'])) {
 
 }
 
+if (isset($_GET['restore_document'])) {
+
+    enforceUserPermission('module_support', 2);
+
+    $document_id = intval($_GET['restore_document']);
+
+    // Get Document Name and Client ID for logging and alert message
+    $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
+    $row = mysqli_fetch_assoc($sql);
+    $document_name = sanitizeInput($row['document_name']);
+    $client_id = intval($row['document_client_id']);
+
+    mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL WHERE document_id = $document_id");
+
+    logAction("Document", "Restore", "$session_name restored document $document_name", $client_id, $document_id);
+
+    flash_alert("Document <strong>$document_name</strong> Restored");
+
+    redirect();
+
+}
+
 if (isset($_GET['delete_document_version'])) {
 
     enforceUserPermission('module_support', 3);
