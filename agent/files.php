@@ -76,7 +76,7 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
     global $mysqli, $get_folder_id, $session_user_role, $archive_query, $archived;
 
     $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_client_id = $client_id ORDER BY folder_name ASC");
-    while ($row = mysqli_fetch_array($sql_folders)) {
+    while ($row = mysqli_fetch_assoc($sql_folders)) {
         $folder_id   = intval($row['folder_id']);
         $folder_name = nullable_htmlentities($row['folder_name']);
 
@@ -442,8 +442,8 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                         <div class="col-md-7">
                             <div class="float-right">
                                 <div class="btn-group">
-                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=0&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 0){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>"><i class="fas fa-list-ul"></i></a>
-                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=1&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 1){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>"><i class="fas fa-th-large"></i></a>
+                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=0&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 0){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>" title="List View"><i class="fas fa-list-ul"></i></a>
+                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=1&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 1){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>" title="Grid View"><i class="fas fa-th-large"></i></a>
                                 </div>
                                 <div class="btn-group">
                                     <a href="?<?php echo $url_query_strings_sort; ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
@@ -503,7 +503,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                     <div class="row">
                         <?php
                         $files = [];
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $file_id            = intval($row['file_id']);
                             $file_name          = nullable_htmlentities($row['file_name']);
                             $file_reference_name= nullable_htmlentities($row['file_reference_name']);
@@ -644,7 +644,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         );
                                         $file_shared = (mysqli_num_rows($sql_shared) > 0);
                                         if ($file_shared) {
-                                            $row_shared = mysqli_fetch_array($sql_shared);
+                                            $row_shared = mysqli_fetch_assoc($sql_shared);
                                             $item_recipient       = nullable_htmlentities($row_shared['item_recipient']);
                                             $item_expire_at_human = timeAgo($row_shared['item_expire_at']);
                                         }
@@ -747,7 +747,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         );
                                         $doc_shared = (mysqli_num_rows($sql_shared) > 0);
                                         if ($doc_shared) {
-                                            $row_shared = mysqli_fetch_array($sql_shared);
+                                            $row_shared = mysqli_fetch_assoc($sql_shared);
                                             $item_recipient       = nullable_htmlentities($row_shared['item_recipient']);
                                             $item_expire_at_human = timeAgo($row_shared['item_expire_at']);
                                         }
