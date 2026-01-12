@@ -66,7 +66,7 @@ $sql_settings = mysqli_query($mysqli, "
     LEFT JOIN companies ON settings.company_id = companies.company_id
     WHERE settings.company_id = 1
 ");
-$row = mysqli_fetch_array($sql_settings);
+$row = mysqli_fetch_assoc($sql_settings);
 
 $company_name          = $row['company_name'];
 $company_logo          = $row['company_logo'];
