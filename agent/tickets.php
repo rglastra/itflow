@@ -86,7 +86,6 @@ $ticket_project_filter_id = '';
 if (isset($_GET['project']) & !empty($_GET['project']) && $_GET['project'] > '0') {
     $ticket_project_snippet = 'AND ticket_project_id = ' . intval($_GET['project']);
     $ticket_project_filter_id = intval($_GET['project']);
-    echo "got here";
 }
 
 // Ticket client access snippet
