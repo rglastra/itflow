@@ -171,6 +171,28 @@ if (isset($_POST['add_payment'])) {
 
 }
 
+if (isset($_POST['edit_payment'])) {
+
+    enforceUserPermission('module_sales', 2);
+    enforceUserPermission('module_financial', 2);
+
+    $payment_id = intval($_POST['payment_id']);
+    $date = sanitizeInput($_POST['date']);
+    $amount = floatval($_POST['amount']);
+    $account = intval($_POST['account']);
+    $payment_method = sanitizeInput($_POST['payment_method']);
+    $reference = sanitizeInput($_POST['reference']);
+
+    mysqli_query($mysqli,"UPDATE payments SET payment_date = '$date', payment_amount = $amount, payment_account_id = $account, payment_method = '$payment_method', payment_reference = '$reference' WHERE payment_id = $payment_id");
+
+    logAction("Payment", "Edit", "Payment edited amount of " . numfmt_format_currency($currency_format, $amount, $session_company_currency));
+
+    flash_alert("Payment edited to amount <strong>" . numfmt_format_currency($currency_format, $amount, $session_company_currency) . "</strong> added");
+
+    redirect();
+
+}
+
 /*
 Apply Credit Not ready for use 2025-08-27 - JQ
 

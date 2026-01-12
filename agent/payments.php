@@ -243,16 +243,23 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             <td><?php echo $payment_reference_display; ?></td>
                             <td><?php echo "$account_archived_display$account_name"; ?></td>
                             <td>
-                                <div class="dropdown dropleft text-center">
-                                    <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_payment=<?php echo $payment_id; ?>">
-                                            <i class="fas fa-fw fa-trash mr-2"></i>Delete
-                                        </a>
+                                <?php if (lookupUserPermission("module_sales") >= 3) { ?>
+                                    <div class="dropdown dropleft text-center">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item ajax-modal"
+                                                data-modal-url="modals/payment/payment_edit.php?id=<?= $payment_id ?>">
+                                                <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_payment=<?= $payment_id ?>">
+                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </td>
                         </tr>
 
