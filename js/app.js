@@ -201,7 +201,16 @@ $(document).ready(function() {
         ],
         mobile: {
             menubar: false,
-            toolbar: 'bold italic styles'
+            toolbar: [
+                { name: 'styles', items: ['styles'] },
+                { name: 'formatting', items: ['bold', 'italic', 'forecolor'] },
+                { name: 'link', items: ['link'] },
+                { name: 'lists', items: ['bullist', 'numlist'] },
+                { name: 'indentation', items: ['outdent', 'indent'] },
+                { name: 'ai', items: ['reword', 'undo', 'redo'] },
+                { name: 'custom', items: ['redactButton'] },
+                { name: 'code', items: ['code'] },
+            ],
         },
         convert_urls: false,
         plugins: 'link image lists table code codesample fullscreen autoresize code',
