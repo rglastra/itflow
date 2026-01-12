@@ -173,8 +173,8 @@ if (isset($_POST['add_payment'])) {
 
 if (isset($_POST['edit_payment'])) {
 
-    enforceUserPermission('module_sales', 2);
-    enforceUserPermission('module_financial', 2);
+    enforceUserPermission('module_sales', 3);
+    enforceUserPermission('module_financial', 3);
 
     $payment_id = intval($_POST['payment_id']);
     $date = sanitizeInput($_POST['date']);
