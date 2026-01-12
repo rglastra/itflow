@@ -79,6 +79,16 @@ if (isset($_GET['assigned']) & !empty($_GET['assigned'])) {
     }
 }
 
+// Project filter
+// Default - any (including tickets without a project)
+$ticket_project_snippet = '';
+$ticket_project_filter_id = '';
+if (isset($_GET['project']) & !empty($_GET['project']) && $_GET['project'] > '0') {
+    $ticket_project_snippet = 'AND ticket_project_id = ' . intval($_GET['project']);
+    $ticket_project_filter_id = intval($_GET['project']);
+    echo "got here";
+}
+
 // Ticket client access snippet
 $ticket_permission_snippet = '';
 if (!empty($client_access_string)) {
@@ -102,6 +112,7 @@ $sql = mysqli_query(
     AND DATE(ticket_created_at) BETWEEN '$dtf' AND '$dtt'
     AND (CONCAT(ticket_prefix,ticket_number) LIKE '%$q%' OR client_name LIKE '%$q%' OR ticket_subject LIKE '%$q%' OR ticket_status_name LIKE '%$q%' OR ticket_priority LIKE '%$q%' OR user_name LIKE '%$q%' OR contact_name LIKE '%$q%' OR asset_name LIKE '%$q%' OR vendor_name LIKE '%$q%' OR ticket_vendor_ticket_number LIKE '%q%')
     $ticket_billable_snippet
+    $ticket_project_snippet
     $ticket_permission_snippet
     $client_query
     ORDER BY
@@ -190,6 +201,7 @@ $sql_categories_filter = mysqli_query(
                     <input type="hidden" name="client_id" value="<?= $client_id ?>">
                 <?php } ?>
                 <input type="hidden" name="status" value="<?= $status ?>">
+                <input type="hidden" name="view" value="<?= nullable_htmlentities($_GET['view']) ?>">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
@@ -372,6 +384,28 @@ $sql_categories_filter = mysqli_query(
                                         $user_name = nullable_htmlentities($row['user_name']);
                                         ?>
                                         <option <?php if ($ticket_assigned_filter_id == $user_id) { echo "selected"; } ?> value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Project</label>
+                                <select onchange="this.form.submit()" class="form-control select2" name="project">
+                                    <option value="" <?php if ($ticket_project_filter_id == "") { echo "selected"; } ?>>Any</option>
+
+                                    <?php
+                                    $sql_projects = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_completed_at IS NULL and project_archived_at IS NULL ORDER BY project_name ASC");
+                                    while ($row = mysqli_fetch_array($sql_projects)) {
+                                        $project_id = intval($row['project_id']);
+                                        $project_prefix = nullable_htmlentities($row['project_prefix']);
+                                        $project_number = intval($row['project_number']);
+                                        $project_name = nullable_htmlentities($row['project_name']);
+                                        ?>
+                                        <option <?php if ($ticket_project_filter_id == $project_id) { echo "selected"; } ?> value="<?php echo $project_id; ?>"><?php echo $project_prefix . $project_number . " - " . $project_name; ?></option>
                                         <?php
                                     }
                                     ?>

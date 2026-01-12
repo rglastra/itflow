@@ -63,6 +63,7 @@ $sql = mysqli_query(
         vendor_name LIKE '%$q%' OR
         ticket_vendor_ticket_number LIKE '%$q%'
     )
+    $ticket_project_snippet
     $ticket_permission_snippet
     $ordering_snippet"
 );
