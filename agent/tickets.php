@@ -200,7 +200,7 @@ $sql_categories_filter = mysqli_query(
                     <input type="hidden" name="client_id" value="<?= $client_id ?>">
                 <?php } ?>
                 <input type="hidden" name="status" value="<?= $status ?>">
-                <input type="hidden" name="view" value="<?= nullable_htmlentities($_GET['view']) ?>">
+                <input type="hidden" name="view" value="<?= nullable_htmlentities(isset($_GET['view'])) ?>">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
