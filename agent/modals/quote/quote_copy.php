@@ -6,7 +6,7 @@ $quote_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM quotes LEFT JOIN clients ON quote_client_id = client_id WHERE quote_id = $quote_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $quote_prefix = nullable_htmlentities($row['quote_prefix']);
 $quote_number = intval($row['quote_number']);
 $client_id = intval($row['client_id']);
@@ -37,7 +37,7 @@ ob_start();
                 <select class="form-control select2" name="client" required>
                     <?php
                         $sql_client_select = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL ORDER BY client_name ASC");
-                        while ($row = mysqli_fetch_array($sql_client_select)) {
+                        while ($row = mysqli_fetch_assoc($sql_client_select)) {
                             $client_id_select = intval($row['client_id']);
                             $client_name_select = nullable_htmlentities($row['client_name']);
                     ?>

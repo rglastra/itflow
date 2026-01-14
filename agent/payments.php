@@ -91,7 +91,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_accounts_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM payments WHERE payment_account_id = account_id) ORDER BY account_name ASC");
-                                while ($row = mysqli_fetch_array($sql_accounts_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_accounts_filter)) {
                                     $account_id = intval($row['account_id']);
                                     $account_name = nullable_htmlentities($row['account_name']);
                                 ?>
@@ -111,7 +111,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_payment_methods_filter = mysqli_query($mysqli, "SELECT DISTINCT payment_method FROM payments WHERE payment_method != '' ORDER BY payment_method ASC");
-                                while ($row = mysqli_fetch_array($sql_payment_methods_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_payment_methods_filter)) {
                                     $payment_method = nullable_htmlentities($row['payment_method']);
                                 ?>
                                     <option <?php if ($method_filter == $payment_method) { echo "selected"; } ?>><?php echo $payment_method; ?></option>
@@ -195,7 +195,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $invoice_id = intval($row['invoice_id']);
                         $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                         $invoice_number = intval($row['invoice_number']);

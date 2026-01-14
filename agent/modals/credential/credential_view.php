@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $credential_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM credentials WHERE credential_id = $credential_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $credential_name = nullable_htmlentities($row['credential_name']);
 $credential_description = nullable_htmlentities($row['credential_description']);
 $credential_uri = nullable_htmlentities($row['credential_uri']);

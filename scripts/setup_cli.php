@@ -346,7 +346,7 @@ if (!$non_interactive) {
         $comments = trim(fgets(STDIN));
 
         $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name_db = $row['company_name'];
         $website_db = $row['company_website'];
         $city_db = $row['company_city'];

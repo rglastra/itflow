@@ -6,7 +6,7 @@ $tag_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_id = $tag_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $tag_name = nullable_htmlentities($row['tag_name']);
 $tag_type = intval($row['tag_type']);
 $tag_color = nullable_htmlentities($row['tag_color']);

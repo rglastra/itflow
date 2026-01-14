@@ -6,7 +6,7 @@ $category_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_id = $category_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $category_name = nullable_htmlentities($row['category_name']);
 $category_color = nullable_htmlentities($row['category_color']);
 $category_type = nullable_htmlentities($row['category_type']);

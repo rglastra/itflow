@@ -17,7 +17,7 @@ if (!isset($_GET['task_approval_id'], $_GET['url_key'])) {
 }
 
 // Company info
-$company_sql_row = mysqli_fetch_array(mysqli_query($mysqli, "
+$company_sql_row = mysqli_fetch_assoc(mysqli_query($mysqli, "
     SELECT
         company_phone,
         company_phone_country_code,
@@ -111,4 +111,3 @@ $ticket_details = $purifier->purify($task_row['ticket_details']);
 
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php';
-

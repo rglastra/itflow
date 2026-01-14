@@ -98,7 +98,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $revenue_id = intval($row['revenue_id']);
                     $revenue_description = nullable_htmlentities($row['revenue_description']);
                     $revenue_reference = nullable_htmlentities($row['revenue_reference']);

@@ -11,7 +11,7 @@ if (isset($_GET['year'])) {
 }
 
 $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) AS payment_year FROM payments
-    UNION SELECT DISTINCT YEAR(revenue_date) AS payment_year FROM revenues 
+    UNION SELECT DISTINCT YEAR(revenue_date) AS payment_year FROM revenues
     ORDER BY payment_year DESC");
 
 $sql_categories = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' ORDER BY category_name ASC");
@@ -37,7 +37,7 @@ $largest_income_month = 0;
     <div class="card-body p-0">
         <form class="p-3">
             <select onchange="this.form.submit()" class="form-control" name="year">
-                <?php while ($row = mysqli_fetch_array($sql_payment_years)) {
+                <?php while ($row = mysqli_fetch_assoc($sql_payment_years)) {
                     $payment_year = intval($row['payment_year']); ?>
                     <option <?php if ($year == $payment_year) { ?> selected <?php } ?>><?php echo $payment_year; ?></option>
                 <?php } ?>
@@ -71,7 +71,7 @@ $largest_income_month = 0;
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysqli_fetch_array($sql_categories)) {
+                <?php while ($row = mysqli_fetch_assoc($sql_categories)) {
                     $category_id = intval($row['category_id']);
                     $category_name = nullable_htmlentities($row['category_name']); ?>
                     <tr>
@@ -81,12 +81,12 @@ $largest_income_month = 0;
                         for ($month = 1; $month <= 12; $month++) {
                             // Payments to Invoices
                             $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS payment_amount_for_month FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_category_id = $category_id AND YEAR(payment_date) = $year AND MONTH(payment_date) = $month");
-                            $row2 = mysqli_fetch_array($sql_payments);
+                            $row2 = mysqli_fetch_assoc($sql_payments);
                             $payment_amount_for_month = floatval($row2['payment_amount_for_month']);
 
                             // Revenues
                             $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS revenue_amount_for_month FROM revenues WHERE revenue_category_id = $category_id AND YEAR(revenue_date) = $year AND MONTH(revenue_date) = $month");
-                            $row3 = mysqli_fetch_array($sql_revenues);
+                            $row3 = mysqli_fetch_assoc($sql_revenues);
                             $revenues_amount_for_month = floatval($row3['revenue_amount_for_month']);
 
                             $payment_amount_for_month = $payment_amount_for_month + $revenues_amount_for_month;
@@ -104,11 +104,11 @@ $largest_income_month = 0;
                     $grand_total_all_months = 0;
                     for ($month = 1; $month <= 12; $month++) {
                         $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS payment_total_amount_for_month FROM payments, invoices WHERE payment_invoice_id = invoice_id AND YEAR(payment_date) = $year AND MONTH(payment_date) = $month");
-                        $row4 = mysqli_fetch_array($sql_payments);
+                        $row4 = mysqli_fetch_assoc($sql_payments);
                         $payment_total_amount_for_month = floatval($row4['payment_total_amount_for_month']);
 
                         $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS revenue_amount_for_month FROM revenues WHERE revenue_category_id > 0 AND YEAR(revenue_date) = $year AND MONTH(revenue_date) = $month");
-                        $row5 = mysqli_fetch_array($sql_revenues);
+                        $row5 = mysqli_fetch_assoc($sql_revenues);
                         $revenues_total_amount_for_month = floatval($row5['revenue_amount_for_month']);
 
                         $payment_total_amount_for_month += $revenues_total_amount_for_month;
@@ -154,11 +154,11 @@ $largest_income_month = 0;
                         // Build series and track the largest month for axis max
                         for ($month = 1; $month <= 12; $month++) {
                             $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS payment_amount_for_month FROM payments, invoices WHERE payment_invoice_id = invoice_id AND YEAR(payment_date) = $year AND MONTH(payment_date) = $month");
-                            $r1 = mysqli_fetch_array($sql_payments);
+                            $r1 = mysqli_fetch_assoc($sql_payments);
                             $payments_for_month = floatval($r1['payment_amount_for_month']);
 
                             $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS revenue_amount_for_month FROM revenues WHERE revenue_category_id > 0 AND YEAR(revenue_date) = $year AND MONTH(revenue_date) = $month");
-                            $r2 = mysqli_fetch_array($sql_revenues);
+                            $r2 = mysqli_fetch_assoc($sql_revenues);
                             $revenues_for_month = floatval($r2['revenue_amount_for_month']);
 
                             $income_for_month = $payments_for_month + $revenues_for_month;

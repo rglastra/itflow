@@ -118,7 +118,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                             <?php
                             $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND EXISTS (SELECT 1 FROM recurring_tickets WHERE recurring_ticket_category = category_id $client_query) ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                 $category_id = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
                             ?>
@@ -137,7 +137,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                             <?php
                             $sql_assigned_agents_filter = mysqli_query($mysqli, "SELECT user_id, user_name FROM users WHERE user_type = 1 AND EXISTS (SELECT 1 FROM recurring_tickets WHERE recurring_ticket_assigned_to = user_id $client_query) ORDER BY user_name ASC");
-                            while ($row = mysqli_fetch_array($sql_assigned_agents_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_assigned_agents_filter)) {
                                 $user_id = intval($row['user_id']);
                                 $user_name = nullable_htmlentities($row['user_name']);
                             ?>
@@ -278,7 +278,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $recurring_ticket_id = intval($row['recurring_ticket_id']);
                             $recurring_ticket_client_id = intval($row['client_id']);
                             $recurring_ticket_subject = nullable_htmlentities($row['recurring_ticket_subject']);

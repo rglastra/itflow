@@ -143,7 +143,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $quote_id = intval($row['quote_id']);
                     $quote_prefix = nullable_htmlentities($row['quote_prefix']);
                     $quote_number = intval($row['quote_number']);

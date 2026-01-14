@@ -105,7 +105,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $api_key_id = intval($row['api_key_id']);
                         $api_key_name = nullable_htmlentities($row['api_key_name']);
                         $api_key_secret = nullable_htmlentities("************" . substr($row['api_key_secret'], -4));
@@ -164,4 +164,3 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <?php
 require_once "../includes/footer.php";
-

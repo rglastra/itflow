@@ -23,7 +23,7 @@ if (mysqli_num_rows($sql_document) == 0) {
     exit();
 }
 
-$row = mysqli_fetch_array($sql_document);
+$row = mysqli_fetch_assoc($sql_document);
 
 $document_template_name = nullable_htmlentities($row['document_template_name']);
 $document_template_description = nullable_htmlentities($row['document_template_description']);

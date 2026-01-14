@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $file_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM files WHERE file_id = $file_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['file_client_id']);
 $file_folder_id = nullable_htmlentities($row['file_folder_id']);
 $file_name = nullable_htmlentities($row['file_name']);

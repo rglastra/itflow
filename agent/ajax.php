@@ -59,7 +59,7 @@ if (isset($_GET['merge_ticket_get_json_details'])) {
         echo "No ticket found!";
     } else {
         //Return ticket, client and contact details for the given ticket number
-        $response = mysqli_fetch_array($sql);
+        $response = mysqli_fetch_assoc($sql);
 
         echo json_encode($response);
     }
@@ -89,7 +89,7 @@ if (isset($_POST['contact_set_notes'])) {
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id
         FROM contacts WHERE contact_id = $contact_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
 
@@ -111,7 +111,7 @@ if (isset($_POST['asset_set_notes'])) {
     $sql = mysqli_query($mysqli,"SELECT asset_name, asset_client_id
         FROM assets WHERE asset_id = $asset_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $asset_name = sanitizeInput($row['asset_name']);
     $client_id = intval($row['asset_client_id']);
 
@@ -143,7 +143,7 @@ if (isset($_GET['ticket_query_views'])) {
     $ticket_id = intval($_GET['ticket_id']);
 
     $query = mysqli_query($mysqli, "SELECT user_name FROM ticket_views LEFT JOIN users ON view_user_id = user_id WHERE view_ticket_id = $ticket_id AND view_user_id != $session_user_id AND view_timestamp > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
-    while ($row = mysqli_fetch_array($query)) {
+    while ($row = mysqli_fetch_assoc($query)) {
         $users[] = $row['user_name'];
     }
 
@@ -198,18 +198,18 @@ if (isset($_GET['share_generate_link'])) {
     $item_key = randomString(32);
 
     if ($item_type == "Document") {
-        $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT document_name FROM documents WHERE document_id = $item_id AND document_client_id = $client_id LIMIT 1"));
+        $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT document_name FROM documents WHERE document_id = $item_id AND document_client_id = $client_id LIMIT 1"));
         $item_name = sanitizeInput($row['document_name']);
     }
 
     if ($item_type == "File") {
-        $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT file_name FROM files WHERE file_id = $item_id AND file_client_id = $client_id LIMIT 1"));
+        $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT file_name FROM files WHERE file_id = $item_id AND file_client_id = $client_id LIMIT 1"));
         $item_name = sanitizeInput($row['file_name']);
     }
 
     if ($item_type == "Credential") {
         $credential = mysqli_query($mysqli, "SELECT credential_name, credential_username, credential_password FROM credentials WHERE credential_id = $item_id AND credential_client_id = $client_id LIMIT 1");
-        $row = mysqli_fetch_array($credential);
+        $row = mysqli_fetch_assoc($credential);
 
         $item_name = sanitizeInput($row['credential_name']);
 
@@ -240,7 +240,7 @@ if (isset($_GET['share_generate_link'])) {
     }
 
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
     $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -298,7 +298,7 @@ if (isset($_GET['get_active_clients'])) {
         ORDER BY client_accessed_at DESC"
     );
 
-    while ($row = mysqli_fetch_array($client_sql)) {
+    while ($row = mysqli_fetch_assoc($client_sql)) {
         $response['clients'][] = $row;
     }
 
@@ -322,7 +322,7 @@ if (isset($_GET['get_client_contacts'])) {
         ORDER BY contact_primary DESC, contact_technical DESC, contact_important DESC, contact_name"
     );
 
-    while ($row = mysqli_fetch_array($contact_sql)) {
+    while ($row = mysqli_fetch_assoc($contact_sql)) {
         $response['contacts'][] = $row;
     }
 
@@ -347,7 +347,7 @@ if (isset($_GET['get_client_assets'])) {
         ORDER BY asset_important DESC, asset_name"
     );
 
-    while ($row = mysqli_fetch_array($asset_sql)) {
+    while ($row = mysqli_fetch_assoc($asset_sql)) {
         $response['assets'][] = $row;
     }
 
@@ -371,7 +371,7 @@ if (isset($_GET['get_client_locations'])) {
         ORDER BY location_primary DESC, location_name ASC"
     );
 
-    while ($row = mysqli_fetch_array($locations_sql)) {
+    while ($row = mysqli_fetch_assoc($locations_sql)) {
         $response['locations'][] = $row;
     }
 
@@ -395,7 +395,7 @@ if (isset($_GET['get_client_vendors'])) {
         ORDER BY vendor_name ASC"
     );
 
-    while ($row = mysqli_fetch_array($vendors_sql)) {
+    while ($row = mysqli_fetch_assoc($vendors_sql)) {
         $response['vendors'][] = $row;
     }
 
@@ -502,7 +502,7 @@ if (isset($_POST['update_kanban_ticket'])) {
                         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
                         WHERE ticket_id = $ticket_id
                     ");
-                    $row = mysqli_fetch_array($ticket_sql);
+                    $row = mysqli_fetch_assoc($ticket_sql);
 
                     $contact_name = sanitizeInput($row['contact_name']);
                     $contact_email = sanitizeInput($row['contact_email']);
@@ -521,7 +521,7 @@ if (isset($_POST['update_kanban_ticket'])) {
 
                     // Get Company Info
                     $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-                    $row = mysqli_fetch_array($sql);
+                    $row = mysqli_fetch_assoc($sql);
                     $company_name = sanitizeInput($row['company_name']);
                     $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -550,7 +550,7 @@ if (isset($_POST['update_kanban_ticket'])) {
                     // Also Email all the watchers
                     $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
                     $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-                    while ($row = mysqli_fetch_array($sql_watchers)) {
+                    while ($row = mysqli_fetch_assoc($sql_watchers)) {
                         $watcher_email = sanitizeInput($row['watcher_email']);
 
                         // Queue Mail
@@ -691,7 +691,7 @@ if (isset($_GET['client_duplicate_check'])) {
         );
 
         if (mysqli_num_rows($sql_clients) > 0) {
-            while ($row = mysqli_fetch_array($sql_clients)) {
+            while ($row = mysqli_fetch_assoc($sql_clients)) {
                 $response['message'] = "<i class='fas fa-fw fa-copy mr-2'></i> Potential duplicate: <i>" . nullable_htmlentities($row['client_name']) . "</i> already exists.";
             }
         }
@@ -713,7 +713,7 @@ if (isset($_GET['contact_email_check'])) {
         // 1. Duplicate check
         $sql_contacts = mysqli_query($mysqli, "SELECT contact_email FROM contacts WHERE contact_email = '$email' LIMIT 1");
         if (mysqli_num_rows($sql_contacts) > 0) {
-            while ($row = mysqli_fetch_array($sql_contacts)) {
+            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                 $response['message'] = "<i class='fas fa-fw fa-copy mr-2'></i> Potential duplicate: <i>" . nullable_htmlentities($row['contact_email']) . "</i> already exists.";
             }
         }
@@ -734,7 +734,7 @@ if (isset($_GET['ai_reword'])) {
 
     $sql = mysqli_query($mysqli, "SELECT * FROM ai_models LEFT JOIN ai_providers ON ai_model_ai_provider_id = ai_provider_id WHERE ai_model_use_case = 'General' LIMIT 1");
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $model_name = $row['ai_model_name'];
     $promptText = $row['ai_model_prompt'];
     $url = $row['ai_provider_api_url'];
@@ -805,7 +805,7 @@ if (isset($_GET['ai_create_document_template'])) {
 
     $sql = mysqli_query($mysqli, "SELECT * FROM ai_models LEFT JOIN ai_providers ON ai_model_ai_provider_id = ai_provider_id WHERE ai_model_use_case = 'General' LIMIT 1");
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $model_name = $row['ai_model_name'];
     $url = $row['ai_provider_api_url'];
     $key = $row['ai_provider_api_key'];
@@ -861,7 +861,7 @@ if (isset($_GET['ai_ticket_summary'])) {
 
     $sql = mysqli_query($mysqli, "SELECT * FROM ai_models LEFT JOIN ai_providers ON ai_model_ai_provider_id = ai_provider_id WHERE ai_model_use_case = 'General' LIMIT 1");
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $model_name = $row['ai_model_name'];
     $url = $row['ai_provider_api_url'];
     $key = $row['ai_provider_api_key'];

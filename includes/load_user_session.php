@@ -12,7 +12,7 @@ $sql = mysqli_query(
      WHERE users.user_id = $session_user_id"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 $session_name = sanitizeInput($row['user_name']);
 $session_email = $row['user_email'];

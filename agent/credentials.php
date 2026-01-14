@@ -161,7 +161,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 GROUP BY tags.tag_id
                                 HAVING COUNT(credential_tags.credential_id) > 0 OR tags.tag_id IN ($tag_filter)
                             ");
-                            while ($row = mysqli_fetch_array($sql_tags_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_filter)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']); ?>
 
@@ -180,7 +180,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                             <?php
                             $sql_locations_filter = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_client_id = $client_id AND location_archived_at IS NULL ORDER BY location_name ASC");
-                            while ($row = mysqli_fetch_array($sql_locations_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations_filter)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -207,7 +207,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -301,7 +301,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $client_id = intval($row['client_id']);
                             $client_name = nullable_htmlentities($row['client_name']);
                             $credential_id = intval($row['c_credential_id']);
@@ -341,7 +341,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             $credential_tag_name_display_array = array();
                             $credential_tag_id_array = array();
                             $sql_credential_tags = mysqli_query($mysqli, "SELECT * FROM credential_tags LEFT JOIN tags ON credential_tags.tag_id = tags.tag_id WHERE credential_id = $credential_id ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_credential_tags)) {
+                            while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
 
                                 $credential_tag_id = intval($row['tag_id']);
                                 $credential_tag_name = nullable_htmlentities($row['tag_name']);
@@ -390,7 +390,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 LIMIT 1"
                             );
                             if (mysqli_num_rows($sql_shared) > 0) {
-                                $row = mysqli_fetch_array($sql_shared);
+                                $row = mysqli_fetch_assoc($sql_shared);
                                 $item_id = intval($row['item_id']);
                                 $item_active = nullable_htmlentities($row['item_active']);
                                 $item_key = nullable_htmlentities($row['item_key']);

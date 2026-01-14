@@ -30,7 +30,7 @@ ob_start();
                 <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control" name="qty" placeholder="Units to add" required>
             </div>
         </div>
-        
+
         <div class="form-group">
             <label>Expense</label>
             <div class="input-group">
@@ -42,11 +42,11 @@ ob_start();
                     <?php
 
                     $expenses_sql = mysqli_query($mysqli, "SELECT expense_id, expense_description, expense_date
-                        FROM expenses 
+                        FROM expenses
                         WHERE expense_archived_at IS NULL ORDER BY expense_date DESC"
                     );
-                    
-                    while ($row = mysqli_fetch_array($expenses_sql)) {
+
+                    while ($row = mysqli_fetch_assoc($expenses_sql)) {
                         $expense_id = intval($row['expense_id']);
                         $expense_description = nullable_htmlentities($row['expense_description']);
                         $expense_date = nullable_htmlentities($row['expense_date']);

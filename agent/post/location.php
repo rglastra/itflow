@@ -68,7 +68,7 @@ if(isset($_POST['edit_location'])){
 
     // Get old location photo
     $sql = mysqli_query($mysqli,"SELECT location_photo FROM locations WHERE location_id = $location_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $existing_file_name = sanitizeInput($row['location_photo']);
 
     if(!file_exists("../uploads/clients/$client_id")) {
@@ -128,7 +128,7 @@ if(isset($_GET['archive_location'])){
 
     // Get Location Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $location_name = sanitizeInput($row['location_name']);
     $client_id = intval($row['location_client_id']);
 
@@ -150,7 +150,7 @@ if(isset($_GET['unarchive_location'])){
 
     // Get Location Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $location_name = sanitizeInput($row['location_name']);
     $client_id = intval($row['location_client_id']);
 
@@ -172,7 +172,7 @@ if(isset($_GET['delete_location'])){
 
     // Get Location Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $location_name = sanitizeInput($row['location_name']);
     $client_id = intval($row['location_client_id']);
 
@@ -201,7 +201,7 @@ if (isset($_POST['bulk_assign_location_tags'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $location_name = sanitizeInput($row['location_name']);
             $client_id = intval($row['location_client_id']);
 
@@ -252,7 +252,7 @@ if (isset($_POST['bulk_archive_locations'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id, location_primary FROM locations WHERE location_id = $location_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $location_name = sanitizeInput($row['location_name']);
             $location_primary = intval($row['location_primary']);
             $client_id = intval($row['location_client_id']);
@@ -296,7 +296,7 @@ if (isset($_POST['bulk_unarchive_locations'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $location_name = sanitizeInput($row['location_name']);
             $client_id = intval($row['location_client_id']);
 
@@ -334,7 +334,7 @@ if (isset($_POST['bulk_delete_locations'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $location_name = sanitizeInput($row['location_name']);
             $client_id = intval($row['location_client_id']);
 

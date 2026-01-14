@@ -4,7 +4,7 @@ require_once '../../../includes/modal_header.php';
 
 $contact_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM contacts 
+$sql = mysqli_query($mysqli, "SELECT * FROM contacts
     LEFT JOIN clients ON client_id = contact_client_id
     LEFT JOIN locations ON location_id = contact_location_id
     LEFT JOIN users ON user_id = contact_user_id
@@ -12,7 +12,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM contacts
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['client_id']);
 $client_name = nullable_htmlentities($row['client_name']);
 $contact_name = nullable_htmlentities($row['contact_name']);
@@ -63,7 +63,7 @@ $asset_count = mysqli_num_rows($sql_related_assets);
 
 // Linked Software Licenses
 $sql_linked_software = mysqli_query($mysqli, "SELECT * FROM software_contacts, software
-    WHERE software_contacts.contact_id = $contact_id 
+    WHERE software_contacts.contact_id = $contact_id
     AND software_contacts.software_id = software.software_id
     AND software_archived_at IS NULL
     ORDER BY software_name ASC"
@@ -96,7 +96,7 @@ $sql_related_tickets = mysqli_query($mysqli, "SELECT * FROM tickets
 $ticket_count = mysqli_num_rows($sql_related_tickets);
 
 // Related Recurring Tickets Query
-$sql_related_recurring_tickets = mysqli_query($mysqli, "SELECT * FROM recurring_tickets 
+$sql_related_recurring_tickets = mysqli_query($mysqli, "SELECT * FROM recurring_tickets
     WHERE recurring_ticket_contact_id = $contact_id
     ORDER BY recurring_ticket_next_run DESC"
 );
@@ -107,7 +107,7 @@ $recurring_ticket_count = mysqli_num_rows($sql_related_recurring_tickets);
 $contact_tag_name_display_array = array();
 $contact_tag_id_array = array();
 $sql_contact_tags = mysqli_query($mysqli, "SELECT * FROM contact_tags LEFT JOIN tags ON contact_tags.tag_id = tags.tag_id WHERE contact_id = $contact_id ORDER BY tag_name ASC");
-while ($row = mysqli_fetch_array($sql_contact_tags)) {
+while ($row = mysqli_fetch_assoc($sql_contact_tags)) {
 
     $contact_tag_id = intval($row['tag_id']);
     $contact_tag_name = nullable_htmlentities($row['tag_name']);
@@ -131,7 +131,7 @@ $note_count = mysqli_num_rows($sql_related_notes);
 
  // Linked Services
 $sql_linked_services = mysqli_query($mysqli, "SELECT * FROM service_contacts, services
-    WHERE service_contacts.contact_id = $contact_id 
+    WHERE service_contacts.contact_id = $contact_id
     AND service_contacts.service_id = services.service_id
     ORDER BY service_name ASC"
 );
@@ -142,7 +142,7 @@ $linked_services = array();
 // Linked Documents
 $sql_linked_documents = mysqli_query($mysqli, "SELECT * FROM contact_documents, documents
     LEFT JOIN users ON document_created_by = user_id
-    WHERE contact_documents.contact_id = $contact_id 
+    WHERE contact_documents.contact_id = $contact_id
     AND contact_documents.document_id = documents.document_id
     AND document_archived_at IS NULL
     ORDER BY document_name ASC"
@@ -153,7 +153,7 @@ $linked_documents = array();
 
 // Linked Files
 $sql_linked_files = mysqli_query($mysqli, "SELECT * FROM contact_files, files
-    WHERE contact_files.contact_id = $contact_id 
+    WHERE contact_files.contact_id = $contact_id
     AND contact_files.file_id = files.file_id
     AND file_archived_at IS NULL
     ORDER BY file_name ASC"
@@ -213,7 +213,7 @@ ob_start();
                             <?php } ?>
                         </div>
                         <?php } ?>
-        
+
                         <?php if ($contact_mobile) { ?>
                         <div>
                             <i class="fas fa-fw fa-mobile-alt text-secondary mt-2"></i>
@@ -239,10 +239,10 @@ ob_start();
                     <i class="fas fa-fw fa-map-marker-alt text-secondary fa-2x"></i>
                     <div class="media-body ml-2">
                         <dt><?= $location_name ?></dt>
-                        <dd>   
+                        <dd>
                             <div><?= $location_address ?></div>
                             <div><?= "$location_city $location_state $location_zip" ?></div>
-                            <div><?= $location_country ?></div> 
+                            <div><?= $location_country ?></div>
                         </dd>
                     </div>
                 </div>
@@ -339,7 +339,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_related_assets)) {
+                    while ($row = mysqli_fetch_assoc($sql_related_assets)) {
                         $asset_id = intval($row['asset_id']);
                         $asset_type = nullable_htmlentities($row['asset_type']);
                         $asset_name = nullable_htmlentities($row['asset_name']);
@@ -387,7 +387,7 @@ ob_start();
                         $asset_tag_name_display_array = array();
                         $asset_tag_id_array = array();
                         $sql_asset_tags = mysqli_query($mysqli, "SELECT * FROM asset_tags LEFT JOIN tags ON asset_tag_tag_id = tag_id WHERE asset_tag_asset_id = $asset_id ORDER BY tag_name ASC");
-                        while ($row = mysqli_fetch_array($sql_asset_tags)) {
+                        while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
 
                             $asset_tag_id = intval($row['tag_id']);
                             $asset_tag_name = nullable_htmlentities($row['tag_name']);
@@ -465,7 +465,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_related_credentials)) {
+                    while ($row = mysqli_fetch_assoc($sql_related_credentials)) {
                         $credential_id = intval($row['credentials_credential_id']);
                         $credential_name = nullable_htmlentities($row['credential_name']);
                         $credential_description = nullable_htmlentities($row['credential_description']);
@@ -499,7 +499,7 @@ ob_start();
                         $credential_tag_name_display_array = array();
                         $credential_tag_id_array = array();
                         $sql_credential_tags = mysqli_query($mysqli, "SELECT * FROM credential_tags LEFT JOIN tags ON credential_tags.tag_id = tags.tag_id WHERE credential_id = $credential_id ORDER BY tag_name ASC");
-                        while ($row = mysqli_fetch_array($sql_credential_tags)) {
+                        while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
 
                             $credential_tag_id = intval($row['tag_id']);
                             $credential_tag_name = nullable_htmlentities($row['tag_name']);
@@ -563,7 +563,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_related_tickets)) {
+                    while ($row = mysqli_fetch_assoc($sql_related_tickets)) {
                         $ticket_id = intval($row['ticket_id']);
                         $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                         $ticket_number = intval($row['ticket_number']);
@@ -645,7 +645,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_related_recurring_tickets)) {
+                    while ($row = mysqli_fetch_assoc($sql_related_recurring_tickets)) {
                         $recurring_ticket_id = intval($row['recurring_ticket_id']);
                         $recurring_ticket_subject = nullable_htmlentities($row['recurring_ticket_subject']);
                         $recurring_ticket_priority = nullable_htmlentities($row['recurring_ticket_priority']);
@@ -683,7 +683,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_linked_software)) {
+                    while ($row = mysqli_fetch_assoc($sql_linked_software)) {
                         $software_id = intval($row['software_id']);
                         $software_name = nullable_htmlentities($row['software_name']);
                         $software_version = nullable_htmlentities($row['software_version']);
@@ -700,7 +700,7 @@ ob_start();
                         // Asset Licenses
                         $asset_licenses_sql = mysqli_query($mysqli, "SELECT asset_id FROM software_assets WHERE software_id = $software_id");
                         $asset_licenses_array = array();
-                        while ($row = mysqli_fetch_array($asset_licenses_sql)) {
+                        while ($row = mysqli_fetch_assoc($asset_licenses_sql)) {
                             $asset_licenses_array[] = intval($row['asset_id']);
                             $seat_count = $seat_count + 1;
                         }
@@ -709,7 +709,7 @@ ob_start();
                         // Contact Licenses
                         $contact_licenses_sql = mysqli_query($mysqli, "SELECT contact_id FROM software_contacts WHERE software_id = $software_id");
                         $contact_licenses_array = array();
-                        while ($row = mysqli_fetch_array($contact_licenses_sql)) {
+                        while ($row = mysqli_fetch_assoc($contact_licenses_sql)) {
                             $contact_licenses_array[] = intval($row['contact_id']);
                             $seat_count = $seat_count + 1;
                         }
@@ -753,7 +753,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_linked_documents)) {
+                    while ($row = mysqli_fetch_assoc($sql_linked_documents)) {
                         $document_id = intval($row['document_id']);
                         $document_name = nullable_htmlentities($row['document_name']);
                         $document_description = nullable_htmlentities($row['document_description']);
@@ -806,7 +806,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_linked_files)) {
+                    while ($row = mysqli_fetch_assoc($sql_linked_files)) {
                         $file_id = intval($row['file_id']);
                         $file_name = nullable_htmlentities($row['file_name']);
                         $file_description = nullable_htmlentities($row['file_description']);
@@ -857,7 +857,7 @@ ob_start();
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_related_notes)) {
+                    while ($row = mysqli_fetch_assoc($sql_related_notes)) {
                         $contact_note_id = intval($row['contact_note_id']);
                         $contact_note_type = nullable_htmlentities($row['contact_note_type']);
                         $contact_note = nullable_htmlentities($row['contact_note']);
@@ -886,7 +886,7 @@ ob_start();
                 </table>
             </div>
         </div>
-        <?php } ?>           
+        <?php } ?>
 
     </div>
 
@@ -896,7 +896,7 @@ ob_start();
     <a href="contact_details.php?client_id=<?= $client_id ?>&contact_id=<?= $contact_id ?>" class="btn btn-outline-primary">
         <i class="fas fa-info-circle mr-2"></i>More Details
     </a>
-    <a href="#" class="btn btn-secondary ajax-modal" 
+    <a href="#" class="btn btn-secondary ajax-modal"
         data-modal-url="modals/contact/contact_edit.php?id=<?= $contact_id ?>">
         <i class="fas fa-edit mr-2"></i>Edit
     </a>

@@ -59,7 +59,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 </thead>
                 <tbody>
                     <?php
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $id = intval($row['contract_template_id']);
                             $name = nullable_htmlentities($row['contract_template_name']);
                             $type = nullable_htmlentities($row['contract_template_type']);

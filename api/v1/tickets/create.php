@@ -8,7 +8,7 @@ require_once '../require_post_method.php';
 require_once "../../../includes/load_global_settings.php";
 
 $sql = mysqli_query($mysqli, "SELECT company_name, company_phone FROM companies WHERE company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $company_name = $row['company_name'];
 $company_phone = formatPhoneNumber($row['company_phone']);
 
@@ -28,7 +28,7 @@ if (!empty($subject)) {
     // If no contact is selected automatically choose the primary contact for the client (if client set)
     if ($contact == 0 && $client_id != 0) {
         $sql = mysqli_query($mysqli,"SELECT contact_id FROM contacts WHERE contact_client_id = $client_id AND contact_primary = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $contact = intval($row['contact_id']);
     }
 

@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tasks
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $task_name = nullable_htmlentities($row['task_name']);
 $task_completion_estimate = intval($row['task_completion_estimate']);
 $task_completed_at = nullable_htmlentities($row['task_completed_at']);
@@ -73,7 +73,7 @@ ob_start();
                     </tr>
                     </thead>
                     <tbody>
-                    <?php while ($row = mysqli_fetch_array($sql_task_approvals)) {
+                    <?php while ($row = mysqli_fetch_assoc($sql_task_approvals)) {
                         $approval_id = intval($row['approval_id']);
                         $approval_scope = nullable_htmlentities($row['approval_scope']);
                         $approval_type = nullable_htmlentities($row['approval_type']);

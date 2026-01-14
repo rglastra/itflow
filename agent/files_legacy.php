@@ -148,7 +148,7 @@ while ($folder_id > 0) {
                         global $mysqli, $get_folder_id, $session_user_role;
 
                         $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_location = 1 AND folder_client_id = $client_id ORDER BY folder_name ASC");
-                        while ($row = mysqli_fetch_array($sql_folders)) {
+                        while ($row = mysqli_fetch_assoc($sql_folders)) {
                             $folder_id = intval($row['folder_id']);
                             $folder_name = nullable_htmlentities($row['folder_name']);
 
@@ -309,7 +309,7 @@ while ($folder_id > 0) {
 
                     <?php
                     $files = [];
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $file_id = intval($row['file_id']);
                         $file_name = nullable_htmlentities($row['file_name']);
                         $file_reference_name = nullable_htmlentities($row['file_reference_name']);
@@ -429,7 +429,7 @@ while ($folder_id > 0) {
                             <tbody>
 
                             <?php
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $file_id = intval($row['file_id']);
                                 $file_name = nullable_htmlentities($row['file_name']);
                                 $file_description = nullable_htmlentities($row['file_description']);
@@ -480,7 +480,7 @@ while ($folder_id > 0) {
                                 );
                                 $file_shared = (mysqli_num_rows($sql_shared) > 0) ? true : false;
                                 if ($file_shared) {
-                                    $row = mysqli_fetch_array($sql_shared);
+                                    $row = mysqli_fetch_assoc($sql_shared);
                                     $item_id = intval($row['item_id']);
                                     $item_active = nullable_htmlentities($row['item_active']);
                                     $item_key = nullable_htmlentities($row['item_key']);

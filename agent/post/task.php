@@ -15,7 +15,7 @@ if (isset($_POST['add_task'])) {
 
     // Get Client ID from tickets using the ticket_id
     $client_id = intval(getFieldById('tickets', $ticket_id, 'ticket_client_id'));
-    
+
     mysqli_query($mysqli, "INSERT INTO tasks SET task_name = '$task_name', task_ticket_id = $ticket_id");
 
     $task_id = mysqli_insert_id($mysqli);
@@ -39,9 +39,9 @@ if (isset($_POST['edit_ticket_task'])) {
 
     // Get Client ID
     $sql = mysqli_query($mysqli, "SELECT * FROM tasks LEFT JOIN tickets ON ticket_id = task_ticket_id WHERE task_id = $task_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['ticket_client_id']);
-    
+
     mysqli_query($mysqli, "UPDATE tasks SET task_name = '$task_name', task_order = $task_order, task_completion_estimate = $task_completion_estimate WHERE task_id = $task_id");
 
     logAction("Task", "Edit", "$session_name edited task $task_name", $client_id, $task_id);
@@ -81,7 +81,7 @@ if (isset($_GET['delete_task'])) {
 
     // Get Client ID, task name from tasks and tickets using the task_id
     $sql = mysqli_query($mysqli, "SELECT * FROM tasks LEFT JOIN tickets ON ticket_id = task_ticket_id WHERE task_id = $task_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['ticket_client_id']);
     $task_name = sanitizeInput($row['task_name']);
 
@@ -103,7 +103,7 @@ if (isset($_GET['complete_task'])) {
 
     // Get Client ID
     $sql = mysqli_query($mysqli, "SELECT * FROM tasks LEFT JOIN tickets ON ticket_id = task_ticket_id WHERE task_id = $task_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['ticket_client_id']);
     $task_name = sanitizeInput($row['task_name']);
     $task_completion_estimate = intval($row['task_completion_estimate']);
@@ -135,7 +135,7 @@ if (isset($_GET['undo_complete_task'])) {
 
     // Get Client ID
     $sql = mysqli_query($mysqli, "SELECT * FROM tasks LEFT JOIN tickets ON ticket_id = task_ticket_id WHERE task_id = $task_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['ticket_client_id']);
     $task_name = sanitizeInput($row['task_name']);
     $ticket_id = intval($row['ticket_id']);
@@ -175,7 +175,7 @@ if (isset($_POST['add_ticket_task_approver'])) {
     $approval_id = mysqli_insert_id($mysqli);
 
     // Task/Ticket Info
-    $tt_row = mysqli_fetch_array(mysqli_query($mysqli, "
+    $tt_row = mysqli_fetch_assoc(mysqli_query($mysqli, "
         SELECT * FROM tasks
         LEFT JOIN tickets ON ticket_id = task_ticket_id
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
@@ -200,7 +200,7 @@ if (isset($_POST['add_ticket_task_approver'])) {
     $config_base_url = sanitizeInput($config_base_url);
 
     // Get Company Info
-    $crow = mysqli_fetch_array(mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1"));
+    $crow = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1"));
     $company_name = sanitizeInput($crow['company_name']);
     $company_phone = sanitizeInput(formatPhoneNumber($crow['company_phone'], $crow['company_phone_country_code']));
 
@@ -267,7 +267,7 @@ if (isset($_POST['add_ticket_task_approver'])) {
 
         $data = [];
 
-        while ($technical_contact = mysqli_fetch_array($sql_technical_contacts)) {
+        while ($technical_contact = mysqli_fetch_assoc($sql_technical_contacts)) {
             $technical_contact_name = sanitizeInput($technical_contact['contact_name']);
             $technical_contact_email = sanitizeInput($technical_contact['contact_email']);
 
@@ -300,7 +300,7 @@ if (isset($_POST['add_ticket_task_approver'])) {
 
         $data = [];
 
-        while ($billing_contact = mysqli_fetch_array($sql_billing_contacts)) {
+        while ($billing_contact = mysqli_fetch_assoc($sql_billing_contacts)) {
             $billing_contact_name = sanitizeInput($billing_contact['contact_name']);
             $billing_contact_email = sanitizeInput($billing_contact['contact_email']);
 
@@ -336,7 +336,7 @@ if (isset($_GET['approve_ticket_task'])) {
     $task_id = intval($_GET['approve_task']);
     $approval_id = intval($_GET['approval_id']);
 
-    $approval_row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM task_approvals LEFT JOIN tasks on task_id = approval_task_id WHERE approval_id = $approval_id AND approval_task_id = $task_id AND approval_scope = 'internal'"));
+    $approval_row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM task_approvals LEFT JOIN tasks on task_id = approval_task_id WHERE approval_id = $approval_id AND approval_task_id = $task_id AND approval_scope = 'internal'"));
 
     $task_name = nullable_htmlentities($approval_row['task_name']);
     $scope = nullable_htmlentities($approval_row['approval_scope']);

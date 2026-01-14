@@ -4,15 +4,15 @@ require_once '../../../includes/modal_header.php';
 
 $interface_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM asset_interfaces 
+$sql = mysqli_query($mysqli, "SELECT * FROM asset_interfaces
     LEFT JOIN assets ON asset_id = interface_asset_id
     LEFT JOIN clients ON client_id = asset_client_id
     WHERE interface_id = $interface_id LIMIT 1"
 );
 
 $interface_count = mysqli_num_rows($sql);
-$row = mysqli_fetch_array($sql);
-                        
+$row = mysqli_fetch_assoc($sql);
+
 $client_id = intval($row['asset_client_id']);
 $asset_id = intval($row['interface_asset_id']);
 $network_id = intval($row['interface_network_id']);
@@ -58,7 +58,7 @@ ob_start();
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <input type="hidden" name="interface_id" value="<?php echo $interface_id; ?>">
 
-    <div class="modal-body" <?php if (lookupUserPermission('module_support') <= 1) { echo 'inert'; } ?>>  
+    <div class="modal-body" <?php if (lookupUserPermission('module_support') <= 1) { echo 'inert'; } ?>>
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
@@ -76,7 +76,7 @@ ob_start();
 
         <div class="tab-content">
 
-            <div class="tab-pane fade show active" id="pills-interface-details<?php echo $interface_id; ?>">  
+            <div class="tab-pane fade show active" id="pills-interface-details<?php echo $interface_id; ?>">
 
                 <!-- Interface Name -->
                 <div class="form-group">
@@ -85,11 +85,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="name"
-                            placeholder="Interface name or port number" 
+                            placeholder="Interface name or port number"
                             maxlength="200"
                             value="<?php echo $interface_name; ?>"
                             required
@@ -109,11 +109,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="description"
-                            placeholder="Short Description" 
+                            placeholder="Short Description"
                             maxlength="200"
                             value="<?php echo $interface_description; ?>"
                         >
@@ -131,7 +131,7 @@ ob_start();
                             <option value="">- Select Type -</option>
                             <?php foreach($interface_types_array as $interface_type_select) { ?>
                                 <option <?php if($interface_type == $interface_type_select) { echo "selected"; } ?>>
-                                    <?php echo $interface_type_select; ?>   
+                                    <?php echo $interface_type_select; ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -150,11 +150,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="mac"
-                            placeholder="MAC Address" 
+                            placeholder="MAC Address"
                             maxlength="200"
                             value="<?php echo $interface_mac; ?>"
                             data-inputmask="'alias': 'mac'"
@@ -170,11 +170,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="ip"
-                            placeholder="IP Address" 
+                            placeholder="IP Address"
                             maxlength="200"
                             value="<?php echo $interface_ip; ?>"
                             data-inputmask="'alias': 'ip'"
@@ -182,9 +182,9 @@ ob_start();
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input 
-                                    type="checkbox" 
-                                    name="dhcp" 
+                                <input
+                                    type="checkbox"
+                                    name="dhcp"
                                     value="1"
                                     title="Check to mark address as DHCP controlled"
                                     <?php if ($interface_ip === 'DHCP') echo "checked"; ?>
@@ -201,11 +201,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="nat_ip"
-                            placeholder="Nat IP" 
+                            placeholder="Nat IP"
                             maxlength="200"
                             value="<?php echo $interface_nat_ip; ?>"
                             data-inputmask="'alias': 'ip'"
@@ -221,11 +221,11 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                        <input
+                            type="text"
+                            class="form-control"
                             name="ipv6"
-                            placeholder="IPv6 Address" 
+                            placeholder="IPv6 Address"
                             maxlength="200"
                             value="<?php echo $interface_ipv6; ?>"
                         >
@@ -249,7 +249,7 @@ ob_start();
                                   AND network_client_id = $client_id
                                 ORDER BY network_name ASC
                             ");
-                            while ($net_row = mysqli_fetch_array($sql_network_select)) {
+                            while ($net_row = mysqli_fetch_assoc($sql_network_select)) {
                                 $network_id_select   = intval($net_row['network_id']);
                                 $network_name_select = nullable_htmlentities($net_row['network_name']);
                                 $network_select      = nullable_htmlentities($net_row['network']);
@@ -289,7 +289,7 @@ ob_start();
                                   )
                                 ORDER BY a.asset_name ASC, i.interface_name ASC
                             ");
-                            while ($row_if = mysqli_fetch_array($sql_interfaces_select)) {
+                            while ($row_if = mysqli_fetch_assoc($sql_interfaces_select)) {
                                 $iface_id_select = intval($row_if['interface_id']);
                                 $iface_name_select = nullable_htmlentities($row_if['interface_name']);
                                 $iface_asset_name_select = nullable_htmlentities($row_if['asset_name']);

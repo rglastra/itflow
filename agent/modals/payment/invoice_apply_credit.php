@@ -8,14 +8,14 @@ $sql = mysqli_query($mysqli, "SELECT invoice_prefix, invoice_number, invoice_cli
     FROM invoices WHERE invoice_id = $invoice_id LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
 $invoice_number = intval($row['invoice_number']);
 $client_id = intval($row['invoice_client_id']);
 
 // Get Credit Balance
 $sql_credit_balance = mysqli_query($mysqli, "SELECT SUM(credit_amount) AS credit_balance FROM credits WHERE credit_client_id = $client_id");
-$row = mysqli_fetch_array($sql_credit_balance);
+$row = mysqli_fetch_assoc($sql_credit_balance);
 
 $credit_balance = floatval($row['credit_balance']);
 

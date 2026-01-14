@@ -32,7 +32,7 @@ ob_start();
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $client_id_select = intval($row['client_id']);
                             $client_name_select = nullable_htmlentities($row['client_name']); ?>
                             <option value="<?= $client_id_select ?>"><?= $client_name_select ?></option>
@@ -54,7 +54,7 @@ ob_start();
                     <option value="">- Select Template -</option>
                     <?php
                     $sql_software_templates = mysqli_query($mysqli, "SELECT * FROM software_templates WHERE software_template_archived_at IS NULL ORDER BY software_template_name ASC");
-                    while ($row = mysqli_fetch_array($sql_software_templates)) {
+                    while ($row = mysqli_fetch_assoc($sql_software_templates)) {
                         $software_template_id = intval($row['software_template_id']);
                         $software_template_name = nullable_htmlentities($row['software_template_name']);
 

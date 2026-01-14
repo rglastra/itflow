@@ -6,7 +6,7 @@ $trip_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM trips WHERE trip_id = $trip_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $trip_date = nullable_htmlentities($row['trip_date']);
 $trip_purpose = nullable_htmlentities($row['trip_purpose']);
 $trip_source = nullable_htmlentities($row['trip_source']);
@@ -80,7 +80,7 @@ ob_start();
                     <?php
 
                     $sql_locations_select = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
-                    while ($row = mysqli_fetch_array($sql_locations_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_locations_select)) {
                         $location_name = nullable_htmlentities($row['location_name']);
                         $location_address = nullable_htmlentities($row['location_address']);
                         $location_city = nullable_htmlentities($row['location_city']);
@@ -117,7 +117,7 @@ ob_start();
                         LEFT JOIN user_settings on users.user_id = user_settings.user_id
                         WHERE user_role_id > 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql_users)) {
+                    while ($row = mysqli_fetch_assoc($sql_users)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']);
                         ?>
@@ -143,7 +143,7 @@ ob_start();
                         <?php
 
                         $sql_clients = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL ORDER BY client_name ASC");
-                        while ($row = mysqli_fetch_array($sql_clients)) {
+                        while ($row = mysqli_fetch_assoc($sql_clients)) {
                             $client_id_select = intval($row['client_id']);
                             $client_name_select = nullable_htmlentities($row['client_name']);
                             ?>

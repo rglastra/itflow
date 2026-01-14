@@ -24,7 +24,7 @@ $session_ip = sanitizeInput(getIP());
 $session_user_agent = sanitizeInput($_SERVER['HTTP_USER_AGENT']);
 
 $sql_settings = mysqli_query($mysqli, "SELECT config_azure_client_id, config_azure_client_secret FROM settings WHERE company_id = 1");
-$settings = mysqli_fetch_array($sql_settings);
+$settings = mysqli_fetch_assoc($sql_settings);
 
 $client_id = $settings['config_azure_client_id'];
 $client_secret = $settings['config_azure_client_secret'];
@@ -110,7 +110,7 @@ if (isset($_POST['code']) && $_POST['state'] == session_id()) {
                 AND user_status = 1
                 LIMIT 1"
             );
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_id = intval($row['contact_client_id']);
             $user_id = intval($row['user_id']);
             $session_user_id = $user_id; // to pass the user_id to logAction function

@@ -67,7 +67,7 @@ if (isset($_POST['add_quote_copy'])) {
     $quote_number = mysqli_insert_id($mysqli);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $original_quote_prefix = sanitizeInput($row['quote_prefix']);
     $original_quote_number = sanitizeInput($row['quote_number']);
     $quote_discount_amount = floatval($row['quote_discount_amount']);
@@ -87,7 +87,7 @@ if (isset($_POST['add_quote_copy'])) {
     mysqli_query($mysqli,"INSERT INTO history SET history_status = 'Draft', history_description = 'Quote copied!', history_quote_id = $new_quote_id");
 
     $sql_items = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_quote_id = $quote_id");
-    while($row = mysqli_fetch_array($sql_items)) {
+    while($row = mysqli_fetch_assoc($sql_items)) {
         $item_id = intval($row['item_id']);
         $item_name = sanitizeInput($row['item_name']);
         $item_description = sanitizeInput($row['item_description']);
@@ -120,7 +120,7 @@ if (isset($_POST['add_quote_to_invoice'])) {
     $date = sanitizeInput($_POST['date']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM clients, quotes WHERE client_id = quote_client_id AND quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_net_terms = intval($row['client_net_terms']);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
@@ -156,7 +156,7 @@ if (isset($_POST['add_quote_to_invoice'])) {
     mysqli_query($mysqli,"INSERT INTO history SET history_status = 'Draft', history_description = 'Invoice created from quote $quote_prefix$quote_number', history_invoice_id = $new_invoice_id");
 
     $sql_items = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_quote_id = $quote_id");
-    while($row = mysqli_fetch_array($sql_items)) {
+    while($row = mysqli_fetch_assoc($sql_items)) {
         $item_id = intval($row['item_id']);
         $item_name = sanitizeInput($row['item_name']);
         $item_description = sanitizeInput($row['item_description']);
@@ -201,7 +201,7 @@ if (isset($_POST['add_quote_item'])) {
 
     if ($tax_id > 0) {
         $sql = mysqli_query($mysqli,"SELECT * FROM taxes WHERE tax_id = $tax_id");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $tax_percent = floatval($row['tax_percent']);
         $tax_amount = $subtotal * $tax_percent / 100;
     }else{
@@ -214,7 +214,7 @@ if (isset($_POST['add_quote_item'])) {
 
     // Get Quote Details
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $quote_discount_amount = floatval($row['quote_discount_amount']);
@@ -223,7 +223,7 @@ if (isset($_POST['add_quote_item'])) {
     //add up the total of all items
     $sql = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_quote_id = $quote_id");
     $quote_amount = 0;
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $item_total = floatval($row['item_total']);
         $quote_amount = $quote_amount + $item_total;
     }
@@ -248,7 +248,7 @@ if (isset($_POST['quote_note'])) {
 
     // Get Quote Details
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -273,7 +273,7 @@ if (isset($_POST['edit_quote'])) {
 
     // Get Quote Details for logging
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -281,7 +281,7 @@ if (isset($_POST['edit_quote'])) {
     //Calculate the new quote amount
     $sql = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_quote_id = $quote_id");
     $quote_amount = 0;
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $item_total = floatval($row['item_total']);
         $quote_amount = $quote_amount + $item_total;
     }
@@ -305,7 +305,7 @@ if (isset($_GET['delete_quote'])) {
 
     // Get Quote Details for logging
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -314,14 +314,14 @@ if (isset($_GET['delete_quote'])) {
 
     //Delete Items Associated with the Quote
     $sql = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_quote_id = $quote_id");
-    while($row = mysqli_fetch_array($sql)) {;
+    while($row = mysqli_fetch_assoc($sql)) {;
         $item_id = intval($row['item_id']);
         mysqli_query($mysqli,"DELETE FROM invoice_items WHERE item_id = $item_id");
     }
 
     //Delete History Associated with the Quote
     $sql = mysqli_query($mysqli,"SELECT * FROM history WHERE history_quote_id = $quote_id");
-    while($row = mysqli_fetch_array($sql)) {;
+    while($row = mysqli_fetch_assoc($sql)) {;
         $history_id = intval($row['history_id']);
         mysqli_query($mysqli,"DELETE FROM history WHERE history_id = $history_id");
     }
@@ -346,7 +346,7 @@ if (isset($_GET['delete_quote_item'])) {
     $item_id = intval($_GET['delete_quote_item']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM invoice_items WHERE item_id = $item_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $item_name = sanitizeInput($row['item_name']);
     $quote_id = intval($row['item_quote_id']);
     $item_subtotal = floatval($row['item_subtotal']);
@@ -354,7 +354,7 @@ if (isset($_GET['delete_quote_item'])) {
     $item_total = floatval($row['item_total']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -380,7 +380,7 @@ if (isset($_GET['mark_quote_sent'])) {
     $quote_id = intval($_GET['mark_quote_sent']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -404,7 +404,7 @@ if (isset($_GET['accept_quote'])) {
     $quote_id = intval($_GET['accept_quote']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -430,7 +430,7 @@ if (isset($_GET['decline_quote'])) {
     $quote_id = intval($_GET['decline_quote']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -461,7 +461,7 @@ if (isset($_GET['email_quote'])) {
     WHERE quote_id = $quote_id"
     );
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = intval($row['quote_number']);
     $quote_scope = sanitizeInput($row['quote_scope']);
@@ -477,7 +477,7 @@ if (isset($_GET['email_quote'])) {
     $contact_email = sanitizeInput($row['contact_email']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $company_name = sanitizeInput($row['company_name']);
     $company_country = sanitizeInput($row['company_country']);
@@ -534,7 +534,7 @@ if (isset($_GET['mark_quote_invoiced'])) {
     $quote_id = intval($_GET['mark_quote_invoiced']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM quotes WHERE quote_id = $quote_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_prefix = sanitizeInput($row['quote_prefix']);
     $quote_number = sanitizeInput($row['quote_number']);
     $client_id = intval($row['quote_client_id']);
@@ -624,7 +624,7 @@ if (isset($_GET['export_quote_pdf'])) {
         LIMIT 1"
     );
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $quote_id = intval($row['quote_id']);
     $quote_prefix = nullable_htmlentities($row['quote_prefix']);
     $quote_number = intval($row['quote_number']);
@@ -660,7 +660,7 @@ if (isset($_GET['export_quote_pdf'])) {
     }
 
     $sql = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $company_id = intval($row['company_id']);
     $company_name = nullable_htmlentities($row['company_name']);
@@ -763,7 +763,7 @@ if (isset($_GET['export_quote_pdf'])) {
     $total_tax = 0;
 
     $sql_items = mysqli_query($mysqli, "SELECT * FROM invoice_items WHERE item_quote_id = $quote_id ORDER BY item_order ASC");
-    while ($item = mysqli_fetch_array($sql_items)) {
+    while ($item = mysqli_fetch_assoc($sql_items)) {
         $name = $item['item_name'];
         $desc = $item['item_description'];
         $qty = $item['item_quantity'];

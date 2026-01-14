@@ -17,7 +17,7 @@ require_once "../functions.php";
 
 $sql_settings = mysqli_query($mysqli, "SELECT * FROM settings WHERE settings.company_id = 1");
 
-$row = mysqli_fetch_array($sql_settings);
+$row = mysqli_fetch_assoc($sql_settings);
 
 // Company Settings
 $config_enable_cron = intval($row['config_enable_cron']);
@@ -42,7 +42,7 @@ $sql_certificates = mysqli_query(
         AND client_archived_at IS NULL"
 );
 
-while ($row = mysqli_fetch_array($sql_certificates)) {
+while ($row = mysqli_fetch_assoc($sql_certificates)) {
     $certificate_id = intval($row['certificate_id']);
     $domain = sanitizeInput($row['certificate_domain']);
 

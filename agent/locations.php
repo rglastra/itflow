@@ -130,7 +130,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 GROUP BY tags.tag_id
                                 HAVING COUNT(location_tags.location_id) > 0 OR tags.tag_id IN ($tag_filter)
                             ");
-                            while ($row = mysqli_fetch_array($sql_tags_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_filter)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']); ?>
 
@@ -157,7 +157,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -258,7 +258,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $location_id = intval($row['location_id']);
@@ -306,7 +306,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         $location_tag_name_display_array = array();
                         $location_tag_id_array = array();
                         $sql_location_tags = mysqli_query($mysqli, "SELECT * FROM location_tags LEFT JOIN tags ON location_tags.tag_id = tags.tag_id WHERE location_tags.location_id = $location_id ORDER BY tag_name ASC");
-                        while ($row = mysqli_fetch_array($sql_location_tags)) {
+                        while ($row = mysqli_fetch_assoc($sql_location_tags)) {
 
                             $location_tag_id = intval($row['tag_id']);
                             $location_tag_name = nullable_htmlentities($row['tag_name']);

@@ -17,38 +17,38 @@ enforceUserPermission('module_financial');
 
         <?php
         $sql_clients = mysqli_query($mysqli, "
-            SELECT 
+            SELECT
                 clients.client_id,
                 clients.client_name,
                 IFNULL(SUM(invoices.invoice_amount), 0) - IFNULL(SUM(payments.payment_amount), 0) AS balance
-            FROM 
+            FROM
                 clients
             LEFT JOIN
                 invoices
-            ON 
-                clients.client_id = invoices.invoice_client_id 
-                AND invoices.invoice_status != 'Draft' 
+            ON
+                clients.client_id = invoices.invoice_client_id
+                AND invoices.invoice_status != 'Draft'
                 AND invoices.invoice_status != 'Cancelled'
                 AND invoice_status != 'Non-Billable'
             LEFT JOIN
-                (SELECT 
-                    payment_invoice_id, 
-                    SUM(payment_amount) as payment_amount 
-                 FROM payments 
+                (SELECT
+                    payment_invoice_id,
+                    SUM(payment_amount) as payment_amount
+                 FROM payments
                  GROUP BY payment_invoice_id) as payments
             ON
                 invoices.invoice_id = payments.payment_invoice_id
             GROUP BY
                 clients.client_id,
                 clients.client_name
-            HAVING 
+            HAVING
                 balance > 0
             ORDER BY
                 balance DESC
         ");
 
         ?>
-        
+
         <div class="table-responsive-sm">
             <table class="table table-striped">
                 <thead>
@@ -59,7 +59,7 @@ enforceUserPermission('module_financial');
                 </thead>
                 <tbody>
                 <?php
-                while ($row = mysqli_fetch_array($sql_clients)) {
+                while ($row = mysqli_fetch_assoc($sql_clients)) {
                     $client_id = intval($row['client_id']);
                     $client_name = nullable_htmlentities($row['client_name']);
                     $balance = floatval($row['balance']);
@@ -72,7 +72,7 @@ enforceUserPermission('module_financial');
                     </tr>
                     <?php
                 }
-                
+
                 ?>
                 </tbody>
             </table>
@@ -82,4 +82,3 @@ enforceUserPermission('module_financial');
 
 <?php
 require_once "../../includes/footer.php";
-

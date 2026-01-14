@@ -16,7 +16,7 @@ require_once "../functions.php";
 
 $sql_companies = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
 
-$row = mysqli_fetch_array($sql_companies);
+$row = mysqli_fetch_assoc($sql_companies);
 
 // Company Details
 $company_name = sanitizeInput($row['company_name']);
@@ -133,7 +133,7 @@ mysqli_query($mysqli, "DELETE FROM auth_logs WHERE auth_log_created_at < CURDATE
 
 // CLeanup old domain history
 $sql = mysqli_query($mysqli, "SELECT domain_id FROM domains");
-while ($row = mysqli_fetch_array($sql)) {
+while ($row = mysqli_fetch_assoc($sql)) {
     $domain_id = intval($row['domain_id']);
     mysqli_query($mysqli, "
         DELETE FROM domain_history
@@ -182,7 +182,7 @@ if ($config_enable_alert_domain_expire == 1) {
             WHERE domain_expire IS NOT NULL AND domain_expire = CURDATE() + INTERVAL $day DAY"
         );
 
-        while ($row = mysqli_fetch_array($sql)) {
+        while ($row = mysqli_fetch_assoc($sql)) {
             $domain_id = intval($row['domain_id']);
             $domain_name = sanitizeInput($row['domain_name']);
             $domain_expire = sanitizeInput($row['domain_expire']);
@@ -212,7 +212,7 @@ foreach ($certificateAlertArray as $day) {
         WHERE certificate_expire = CURDATE() + INTERVAL $day DAY"
     );
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = mysqli_fetch_assoc($sql)) {
         $certificate_id = intval($row['certificate_id']);
         $certificate_name = sanitizeInput($row['certificate_name']);
         $certificate_domain = sanitizeInput($row['certificate_domain']);
@@ -262,7 +262,7 @@ foreach ($warranty_alert_array as $day) {
         WHERE asset_warranty_expire = CURDATE() + INTERVAL $day DAY"
     );
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = mysqli_fetch_assoc($sql)) {
         $asset_id = intval($row['asset_id']);
         $asset_name = sanitizeInput($row['asset_name']);
         $asset_warranty_expire = sanitizeInput($row['asset_warranty_expire']);
@@ -297,7 +297,7 @@ if ($tickets_pending_assignment > 0) {
 $sql_recurring_tickets = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_next_run = CURDATE()");
 
 if (mysqli_num_rows($sql_recurring_tickets) > 0) {
-    while ($row = mysqli_fetch_array($sql_recurring_tickets)) {
+    while ($row = mysqli_fetch_assoc($sql_recurring_tickets)) {
 
         $recurring_ticket_id = intval($row['recurring_ticket_id']);
         $subject = sanitizeInput($row['recurring_ticket_subject']);
@@ -353,7 +353,7 @@ if (mysqli_num_rows($sql_recurring_tickets) > 0) {
                 LEFT JOIN contacts ON ticket_contact_id = contact_id
                 WHERE ticket_id = $id"
         );
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -441,7 +441,7 @@ if (mysqli_num_rows($sql_recurring_tickets) > 0) {
 
 // Flag any active recurring "next run" dates that are in the past
 $sql_invalid_recurring_tickets = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_next_run < CURDATE()");
-while ($row = mysqli_fetch_array($sql_invalid_recurring_tickets)) {
+while ($row = mysqli_fetch_assoc($sql_invalid_recurring_tickets)) {
     $subject = sanitizeInput($row['recurring_ticket_subject']);
     appNotify("Ticket", "Recurring ticket $subject next run date is in the past!", "/agent/recurring_tickets.php");
 }
@@ -460,7 +460,7 @@ $sql_resolved_tickets_to_close = mysqli_query(
     AND ticket_updated_at < NOW() - INTERVAL $config_ticket_autoclose_hours HOUR"
 );
 
-while ($row = mysqli_fetch_array($sql_resolved_tickets_to_close)) {
+while ($row = mysqli_fetch_assoc($sql_resolved_tickets_to_close)) {
 
     $ticket_id = $row['ticket_id'];
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
@@ -501,7 +501,7 @@ if ($config_send_invoice_reminders == 1) {
             ORDER BY invoice_number DESC"
         );
 
-        while ($row = mysqli_fetch_array($sql)) {
+        while ($row = mysqli_fetch_assoc($sql)) {
             $invoice_id = intval($row['invoice_id']);
             $invoice_prefix = sanitizeInput($row['invoice_prefix']);
             $invoice_number = intval($row['invoice_number']);
@@ -581,7 +581,7 @@ $sql_recurring_invoices = mysqli_query($mysqli, "SELECT * FROM recurring_invoice
     AND recurring_invoice_status = 1
 ");
 
-while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
+while ($row = mysqli_fetch_assoc($sql_recurring_invoices)) {
     $recurring_invoice_id = intval($row['recurring_invoice_id']);
     $recurring_invoice_scope = sanitizeInput($row['recurring_invoice_scope']);
     $recurring_invoice_frequency = sanitizeInput($row['recurring_invoice_frequency']);
@@ -624,7 +624,7 @@ while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
     //Copy Items from original recurring invoice to new invoice
     $sql_invoice_items = mysqli_query($mysqli, "SELECT * FROM invoice_items WHERE item_recurring_invoice_id = $recurring_invoice_id ORDER BY item_id ASC");
 
-    while ($row = mysqli_fetch_array($sql_invoice_items)) {
+    while ($row = mysqli_fetch_assoc($sql_invoice_items)) {
         $item_id = intval($row['item_id']);
         $item_name = sanitizeInput($row['item_name']); //SQL Escape incase of ,
         $item_description = sanitizeInput($row['item_description']); //SQL Escape incase of ,
@@ -659,7 +659,7 @@ while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
             LEFT JOIN contacts ON clients.client_id = contacts.contact_client_id AND contact_primary = 1
             WHERE invoice_id = $new_invoice_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_prefix = sanitizeInput($row['invoice_prefix']);
     $invoice_number = intval($row['invoice_number']);
     $invoice_scope = sanitizeInput($row['invoice_scope']);
@@ -709,7 +709,7 @@ while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
             AND contact_client_id = $client_id"
         );
 
-        while ($billing_contact = mysqli_fetch_array($sql_billing_contacts)) {
+        while ($billing_contact = mysqli_fetch_assoc($sql_billing_contacts)) {
             $billing_contact_name = sanitizeInput($billing_contact['contact_name']);
             $billing_contact_email = sanitizeInput($billing_contact['contact_email']);
 
@@ -733,7 +733,7 @@ while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
 
 // Start Flag any active recurring "next run" dates that are in the past
 $sql_invalid_recurring_invoices = mysqli_query($mysqli, "SELECT * FROM recurring_invoices WHERE recurring_invoice_next_date < CURDATE() AND recurring_invoice_status = 1");
-while ($row = mysqli_fetch_array($sql_invalid_recurring_invoices)) {
+while ($row = mysqli_fetch_assoc($sql_invalid_recurring_invoices)) {
     $invoice_prefix = sanitizeInput($row['recurring_invoice_prefix']);
     $invoice_number = intval($row['recurring_invoice_number']);
     appNotify("Invoice", "Recurring invoice $invoice_prefix$invoice_number next run date is in the past!", "/agent/recurring_invoices.php");
@@ -751,7 +751,7 @@ $sql_recurring_payments = mysqli_query($mysqli, "
       AND (invoice_status = 'Sent' OR invoice_status = 'Viewed')
 ");
 
-while ($row = mysqli_fetch_array($sql_recurring_payments)) {
+while ($row = mysqli_fetch_assoc($sql_recurring_payments)) {
     $invoice_id = intval($row['invoice_id']);
     $invoice_prefix = sanitizeInput($row['invoice_prefix']);
     $invoice_number = intval($row['invoice_number']);
@@ -773,7 +773,7 @@ while ($row = mysqli_fetch_array($sql_recurring_payments)) {
     // Only attempt autopay if a saved payment method is set
     if ($recurring_payment_saved_payment_id) {
         // Get the saved payment method and provider details
-        $saved_payment = mysqli_fetch_array(mysqli_query($mysqli, "
+        $saved_payment = mysqli_fetch_assoc(mysqli_query($mysqli, "
             SELECT * FROM client_saved_payment_methods
             LEFT JOIN payment_providers ON saved_payment_provider_id = payment_provider_id
             WHERE saved_payment_id = $recurring_payment_saved_payment_id
@@ -805,7 +805,7 @@ while ($row = mysqli_fetch_array($sql_recurring_payments)) {
               AND payment_provider_id = $provider_id
             LIMIT 1
         ");
-        $cpp_row = mysqli_fetch_array($cpp_query);
+        $cpp_row = mysqli_fetch_assoc($cpp_query);
         $stripe_customer_id = $cpp_row ? sanitizeInput($cpp_row['payment_provider_client']) : '';
 
         // Stripe
@@ -925,7 +925,7 @@ while ($row = mysqli_fetch_array($sql_recurring_payments)) {
 // Loop through all recurring expenses that match today's date and is active
 $sql_recurring_expenses = mysqli_query($mysqli, "SELECT * FROM recurring_expenses WHERE recurring_expense_next_date = CURDATE() AND recurring_expense_status = 1");
 
-while ($row = mysqli_fetch_array($sql_recurring_expenses)) {
+while ($row = mysqli_fetch_assoc($sql_recurring_expenses)) {
     $recurring_expense_id = intval($row['recurring_expense_id']);
     $recurring_expense_frequency = intval($row['recurring_expense_frequency']);
     $recurring_expense_month = intval($row['recurring_expense_month']);
@@ -965,7 +965,7 @@ while ($row = mysqli_fetch_array($sql_recurring_expenses)) {
 
 // Flag any active recurring "next run" dates that are in the past
 $sql_invalid_recurring_expenses = mysqli_query($mysqli, "SELECT * FROM recurring_expenses WHERE recurring_expense_next_date < CURDATE() AND recurring_expense_status = 1");
-while ($row = mysqli_fetch_array($sql_invalid_recurring_expenses)) {
+while ($row = mysqli_fetch_assoc($sql_invalid_recurring_expenses)) {
     $recurring_expense_description = sanitizeInput($row['recurring_expense_description']);
     appNotify("Expense", "Recurring expense $recurring_expense_description next run date is in the past!", "/agent/recurring_expenses.php");
 }

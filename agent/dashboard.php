@@ -17,7 +17,7 @@ if (isset($_GET['enable_technical'])) {
 
 // Fetch User Dashboard Settings
 $sql_user_dashboard_settings = mysqli_query($mysqli, "SELECT * FROM user_settings WHERE user_id = $session_user_id");
-$row = mysqli_fetch_array($sql_user_dashboard_settings);
+$row = mysqli_fetch_assoc($sql_user_dashboard_settings);
 $user_config_dashboard_financial_enable = intval($row['user_config_dashboard_financial_enable']);
 $user_config_dashboard_technical_enable = intval($row['user_config_dashboard_technical_enable']);
 
@@ -52,7 +52,7 @@ $sql_years_select = mysqli_query($mysqli, "
 
         <label for="year" class="mr-sm-2">Select Year:</label>
         <select id="year" onchange="this.form.submit()" class="form-control mr-sm-3 col-sm-2 mb-3 mb-sm-0" name="year">
-            <?php while ($row = mysqli_fetch_array($sql_years_select)) {
+            <?php while ($row = mysqli_fetch_assoc($sql_years_select)) {
                 $year_select = $row['all_years'];
                 if (empty($year_select)) {
                     $year_select = date('Y');
@@ -88,29 +88,29 @@ if ($user_config_dashboard_financial_enable == 1) {
     $largest_income_month = 0;
 
     $sql_total_payments_to_invoices = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_payments_to_invoices FROM payments WHERE YEAR(payment_date) = $year");
-    $row = mysqli_fetch_array($sql_total_payments_to_invoices);
+    $row = mysqli_fetch_assoc($sql_total_payments_to_invoices);
     $total_payments_to_invoices = floatval($row['total_payments_to_invoices']);
 
     $sql_total_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS total_revenues FROM revenues WHERE YEAR(revenue_date) = $year AND revenue_category_id > 0");
-    $row = mysqli_fetch_array($sql_total_revenues);
+    $row = mysqli_fetch_assoc($sql_total_revenues);
     $total_revenues = floatval($row['total_revenues']);
 
     $total_income = $total_payments_to_invoices + $total_revenues;
 
     $sql_total_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS total_expenses FROM expenses WHERE expense_vendor_id > 0 AND YEAR(expense_date) = $year");
-    $row = mysqli_fetch_array($sql_total_expenses);
+    $row = mysqli_fetch_assoc($sql_total_expenses);
     $total_expenses = floatval($row['total_expenses']);
 
     $sql_invoice_totals = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_totals FROM invoices WHERE invoice_status != 'Draft' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable' AND YEAR(invoice_date) = $year");
-    $row = mysqli_fetch_array($sql_invoice_totals);
+    $row = mysqli_fetch_assoc($sql_invoice_totals);
     $invoice_totals = floatval($row['invoice_totals']);
 
     $sql_total_payments_to_invoices_all_years = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_payments_to_invoices_all_years FROM payments");
-    $row = mysqli_fetch_array($sql_total_payments_to_invoices_all_years);
+    $row = mysqli_fetch_assoc($sql_total_payments_to_invoices_all_years);
     $total_payments_to_invoices_all_years = floatval($row['total_payments_to_invoices_all_years']);
 
     $sql_invoice_totals_all_years = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_totals_all_years FROM invoices WHERE invoice_status != 'Draft' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable'");
-    $row = mysqli_fetch_array($sql_invoice_totals_all_years);
+    $row = mysqli_fetch_assoc($sql_invoice_totals_all_years);
     $invoice_totals_all_years = floatval($row['invoice_totals_all_years']);
 
     $receivables = $invoice_totals_all_years - $total_payments_to_invoices_all_years;
@@ -135,30 +135,30 @@ if ($user_config_dashboard_financial_enable == 1) {
 
     // Get recurring invoice totals
     $sql_recurring_yearly_total = mysqli_query($mysqli, "SELECT SUM(recurring_invoice_amount) AS recurring_yearly_total FROM recurring_invoices WHERE recurring_invoice_status = 1 AND recurring_invoice_frequency = 'year' AND YEAR(recurring_invoice_created_at) <= $year");
-    $row = mysqli_fetch_array($sql_recurring_yearly_total);
+    $row = mysqli_fetch_assoc($sql_recurring_yearly_total);
     $recurring_yearly_total = floatval($row['recurring_yearly_total']);
 
     $sql_recurring_monthly_total = mysqli_query($mysqli, "SELECT SUM(recurring_invoice_amount) AS recurring_monthly_total FROM recurring_invoices WHERE recurring_invoice_status = 1 AND recurring_invoice_frequency = 'month' AND YEAR(recurring_invoice_created_at) <= $year");
-    $row = mysqli_fetch_array($sql_recurring_monthly_total);
+    $row = mysqli_fetch_assoc($sql_recurring_monthly_total);
     $recurring_monthly_total = floatval($row['recurring_monthly_total']) + ($recurring_yearly_total / 12);
 
     // Recurring expenses totals
     $sql_recurring_expense_yearly_total = mysqli_query($mysqli, "SELECT SUM(recurring_expense_amount) AS recurring_expense_yearly_total FROM recurring_expenses WHERE recurring_expense_status = 1 AND recurring_expense_frequency = 2 AND YEAR(recurring_expense_created_at) <= $year");
-    $row = mysqli_fetch_array($sql_recurring_expense_yearly_total);
+    $row = mysqli_fetch_assoc($sql_recurring_expense_yearly_total);
     $recurring_expense_yearly_total = floatval($row['recurring_expense_yearly_total']);
 
     $sql_recurring_expense_monthly_total = mysqli_query($mysqli, "SELECT SUM(recurring_expense_amount) AS recurring_expense_monthly_total FROM recurring_expenses WHERE recurring_expense_status = 1 AND recurring_expense_frequency = 1 AND YEAR(recurring_expense_created_at) <= $year");
-    $row = mysqli_fetch_array($sql_recurring_expense_monthly_total);
+    $row = mysqli_fetch_assoc($sql_recurring_expense_monthly_total);
     $recurring_expense_monthly_total = floatval($row['recurring_expense_monthly_total']) + ($recurring_expense_yearly_total / 12);
 
     // Get miles driven
     $sql_miles_driven = mysqli_query($mysqli, "SELECT SUM(trip_miles) AS total_miles FROM trips WHERE YEAR(trip_date) = $year");
-    $row = mysqli_fetch_array($sql_miles_driven);
+    $row = mysqli_fetch_assoc($sql_miles_driven);
     $total_miles = floatval($row['total_miles']);
 
     if ($config_module_enable_ticketing && $config_module_enable_accounting) {
         $sql_unbilled_tickets = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS unbilled_tickets FROM tickets WHERE ticket_closed_at IS NOT NULL AND ticket_billable = 1 AND ticket_invoice_id = 0 AND YEAR(ticket_created_at) = $year");
-        $row = mysqli_fetch_array($sql_unbilled_tickets);
+        $row = mysqli_fetch_assoc($sql_unbilled_tickets);
         $unbilled_tickets = intval($row['unbilled_tickets']);
     } else {
         $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT(recurring_invoice_id) AS recurring_invoices_added FROM recurring_invoices WHERE YEAR(recurring_invoice_created_at) = $year"));
@@ -421,7 +421,7 @@ if ($user_config_dashboard_financial_enable == 1) {
                 <div class="table-responsive">
                     <table class="table">
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($sql_accounts)) {
+                            <?php while ($row = mysqli_fetch_assoc($sql_accounts)) {
                                 $account_id = intval($row['account_id']);
                                 $account_name = nullable_htmlentities($row['account_name']);
                                 $opening_balance = floatval($row['opening_balance']);
@@ -430,15 +430,15 @@ if ($user_config_dashboard_financial_enable == 1) {
                                     <td><?php echo $account_name; ?></td>
                                     <?php
                                     $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_payments FROM payments WHERE payment_account_id = $account_id");
-                                    $row = mysqli_fetch_array($sql_payments);
+                                    $row = mysqli_fetch_assoc($sql_payments);
                                     $total_payments = floatval($row['total_payments']);
 
                                     $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS total_revenues FROM revenues WHERE revenue_account_id = $account_id");
-                                    $row = mysqli_fetch_array($sql_revenues);
+                                    $row = mysqli_fetch_assoc($sql_revenues);
                                     $total_revenues = floatval($row['total_revenues']);
 
                                     $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS total_expenses FROM expenses WHERE expense_account_id = $account_id");
-                                    $row = mysqli_fetch_array($sql_expenses);
+                                    $row = mysqli_fetch_assoc($sql_expenses);
                                     $total_expenses = floatval($row['total_expenses']);
 
                                     $balance = $opening_balance + $total_payments + $total_revenues - $total_expenses;
@@ -477,7 +477,7 @@ if ($user_config_dashboard_financial_enable == 1) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($sql_latest_invoice_payments)) {
+                            <?php while ($row = mysqli_fetch_assoc($sql_latest_invoice_payments)) {
                                 $payment_date = nullable_htmlentities($row['payment_date']);
                                 $payment_amount = floatval($row['payment_amount']);
                                 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
@@ -518,7 +518,7 @@ if ($user_config_dashboard_financial_enable == 1) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($sql_latest_expenses)) {
+                            <?php while ($row = mysqli_fetch_assoc($sql_latest_expenses)) {
                                 $expense_date = nullable_htmlentities($row['expense_date']);
                                 $expense_amount = floatval($row['expense_amount']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
@@ -709,7 +709,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_array($sql_your_tickets)) {
+                                <?php while ($row = mysqli_fetch_assoc($sql_your_tickets)) {
                                     $ticket_id = intval($row['ticket_id']);
                                     $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                                     $ticket_number = intval($row['ticket_number']);
@@ -740,8 +740,8 @@ if ($user_config_dashboard_technical_enable == 1) {
                                 ?>
                                     <tr class="<?php echo empty($ticket_updated_at) ? 'text-bold' : ''; ?>">
                                         <td>
-                                            <a class="text-dark" 
-                                                href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= "$ticket_prefix$ticket_number" ?>   
+                                            <a class="text-dark"
+                                                href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= "$ticket_prefix$ticket_number" ?>
                                             </a>
                                         </td>
                                         <td><a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= $ticket_subject ?></a></td>
@@ -795,11 +795,11 @@ if ($user_config_dashboard_technical_enable == 1) {
                             <?php
                             for ($month = 1; $month <= 12; $month++) {
                                 $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS payment_amount_for_month FROM payments, invoices WHERE payment_invoice_id = invoice_id AND YEAR(payment_date) = $year AND MONTH(payment_date) = $month");
-                                $row = mysqli_fetch_array($sql_payments);
+                                $row = mysqli_fetch_assoc($sql_payments);
                                 $payments_for_month = floatval($row['payment_amount_for_month']);
 
                                 $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS revenue_amount_for_month FROM revenues WHERE revenue_category_id > 0 AND YEAR(revenue_date) = $year AND MONTH(revenue_date) = $month");
-                                $row = mysqli_fetch_array($sql_revenues);
+                                $row = mysqli_fetch_assoc($sql_revenues);
                                 $revenues_for_month = floatval($row['revenue_amount_for_month']);
 
                                 $income_for_month = $payments_for_month + $revenues_for_month;
@@ -825,11 +825,11 @@ if ($user_config_dashboard_technical_enable == 1) {
                             <?php
                             for ($month = 1; $month <= 12; $month++) {
                                 $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS payment_amount_for_month FROM payments, invoices WHERE payment_invoice_id = invoice_id AND YEAR(payment_date) = $year-1 AND MONTH(payment_date) = $month");
-                                $row = mysqli_fetch_array($sql_payments);
+                                $row = mysqli_fetch_assoc($sql_payments);
                                 $payments_for_month = floatval($row['payment_amount_for_month']);
 
                                 $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS revenue_amount_for_month FROM revenues WHERE revenue_category_id > 0 AND YEAR(revenue_date) = $year-1 AND MONTH(revenue_date) = $month");
-                                $row = mysqli_fetch_array($sql_revenues);
+                                $row = mysqli_fetch_assoc($sql_revenues);
                                 $revenues_for_month = floatval($row['revenue_amount_for_month']);
 
                                 $income_for_month = $payments_for_month + $revenues_for_month;
@@ -856,7 +856,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                             $largest_invoice_month = 0;
                             for ($month = 1; $month <= 12; $month++) {
                                 $sql_projected = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_amount_for_month FROM invoices WHERE YEAR(invoice_due) = $year AND MONTH(invoice_due) = $month AND invoice_status != 'Cancelled' AND invoice_status != 'Draft' AND invoice_status != 'Non-Billable'");
-                                $row = mysqli_fetch_array($sql_projected);
+                                $row = mysqli_fetch_assoc($sql_projected);
                                 $invoice_for_month = floatval($row['invoice_amount_for_month']);
 
                                 if ($invoice_for_month > 0 && $invoice_for_month > $largest_invoice_month) {
@@ -882,7 +882,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                             $largest_expense_month = 0;
                             for ($month = 1; $month <= 12; $month++) {
                                 $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS expense_amount_for_month FROM expenses WHERE YEAR(expense_date) = $year AND MONTH(expense_date) = $month AND expense_vendor_id > 0");
-                                $row = mysqli_fetch_array($sql_expenses);
+                                $row = mysqli_fetch_assoc($sql_expenses);
                                 $expenses_for_month = floatval($row['expense_amount_for_month']);
 
                                 if ($expenses_for_month > 0 && $expenses_for_month > $largest_expense_month) {
@@ -944,7 +944,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                         $largest_trip_miles_month = 0;
                         for ($month = 1; $month <= 12; $month++) {
                             $sql_trips = mysqli_query($mysqli, "SELECT SUM(trip_miles) AS trip_miles_for_month FROM trips WHERE YEAR(trip_date) = $year AND MONTH(trip_date) = $month");
-                            $row = mysqli_fetch_array($sql_trips);
+                            $row = mysqli_fetch_assoc($sql_trips);
                             $trip_miles_for_month = floatval($row['trip_miles_for_month']);
 
                             if ($trip_miles_for_month > 0 && $trip_miles_for_month > $largest_trip_miles_month) {
@@ -991,13 +991,13 @@ if ($user_config_dashboard_technical_enable == 1) {
                     <?php
                     mysqli_query($mysqli, "CREATE TEMPORARY TABLE TopCategories SELECT category_name, category_id, SUM(invoice_amount) AS total_income FROM categories, invoices WHERE invoice_category_id = category_id AND invoice_status = 'Paid' AND YEAR(invoice_date) = $year GROUP BY category_name, category_id ORDER BY total_income DESC LIMIT 5");
                     $sql_categories = mysqli_query($mysqli, "SELECT category_name FROM TopCategories");
-                    while ($row = mysqli_fetch_array($sql_categories)) {
+                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                         $category_name = json_encode($row['category_name']);
                         echo "$category_name,";
                     }
 
                     $sql_other_categories = mysqli_query($mysqli, "SELECT SUM(invoices.invoice_amount) AS other_income FROM categories LEFT JOIN TopCategories ON categories.category_id = TopCategories.category_id INNER JOIN invoices ON categories.category_id = invoices.invoice_category_id WHERE TopCategories.category_id IS NULL AND invoice_status = 'Paid' AND YEAR(invoice_date) = $year");
-                    $row = mysqli_fetch_array($sql_other_categories);
+                    $row = mysqli_fetch_assoc($sql_other_categories);
                     $other_income = floatval($row['other_income']);
                     if ($other_income > 0) {
                         echo "'Others',";
@@ -1008,7 +1008,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     data: [
                         <?php
                         $sql_categories = mysqli_query($mysqli, "SELECT total_income FROM TopCategories");
-                        while ($row = mysqli_fetch_array($sql_categories)) {
+                        while ($row = mysqli_fetch_assoc($sql_categories)) {
                             $total_income = floatval($row['total_income']);
                             echo "$total_income,";
                         }
@@ -1020,7 +1020,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     backgroundColor: [
                         <?php
                         $sql_categories = mysqli_query($mysqli, "SELECT category_color FROM TopCategories JOIN categories ON TopCategories.category_id = categories.category_id");
-                        while ($row = mysqli_fetch_array($sql_categories)) {
+                        while ($row = mysqli_fetch_assoc($sql_categories)) {
                             $category_color = json_encode($row['category_color']);
                             echo "$category_color,";
                         }
@@ -1056,13 +1056,13 @@ if ($user_config_dashboard_technical_enable == 1) {
                     <?php
                     mysqli_query($mysqli, "CREATE TEMPORARY TABLE TopExpenseCategories SELECT category_name, category_id, SUM(expense_amount) AS total_expense FROM categories, expenses WHERE expense_category_id = category_id AND expense_vendor_id > 0 AND YEAR(expense_date) = $year GROUP BY category_name, category_id ORDER BY total_expense DESC LIMIT 5");
                     $sql_categories = mysqli_query($mysqli, "SELECT category_name FROM TopExpenseCategories");
-                    while ($row = mysqli_fetch_array($sql_categories)) {
+                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                         $category_name = json_encode($row['category_name']);
                         echo "$category_name,";
                     }
 
                     $sql_other_categories = mysqli_query($mysqli, "SELECT SUM(expenses.expense_amount) AS other_expense FROM categories LEFT JOIN TopExpenseCategories ON categories.category_id = TopExpenseCategories.category_id INNER JOIN expenses ON categories.category_id = expenses.expense_category_id WHERE TopExpenseCategories.category_id IS NULL AND expense_vendor_id > 0 AND YEAR(expense_date) = $year");
-                    $row = mysqli_fetch_array($sql_other_categories);
+                    $row = mysqli_fetch_assoc($sql_other_categories);
                     $other_expense = floatval($row['other_expense']);
                     if ($other_expense > 0) {
                         echo "'Others',";
@@ -1073,7 +1073,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     data: [
                         <?php
                         $sql_categories = mysqli_query($mysqli, "SELECT total_expense FROM TopExpenseCategories");
-                        while ($row = mysqli_fetch_array($sql_categories)) {
+                        while ($row = mysqli_fetch_assoc($sql_categories)) {
                             $total_expense = floatval($row['total_expense']);
                             echo "$total_expense,";
                         }
@@ -1085,7 +1085,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     backgroundColor: [
                         <?php
                         $sql_categories = mysqli_query($mysqli, "SELECT category_color FROM TopExpenseCategories JOIN categories ON TopExpenseCategories.category_id = categories.category_id");
-                        while ($row = mysqli_fetch_array($sql_categories)) {
+                        while ($row = mysqli_fetch_assoc($sql_categories)) {
                             $category_color = json_encode($row['category_color']);
                             echo "$category_color,";
                         }
@@ -1121,13 +1121,13 @@ if ($user_config_dashboard_technical_enable == 1) {
                     <?php
                     mysqli_query($mysqli, "CREATE TEMPORARY TABLE TopVendors SELECT vendor_name, vendor_id, SUM(expense_amount) AS total_expense FROM vendors, expenses WHERE expense_vendor_id = vendor_id AND YEAR(expense_date) = $year GROUP BY vendor_name, vendor_id ORDER BY total_expense DESC LIMIT 5");
                     $sql_vendors = mysqli_query($mysqli, "SELECT vendor_name FROM TopVendors");
-                    while ($row = mysqli_fetch_array($sql_vendors)) {
+                    while ($row = mysqli_fetch_assoc($sql_vendors)) {
                         $vendor_name = json_encode($row['vendor_name']);
                         echo "$vendor_name,";
                     }
 
                     $sql_other_vendors = mysqli_query($mysqli, "SELECT SUM(expenses.expense_amount) AS other_expense FROM vendors LEFT JOIN TopVendors ON vendors.vendor_id = TopVendors.vendor_id INNER JOIN expenses ON vendors.vendor_id = expenses.expense_vendor_id WHERE TopVendors.vendor_id IS NULL AND YEAR(expense_date) = $year");
-                    $row = mysqli_fetch_array($sql_other_vendors);
+                    $row = mysqli_fetch_assoc($sql_other_vendors);
                     $other_expense = floatval($row['other_expense']);
                     if ($other_expense > 0) {
                         echo "'Others',";
@@ -1138,7 +1138,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     data: [
                         <?php
                         $sql_vendors = mysqli_query($mysqli, "SELECT total_expense FROM TopVendors");
-                        while ($row = mysqli_fetch_array($sql_vendors)) {
+                        while ($row = mysqli_fetch_assoc($sql_vendors)) {
                             $total_expense = floatval($row['total_expense']);
                             echo "$total_expense,";
                         }
@@ -1150,7 +1150,7 @@ if ($user_config_dashboard_technical_enable == 1) {
                     backgroundColor: [
                         <?php
                         $sql_vendors = mysqli_query($mysqli, "SELECT vendor_id FROM TopVendors");
-                        while ($row = mysqli_fetch_array($sql_vendors)) {
+                        while ($row = mysqli_fetch_assoc($sql_vendors)) {
                             // Generate random color for each vendor
                             echo "'#" . substr(md5(rand()), 0, 6) . "',";
                         }

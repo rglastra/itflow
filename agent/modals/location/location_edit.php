@@ -6,7 +6,7 @@ $location_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_id = $location_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $location_name = nullable_htmlentities($row['location_name']);
 $location_description = nullable_htmlentities($row['location_description']);
 $location_country = nullable_htmlentities($row['location_country']);
@@ -31,7 +31,7 @@ $location_primary = intval($row['location_primary']);
 // Tags
 $location_tag_id_array = array();
 $sql_location_tags = mysqli_query($mysqli, "SELECT * FROM location_tags WHERE location_id = $location_id");
-while ($row = mysqli_fetch_array($sql_location_tags)) {
+while ($row = mysqli_fetch_assoc($sql_location_tags)) {
     $location_tag_id = intval($row['tag_id']);
     $location_tag_id_array[] = $location_tag_id;
 }
@@ -49,7 +49,7 @@ ob_start();
 <form action="post.php" method="post" enctype="multipart/form-data" autocomplete="off">
     <input type="hidden" name="location_id" value="<?php echo $location_id; ?>">
     <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
-    
+
     <div class="modal-body">
 
         <ul class="nav nav-pills nav-justified mb-3">
@@ -183,7 +183,7 @@ ob_start();
                             <?php
 
                             $sql_contacts = mysqli_query($mysqli, "SELECT * FROM contacts WHERE (contact_archived_at > '$location_created_at' OR contact_archived_at IS NULL) AND contact_client_id = $client_id ORDER BY contact_archived_at ASC, contact_name ASC");
-                            while ($row = mysqli_fetch_array($sql_contacts)) {
+                            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                                 $contact_id_select = intval($row['contact_id']);
                                 $contact_name_select = nullable_htmlentities($row['contact_name']);
                                 $contact_archived_at = nullable_htmlentities($row['contact_archived_at']);
@@ -264,7 +264,7 @@ ob_start();
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 2 ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>

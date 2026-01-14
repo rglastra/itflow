@@ -158,7 +158,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql_projects)) {
+                while ($row = mysqli_fetch_assoc($sql_projects)) {
                     $project_id = intval($row['project_id']);
                     $project_prefix = nullable_htmlentities($row['project_prefix']);
                     $project_number = intval($row['project_number']);

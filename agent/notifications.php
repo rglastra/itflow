@@ -61,8 +61,8 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    
-                    
+
+
                 </div>
             </div>
             <div class="collapse mt-3 <?php if (!empty($_GET['dtf'])) { echo "show"; } ?>" id="advancedFilter">
@@ -111,7 +111,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <?php if(!$dismissed_filter) { ?>
                     <th class="text-center p-0">
                         <?php if (mysqli_num_rows($sql) > 0) { ?>
-                        <a href="post.php?dismiss_all_notifications&csrf_token=<?php echo $_SESSION["csrf_token"]; ?>" 
+                        <a href="post.php?dismiss_all_notifications&csrf_token=<?php echo $_SESSION["csrf_token"]; ?>"
                             class="btn btn-sm btn-dark mb-2" title="Dismiss All">
                             <i class="fas fa-fw fa-check-double"></i>
                         </a>
@@ -123,7 +123,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                 $notification_id = intval($row['notification_id']);
                 $notification_timestamp = nullable_htmlentities($row['notification_timestamp']);
                 $notification_type = nullable_htmlentities($row['notification_type']);
@@ -144,7 +144,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <td class="text-center"><a class="btn btn-secondary btn-sm" href="post.php?dismiss_notification=<?php echo $notification_id; ?>" title="Dismiss"><i class="fas fa-check"></i></a></td>
                     <?php } ?>
                 </tr>
-                
+
                 <?php } ?>
 
                 </tbody>

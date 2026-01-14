@@ -64,7 +64,7 @@ ob_start();
                     <?php
                     if ($client_id) {
                         $sql_locations = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
-                    while ($row = mysqli_fetch_array($sql_locations)) {
+                    while ($row = mysqli_fetch_assoc($sql_locations)) {
                         $location_name = nullable_htmlentities($row['location_name']);
                         $location_address = nullable_htmlentities($row['location_address']);
                         $location_city = nullable_htmlentities($row['location_city']);
@@ -97,7 +97,7 @@ ob_start();
                     $sql = mysqli_query($mysqli, "SELECT user_id, user_name FROM users
                         WHERE user_type = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $user_id = intval($row['user_id']);
                         $user_name = nullable_htmlentities($row['user_name']);
                         ?>
@@ -125,7 +125,7 @@ ob_start();
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at is NULL ORDER BY client_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $client_id_select = intval($row['client_id']);
                             $client_name = nullable_htmlentities($row['client_name']);
                             ?>

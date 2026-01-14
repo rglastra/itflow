@@ -120,7 +120,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     $access_permission_query
                                     ORDER BY client_name ASC
                                 ");
-                                while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                     $client_id = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']);
                                 ?>
@@ -193,7 +193,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $software_id = intval($row['software_id']);
@@ -245,7 +245,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         // Asset Licenses
                         $asset_licenses_sql = mysqli_query($mysqli, "SELECT asset_id FROM software_assets WHERE software_id = $software_id");
                         $asset_licenses_array = array();
-                        while ($row = mysqli_fetch_array($asset_licenses_sql)) {
+                        while ($row = mysqli_fetch_assoc($asset_licenses_sql)) {
                             $asset_licenses_array[] = intval($row['asset_id']);
                             $seat_count = $seat_count + 1;
                         }
@@ -254,7 +254,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         // Contact Licenses
                         $contact_licenses_sql = mysqli_query($mysqli, "SELECT contact_id FROM software_contacts WHERE software_id = $software_id");
                         $contact_licenses_array = array();
-                        while ($row = mysqli_fetch_array($contact_licenses_sql)) {
+                        while ($row = mysqli_fetch_assoc($contact_licenses_sql)) {
                             $contact_licenses_array[] = intval($row['contact_id']);
                             $seat_count = $seat_count + 1;
                         }

@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM assets
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $asset_name = nullable_htmlentities($row['asset_name']);
 $client_id = intval($row['asset_client_id']);
 
@@ -46,7 +46,7 @@ ob_start();
                         AND service_assets.asset_id IS NULL
                         ORDER BY services.service_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_services_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_services_select)) {
                         $service_id = intval($row['service_id']);
                         $service_name = nullable_htmlentities($row['service_name']);
                         ?>

@@ -6,7 +6,7 @@ $user_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM users WHERE users.user_id = $user_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $user_name = nullable_htmlentities($row['user_name']);
 $user_email = nullable_htmlentities($row['user_email']);
 $user_avatar = nullable_htmlentities($row['user_avatar']);
@@ -60,7 +60,7 @@ ob_start();
                     <option value="0">No one</option>
                     <?php
                     $sql_users = mysqli_query($mysqli, "SELECT * FROM users WHERE user_type = 1 AND user_archived_at IS NULL");
-                    while ($row = mysqli_fetch_array($sql_users)) {
+                    while ($row = mysqli_fetch_assoc($sql_users)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']);
 

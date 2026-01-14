@@ -16,7 +16,7 @@ $browser = sanitizeInput(getWebBrowser($user_agent));
 
 // Get Company Name
 $sql = mysqli_query($mysqli, "SELECT company_name FROM companies WHERE company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 $session_company_name = $row['company_name'];
 

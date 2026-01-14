@@ -42,7 +42,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM calendars ORDER BY calendar_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $calendar_id = intval($row['calendar_id']);
                             $calendar_name = nullable_htmlentities($row['calendar_name']); ?>
                             <option <?php if ($config_default_calendar == $calendar_id) {
@@ -65,7 +65,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $account_id = intval($row['account_id']);
                             $account_name = nullable_htmlentities($row['account_name']); ?>
                             <option <?php if ($config_default_transfer_from_account == $account_id) {
@@ -88,7 +88,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $account_id = intval($row['account_id']);
                             $account_name = nullable_htmlentities($row['account_name']); ?>
                             <option <?php if ($config_default_transfer_to_account == $account_id) {
@@ -111,7 +111,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $account_id = intval($row['account_id']);
                             $account_name = nullable_htmlentities($row['account_name']); ?>
                             <option <?php if ($config_default_payment_account == $account_id) {
@@ -136,7 +136,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $account_id = intval($row['account_id']);
                             $account_name = nullable_htmlentities($row['account_name']); ?>
                             <option <?php if ($config_default_expense_account == $account_id) {
@@ -159,7 +159,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Payment Method' ORDER BY category_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $payment_method = nullable_htmlentities($row['category_name']); ?>
                             <option <?php if ($config_default_payment_method == $payment_method) {
                                         echo "selected";
@@ -181,7 +181,7 @@ require_once "includes/inc_all_admin.php";
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Payment Method' ORDER BY category_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $payment_method = nullable_htmlentities($row['category_name']); ?>
                             <option <?php if ($config_default_expense_payment_method == $payment_method) {
                                         echo "selected";

@@ -32,7 +32,7 @@ if (mysqli_num_rows($sql) !== 1) {
     exit();
 }
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 $quote_id = intval($row['quote_id']);
 $quote_prefix = nullable_htmlentities($row['quote_prefix']);
@@ -62,7 +62,7 @@ $client_website = nullable_htmlentities($row['client_website']);
 $client_currency_code = nullable_htmlentities($row['client_currency_code']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $company_name = nullable_htmlentities($row['company_name']);
 $company_address = nullable_htmlentities($row['company_address']);
 $company_city = nullable_htmlentities($row['company_city']);
@@ -198,7 +198,7 @@ if ($quote_status == "Draft" || $quote_status == "Sent" || $quote_status == "Vie
 
                             $total_tax = $sub_total = 0; // Default 0
 
-                            while ($row = mysqli_fetch_array($sql_items)) {
+                            while ($row = mysqli_fetch_assoc($sql_items)) {
                                 $item_id = intval($row['item_id']);
                                 $item_name = nullable_htmlentities($row['item_name']);
                                 $item_description = nullable_htmlentities($row['item_description']);

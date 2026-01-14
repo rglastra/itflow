@@ -38,7 +38,7 @@ ob_start();
                     <?php
 
                     $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 5 ORDER BY tag_name ASC");
-                    while ($row = mysqli_fetch_array($sql_tags_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                         $tag_id_select = intval($row['tag_id']);
                         $tag_name_select = nullable_htmlentities($row['tag_name']);
                         ?>

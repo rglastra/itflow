@@ -5,7 +5,7 @@ require_once '../../../includes/modal_header.php';
 $project_template_id = intval($_GET['project_template_id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM project_templates WHERE project_template_id = $project_template_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $project_template_name = nullable_htmlentities($row['project_template_name']);
 $project_template_description = nullable_htmlentities($row['project_template_description']);
 
@@ -44,7 +44,7 @@ ob_start();
         </div>
 
     </div>
-    
+
     <div class="modal-footer">
         <button type="submit" name="edit_project_template" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
         <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>

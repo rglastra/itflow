@@ -54,13 +54,13 @@ if (isset($_POST['add_event'])) {
     if ($email_event == 1) {
 
         $sql_client = mysqli_query($mysqli,"SELECT * FROM clients JOIN contacts ON contact_client_id = client_id WHERE contact_primary = 1 AND client_id = $client");
-        $row = mysqli_fetch_array($sql_client);
+        $row = mysqli_fetch_assoc($sql_client);
         $client_name = sanitizeInput($row['client_name']);
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
 
         $sql_company = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql_company);
+        $row = mysqli_fetch_assoc($sql_company);
         $company_name = sanitizeInput($row['company_name']);
         $company_country = sanitizeInput($row['company_country']);
         $company_address = sanitizeInput($row['company_address']);
@@ -121,13 +121,13 @@ if (isset($_POST['edit_event'])) {
     if ($email_event == 1) {
 
         $sql_client = mysqli_query($mysqli,"SELECT * FROM clients JOIN contacts ON contact_client_id = client_id WHERE contact_primary = 1 AND client_id = $client");
-        $row = mysqli_fetch_array($sql_client);
+        $row = mysqli_fetch_assoc($sql_client);
         $client_name = sanitizeInput($row['client_name']);
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
 
         $sql_company = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql_company);
+        $row = mysqli_fetch_assoc($sql_company);
         $company_name = sanitizeInput($row['company_name']);
         $company_country = sanitizeInput($row['company_country']);
         $company_address = sanitizeInput($row['company_address']);
@@ -177,12 +177,12 @@ if (isset($_POST['edit_event'])) {
 }
 
 if (isset($_GET['delete_event'])) {
-    
+
     $event_id = intval($_GET['delete_event']);
 
     // Get Event Title
     $sql = mysqli_query($mysqli,"SELECT * FROM calendar_events WHERE event_id = $event_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $event_title = sanitizeInput($row['event_title']);
     $client_id = intval($row['event_client_id']);
 

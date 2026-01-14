@@ -13,8 +13,8 @@ $purifier = new HTMLPurifier($purifier_config);
 $document_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM documents WHERE document_id = $document_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $document_name = nullable_htmlentities($row['document_name']);
 $document_content = $purifier->purify($row['document_content']);
 

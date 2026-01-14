@@ -29,7 +29,7 @@ if (isset($_GET['asset_id'])) {
 
     } else {
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $client_id = intval($row['client_id']);
         $client_name = nullable_htmlentities($row['client_name']);
         $asset_id = intval($row['asset_id']);
@@ -122,7 +122,7 @@ if (isset($_GET['asset_id'])) {
         $asset_tag_name_display_array = array();
         $asset_tag_id_array = array();
         $sql_asset_tags = mysqli_query($mysqli, "SELECT * FROM asset_tags LEFT JOIN tags ON asset_tag_tag_id = tag_id WHERE asset_tag_asset_id = $asset_id ORDER BY tag_name ASC");
-        while ($row = mysqli_fetch_array($sql_asset_tags)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
 
             $asset_tag_id = intval($row['tag_id']);
             $asset_tag_name = nullable_htmlentities($row['tag_name']);
@@ -517,7 +517,7 @@ if (isset($_GET['asset_id'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php while ($row = mysqli_fetch_array($sql_related_interfaces)) { ?>
+                                    <?php while ($row = mysqli_fetch_assoc($sql_related_interfaces)) { ?>
                                         <?php
                                             $interface_id       = intval($row['interface_id']);
                                             $interface_name     = nullable_htmlentities($row['interface_name']);
@@ -626,7 +626,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_credentials)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_credentials)) {
                                     $credential_id = intval($row['credential_id']);
                                     $credential_name = nullable_htmlentities($row['credential_name']);
                                     $credential_description = nullable_htmlentities($row['credential_description']);
@@ -659,7 +659,7 @@ if (isset($_GET['asset_id'])) {
                                     $credential_tag_name_display_array = array();
                                     $credential_tag_id_array = array();
                                     $sql_credential_tags = mysqli_query($mysqli, "SELECT * FROM credential_tags LEFT JOIN tags ON credential_tags.tag_id = tags.tag_id WHERE credential_id = $credential_id ORDER BY tag_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_credential_tags)) {
+                                    while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
 
                                         $credential_tag_id = intval($row['tag_id']);
                                         $credential_tag_name = nullable_htmlentities($row['tag_name']);
@@ -758,7 +758,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_software)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_software)) {
                                     $software_id = intval($row['software_id']);
                                     $software_name = nullable_htmlentities($row['software_name']);
                                     $software_version = nullable_htmlentities($row['software_version']);
@@ -775,7 +775,7 @@ if (isset($_GET['asset_id'])) {
                                     // Asset Licenses
                                     $asset_licenses_sql = mysqli_query($mysqli, "SELECT asset_id FROM software_assets WHERE software_id = $software_id");
                                     $asset_licenses_array = array();
-                                    while ($row = mysqli_fetch_array($asset_licenses_sql)) {
+                                    while ($row = mysqli_fetch_assoc($asset_licenses_sql)) {
                                         $asset_licenses_array[] = intval($row['asset_id']);
                                         $seat_count = $seat_count + 1;
                                     }
@@ -784,7 +784,7 @@ if (isset($_GET['asset_id'])) {
                                     // Contact Licenses
                                     $contact_licenses_sql = mysqli_query($mysqli, "SELECT contact_id FROM software_contacts WHERE software_id = $software_id");
                                     $contact_licenses_array = array();
-                                    while ($row = mysqli_fetch_array($contact_licenses_sql)) {
+                                    while ($row = mysqli_fetch_assoc($contact_licenses_sql)) {
                                         $contact_licenses_array[] = intval($row['contact_id']);
                                         $seat_count = $seat_count + 1;
                                     }
@@ -844,7 +844,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_documents)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_documents)) {
                                     $document_id = intval($row['document_id']);
                                     $document_name = nullable_htmlentities($row['document_name']);
                                     $document_description = nullable_htmlentities($row['document_description']);
@@ -923,7 +923,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_files)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_files)) {
                                     $file_id = intval($row['file_id']);
                                     $file_name = nullable_htmlentities($row['file_name']);
                                     $file_description = nullable_htmlentities($row['file_description']);
@@ -995,7 +995,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_recurring_tickets)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_recurring_tickets)) {
                                     $recurring_ticket_id = intval($row['recurring_ticket_id']);
                                     $recurring_ticket_subject = nullable_htmlentities($row['recurring_ticket_subject']);
                                     $recurring_ticket_priority = nullable_htmlentities($row['recurring_ticket_priority']);
@@ -1074,7 +1074,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_tickets)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_tickets)) {
                                     $ticket_id = intval($row['ticket_id']);
                                     $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                                     $ticket_number = intval($row['ticket_number']);
@@ -1165,7 +1165,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_linked_services)) {
+                                while ($row = mysqli_fetch_assoc($sql_linked_services)) {
                                     $service_id = intval($row['service_id']);
                                     $service_name = nullable_htmlentities($row['service_name']);
                                     $service_description = nullable_htmlentities($row['service_description']);

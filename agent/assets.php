@@ -248,7 +248,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 AND ( EXISTS (SELECT 1 FROM assets WHERE asset_location_id = location_id  AND $archive_query) OR location_id = $location_filter)
                                 ORDER BY location_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_locations_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations_filter)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -275,7 +275,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -303,7 +303,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 GROUP BY tag_id
                                 HAVING COUNT(asset_tag_asset_id) > 0 OR tag_id IN ($tag_filter)
                             ");
-                            while ($row = mysqli_fetch_array($sql_tags_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_filter)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']); ?>
 
@@ -524,7 +524,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $asset_id = intval($row['asset_id']);
@@ -630,7 +630,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         $asset_tag_name_display_array = array();
                         $asset_tag_id_array = array();
                         $sql_asset_tags = mysqli_query($mysqli, "SELECT * FROM asset_tags LEFT JOIN tags ON asset_tag_tag_id = tag_id WHERE asset_tag_asset_id = $asset_id ORDER BY tag_name ASC");
-                        while ($row = mysqli_fetch_array($sql_asset_tags)) {
+                        while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
 
                             $asset_tag_id = intval($row['tag_id']);
                             $asset_tag_name = nullable_htmlentities($row['tag_name']);

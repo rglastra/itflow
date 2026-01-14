@@ -8,7 +8,7 @@ $year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
 
 $view = isset($_GET['view']) ? $_GET['view'] : 'quarterly';
 
-$currency_row = mysqli_fetch_array(mysqli_query($mysqli,"SELECT company_currency FROM companies WHERE company_id = 1"));
+$currency_row = mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT company_currency FROM companies WHERE company_id = 1"));
 $company_currency = nullable_htmlentities($currency_row['company_currency']);
 
 // GET unique years from expenses, payments and revenues
@@ -30,7 +30,7 @@ $sql_tax = mysqli_query($mysqli, "SELECT `tax_name` FROM `taxes`");
                 <select onchange="this.form.submit()" class="form-control" name="year">
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql_all_years)) {
+                    while ($row = mysqli_fetch_assoc($sql_all_years)) {
                         $all_years = intval($row['all_years']);
                         ?>
                         <option <?php if ($year == $all_years) { echo "selected"; } ?> > <?php echo $all_years; ?></option>
@@ -70,7 +70,7 @@ $sql_tax = mysqli_query($mysqli, "SELECT `tax_name` FROM `taxes`");
                     </thead>
                     <tbody>
                     <?php
-                    while ($row = mysqli_fetch_array($sql_tax)) {
+                    while ($row = mysqli_fetch_assoc($sql_tax)) {
                         $tax_name = sanitizeInput($row['tax_name']);
                         echo "<tr>";
                         echo "<td>" . $row['tax_name'] . "</td>";
@@ -118,4 +118,3 @@ $sql_tax = mysqli_query($mysqli, "SELECT `tax_name` FROM `taxes`");
     </div>
 
 <?php require_once "../../includes/footer.php";
-

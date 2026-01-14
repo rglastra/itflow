@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tasks
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $task_name = nullable_htmlentities($row['task_name']);
 
 // Generate the HTML form content using output buffering.

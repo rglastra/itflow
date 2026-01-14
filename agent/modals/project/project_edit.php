@@ -6,7 +6,7 @@ $project_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_id = $project_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $project_prefix = nullable_htmlentities($row['project_prefix']);
 $project_number = intval($row['project_number']);
 $project_name = nullable_htmlentities($row['project_name']);
@@ -77,7 +77,7 @@ ob_start();
                         "SELECT user_id, user_name FROM users
                         WHERE user_role_id > 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql_project_managers_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_project_managers_select)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']); ?>
                         <option <?php if ($project_manager == $user_id_select) { echo "selected"; } ?> value="<?php echo $user_id_select; ?>"><?php echo $user_name_select; ?></option>
@@ -95,7 +95,7 @@ ob_start();
                     <option value="0">- No Client -</option>
                     <?php
                     $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $select_client_id = intval($row['client_id']);
                         $select_client_name = nullable_htmlentities($row['client_name']);
                         ?>

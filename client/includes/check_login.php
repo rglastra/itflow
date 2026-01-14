@@ -42,7 +42,7 @@ $session_user_id = intval($_SESSION['user_id']);
 
 // Get company info from database
 $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 $session_company_name = $row['company_name'];
 $session_company_country = $row['company_country'];
@@ -53,7 +53,7 @@ $session_company_logo = $row['company_logo'];
 
 // Get contact info
 $contact_sql = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_id = $session_contact_id AND contact_client_id = $session_client_id");
-$contact = mysqli_fetch_array($contact_sql);
+$contact = mysqli_fetch_assoc($contact_sql);
 
 $session_contact_name = sanitizeInput($contact['contact_name']);
 $session_contact_initials = initials($session_contact_name);
@@ -74,6 +74,6 @@ if ($contact['contact_billing'] == 1) {
 
 // Get client info
 $client_sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $session_client_id");
-$client = mysqli_fetch_array($client_sql);
+$client = mysqli_fetch_assoc($client_sql);
 
 $session_client_name = $client['client_name'];

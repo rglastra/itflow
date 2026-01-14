@@ -21,7 +21,7 @@ $invoices_sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_clie
 
 // Payment Provider Active Query
 $sql_payment_provider = mysqli_query($mysqli, "SELECT * FROM payment_providers WHERE payment_provider_active = 1 LIMIT 1;");
-$row = mysqli_fetch_array($sql_payment_provider);
+$row = mysqli_fetch_assoc($sql_payment_provider);
 $payment_provider_id = intval($row['payment_provider_id']);
 $payment_provider_active = intval($row['payment_provider_active']);
 $payment_provider_threshold = floatval($row['payment_provider_threshold']);
@@ -29,7 +29,7 @@ $payment_provider_threshold = floatval($row['payment_provider_threshold']);
 // Saved Payment Methods
 $sql_saved_payment_methods = mysqli_query($mysqli, "
     SELECT * FROM client_saved_payment_methods
-    LEFT JOIN payment_providers 
+    LEFT JOIN payment_providers
         ON client_saved_payment_methods.saved_payment_provider_id = payment_providers.payment_provider_id
     WHERE saved_payment_client_id = $session_client_id
     AND payment_provider_active = 1;
@@ -39,12 +39,12 @@ $sql_saved_payment_methods = mysqli_query($mysqli, "
 // Billing Card Queries
  //Add up all the payments for the invoice and get the total amount paid to the invoice
 $sql_invoice_amounts = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_amounts FROM invoices WHERE invoice_client_id = $session_client_id AND invoice_status != 'Draft' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable'");
-$row = mysqli_fetch_array($sql_invoice_amounts);
+$row = mysqli_fetch_assoc($sql_invoice_amounts);
 
 $invoice_amounts = floatval($row['invoice_amounts']);
 
 $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_client_id = $session_client_id");
-$row = mysqli_fetch_array($sql_amount_paid);
+$row = mysqli_fetch_assoc($sql_amount_paid);
 
 $amount_paid = floatval($row['amount_paid']);
 
@@ -61,11 +61,11 @@ $balance = $invoice_amounts - $amount_paid;
         <button type="button" class="btn btn-outline-success dropdown-toggle float-right" data-toggle="dropdown"><i class="fa fa-fw fa-credit-card mr-2"></i>Pay Balance <strong>(<?php echo numfmt_format_currency($currency_format, $balance, $session_company_currency); ?>)</strong></button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="//<?php echo $config_base_url ?>/guest/guest_pay_invoice_stripe.php?invoice_id=<?php echo "$invoice_id&url_key=$invoice_url_key"; ?>">Enter Card Manually</a>
-            <?php 
+            <?php
             if (mysqli_num_rows($sql_saved_payment_methods) > 0) { ?>
                 <h6 class="dropdown-header text-left">Pay with a Saved Card</h6>
             <?php
-            while ($row = mysqli_fetch_array($sql_saved_payment_methods)) {
+            while ($row = mysqli_fetch_assoc($sql_saved_payment_methods)) {
                 $saved_payment_id = intval($row['saved_payment_id']);
                 $saved_payment_description = nullable_htmlentities($row['saved_payment_description']);
                 $payment_provider_name = nullable_htmlentities($row['payment_provider_name']);
@@ -96,7 +96,7 @@ $balance = $invoice_amounts - $amount_paid;
             <tbody>
 
             <?php
-            while ($row = mysqli_fetch_array($invoices_sql)) {
+            while ($row = mysqli_fetch_assoc($invoices_sql)) {
                 $invoice_id = intval($row['invoice_id']);
                 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                 $invoice_number = intval($row['invoice_number']);
@@ -150,17 +150,17 @@ $balance = $invoice_amounts - $amount_paid;
                             (
                                 $payment_provider_threshold == 0 ||
                                 $payment_provider_threshold > $invoice_amount
-                            ) 
+                            )
                         ){ ?>
                         <button type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-credit-card mr-2"></i>Pay</button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="//<?php echo $config_base_url ?>/guest/guest_pay_invoice_stripe.php?invoice_id=<?php echo "$invoice_id&url_key=$invoice_url_key"; ?>">Enter Card Manually</a>
-                            
-                            <?php 
+
+                            <?php
                             // Saved Payment Methods
                             $sql_saved_payment_methods = mysqli_query($mysqli, "
                                 SELECT * FROM client_saved_payment_methods
-                                LEFT JOIN payment_providers 
+                                LEFT JOIN payment_providers
                                     ON client_saved_payment_methods.saved_payment_provider_id = payment_providers.payment_provider_id
                                 WHERE saved_payment_client_id = $session_client_id
                                 AND payment_provider_active = 1;
@@ -168,7 +168,7 @@ $balance = $invoice_amounts - $amount_paid;
                             if (mysqli_num_rows($sql_saved_payment_methods) > 0) { ?>
                                 <h6 class="dropdown-header text-left">Pay with a Saved Card</h6>
                             <?php
-                            while ($row = mysqli_fetch_array($sql_saved_payment_methods)) {
+                            while ($row = mysqli_fetch_assoc($sql_saved_payment_methods)) {
                                 $saved_payment_id = intval($row['saved_payment_id']);
                                 $saved_payment_description = nullable_htmlentities($row['saved_payment_description']);
                                 $payment_icon = "fas fa-credit-card"; // default icon
@@ -207,4 +207,3 @@ $balance = $invoice_amounts - $amount_paid;
 
 <?php
 require_once "includes/footer.php";
-

@@ -21,11 +21,11 @@
                                 <?php
 
                                 $sql_assets_select = mysqli_query($mysqli, "SELECT * FROM assets
-                                    WHERE asset_client_id = $client_id 
+                                    WHERE asset_client_id = $client_id
                                     AND asset_archived_at IS NULL
                                     ORDER BY asset_name ASC"
                                 );
-                                while ($row = mysqli_fetch_array($sql_assets_select)) {
+                                while ($row = mysqli_fetch_assoc($sql_assets_select)) {
                                     $asset_id = intval($row['asset_id']);
                                     $asset_name = nullable_htmlentities($row['asset_name']);
 
@@ -47,7 +47,7 @@
 
                             $linked_assets = array();
 
-                            while ($row = mysqli_fetch_array($sql_assets)) {
+                            while ($row = mysqli_fetch_assoc($sql_assets)) {
                                 $asset_id = intval($row['asset_id']);
                                 $asset_name = nullable_htmlentities($row['asset_name']);
 

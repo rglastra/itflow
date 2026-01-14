@@ -5,7 +5,7 @@ $ticket_id = intval($_GET['ticket_id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $client_id = intval($row['ticket_client_id']);
@@ -36,7 +36,7 @@ ob_start();
                 <select class="form-control select2" name="new_client_id" id="client_select" required>
                     <?php
                     $sql_clients = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_lead = 0 AND client_archived_at IS NULL ORDER BY client_name ASC");
-                    while ($row = mysqli_fetch_array($sql_clients)) {
+                    while ($row = mysqli_fetch_assoc($sql_clients)) {
                         $client_id_select = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         ?>

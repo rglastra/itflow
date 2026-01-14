@@ -2,7 +2,7 @@
 
 // Query Settings
 $sql_settings = mysqli_query($mysqli, "SELECT * FROM settings WHERE company_id = 1");
-$row = mysqli_fetch_array($sql_settings);
+$row = mysqli_fetch_assoc($sql_settings);
 
 // Database version
 DEFINE("CURRENT_DATABASE_VERSION", $row['config_current_database_version']);

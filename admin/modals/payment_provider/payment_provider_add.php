@@ -79,7 +79,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $account_id = intval($row['account_id']);
                                 $account_name = nullable_htmlentities($row['account_name']);
                                 ?>
@@ -125,7 +125,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = 0 AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -149,7 +149,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Expense' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $category_id = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
                                 ?>

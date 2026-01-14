@@ -77,7 +77,7 @@ if (isset($_POST['bulk_force_recurring_tickets'])) {
             $sql = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
 
             if (mysqli_num_rows($sql) > 0) {
-                $row = mysqli_fetch_array($sql);
+                $row = mysqli_fetch_assoc($sql);
                 $subject = sanitizeInput($row['recurring_ticket_subject']);
                 $details = mysqli_real_escape_string($mysqli, $row['recurring_ticket_details']);
                 $priority = sanitizeInput($row['recurring_ticket_priority']);
@@ -136,7 +136,7 @@ if (isset($_POST['bulk_force_recurring_tickets'])) {
                 LEFT JOIN contacts ON ticket_contact_id = contact_id
                 WHERE ticket_id = $id"
                 );
-                $row = mysqli_fetch_array($sql);
+                $row = mysqli_fetch_assoc($sql);
 
                 $contact_name = sanitizeInput($row['contact_name']);
                 $contact_email = sanitizeInput($row['contact_email']);
@@ -215,7 +215,7 @@ if (isset($_GET['force_recurring_ticket'])) {
     $sql = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
 
     if (mysqli_num_rows($sql) > 0) {
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $subject = sanitizeInput($row['recurring_ticket_subject']);
         $details = mysqli_real_escape_string($mysqli, $row['recurring_ticket_details']);
         $priority = sanitizeInput($row['recurring_ticket_priority']);
@@ -274,7 +274,7 @@ if (isset($_GET['force_recurring_ticket'])) {
                 LEFT JOIN contacts ON ticket_contact_id = contact_id
                 WHERE ticket_id = $id"
         );
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -352,7 +352,7 @@ if (isset($_GET['delete_recurring_ticket'])) {
 
     // Get Scheduled Ticket Subject Ticket Prefix, Number and Client ID for logging and alert message
     $sql = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $subject = sanitizeInput($row['recurring_ticket_subject']);
     $frequency = sanitizeInput($row['recurring_ticket_frequency']);
 
@@ -414,7 +414,7 @@ if (isset($_POST['bulk_assign_recurring_ticket'])) {
             $recurring_ticket_id = intval($recurring_ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $recurring_ticket_name = sanitizeInput($row['recurring_ticket_name']);
             $recurring_ticket_subject = sanitizeInput($row['recurring_ticket_subject']);
@@ -427,7 +427,7 @@ if (isset($_POST['bulk_assign_recurring_ticket'])) {
             } else {
                 // Get & verify assigned agent details
                 $agent_details_sql = mysqli_query($mysqli, "SELECT user_name, user_email FROM users LEFT JOIN user_settings ON users.user_id = user_settings.user_id WHERE users.user_id = $assign_to");
-                $agent_details = mysqli_fetch_array($agent_details_sql);
+                $agent_details = mysqli_fetch_assoc($agent_details_sql);
 
                 $agent_name = sanitizeInput($agent_details['user_name']);
                 $agent_email = sanitizeInput($agent_details['user_email']);
@@ -502,7 +502,7 @@ if (isset($_POST['bulk_edit_recurring_ticket_priority'])) {
             $recurring_ticket_id = intval($recurring_ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $recurring_ticket_subject = sanitizeInput($row['recurring_ticket_subject']);
             $original_recurring_ticket_priority = sanitizeInput($row['recurring_ticket_priority']);
@@ -539,7 +539,7 @@ if (isset($_POST['bulk_edit_recurring_ticket_category'])) {
             $recurring_ticket_id = intval($recurring_ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT recurring_ticket_subject, category_name, recurring_ticket_client_id FROM recurring_tickets LEFT JOIN categories ON recurring_ticket_category = category_id WHERE recurring_ticket_id = $recurring_ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $recurring_ticket_subject = sanitizeInput($row['recurring_ticket_subject']);
             $previous_recurring_ticket_category_name = sanitizeInput($row['category_name']);
@@ -583,7 +583,7 @@ if (isset($_POST['bulk_edit_recurring_ticket_billable'])) {
             $recurring_ticket_id = intval($recurring_ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT recurring_ticket_subject, recurring_ticket_client_id FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $recurring_ticket_subject = sanitizeInput($row['recurring_ticket_subject']);
             $previous_recurring_ticket_billable = intval($row['recurring_ticket_billable']);
@@ -624,7 +624,7 @@ if (isset($_POST['bulk_edit_recurring_ticket_next_run_date'])) {
             $recurring_ticket_id = intval($recurring_ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT recurring_ticket_subject, recurring_ticket_client_id FROM recurring_tickets WHERE recurring_ticket_id = $recurring_ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $recurring_ticket_subject = sanitizeInput($row['recurring_ticket_subject']);
             $previous_recurring_ticket_next_run_date = sanitizeInput($row['recurring_ticket_next_run']);

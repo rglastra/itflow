@@ -64,7 +64,7 @@ $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, asset_type FRO
                             <option value="0">- No Category -</option>
                             <?php
                             $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL");
-                            while ($row = mysqli_fetch_array($sql_categories)) {
+                            while ($row = mysqli_fetch_assoc($sql_categories)) {
                                 $category_id = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
 
@@ -89,7 +89,7 @@ $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, asset_type FRO
                             <option value="0">- None -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_assets)) {
+                            while ($row = mysqli_fetch_assoc($sql_assets)) {
                                 $asset_id = intval($row['asset_id']);
                                 $asset_name = sanitizeInput($row['asset_name']);
                                 $asset_type = sanitizeInput($row['asset_type']);
@@ -116,4 +116,3 @@ $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, asset_type FRO
 
 <?php
 require_once 'includes/footer.php';
-

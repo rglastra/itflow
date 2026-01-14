@@ -26,7 +26,7 @@
                                 Clients
                                 <?php if ($num_active_clients) { ?>
                                     <span class="right badge text-light" data-toggle="tooltip" title="Active Clients"><?php echo $num_active_clients; ?></span>
-                                <?php } ?>      
+                                <?php } ?>
                             </p>
                         </a>
                     </li>
@@ -195,13 +195,13 @@
                         </a>
                     </li>
                 <?php } ?>
-                
+
                 <?php
                 $sql_custom_links = mysqli_query($mysqli, "SELECT * FROM custom_links WHERE custom_link_location = 1 AND custom_link_archived_at IS NULL
                     ORDER BY custom_link_order ASC, custom_link_name ASC"
                 );
 
-                while ($row = mysqli_fetch_array($sql_custom_links)) {
+                while ($row = mysqli_fetch_assoc($sql_custom_links)) {
                     $custom_link_name = nullable_htmlentities($row['custom_link_name']);
                     $custom_link_uri = sanitize_url($row['custom_link_uri']);
                     $custom_link_icon = nullable_htmlentities($row['custom_link_icon']);

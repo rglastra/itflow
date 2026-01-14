@@ -64,7 +64,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $vendor_template_id = intval($row['vendor_template_id']);
                     $vendor_template_name = nullable_htmlentities($row['vendor_template_name']);
                     $vendor_template_description = nullable_htmlentities($row['vendor_template_description']);

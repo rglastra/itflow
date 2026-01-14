@@ -6,7 +6,7 @@ $software_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM software WHERE software_id = $software_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $software_name = nullable_htmlentities($row['software_name']);
 $software_description = nullable_htmlentities($row['software_description']);
 $software_version = nullable_htmlentities($row['software_version']);
@@ -26,7 +26,7 @@ $seat_count = 0;
 // Device Licenses
 $asset_licenses_sql = mysqli_query($mysqli, "SELECT asset_id FROM software_assets WHERE software_id = $software_id");
 $asset_licenses_array = array();
-while ($row = mysqli_fetch_array($asset_licenses_sql)) {
+while ($row = mysqli_fetch_assoc($asset_licenses_sql)) {
     $asset_licenses_array[] = intval($row['asset_id']);
     $seat_count = $seat_count + 1;
 }
@@ -35,7 +35,7 @@ $asset_licenses = implode(',', $asset_licenses_array);
 // User Licenses
 $contact_licenses_sql = mysqli_query($mysqli, "SELECT contact_id FROM software_contacts WHERE software_id = $software_id");
 $contact_licenses_array = array();
-while ($row = mysqli_fetch_array($contact_licenses_sql)) {
+while ($row = mysqli_fetch_assoc($contact_licenses_sql)) {
     $contact_licenses_array[] = intval($row['contact_id']);
     $seat_count = $seat_count + 1;
 }
@@ -119,12 +119,12 @@ ob_start();
                             <option value="">- Select Vendor -</option>
                             <?php
                             $vendor_sql = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = $client_id AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
-                                while ($row = mysqli_fetch_array($vendor_sql)) {
+                                while ($row = mysqli_fetch_assoc($vendor_sql)) {
                                     $vendor_id = $row['vendor_id'];
                                     $vendor_name = $row['vendor_name'];
                                 ?>
                                 <option <?php if ($software_vendor_id == $vendor_id) { echo "selected"; } ?> value="<?php echo $vendor_id; ?>"><?php echo $vendor_name; ?></option>
-                            <?php 
+                            <?php
                             }
                             ?>
                         </select>
@@ -233,7 +233,7 @@ ob_start();
                     <?php
                     $sql_assets_select = mysqli_query($mysqli, "SELECT * FROM assets LEFT JOIN contacts ON asset_contact_id = contact_id WHERE (asset_archived_at > '$software_created_at' OR asset_archived_at IS NULL) AND asset_client_id = $client_id ORDER BY asset_archived_at ASC, asset_name ASC");
 
-                    while ($row = mysqli_fetch_array($sql_assets_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets_select)) {
                         $asset_id_select = intval($row['asset_id']);
                         $asset_name_select = nullable_htmlentities($row['asset_name']);
                         $asset_type_select = nullable_htmlentities($row['asset_type']);
@@ -273,7 +273,7 @@ ob_start();
                     <?php
                     $sql_contacts_select = mysqli_query($mysqli, "SELECT * FROM contacts WHERE (contact_archived_at > '$software_created_at' OR contact_archived_at IS NULL) AND contact_client_id = $client_id ORDER BY contact_archived_at ASC, contact_name ASC");
 
-                    while ($row = mysqli_fetch_array($sql_contacts_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_contacts_select)) {
                         $contact_id_select = intval($row['contact_id']);
                         $contact_name_select = nullable_htmlentities($row['contact_name']);
                         $contact_email_select = nullable_htmlentities($row['contact_email']);

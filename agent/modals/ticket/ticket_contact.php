@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tickets
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $contact_id = intval($row['ticket_contact_id']);
@@ -42,7 +42,7 @@ ob_start();
                     <option value="">No One</option>
                     <?php
                     $sql_client_contacts_select = mysqli_query($mysqli, "SELECT contact_id, contact_name, contact_title, contact_primary, contact_technical FROM contacts WHERE contact_client_id = $client_id AND contact_archived_at IS NULL ORDER BY contact_primary DESC, contact_technical DESC, contact_name ASC");
-                    while ($row = mysqli_fetch_array($sql_client_contacts_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_client_contacts_select)) {
                         $contact_id_select = intval($row['contact_id']);
                         $contact_name_select = nullable_htmlentities($row['contact_name']);
                         $contact_primary_select = intval($row['contact_primary']);
@@ -65,7 +65,7 @@ ob_start();
                         }
 
                         ?>
-                        <option 
+                        <option
                             value="<?php echo $contact_id_select; ?>"
                             <?php if ($contact_id_select  == $contact_id) { echo "selected"; } ?>
                             >

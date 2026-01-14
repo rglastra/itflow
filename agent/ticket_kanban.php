@@ -7,7 +7,7 @@ $kanban = [];
 // Fetch all statuses
 $status_sql = mysqli_query($mysqli, "SELECT * FROM ticket_statuses where ticket_status_active = 1 AND  ticket_status_id != 5 ORDER BY ticket_status_order");
 $statuses = [];
-while ($status_row = mysqli_fetch_array($status_sql)) {
+while ($status_row = mysqli_fetch_assoc($status_sql)) {
     $id = $status_row['ticket_status_id'];
     $name = nullable_htmlentities($status_row['ticket_status_name']);
     $kanban_order = $status_row['ticket_status_order'];
@@ -19,13 +19,13 @@ while ($status_row = mysqli_fetch_array($status_sql)) {
     $statuses[$id]->order = $kanban_order; // Store the order
 }
 
-$ordering_snippet = "ORDER BY 
-    CASE 
+$ordering_snippet = "ORDER BY
+    CASE
         WHEN ticket_priority = 'High' THEN 1
         WHEN ticket_priority = 'Medium' THEN 2
         WHEN ticket_priority = 'Low' THEN 3
         ELSE 4
-    END, 
+    END,
     ticket_id DESC";
 
 if ($config_ticket_ordering === 1) {
@@ -53,7 +53,7 @@ $sql = mysqli_query(
     $ordering_snippet"
 );
 
-while ($row = mysqli_fetch_array($sql)) {
+while ($row = mysqli_fetch_assoc($sql)) {
     $id = $row['ticket_status_id'];
     $ticket_order = $row['ticket_order'];
 
@@ -77,7 +77,7 @@ $kanban = array_values($statuses);
 <div class="container-fluid" id="kanban-board">
     <?php
     foreach($kanban as $kanban_column){
-        
+
     ?>
     <div class="kanban-column card card-dark" data-status-id="<?=htmlspecialchars($kanban_column->id); ?>">
         <h6 class="panel-title"><?=htmlspecialchars($kanban_column->name); ?></h6>
@@ -92,7 +92,7 @@ $kanban = array_values($statuses);
                     $ticket_priority_color = "info";
                 }
             ?>
-            
+
             <div
                 class="task grab-cursor"
                 data-ticket-id= "<?=$item['ticket_id']?>"
@@ -118,7 +118,7 @@ $kanban = array_values($statuses);
                                 echo $item['client_name'];
                             }
                         } else {
-                            echo $item['contact_name']; 
+                            echo $item['contact_name'];
                         }
                     ?>
                 </b>
@@ -135,7 +135,7 @@ $kanban = array_values($statuses);
                 <i class="fa fa-fw fa-calendar-check text-secondary mr-2"></i><span class="badge badge-warning"><?=$item['ticket_schedule']?></span>
                 <?php } ?>
             </div>
-            
+
             <?php
             }
             ?>

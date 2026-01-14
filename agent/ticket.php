@@ -48,7 +48,7 @@ if (isset($_GET['ticket_id'])) {
         require_once "../includes/footer.php";
     } else {
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $client_id = intval($row['client_id']);
         $client_name = nullable_htmlentities($row['client_name']);
         $client_type = nullable_htmlentities($row['client_type']);
@@ -186,28 +186,28 @@ if (isset($_GET['ticket_id'])) {
 
         if($project_manager) {
             $sql_project_manager = mysqli_query($mysqli,"SELECT * FROM users WHERE user_id = $project_manager");
-            $row = mysqli_fetch_array($sql_project_manager);
+            $row = mysqli_fetch_assoc($sql_project_manager);
             $project_manager_name = nullable_htmlentities($row['user_name']);
         }
 
         if ($contact_id) {
             //Get Contact Ticket Stats
             $ticket_related_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS ticket_related_open FROM tickets WHERE ticket_status != 'Closed' AND ticket_contact_id = $contact_id ");
-            $row = mysqli_fetch_array($ticket_related_open);
+            $row = mysqli_fetch_assoc($ticket_related_open);
             $ticket_related_open = intval($row['ticket_related_open']);
 
             $ticket_related_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS ticket_related_closed  FROM tickets WHERE ticket_status = 'Closed' AND ticket_contact_id = $contact_id ");
-            $row = mysqli_fetch_array($ticket_related_closed);
+            $row = mysqli_fetch_assoc($ticket_related_closed);
             $ticket_related_closed = intval($row['ticket_related_closed']);
 
             $ticket_related_total = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS ticket_related_total FROM tickets WHERE ticket_contact_id = $contact_id ");
-            $row = mysqli_fetch_array($ticket_related_total);
+            $row = mysqli_fetch_assoc($ticket_related_total);
             $ticket_related_total = intval($row['ticket_related_total']);
         }
 
         //Get Total Ticket Time
         $ticket_total_reply_time = mysqli_query($mysqli, "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(ticket_reply_time_worked))) AS ticket_total_reply_time FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_total_reply_time);
+        $row = mysqli_fetch_assoc($ticket_total_reply_time);
         $ticket_total_reply_time = nullable_htmlentities($row['ticket_total_reply_time']);
 
 
@@ -215,7 +215,7 @@ if (isset($_GET['ticket_id'])) {
         $client_tag_name_display_array = array();
         $client_tag_id_array = array();
         $sql_client_tags = mysqli_query($mysqli, "SELECT * FROM client_tags LEFT JOIN tags ON client_tags.tag_id = tags.tag_id WHERE client_id = $client_id ORDER BY tag_name ASC");
-        while ($row = mysqli_fetch_array($sql_client_tags)) {
+        while ($row = mysqli_fetch_assoc($sql_client_tags)) {
 
             $client_tag_id = intval($row['tag_id']);
             $client_tag_name = nullable_htmlentities($row['tag_name']);
@@ -236,23 +236,23 @@ if (isset($_GET['ticket_id'])) {
 
         // Get the number of ticket Responses
         $ticket_responses_sql = mysqli_query($mysqli, "SELECT COUNT(ticket_reply_id) AS ticket_responses FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_responses_sql);
+        $row = mysqli_fetch_assoc($ticket_responses_sql);
         $ticket_responses = intval($row['ticket_responses']);
 
         $ticket_all_comments_sql = mysqli_query($mysqli, "SELECT COUNT(ticket_reply_id) AS ticket_all_comments_count FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_all_comments_sql);
+        $row = mysqli_fetch_assoc($ticket_all_comments_sql);
         $ticket_all_comments_count = intval($row['ticket_all_comments_count']);
 
         $ticket_internal_notes_sql = mysqli_query($mysqli, "SELECT COUNT(ticket_reply_id) AS ticket_internal_notes_count FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_type = 'Internal' AND ticket_reply_ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_internal_notes_sql);
+        $row = mysqli_fetch_assoc($ticket_internal_notes_sql);
         $ticket_internal_notes_count = intval($row['ticket_internal_notes_count']);
 
         $ticket_public_comments_sql = mysqli_query($mysqli, "SELECT COUNT(ticket_reply_id) AS ticket_public_comments_count FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND (ticket_reply_type = 'Public' OR ticket_reply_type = 'Client') AND ticket_reply_ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_public_comments_sql);
+        $row = mysqli_fetch_assoc($ticket_public_comments_sql);
         $ticket_public_comments_count = intval($row['ticket_public_comments_count']);
 
         $ticket_events_sql = mysqli_query($mysqli, "SELECT COUNT(log_id) AS ticket_events_count FROM logs WHERE log_type = 'Ticket' AND  log_entity_id = $ticket_id");
-        $row = mysqli_fetch_array($ticket_events_sql);
+        $row = mysqli_fetch_assoc($ticket_events_sql);
         $ticket_events_count = intval($row['ticket_events_count']);
 
 
@@ -574,7 +574,7 @@ if (isset($_GET['ticket_id'])) {
                         <?php echo $ticket_details; ?>
 
                         <?php
-                        while ($ticket_attachment = mysqli_fetch_array($sql_ticket_attachments)) {
+                        while ($ticket_attachment = mysqli_fetch_assoc($sql_ticket_attachments)) {
                             $name = nullable_htmlentities($ticket_attachment['ticket_attachment_name']);
                             $ref_name = nullable_htmlentities($ticket_attachment['ticket_attachment_reference_name']);
                             echo "<hr class=''><i class='fas fa-fw fa-paperclip text-secondary mr-1'></i>$name | <a href='../uploads/tickets/$ticket_id/$ref_name' download='$name'><i class='fas fa-fw fa-download mr-1'></i>Download</a> | <a target='_blank' href='../uploads/tickets/$ticket_id/$ref_name'><i class='fas fa-fw fa-external-link-alt mr-1'></i>View</a>";
@@ -634,7 +634,7 @@ if (isset($_GET['ticket_id'])) {
                                                     $status_snippet = "AND ticket_status_id != 4";
                                                 }
                                                 $sql_ticket_status = mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_id != 1 AND ticket_status_id != 5 AND ticket_status_active = 1 $status_snippet ORDER BY ticket_status_order");
-                                                while ($row = mysqli_fetch_array($sql_ticket_status)) {
+                                                while ($row = mysqli_fetch_assoc($sql_ticket_status)) {
                                                     $ticket_status_id_select = intval($row['ticket_status_id']);
                                                     $ticket_status_name_select = nullable_htmlentities($row['ticket_status_name']); ?>
 
@@ -684,7 +684,7 @@ if (isset($_GET['ticket_id'])) {
                 <!-- Ticket replies -->
                 <?php
 
-                while ($row = mysqli_fetch_array($sql_ticket_replies)) {
+                while ($row = mysqli_fetch_assoc($sql_ticket_replies)) {
                     $ticket_reply_id = intval($row['ticket_reply_id']);
                     $ticket_reply = $purifier->purify($row['ticket_reply']);
                     $ticket_reply_type = nullable_htmlentities($row['ticket_reply_type']);
@@ -789,7 +789,7 @@ if (isset($_GET['ticket_id'])) {
                             <?php echo $ticket_reply; ?>
 
                             <?php
-                            while ($ticket_attachment = mysqli_fetch_array($sql_ticket_reply_attachments)) {
+                            while ($ticket_attachment = mysqli_fetch_assoc($sql_ticket_reply_attachments)) {
                                 $name = nullable_htmlentities($ticket_attachment['ticket_attachment_name']);
                                 $ref_name = nullable_htmlentities($ticket_attachment['ticket_attachment_reference_name']);
                                 echo "<hr><i class='fas fa-fw fa-paperclip text-secondary mr-1'></i>$name | <a href='../uploads/tickets/$ticket_id/$ref_name' download='$name'><i class='fas fa-fw fa-download mr-1'></i>Download</a> | <a target='_blank' href='../uploads/tickets/$ticket_id/$ref_name'><i class='fas fa-fw fa-external-link-alt mr-1'></i>View</a>";
@@ -829,7 +829,7 @@ if (isset($_GET['ticket_id'])) {
 
                         <!-- Created by -->
                         <?php if (!empty($ticket_created_by)) {
-                            $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT user_name FROM users WHERE user_id = $ticket_created_by"));
+                            $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT user_name FROM users WHERE user_id = $ticket_created_by"));
                             $ticket_created_by_display = nullable_htmlentities($row['user_name']);
                             ?>
 
@@ -888,7 +888,7 @@ if (isset($_GET['ticket_id'])) {
                             $ticket_closed_by_display = 'User';
                             if (!empty($ticket_closed_by)) {
                                 $sql_closed_by = mysqli_query($mysqli, "SELECT user_name FROM users WHERE user_id = $ticket_closed_by");
-                                $row = mysqli_fetch_array($sql_closed_by);
+                                $row = mysqli_fetch_assoc($sql_closed_by);
                                 $ticket_closed_by_display = nullable_htmlentities($row['user_name']);
                             }
                             ?>
@@ -961,7 +961,7 @@ if (isset($_GET['ticket_id'])) {
 
                             <table class="table table-sm" id="tasks">
                                 <?php
-                                while ($row = mysqli_fetch_array($sql_tasks)) {
+                                while ($row = mysqli_fetch_assoc($sql_tasks)) {
                                     $task_id = intval($row['task_id']);
                                     $task_name = nullable_htmlentities($row['task_name']);
                                     //$task_description = nullable_htmlentities($row['task_description']); // not in db yet
@@ -985,7 +985,7 @@ if (isset($_GET['ticket_id'])) {
                                         FROM task_approvals WHERE approval_task_id = $task_id AND approval_status = 'pending'
                                     ");
 
-                                    while ($approval = mysqli_fetch_array($approval_rows)) {
+                                    while ($approval = mysqli_fetch_assoc($approval_rows)) {
 
                                         $scope = nullable_htmlentities($approval['approval_scope']);
                                         $type = nullable_htmlentities($approval['approval_type']);
@@ -1160,7 +1160,7 @@ if (isset($_GET['ticket_id'])) {
 
                             <?php
                             // Get Watchers
-                            while ($row = mysqli_fetch_array($sql_ticket_watchers)) {
+                            while ($row = mysqli_fetch_assoc($sql_ticket_watchers)) {
                                 $watcher_id = intval($row['watcher_id']);
                                 $ticket_watcher_email = nullable_htmlentities($row['watcher_email']);
                                 ?>
@@ -1200,7 +1200,7 @@ if (isset($_GET['ticket_id'])) {
                                 </a>
                             </div>
                             <?php
-                            while ($row = mysqli_fetch_array($sql_additional_assets)) {
+                            while ($row = mysqli_fetch_assoc($sql_additional_assets)) {
                                 $additional_asset_id = intval($row['asset_id']);
                                 $additional_asset_name = nullable_htmlentities($row['asset_name']);
                                 $additional_asset_type = nullable_htmlentities($row['asset_type']);

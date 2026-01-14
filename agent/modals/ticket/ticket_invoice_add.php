@@ -19,7 +19,7 @@ $ticket_sql = mysqli_query(
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($ticket_sql);
+$row = mysqli_fetch_assoc($ticket_sql);
 $client_id = intval($row['client_id']);
 $client_rate = floatval($row['client_rate']);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
@@ -71,7 +71,7 @@ $location_phone = formatPhoneNumber($row['location_phone']);
 
 //Get Total Ticket Time
 $ticket_total_reply_time = mysqli_query($mysqli, "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(ticket_reply_time_worked))) AS ticket_total_reply_time FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_ticket_id = $ticket_id");
-$row = mysqli_fetch_array($ticket_total_reply_time);
+$row = mysqli_fetch_assoc($ticket_total_reply_time);
 $ticket_total_reply_time = nullable_htmlentities($row['ticket_total_reply_time']);
 
 $sql_invoices = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_status LIKE 'Draft' AND invoice_client_id = $client_id ORDER BY invoice_number ASC");
@@ -122,7 +122,7 @@ ob_start();
                                 <option value="0">- Select an Existing Invoice -</option>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_invoices)) {
+                                while ($row = mysqli_fetch_assoc($sql_invoices)) {
                                     $invoice_id = intval($row['invoice_id']);
                                     $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                                     $invoice_number = intval($row['invoice_number']);
@@ -170,7 +170,7 @@ ob_start();
                                     <?php
 
                                     $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql)) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                         ?>
@@ -299,7 +299,7 @@ ob_start();
                     <?php
 
                     $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE tax_archived_at IS NULL ORDER BY tax_name ASC");
-                    while ($row = mysqli_fetch_array($taxes_sql)) {
+                    while ($row = mysqli_fetch_assoc($taxes_sql)) {
                         $tax_id_select = intval($row['tax_id']);
                         $tax_name = nullable_htmlentities($row['tax_name']);
                         $tax_percent = floatval($row['tax_percent']);

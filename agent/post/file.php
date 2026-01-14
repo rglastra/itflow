@@ -110,7 +110,7 @@ if (isset($_POST['rename_file'])) {
 
     // Get File Details Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $old_file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -134,7 +134,7 @@ if (isset($_POST['move_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -159,7 +159,7 @@ if (isset($_GET['archive_file'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -204,7 +204,7 @@ if (isset($_POST['delete_file'])) {
     $file_id = intval($_POST['file_id']);
 
     $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql_file);
+    $row = mysqli_fetch_assoc($sql_file);
     $client_id = intval($row['file_client_id']);
     $file_name = sanitizeInput($row['file_name']);
     $file_reference_name = sanitizeInput($row['file_reference_name']);
@@ -247,7 +247,7 @@ if (isset($_POST['bulk_archive_files'])) {
             $file_id = intval($file_id);
 
             $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-            $row = mysqli_fetch_array($sql_file);
+            $row = mysqli_fetch_assoc($sql_file);
             $client_id = intval($row['file_client_id']);
             $file_name = sanitizeInput($row['file_name']);
 
@@ -269,7 +269,7 @@ if (isset($_POST['bulk_archive_files'])) {
             $document_id = intval($document_id);
             // Get document name for logging
             $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $document_name = sanitizeInput($row['document_name']);
             $client_id = intval($row['document_client_id']);
 
@@ -306,7 +306,7 @@ if (isset($_POST['bulk_delete_files'])) {
             $file_id = intval($file_id);
 
             $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-            $row = mysqli_fetch_array($sql_file);
+            $row = mysqli_fetch_assoc($sql_file);
             $client_id = intval($row['file_client_id']);
             $file_name = sanitizeInput($row['file_name']);
             $file_reference_name = sanitizeInput($row['file_reference_name']);
@@ -340,7 +340,7 @@ if (isset($_POST['bulk_delete_files'])) {
             $document_id = intval($document_id);
             // Get Document Name and Client ID for logging
             $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_id = intval($row['document_client_id']);
             $document_name = sanitizeInput($row['document_name']);
 
@@ -383,7 +383,7 @@ if (isset($_POST['bulk_restore_files'])) {
             $file_id = intval($file_id);
 
             $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-            $row = mysqli_fetch_array($sql_file);
+            $row = mysqli_fetch_assoc($sql_file);
             $client_id = intval($row['file_client_id']);
             $file_name = sanitizeInput($row['file_name']);
 
@@ -405,7 +405,7 @@ if (isset($_POST['bulk_restore_files'])) {
             $document_id = intval($document_id);
             // Get document name for logging
             $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $document_name = sanitizeInput($row['document_name']);
             $client_id = intval($row['document_client_id']);
 
@@ -440,7 +440,7 @@ if (isset($_POST['bulk_move_files'])) {
     // If moving into a real folder, get folder name + client for logging
     if ($folder_id > 0) {
         $sql = mysqli_query($mysqli,"SELECT folder_name, folder_client_id FROM folders WHERE folder_id = $folder_id");
-        if ($row = mysqli_fetch_array($sql)) {
+        if ($row = mysqli_fetch_assoc($sql)) {
             $folder_name   = sanitizeInput($row['folder_name']);
             $log_client_id = intval($row['folder_client_id']);
         }
@@ -545,7 +545,7 @@ if (isset($_POST['link_asset_to_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -572,7 +572,7 @@ if (isset($_GET['unlink_asset_from_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 

@@ -114,7 +114,7 @@ if (isset($_GET['archive_certificate'])) {
 
     // Get Certificate Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT certificate_name, certificate_client_id FROM certificates WHERE certificate_id = $certificate_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $certificate_name = sanitizeInput($row['certificate_name']);
     $client_id = intval($row['certificate_client_id']);
 
@@ -136,7 +136,7 @@ if (isset($_GET['unarchive_certificate'])) {
 
     // Get Certificate Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT certificate_name, certificate_client_id FROM certificates WHERE certificate_id = $certificate_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $certificate_name = sanitizeInput($row['certificate_name']);
     $client_id = intval($row['certificate_client_id']);
 
@@ -158,7 +158,7 @@ if (isset($_GET['delete_certificate'])) {
 
     // Get Certificate Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT certificate_name, certificate_client_id FROM certificates WHERE certificate_id = $certificate_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $certificate_name = sanitizeInput($row['certificate_name']);
     $client_id = intval($row['certificate_client_id']);
 
@@ -190,7 +190,7 @@ if (isset($_POST['bulk_delete_certificates'])) {
 
             // Get Certificate Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT certificate_name, certificate_client_id FROM certificates WHERE certificate_id = $certificate_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $certificate_name = sanitizeInput($row['certificate_name']);
             $client_id = intval($row['certificate_client_id']);
 

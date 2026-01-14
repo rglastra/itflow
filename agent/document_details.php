@@ -30,7 +30,7 @@ if (mysqli_num_rows($sql_document) == 0) {
     exit();
 }
 
-$row = mysqli_fetch_array($sql_document);
+$row = mysqli_fetch_assoc($sql_document);
 
 $folder_name = nullable_htmlentities($row['folder_name']);
 $document_name = nullable_htmlentities($row['document_name']);
@@ -150,7 +150,7 @@ $page_title = $row['document_name'];
 
                         $document_version_count = 1; // Initialize the document version counter
 
-                        while ($row = mysqli_fetch_array($sql_document_versions)) {
+                        while ($row = mysqli_fetch_assoc($sql_document_versions)) {
                             $document_version_id = intval($row['document_version_id']);
                             $document_version_name = nullable_htmlentities($row['document_version_name']);
                             $document_version_description = nullable_htmlentities($row['document_version_description']);
@@ -216,7 +216,7 @@ $page_title = $row['document_name'];
 
             $linked_files = array();
 
-            while ($row = mysqli_fetch_array($sql_files)) {
+            while ($row = mysqli_fetch_assoc($sql_files)) {
                 $file_id = intval($row['file_id']);
                 $folder_id = intval($row['file_folder_id']);
                 $file_name = nullable_htmlentities($row['file_name']);
@@ -249,7 +249,7 @@ $page_title = $row['document_name'];
 
             $linked_contacts = array();
 
-            while ($row = mysqli_fetch_array($sql_contacts)) {
+            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                 $contact_id = intval($row['contact_id']);
                 $contact_name = nullable_htmlentities($row['contact_name']);
 
@@ -283,7 +283,7 @@ $page_title = $row['document_name'];
 
             $linked_assets = array();
 
-            while ($row = mysqli_fetch_array($sql_assets)) {
+            while ($row = mysqli_fetch_assoc($sql_assets)) {
                 $asset_id = intval($row['asset_id']);
                 $asset_name = nullable_htmlentities($row['asset_name']);
 
@@ -319,7 +319,7 @@ $page_title = $row['document_name'];
 
             $linked_software = array();
 
-            while ($row = mysqli_fetch_array($sql_software)) {
+            while ($row = mysqli_fetch_assoc($sql_software)) {
                 $software_id = intval($row['software_id']);
                 $software_name = nullable_htmlentities($row['software_name']);
 
@@ -351,7 +351,7 @@ $page_title = $row['document_name'];
 
             $associated_vendors = array();
 
-            while ($row = mysqli_fetch_array($sql_vendors)) {
+            while ($row = mysqli_fetch_assoc($sql_vendors)) {
                 $vendor_id = intval($row['vendor_id']);
                 $vendor_name = nullable_htmlentities($row['vendor_name']);
 
@@ -400,7 +400,7 @@ $page_title = $row['document_name'];
                 ORDER BY document_version_created_at DESC"
             );
 
-            while ($row = mysqli_fetch_array($sql_document_versions)) {
+            while ($row = mysqli_fetch_assoc($sql_document_versions)) {
                 $document_version_id = intval($row['document_version_id']);
                 $document_version_name = nullable_htmlentities($row['document_version_name']);
                 $document_version_description = nullable_htmlentities($row['document_version_description']);

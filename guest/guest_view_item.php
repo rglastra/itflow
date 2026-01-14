@@ -16,7 +16,7 @@ $purifier_config->set('URI.AllowedSchemes', ['data' => true, 'src' => true, 'htt
 $purifier = new HTMLPurifier($purifier_config);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 $company_name = nullable_htmlentities($row['company_name']);
 $company_address = nullable_htmlentities($row['company_address']);
@@ -48,7 +48,7 @@ $item_id = intval($_GET['id']);
 $item_key = sanitizeInput($_GET['key']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM shared_items WHERE item_id = $item_id AND item_key = '$item_key' AND item_expire_at > NOW() LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 // Check we got a result
 if (mysqli_num_rows($sql) !== 1 || !$row) {
@@ -119,7 +119,7 @@ appNotify("Share Viewed", "$item_type_sql_escaped has been viewed by $item_recip
 if ($item_type == "Document") {
 
     $doc_sql = mysqli_query($mysqli, "SELECT * FROM documents WHERE document_id = $item_related_id AND document_client_id = $client_id LIMIT 1");
-    $doc_row = mysqli_fetch_array($doc_sql);
+    $doc_row = mysqli_fetch_assoc($doc_sql);
 
     if (mysqli_num_rows($doc_sql) !== 1 || !$doc_row) {
         echo "<div class='alert alert-danger'>Error retrieving document to view.</div>";
@@ -146,7 +146,7 @@ if ($item_type == "Document") {
 
 } elseif ($item_type == "File") {
     $file_sql = mysqli_query($mysqli, "SELECT * FROM files WHERE file_id = $item_related_id AND file_client_id = $client_id LIMIT 1");
-    $file_row = mysqli_fetch_array($file_sql);
+    $file_row = mysqli_fetch_assoc($file_sql);
 
     if (mysqli_num_rows($file_sql) !== 1 || !$file_row) {
         echo "<div class='alert alert-danger'>Error retrieving file.</div>";
@@ -168,7 +168,7 @@ if ($item_type == "Document") {
     $encryption_key = $_GET['ek'];
 
     $credential_sql = mysqli_query($mysqli, "SELECT * FROM credentials WHERE credential_id = $item_related_id AND credential_client_id = $client_id LIMIT 1");
-    $credential_row = mysqli_fetch_array($credential_sql);
+    $credential_row = mysqli_fetch_assoc($credential_sql);
     if (mysqli_num_rows($credential_sql) !== 1 || !$credential_row) {
         echo "<div class='alert alert-danger'>Error retrieving login.</div>";
         require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php';

@@ -75,7 +75,7 @@
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $ticket_id = intval($row['ticket_id']);
                             $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                             $ticket_number = intval($row['ticket_number']);
@@ -157,7 +157,7 @@
                                 AND ticket_reply_archived_at IS NULL
                                 ORDER BY ticket_reply_id DESC LIMIT 1"
                             );
-                            $row = mysqli_fetch_array($sql_ticket_reply);
+                            $row = mysqli_fetch_assoc($sql_ticket_reply);
 
                             if ($row) {
                                 $ticket_reply_type = nullable_htmlentities($row['ticket_reply_type']);

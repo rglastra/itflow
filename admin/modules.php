@@ -57,7 +57,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $module_id = intval($row['module_id']);
                     $module_name = nullable_htmlentities($row['module_name']);
                     $module_description = nullable_htmlentities($row['module_description']);

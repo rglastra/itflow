@@ -6,7 +6,7 @@ $role_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM user_roles WHERE role_id = $role_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $role_name = nullable_htmlentities($row['role_name']);
 $role_description = nullable_htmlentities($row['role_description']);
 $role_admin = intval($row['role_is_admin']);
@@ -108,14 +108,14 @@ ob_start();
 
                 // Enumerate modules
                 $sql_modules = mysqli_query($mysqli, "SELECT * FROM modules");
-                while ($row_modules = mysqli_fetch_array($sql_modules)) {
+                while ($row_modules = mysqli_fetch_assoc($sql_modules)) {
                     $module_id = intval($row_modules['module_id']);
                     $module_name = nullable_htmlentities($row_modules['module_name']);
                     $module_name_display = ucfirst(str_replace("module_","",$module_name));
                     $module_description = nullable_htmlentities($row_modules['module_description']);
 
                     // Get permission level for module
-                    $module_permission_row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT user_role_permission_level FROM user_role_permissions WHERE module_id = $module_id AND user_role_id = $role_id LIMIT 1"));
+                    $module_permission_row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT user_role_permission_level FROM user_role_permissions WHERE module_id = $module_id AND user_role_id = $role_id LIMIT 1"));
                     $module_permission = 0;
                     if ($module_permission_row) {
                         $module_permission = $module_permission_row['user_role_permission_level'];

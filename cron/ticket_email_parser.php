@@ -34,7 +34,7 @@ $config_ticket_email_parse_unknown_senders = intval($row['config_ticket_email_pa
 
 // Get company name & phone & timezone
 $sql = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $company_name = sanitizeInput($row['company_name']);
 $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -169,7 +169,7 @@ function addTicket($contact_id, $contact_name, $contact_email, $client_id, $date
             $client_name = "Guest";
         } else {
             $client_sql = mysqli_query($mysqli, "SELECT client_name FROM clients WHERE client_id = $client_id");
-            $client_row = mysqli_fetch_array($client_sql);
+            $client_row = mysqli_fetch_assoc($client_sql);
             $client_name = sanitizeInput($client_row['client_name']);
         }
         $email_subject = "$config_app_name - New Ticket - $client_name: $subject";
@@ -231,7 +231,7 @@ function addReply($from_email, $date, $subject, $ticket_number, $message, $attac
     $message_esc = mysqli_real_escape_string($mysqli, $message);
     $from_email_esc = mysqli_real_escape_string($mysqli, $from_email);
 
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT ticket_id, ticket_subject, ticket_status, ticket_contact_id, ticket_client_id, contact_email, client_name
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT ticket_id, ticket_subject, ticket_status, ticket_contact_id, ticket_client_id, contact_email, client_name
         FROM tickets
         LEFT JOIN contacts on tickets.ticket_contact_id = contacts.contact_id
         LEFT JOIN clients on tickets.ticket_client_id = clients.client_id
@@ -272,7 +272,7 @@ function addReply($from_email, $date, $subject, $ticket_number, $message, $attac
 
         if (empty($ticket_contact_email) || $ticket_contact_email !== $from_email) {
             $from_email_esc2 = mysqli_real_escape_string($mysqli, $from_email);
-            $row2 = mysqli_fetch_array(mysqli_query($mysqli, "SELECT contact_id FROM contacts WHERE contact_email = '$from_email_esc2' AND contact_client_id = $client_id LIMIT 1"));
+            $row2 = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT contact_id FROM contacts WHERE contact_email = '$from_email_esc2' AND contact_client_id = $client_id LIMIT 1"));
             if ($row2) {
                 $ticket_reply_contact = intval($row2['contact_id']);
             } else {
@@ -312,12 +312,12 @@ function addReply($from_email, $date, $subject, $ticket_number, $message, $attac
 
         $ticket_assigned_to_sql = mysqli_query($mysqli, "SELECT ticket_assigned_to FROM tickets WHERE ticket_id = $ticket_id LIMIT 1");
         if ($ticket_assigned_to_sql) {
-            $row3 = mysqli_fetch_array($ticket_assigned_to_sql);
+            $row3 = mysqli_fetch_assoc($ticket_assigned_to_sql);
             $ticket_assigned_to = intval($row3['ticket_assigned_to']);
 
             if ($ticket_assigned_to) {
                 $tech_sql = mysqli_query($mysqli, "SELECT user_email, user_name FROM users WHERE user_id = $ticket_assigned_to LIMIT 1");
-                $tech_row = mysqli_fetch_array($tech_sql);
+                $tech_row = mysqli_fetch_assoc($tech_sql);
                 $tech_email = sanitizeInput($tech_row['user_email']);
                 $tech_name = sanitizeInput($tech_row['user_name']);
 
@@ -650,7 +650,7 @@ foreach ($messages as $message) {
         // First: check if sender is a registered contact
         $from_email_esc = mysqli_real_escape_string($mysqli, $from_email);
         $contact_sql = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_email = '$from_email_esc' AND contact_archived_at IS NULL LIMIT 1");
-        $contact_row = mysqli_fetch_array($contact_sql);
+        $contact_row = mysqli_fetch_assoc($contact_sql);
 
         if ($contact_row) {
             $contact_id = intval($contact_row['contact_id']);
@@ -695,7 +695,7 @@ foreach ($messages as $message) {
     if (!$email_processed) {
         $from_email_esc = mysqli_real_escape_string($mysqli, $from_email);
         $any_contact_sql = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_email = '$from_email_esc' AND contact_archived_at IS NULL LIMIT 1");
-        $rowc = mysqli_fetch_array($any_contact_sql);
+        $rowc = mysqli_fetch_assoc($any_contact_sql);
 
         if ($rowc) {
             $contact_name  = sanitizeInput($rowc['contact_name']);

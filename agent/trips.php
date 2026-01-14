@@ -132,7 +132,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $trip_id = intval($row['trip_id']);
                         $trip_date = nullable_htmlentities($row['trip_date']);
                         $trip_purpose = nullable_htmlentities($row['trip_purpose']);

@@ -301,7 +301,7 @@ if (isset($_GET['archive_client'])) {
 
     // Stop recurring invoices
     $sql_recurring_invoices = mysqli_query($mysqli, "SELECT * FROM recurring_invoices WHERE recurring_invoice_client_id = $client_id AND recurring_invoice_status = 1");
-    while ($row = mysqli_fetch_array($sql_recurring_invoices)) {
+    while ($row = mysqli_fetch_assoc($sql_recurring_invoices)) {
         $recurring_invoice_id = intval($row['recurring_invoice_id']);
         mysqli_query($mysqli,"UPDATE recurring_invoices SET recurring_invoice_status = 0 WHERE recurring_invoice_id = $recurring_invoice_id AND recurring_invoice_client_id = $client_id");
         mysqli_query($mysqli,"INSERT INTO history SET history_status = 0, history_description = 'Recurring Invoice inactive as client archived', history_recurring_invoice_id = $recurring_invoice_id");
@@ -371,7 +371,7 @@ if (isset($_GET['delete_client'])) {
 
     //Delete Invoices and Invoice Referencing data
     $sql = mysqli_query($mysqli, "SELECT invoice_id FROM invoices WHERE invoice_client_id = $client_id");
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $invoice_id = $row['invoice_id'];
         mysqli_query($mysqli, "DELETE FROM invoice_items WHERE item_invoice_id = $invoice_id");
         mysqli_query($mysqli, "DELETE FROM payments WHERE payment_invoice_id = $invoice_id");
@@ -389,7 +389,7 @@ if (isset($_GET['delete_client'])) {
 
     //Delete Quote and related items
     $sql = mysqli_query($mysqli, "SELECT quote_id FROM quotes WHERE quote_client_id = $client_id");
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $quote_id = $row['quote_id'];
 
         mysqli_query($mysqli, "DELETE FROM invoice_items WHERE item_quote_id = $quote_id");
@@ -398,7 +398,7 @@ if (isset($_GET['delete_client'])) {
 
     // Delete Recurring Invoices and associated items
     $sql = mysqli_query($mysqli, "SELECT recurring_invoice_id FROM recurring_invoices WHERE recurring_invoice_client_id = $client_id");
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $recurring_invoice_id = $row['recurring_invoice_id'];
         mysqli_query($mysqli, "DELETE FROM invoice_items WHERE item_recurring_invoice_id = $recurring_invoice_id");
     }
@@ -418,7 +418,7 @@ if (isset($_GET['delete_client'])) {
 
     // Delete tickets and related data
     $sql = mysqli_query($mysqli, "SELECT ticket_id FROM tickets WHERE ticket_client_id = $client_id");
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $ticket_id = $row['ticket_id'];
         mysqli_query($mysqli, "DELETE FROM ticket_replies WHERE ticket_reply_ticket_id = $ticket_id");
         mysqli_query($mysqli, "DELETE FROM ticket_views WHERE view_ticket_id = $ticket_id");
@@ -749,7 +749,7 @@ if (isset($_POST['bulk_add_client_ticket'])) {
     // Check to see if adding a ticket by template
     if($ticket_template_id) {
         $sql = mysqli_query($mysqli, "SELECT * FROM ticket_templates WHERE ticket_template_id = $ticket_template_id");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         // Override Template Subject
         if(empty($subject)) {
@@ -772,7 +772,7 @@ if (isset($_POST['bulk_add_client_ticket'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $client_name = sanitizeInput($row['client_name']);
 
@@ -814,7 +814,7 @@ if (isset($_POST['bulk_add_client_ticket'])) {
             // Add Tasks from Template if Template was selected
             if($ticket_template_id) {
                 if (mysqli_num_rows($sql_task_templates) > 0) {
-                    while ($row = mysqli_fetch_array($sql_task_templates)) {
+                    while ($row = mysqli_fetch_assoc($sql_task_templates)) {
                         $task_order = intval($row['task_template_order']);
                         $task_name = sanitizeInput($row['task_template_name']);
 
@@ -853,7 +853,7 @@ if (isset($_POST['bulk_edit_client_industry'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             mysqli_query($mysqli,"UPDATE clients SET client_type = '$industry' WHERE client_id = $client_id");
@@ -887,7 +887,7 @@ if (isset($_POST['bulk_edit_client_referral'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             mysqli_query($mysqli,"UPDATE clients SET client_referral = '$referral' WHERE client_id = $client_id");
@@ -921,7 +921,7 @@ if (isset($_POST['bulk_edit_client_hourly_rate'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             mysqli_query($mysqli,"UPDATE clients SET client_rate = '$rate' WHERE client_id = $client_id");
@@ -953,7 +953,7 @@ if (isset($_POST['bulk_assign_client_tags'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             if ($_POST['bulk_remove_tags']) {
@@ -1030,7 +1030,7 @@ if (isset($_POST['bulk_send_client_email']) && isset($_POST['client_ids'])) {
     $data = [];
     $unique_contacts = [];
 
-    while ($row = mysqli_fetch_array($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $contact_email = sanitizeInput($row['contact_email']);
 
         // Skip if email is missing or invalid
@@ -1084,7 +1084,7 @@ if (isset($_POST['bulk_archive_clients'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             mysqli_query($mysqli,"UPDATE clients SET client_archived_at = NOW() WHERE client_id = $client_id");
@@ -1120,7 +1120,7 @@ if (isset($_POST['bulk_unarchive_clients'])) {
             $client_id = intval($client_id);
 
             $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $client_name = sanitizeInput($row['client_name']);
 
             mysqli_query($mysqli,"UPDATE clients SET client_archived_at = NULL WHERE client_id = $client_id");
@@ -1148,7 +1148,7 @@ if (isset($_POST["export_client_pdf"])) {
     enforceUserPermission("module_financial", 1);
 
     $sql = mysqli_query($mysqli, "SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = nullable_htmlentities($row['company_name']);
     $company_phone_country_code = nullable_htmlentities($row['company_phone_country_code']);
     $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code));
@@ -1186,7 +1186,7 @@ if (isset($_POST["export_client_pdf"])) {
         LEFT JOIN locations ON clients.client_id = locations.location_client_id AND location_primary = 1
         WHERE client_id = $client_id
     ");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     // Immediately sanitize retrieved values
     $client_name = nullable_htmlentities($row["client_name"]);
@@ -1404,7 +1404,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_contacts)) {
+        while ($row = mysqli_fetch_assoc($sql_contacts)) {
             $contact_name = nullable_htmlentities(getFallBack($row["contact_name"]));
             $contact_title = nullable_htmlentities(getFallBack($row["contact_title"]));
             $contact_department = nullable_htmlentities($row["contact_department"]);
@@ -1446,7 +1446,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_locations)) {
+        while ($row = mysqli_fetch_assoc($sql_locations)) {
             $location_name = nullable_htmlentities($row["location_name"]);
             $location_address = nullable_htmlentities($row["location_address"]);
             $location_city = nullable_htmlentities($row["location_city"]);
@@ -1482,7 +1482,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_vendors)) {
+        while ($row = mysqli_fetch_assoc($sql_vendors)) {
             $vendor_name = nullable_htmlentities($row["vendor_name"]);
             $vendor_description = nullable_htmlentities($row["vendor_description"]);
             $vendor_account_number = nullable_htmlentities($row["vendor_account_number"]);
@@ -1520,7 +1520,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_credentials)) {
+        while ($row = mysqli_fetch_assoc($sql_credentials)) {
             $credential_name = nullable_htmlentities($row["credential_name"]);
             $credential_description = getFallback(nullable_htmlentities($row["credential_description"]));
             $credential_username = nullable_htmlentities(decryptCredentialEntry($row["credential_username"]));
@@ -1570,7 +1570,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_workstations)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_workstations)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $asset_type = nullable_htmlentities($row["asset_type"]);
             $asset_make = nullable_htmlentities($row["asset_make"]);
@@ -1621,7 +1621,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_servers)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_servers)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $asset_make = nullable_htmlentities($row["asset_make"]);
             $asset_model = nullable_htmlentities($row["asset_model"]);
@@ -1665,7 +1665,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_vms)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_vms)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $asset_os = nullable_htmlentities($row["asset_os"]);
             $asset_ip = nullable_htmlentities($row["interface_ip"]);
@@ -1703,7 +1703,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_network)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_network)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $asset_type = nullable_htmlentities($row["asset_type"]);
             $asset_make = nullable_htmlentities($row["asset_make"]);
@@ -1752,7 +1752,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_other)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_other)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $asset_type = nullable_htmlentities($row["asset_type"]);
             $asset_make = nullable_htmlentities($row["asset_make"]);
@@ -1799,7 +1799,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_software)) {
+        while ($row = mysqli_fetch_assoc($sql_software)) {
             $software_name = nullable_htmlentities($row["software_name"]);
             $software_type = nullable_htmlentities($row["software_type"]);
             $software_license_type = nullable_htmlentities($row["software_license_type"]);
@@ -1836,7 +1836,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_user_licenses)) {
+        while ($row = mysqli_fetch_assoc($sql_user_licenses)) {
             $contact_name = nullable_htmlentities($row["contact_name"]);
             $software_name = nullable_htmlentities($row["software_name"]);
             $html .= "
@@ -1863,7 +1863,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_asset_licenses)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_licenses)) {
             $asset_name = nullable_htmlentities($row["asset_name"]);
             $software_name = nullable_htmlentities($row["software_name"]);
             $html .= "
@@ -1893,7 +1893,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_networks)) {
+        while ($row = mysqli_fetch_assoc($sql_networks)) {
             $network_name = nullable_htmlentities($row["network_name"]);
             $network_vlan = nullable_htmlentities($row["network_vlan"]);
             $network = nullable_htmlentities($row["network"]);
@@ -1926,7 +1926,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_domains)) {
+        while ($row = mysqli_fetch_assoc($sql_domains)) {
             $domain_name = nullable_htmlentities($row["domain_name"]);
             $domain_expire = nullable_htmlentities($row["domain_expire"]);
             $html .= "
@@ -1955,7 +1955,7 @@ if (isset($_POST["export_client_pdf"])) {
             </tr>
           </thead>
           <tbody>";
-        while ($row = mysqli_fetch_array($sql_certficates)) {
+        while ($row = mysqli_fetch_assoc($sql_certficates)) {
             $certificate_name = nullable_htmlentities($row["certificate_name"]);
             $certificate_domain = nullable_htmlentities($row["certificate_domain"]);
             $certificate_issued_by = nullable_htmlentities($row["certificate_issued_by"]);

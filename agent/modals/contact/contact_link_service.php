@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM contacts
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $contact_name = nullable_htmlentities($row['contact_name']);
 $client_id = intval($row['contact_client_id']);
 
@@ -46,7 +46,7 @@ ob_start();
                         AND service_contacts.contact_id IS NULL
                         ORDER BY services.service_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_services_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_services_select)) {
                         $service_id = intval($row['service_id']);
                         $service_name = nullable_htmlentities($row['service_name']);
                         ?>

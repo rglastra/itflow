@@ -71,7 +71,7 @@ ob_start();
                                     ORDER BY tt.ticket_template_name ASC
                                 ");
 
-                            while ($row = mysqli_fetch_array($sql_ticket_templates)) {
+                            while ($row = mysqli_fetch_assoc($sql_ticket_templates)) {
                                 $ticket_template_id_select = intval($row['ticket_template_id']);
                                 $ticket_template_name_select = nullable_htmlentities($row['ticket_template_name']);
                                 $ticket_template_subject_select = nullable_htmlentities($row['ticket_template_subject']);
@@ -131,7 +131,7 @@ ob_start();
                                     <option value="0">- Not Categorized -</option>
                                     <?php
                                     $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_categories)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                         ?>
@@ -166,7 +166,7 @@ ob_start();
                                 "SELECT user_id, user_name FROM users
                                 WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                             );
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $user_id = intval($row['user_id']);
                                 $user_name = nullable_htmlentities($row['user_name']); ?>
                                 <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
@@ -203,7 +203,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_lead = 0 AND client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
 

@@ -6,7 +6,7 @@ require_once '../../plugins/totp/totp.php'; //TOTP MFA Lib
 
 // Get Company Logo
 $sql = mysqli_query($mysqli, "SELECT company_logo FROM companies");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $company_logo = nullable_htmlentities($row['company_logo']);
 
 
@@ -32,14 +32,14 @@ $data = "otpauth://totp/ITFlow:$session_email?secret=$token";
 
     <title>MFA Enforcement | <?php echo $session_company_name; ?></title>
 
-    <!-- 
+    <!--
     Favicon
-    If Fav Icon exists else use the default one 
+    If Fav Icon exists else use the default one
     -->
     <?php if(file_exists('../../uploads/favicon.ico')) { ?>
         <link rel="icon" type="image/x-icon" href="../../uploads/favicon.ico">
     <?php } ?>
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 
@@ -66,14 +66,14 @@ $data = "otpauth://totp/ITFlow:$session_email?secret=$token";
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body text-center">
-                
+
                 <p class="login-box-msg">Multi-Factor Authentication Enforced</p>
 
                 <form action="post.php" method="post" autocomplete="off">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
-                    
+
                     <img src='../../plugins/barcode/barcode.php?f=png&s=qr&d=<?php echo $data; ?>' data-toggle="tooltip" title="Scan QR code into your MFA App">
-                   
+
                     <p>
                         <small data-toggle="tooltip" title="Can't Scan? Copy and paste this code into your app"><?php echo $token; ?></small>
                         <button type="button" class='btn btn-sm clipboardjs' data-clipboard-text='<?php echo $token; ?>'><i class='far fa-copy text-secondary'></i></button>

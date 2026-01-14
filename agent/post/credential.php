@@ -79,7 +79,7 @@ if(isset($_GET['archive_credential'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -101,7 +101,7 @@ if(isset($_GET['unarchive_credential'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -123,7 +123,7 @@ if (isset($_GET['delete_credential'])) {
 
     // Get Credential Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -152,7 +152,7 @@ if (isset($_POST['bulk_assign_credential_tags'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -205,7 +205,7 @@ if (isset($_POST['bulk_archive_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -242,7 +242,7 @@ if (isset($_POST['bulk_unarchive_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -280,7 +280,7 @@ if (isset($_POST['bulk_delete_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 

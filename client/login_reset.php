@@ -40,7 +40,7 @@ $user_agent = sanitizeInput($_SERVER['HTTP_USER_AGENT']);
 
 // Get Company Info
 $company_sql = mysqli_query($mysqli, "SELECT company_name, company_phone FROM companies WHERE company_id = 1");
-$company_results = mysqli_fetch_array($company_sql);
+$company_results = mysqli_fetch_assoc($company_sql);
 $company_name = sanitizeInput($company_results['company_name']);
 $company_phone = sanitizeInput(formatPhoneNumber($company_results['company_phone']));
 $company_name_display = $company_results['company_name'];
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // Query user
         $sql = mysqli_query($mysqli, "SELECT * FROM users LEFT JOIN contacts ON user_id = contact_user_id WHERE user_email = '$email' AND user_password_reset_token = '$token' AND contact_client_id = $client AND user_auth_method = 'local' AND user_type = 2 AND user_status = 1 AND user_archived_at IS NULL LIMIT 1");
-        $user_row = mysqli_fetch_array($sql);
+        $user_row = mysqli_fetch_assoc($sql);
         $contact_id = intval($user_row['contact_id']);
         $user_id = intval($user_row['user_id']);
         $name = sanitizeInput($user_row['contact_name']);
@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $client = intval($_GET['client']);
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM users LEFT JOIN contacts ON user_id = contact_user_id WHERE user_email = '$email' AND user_password_reset_token = '$token' AND contact_client_id = $client LIMIT 1");
-                    $user_row = mysqli_fetch_array($sql);
+                    $user_row = mysqli_fetch_assoc($sql);
 
                     // Sanity check
                     if (sha1($user_row['user_password_reset_token']) == sha1($token)) { ?>

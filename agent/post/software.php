@@ -16,7 +16,7 @@ if (isset($_POST['add_software_from_template'])) {
 
     // GET Software Template Info
     $sql_software_templates = mysqli_query($mysqli,"SELECT * FROM software_templates WHERE software_template_id = $software_template_id");
-    $row = mysqli_fetch_array($sql_software_templates);
+    $row = mysqli_fetch_assoc($sql_software_templates);
     $name = sanitizeInput($row['software_template_name']);
     $version = sanitizeInput($row['software_template_version']);
     $description = sanitizeInput($row['software_template_description']);
@@ -164,7 +164,7 @@ if (isset($_GET['archive_software'])) {
 
     // Get Software Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT software_name, software_client_id FROM software WHERE software_id = $software_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $software_name = sanitizeInput($row['software_name']);
     $client_id = intval($row['software_client_id']);
 
@@ -190,7 +190,7 @@ if (isset($_GET['delete_software'])) {
 
     // Get Software Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT software_name, software_client_id FROM software WHERE software_id = $software_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $software_name = sanitizeInput($row['software_name']);
     $client_id = intval($row['software_client_id']);
 
@@ -249,7 +249,7 @@ if (isset($_POST['export_software_csv'])) {
                     ON software_assets.asset_id = assets.asset_id
                 WHERE software_id = $row[software_id]"
             );
-            while($asset_row = mysqli_fetch_array($asset_licenses_sql)) {
+            while($asset_row = mysqli_fetch_assoc($asset_licenses_sql)) {
                 $assigned_to_assets .= $asset_row['asset_name'] . ", ";
             }
 
@@ -262,7 +262,7 @@ if (isset($_POST['export_software_csv'])) {
                 WHERE software_id = $row[software_id]"
             );
 
-            while($contact_row = mysqli_fetch_array($contact_licenses_sql)) {
+            while($contact_row = mysqli_fetch_assoc($contact_licenses_sql)) {
                 $assigned_to_contacts .= $contact_row['contact_name'] . ", ";
             }
 

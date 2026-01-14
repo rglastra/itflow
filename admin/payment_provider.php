@@ -66,7 +66,7 @@ $num_rows = mysqli_num_rows($sql);
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $provider_id = intval($row['payment_provider_id']);
                     $provider_name = nullable_htmlentities($row['payment_provider_name']);
                     $provider_description = nullable_htmlentities($row['payment_provider_description']);

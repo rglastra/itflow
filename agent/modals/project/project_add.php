@@ -30,7 +30,7 @@ ob_start();
                         <option value="0">- No Client -</option>
                         <?php
                         $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $client_id_select = intval($row['client_id']);
                             $client_name = nullable_htmlentities($row['client_name']);
                         ?>
@@ -61,7 +61,7 @@ ob_start();
                     <option value="">- Template -</option>
                     <?php
                     $sql = mysqli_query($mysqli, "SELECT * FROM project_templates WHERE project_template_archived_at IS NULL ORDER BY project_template_name ASC");
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $project_template_id = intval($row['project_template_id']);
                         $project_template_name = nullable_htmlentities($row['project_template_name']);
                     ?>
@@ -107,7 +107,7 @@ ob_start();
                         "SELECT user_id, user_name FROM users
                         WHERE user_role_id > 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $user_id = intval($row['user_id']);
                         $user_name = nullable_htmlentities($row['user_name']); ?>
                         <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>

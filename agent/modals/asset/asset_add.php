@@ -13,7 +13,7 @@ if ($client_id) {
     $sql_contact_select = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
 } else {
     $sql_client_select = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-}   
+}
 
 // OS typeahead suggestions
 $os_sql = mysqli_query($mysqli, "SELECT DISTINCT asset_os AS label FROM assets WHERE asset_archived_at IS NULL");
@@ -85,7 +85,7 @@ ob_start();
                                 <option value="">- Select Client -</option>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_client_select)) {
+                                while ($row = mysqli_fetch_assoc($sql_client_select)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?= $client_id_select ?>"><?= $client_name ?></option>
@@ -191,7 +191,7 @@ ob_start();
                             <option value="">- Select Network -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_network_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_network_select)) {
                                 $network_id = intval($row['network_id']);
                                 $network_name = nullable_htmlentities($row['network_name']);
                                 $network = nullable_htmlentities($row['network']);
@@ -305,7 +305,7 @@ ob_start();
                             <option value="">- Select Location -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_location_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_location_select)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                                 ?>
@@ -326,12 +326,12 @@ ob_start();
                             <option value="">- Select Contact -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_contact_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_contact_select)) {
                                 $contact_id_select = intval($row['contact_id']);
                                 $contact_name = nullable_htmlentities($row['contact_name']);
                                 ?>
-                                <option 
-                                    <?php if ($contact_id == $contact_id_select) { 
+                                <option
+                                    <?php if ($contact_id == $contact_id_select) {
                                     echo "selected"; }
                                     ?>
                                     value="<?= $contact_id_select ?>"><?= $contact_name ?>
@@ -374,7 +374,7 @@ ob_start();
                             <option value="">- Select Vendor -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_vendor_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_vendor_select)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -476,7 +476,7 @@ ob_start();
                         <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']);
                                 ?>

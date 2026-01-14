@@ -1169,7 +1169,7 @@ function getTicketStatusName($ticket_status) {
     global $mysqli;
 
     $status_id = intval($ticket_status);
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_id = $status_id LIMIT 1"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_id = $status_id LIMIT 1"));
 
     if ($row) {
         return nullable_htmlentities($row['ticket_status_name']);
@@ -1365,7 +1365,7 @@ function lookupUserPermission($module) {
 			module_name = '$module' AND user_role_permissions.user_role_id = $session_user_role"
     );
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     if (isset($row['user_role_permission_level'])) {
         return intval($row['user_role_permission_level']);
@@ -1426,7 +1426,7 @@ function appNotify($type, $details, $action = null, $client_id = 0, $entity_id =
         WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL
     ");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = mysqli_fetch_assoc($sql)) {
         $user_id = intval($row['user_id']);
 
         mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = '$type', notification = '$details', notification_action = '$action', notification_client_id = $client_id, notification_entity_id = $entity_id, notification_user_id = $user_id");
@@ -1569,7 +1569,7 @@ function display_folder_options($parent_folder_id, $client_id, $indent = 0) {
     global $mysqli;
 
     $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_client_id = $client_id ORDER BY folder_name ASC");
-    while ($row = mysqli_fetch_array($sql_folders)) {
+    while ($row = mysqli_fetch_assoc($sql_folders)) {
         $folder_id = intval($row['folder_id']);
         $folder_name = nullable_htmlentities($row['folder_name']);
 

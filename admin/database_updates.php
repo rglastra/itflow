@@ -791,7 +791,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
         // Copy primary_location and primary_contact to their new vars in their own respecting tables
         $sql = mysqli_query($mysqli, "SELECT * FROM clients");
-        while($row = mysqli_fetch_array($sql)) {
+        while($row = mysqli_fetch_assoc($sql)) {
             $primary_contact = $row['primary_contact'];
             $primary_location = $row['primary_location'];
 
@@ -1666,7 +1666,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
     if (CURRENT_DATABASE_VERSION == '1.3.9') {
         // Migrate all Network Info from Assets to Interface Table and make it primary interface
         $sql = mysqli_query($mysqli, "SELECT * FROM assets");
-        while ($row = mysqli_fetch_array($sql)) {
+        while ($row = mysqli_fetch_assoc($sql)) {
             $asset_id = intval($row['asset_id']);
             $mac = sanitizeInput($row['asset_mac']);
             $ip = sanitizeInput($row['asset_ip']);
@@ -1945,7 +1945,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
     if (CURRENT_DATABASE_VERSION == '1.5.7') {
         // Create Users for contacts that have logins enabled and that are not archived
         $contacts_sql = mysqli_query($mysqli, "SELECT * FROM `contacts` WHERE contact_archived_at IS NULL AND (contact_auth_method = 'local' OR contact_auth_method = 'azure')");
-        while($row = mysqli_fetch_array($contacts_sql)) {
+        while($row = mysqli_fetch_assoc($contacts_sql)) {
             $contact_id = intval($row['contact_id']);
             $contact_name = mysqli_real_escape_string($mysqli, $row['contact_name']);
             $contact_email = mysqli_real_escape_string($mysqli, $row['contact_email']);
@@ -2325,7 +2325,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
                 `interface_link_status` VARCHAR(50) NULL,
                 `interface_link_created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `interface_link_updated_at` DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
-                
+
                 CONSTRAINT `fk_interface_a`
                     FOREIGN KEY (`interface_a_id`)
                     REFERENCES `asset_interfaces` (`interface_id`)
@@ -3701,8 +3701,8 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
                 `ai_model_updated_at` DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
                 `ai_model_ai_provider_id` INT(11) NOT NULL,
                 PRIMARY KEY (`ai_model_id`),
-                FOREIGN KEY (`ai_model_ai_provider_id`) 
-                    REFERENCES `ai_providers`(`ai_provider_id`) 
+                FOREIGN KEY (`ai_model_ai_provider_id`)
+                    REFERENCES `ai_providers`(`ai_provider_id`)
                     ON DELETE CASCADE
             )
         ");
@@ -3769,7 +3769,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
     }
 
     if (CURRENT_DATABASE_VERSION == '2.2.3') {
-        
+
         mysqli_query($mysqli, "CREATE TABLE `credits` (
             `credit_id` INT(11) NOT NULL AUTO_INCREMENT,
             `credit_amount` DECIMAL(15,2) NOT NULL,
@@ -3817,19 +3817,19 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
         mysqli_query($mysqli, "ALTER TABLE `credits` ADD INDEX (`credit_client_id`)");
         mysqli_query($mysqli, "ALTER TABLE `credits` ADD INDEX (`credit_invoice_id`)");
         mysqli_query($mysqli, "ALTER TABLE `credits` ADD INDEX (`credit_created_at`)");
-        
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.2.7'");
     }
 
     if (CURRENT_DATABASE_VERSION == '2.2.7') {
         mysqli_query($mysqli, "ALTER TABLE `user_settings` ADD `user_config_theme_dark` TINYINT(1) NOT NULL DEFAULT 0 AFTER `user_config_signature`");
         mysqli_query($mysqli, "ALTER TABLE `settings` DROP `config_theme_dark`");
-        
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.2.8'");
     }
 
     if (CURRENT_DATABASE_VERSION == '2.2.8') {
-        
+
         mysqli_query($mysqli, "ALTER TABLE `products` ADD `product_type` ENUM('service', 'product') NOT NULL DEFAULT 'service' AFTER `product_name`");
         mysqli_query($mysqli, "ALTER TABLE `products` ADD `product_code` VARCHAR(200) DEFAULT NULL AFTER `product_description`");
         mysqli_query($mysqli, "ALTER TABLE `products` ADD `product_location` VARCHAR(250) DEFAULT NULL AFTER `product_code`");
@@ -3844,7 +3844,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
             `stock_product_id` INT(11) NOT NULL,
             PRIMARY KEY (`stock_id`)
         )");
-        
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.2.9'");
     }
 
@@ -3853,7 +3853,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
         // Get Current Stripe Settings
         $sql_stripe_settings = mysqli_query($mysqli, "SELECT * FROM settings WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql_stripe_settings);
+        $row = mysqli_fetch_assoc($sql_stripe_settings);
         $config_stripe_enable = intval($row['config_stripe_enable']);
         if ($config_stripe_enable === 1) {
             $config_stripe_publishable = mysqli_real_escape_string($mysqli, $row['config_stripe_publishable']);
@@ -3879,7 +3879,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
             // Migrate Clients and Payment Method over
             $sql_stripe_clients = mysqli_query($mysqli, "SELECT * FROM client_stripe WHERE stripe_pm IS NOT NULL AND stripe_pm != ''");
-            while ($row = mysqli_fetch_array($sql_stripe_clients)) {
+            while ($row = mysqli_fetch_assoc($sql_stripe_clients)) {
                 $client_id = intval($row['client_id']);
                 $stripe_id = mysqli_real_escape_string($mysqli, $row['stripe_id']);
                 $stripe_pm = mysqli_real_escape_string($mysqli, $row['stripe_pm']);
@@ -3931,13 +3931,13 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
     if (CURRENT_DATABASE_VERSION == '2.3.0') {
         // Migrate Payment Methods from Categories Table to new payment_methods table
         $sql_categories = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Payment Method' AND category_name != 'Stripe' AND category_archived_at IS NULL");
-        
-        while ($row = mysqli_fetch_array($sql_categories)) {
+
+        while ($row = mysqli_fetch_assoc($sql_categories)) {
             $category_name = sanitizeInput($row['category_name']);
 
             mysqli_query($mysqli,"INSERT INTO payment_methods SET payment_method_name = '$category_name'");
         }
-      
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.1'");
     }
 
@@ -3971,7 +3971,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
     if (CURRENT_DATABASE_VERSION == '2.3.2') {
 
-        mysqli_query($mysqli, "ALTER TABLE settings 
+        mysqli_query($mysqli, "ALTER TABLE settings
             ADD `config_imap_provider` ENUM('standard_imap','google_oauth','microsoft_oauth') NULL DEFAULT NULL AFTER `config_mail_from_name`,
             ADD `config_mail_oauth_client_id` VARCHAR(255) NULL AFTER `config_imap_provider`,
             ADD `config_mail_oauth_client_secret` VARCHAR(255) NULL AFTER `config_mail_oauth_client_id`,
@@ -3986,7 +3986,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
     if (CURRENT_DATABASE_VERSION == '2.3.3') {
 
-        mysqli_query($mysqli, "ALTER TABLE settings 
+        mysqli_query($mysqli, "ALTER TABLE settings
             ADD `config_smtp_provider` ENUM('standard_smtp','google_oauth','microsoft_oauth') NULL DEFAULT NULL AFTER `config_start_page`
         ");
 
@@ -4026,7 +4026,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.5'");
     }
-    
+
     if (CURRENT_DATABASE_VERSION == '2.3.5') {
         mysqli_query($mysqli, "ALTER TABLE `settings` CHANGE `config_smtp_provider` `config_smtp_provider` VARCHAR(200) DEFAULT NULL");
         mysqli_query($mysqli, "ALTER TABLE `settings` CHANGE `config_imap_provider` `config_imap_provider` VARCHAR(200) DEFAULT NULL");
@@ -4109,7 +4109,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
 
             FOREIGN KEY (`contract_client_id`) REFERENCES `clients`(`client_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.7'");
     }
 
@@ -4130,7 +4130,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
                     ON DELETE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ");
-   
+
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.8'");
     }
 

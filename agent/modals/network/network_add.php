@@ -53,7 +53,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?php echo $client_id_select; ?>"><?php echo $client_name; ?></option>
@@ -97,7 +97,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $location_id_select = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -165,7 +165,7 @@ ob_start();
                 </div>
 
             </div>
-            
+
             <div class="tab-pane fade" id="pills-dns">
                 <div class="form-group">
                     <label>Primary DNS</label>

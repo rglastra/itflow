@@ -46,7 +46,7 @@ if (isset($_POST['add_ticket'])) {
     // Add the primary contact as the ticket contact if "Use primary contact" is checked
     if ($use_primary_contact == 1) {
         $sql = mysqli_query($mysqli, "SELECT contact_id FROM contacts WHERE contact_client_id = $client_id AND contact_primary = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $contact = intval($row['contact_id']);
     }
 
@@ -80,7 +80,7 @@ if (isset($_POST['add_ticket'])) {
         $sql_task_templates = mysqli_query($mysqli, "SELECT * FROM task_templates WHERE task_template_ticket_template_id = $ticket_template_id");
 
         if (mysqli_num_rows($sql_task_templates) > 0) {
-            while ($row = mysqli_fetch_array($sql_task_templates)) {
+            while ($row = mysqli_fetch_assoc($sql_task_templates)) {
                 $task_order = intval($row['task_template_order']);
                 $task_name = sanitizeInput($row['task_template_name']);
                 $task_completion_estimate = intval($row['task_template_completion_estimate']);
@@ -114,7 +114,7 @@ if (isset($_POST['add_ticket'])) {
               LEFT JOIN clients ON ticket_client_id = client_id
               LEFT JOIN contacts ON ticket_contact_id = contact_id
               WHERE ticket_id = $ticket_id");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -132,7 +132,7 @@ if (isset($_POST['add_ticket'])) {
 
         // Get Company Phone Number
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -162,7 +162,7 @@ if (isset($_POST['add_ticket'])) {
         // Also Email all the watchers
         $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
         $body .= "<br><br>----------------------------------------<br>YOU HAVE BEEN ADDED AS A COLLABORATOR FOR THIS TICKET";
-        while ($row = mysqli_fetch_array($sql_watchers)) {
+        while ($row = mysqli_fetch_assoc($sql_watchers)) {
             $watcher_email = sanitizeInput($row['watcher_email']);
 
             // Queue Mail
@@ -244,7 +244,7 @@ if (isset($_POST['edit_ticket'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE ticket_id = $ticket_id
         AND ticket_closed_at IS NULL");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $contact_name = sanitizeInput($row['contact_name']);
     $contact_email = sanitizeInput($row['contact_email']);
@@ -263,7 +263,7 @@ if (isset($_POST['edit_ticket'])) {
 
         // Get Company Name Phone Number and Sanitize for Email Sending
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -315,7 +315,7 @@ if (isset($_POST['edit_ticket_priority'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE ticket_id = $ticket_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
     $original_priority = sanitizeInput($row['ticket_priority']);
@@ -353,7 +353,7 @@ if (isset($_POST['edit_ticket_contact'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE ticket_id = $ticket_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     // Original contact
     $original_contact_name = !empty($row['contact_name']) ? sanitizeInput($row['contact_name']) : 'No one';
@@ -372,7 +372,7 @@ if (isset($_POST['edit_ticket_contact'])) {
 
     // Get New contact details
     $sql = mysqli_query($mysqli, "SELECT contact_name, contact_email FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $contact_name = !empty($row['contact_name']) ? sanitizeInput($row['contact_name']) : 'No one';
     $contact_email = sanitizeInput($row['contact_email']);
@@ -382,7 +382,7 @@ if (isset($_POST['edit_ticket_contact'])) {
 
         // Get Company Phone Number
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -458,7 +458,7 @@ if (isset($_POST['add_ticket_watcher'])) {
     LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
     WHERE ticket_id = $ticket_id
     AND ticket_closed_at IS NULL");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -474,7 +474,7 @@ if (isset($_POST['add_ticket_watcher'])) {
 
     // Get Company Phone Number
     $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
     $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -533,7 +533,7 @@ if (isset($_GET['delete_ticket_watcher'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE watcher_id = $watcher_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -568,7 +568,7 @@ if (isset($_GET['delete_ticket_additional_asset'])) {
         JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE asset_id = $asset_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -617,7 +617,7 @@ if (isset($_POST['edit_ticket_asset'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE ticket_id = $ticket_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -648,7 +648,7 @@ if (isset($_POST['edit_ticket_vendor'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         WHERE ticket_id = $ticket_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -685,7 +685,7 @@ if (isset($_POST['assign_ticket'])) {
     } else {
         // Get & verify assigned agent details
         $agent_details_sql = mysqli_query($mysqli, "SELECT user_name, user_email FROM users WHERE users.user_id = $assigned_to");
-        $agent_details = mysqli_fetch_array($agent_details_sql);
+        $agent_details = mysqli_fetch_assoc($agent_details_sql);
 
         $agent_name = sanitizeInput($agent_details['user_name']);
         $agent_email = sanitizeInput($agent_details['user_email']);
@@ -699,7 +699,7 @@ if (isset($_POST['assign_ticket'])) {
 
     // Get & verify ticket details
     $ticket_details_sql = mysqli_query($mysqli, "SELECT ticket_prefix, ticket_number, ticket_subject, ticket_client_id, client_name FROM tickets LEFT JOIN clients ON ticket_client_id = client_id WHERE ticket_id = '$ticket_id' AND ticket_status != 5");
-    $ticket_details = mysqli_fetch_array($ticket_details_sql);
+    $ticket_details = mysqli_fetch_assoc($ticket_details_sql);
 
     $ticket_prefix = sanitizeInput($ticket_details['ticket_prefix']);
     $ticket_number = intval($ticket_details['ticket_number']);
@@ -771,7 +771,7 @@ if (isset($_GET['delete_ticket'])) {
 
     // Get Ticket and Client ID for logging and alert message
     $sql = mysqli_query($mysqli, "SELECT ticket_prefix, ticket_number, ticket_subject, ticket_status, ticket_closed_at, ticket_client_id FROM tickets WHERE ticket_id = $ticket_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = sanitizeInput($row['ticket_number']);
     $ticket_subject = sanitizeInput($row['ticket_subject']);
@@ -868,7 +868,7 @@ if (isset($_POST['bulk_assign_ticket'])) {
             $ticket_id = intval($ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
@@ -888,7 +888,7 @@ if (isset($_POST['bulk_assign_ticket'])) {
             } else {
                 // Get & verify assigned agent details
                 $agent_details_sql = mysqli_query($mysqli, "SELECT user_name, user_email FROM users LEFT JOIN user_settings ON users.user_id = user_settings.user_id WHERE users.user_id = $assign_to");
-                $agent_details = mysqli_fetch_array($agent_details_sql);
+                $agent_details = mysqli_fetch_assoc($agent_details_sql);
 
                 $agent_name = sanitizeInput($agent_details['user_name']);
                 $agent_email = sanitizeInput($agent_details['user_email']);
@@ -969,7 +969,7 @@ if (isset($_POST['bulk_edit_ticket_priority'])) {
             $ticket_id = intval($ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
@@ -1013,7 +1013,7 @@ if (isset($_POST['bulk_edit_ticket_category'])) {
             $ticket_id = intval($ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT ticket_prefix, ticket_number, ticket_subject, category_name, ticket_client_id FROM tickets LEFT JOIN categories ON ticket_category = category_id WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
@@ -1056,7 +1056,7 @@ if (isset($_POST['bulk_merge_tickets'])) {
         flash_alert("Cannot merge into that ticket.", 'error');
         redirect();
     }
-    $merge_row = mysqli_fetch_array($sql);
+    $merge_row = mysqli_fetch_assoc($sql);
     $merge_into_ticket_id = intval($merge_row['ticket_id']); // Parent ticket ID
 
     // Update & Close the selected tickets
@@ -1070,7 +1070,7 @@ if (isset($_POST['bulk_merge_tickets'])) {
             if ($ticket_id !== $merge_into_ticket_id) {
 
                 $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-                $row = mysqli_fetch_array($sql);
+                $row = mysqli_fetch_assoc($sql);
 
                 $ticket_prefix = sanitizeInput($row['ticket_prefix']);
                 $ticket_number = intval($row['ticket_number']);
@@ -1141,7 +1141,7 @@ if (isset($_POST['bulk_resolve_tickets'])) {
                 $ticket_count++;
 
                 $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-                $row = mysqli_fetch_array($sql);
+                $row = mysqli_fetch_assoc($sql);
 
                 $ticket_prefix = sanitizeInput($row['ticket_prefix']);
                 $ticket_number = intval($row['ticket_number']);
@@ -1173,7 +1173,7 @@ if (isset($_POST['bulk_resolve_tickets'])) {
                         LEFT JOIN contacts ON ticket_contact_id = contact_id
                         WHERE ticket_id = $ticket_id
                     ");
-                    $row = mysqli_fetch_array($ticket_sql);
+                    $row = mysqli_fetch_assoc($ticket_sql);
 
                     $contact_name = sanitizeInput($row['contact_name']);
                     $contact_email = sanitizeInput($row['contact_email']);
@@ -1185,7 +1185,7 @@ if (isset($_POST['bulk_resolve_tickets'])) {
 
                     // Get Company Info
                     $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-                    $row = mysqli_fetch_array($sql);
+                    $row = mysqli_fetch_assoc($sql);
                     $company_name = sanitizeInput($row['company_name']);
                     $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -1214,7 +1214,7 @@ if (isset($_POST['bulk_resolve_tickets'])) {
                     // Also Email all the watchers
                     $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
                     $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-                    while ($row = mysqli_fetch_array($sql_watchers)) {
+                    while ($row = mysqli_fetch_assoc($sql_watchers)) {
                         $watcher_email = sanitizeInput($row['watcher_email']);
 
                         // Queue Mail
@@ -1270,7 +1270,7 @@ if (isset($_POST['bulk_ticket_reply'])) {
             $ticket_id = intval($ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
@@ -1321,7 +1321,7 @@ if (isset($_POST['bulk_ticket_reply'])) {
                 WHERE ticket_id = $ticket_id"
             );
 
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $contact_name = sanitizeInput($row['contact_name']);
             $contact_email = sanitizeInput($row['contact_email']);
@@ -1334,7 +1334,7 @@ if (isset($_POST['bulk_ticket_reply'])) {
             $base_url = sanitizeInput($config_base_url);
 
             $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $company_name = sanitizeInput($row['company_name']);
             $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -1364,7 +1364,7 @@ if (isset($_POST['bulk_ticket_reply'])) {
                 // Also Email all the watchers
                 $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
                 $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-                while ($row = mysqli_fetch_array($sql_watchers)) {
+                while ($row = mysqli_fetch_assoc($sql_watchers)) {
                     $watcher_email = sanitizeInput($row['watcher_email']);
 
                     // Queue Mail
@@ -1412,7 +1412,7 @@ if (isset($_POST['bulk_add_ticket_project'])) {
 
     // Get Project Name
     $sql = mysqli_query($mysqli, "SELECT project_name FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $project_name = sanitizeInput($row['project_name']);
 
     // Assign Project to Selected Tickets
@@ -1425,7 +1425,7 @@ if (isset($_POST['bulk_add_ticket_project'])) {
             $ticket_id = intval($ticket_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
@@ -1473,7 +1473,7 @@ if (isset($_POST['bulk_add_asset_ticket'])) {
     // Check to see if adding a ticket by template
     if($ticket_template_id) {
         $sql = mysqli_query($mysqli, "SELECT * FROM ticket_templates WHERE ticket_template_id = $ticket_template_id");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         // Override Template Subject
         if(empty($subject)) {
@@ -1496,7 +1496,7 @@ if (isset($_POST['bulk_add_asset_ticket'])) {
             $asset_id = intval($asset_id);
 
             $sql = mysqli_query($mysqli, "SELECT * FROM assets WHERE asset_id = $asset_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
 
             $asset_name = sanitizeInput($row['asset_name']);
             $client_id = intval($row['asset_client_id']);
@@ -1541,7 +1541,7 @@ if (isset($_POST['bulk_add_asset_ticket'])) {
             // Add Tasks from Template if Template was selected
             if($ticket_template_id) {
                 if (mysqli_num_rows($sql_task_templates) > 0) {
-                    while ($row = mysqli_fetch_array($sql_task_templates)) {
+                    while ($row = mysqli_fetch_assoc($sql_task_templates)) {
                         $task_order = intval($row['task_template_order']);
                         $task_name = sanitizeInput($row['task_template_name']);
 
@@ -1624,7 +1624,7 @@ if (isset($_POST['add_ticket_reply'])) {
         WHERE ticket_id = $ticket_id
         ");
 
-        $row = mysqli_fetch_array($ticket_sql);
+        $row = mysqli_fetch_assoc($ticket_sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -1645,7 +1645,7 @@ if (isset($_POST['add_ticket_reply'])) {
         $config_base_url = sanitizeInput($config_base_url);
 
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -1683,7 +1683,7 @@ if (isset($_POST['add_ticket_reply'])) {
             // Also Email all the watchers
             $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
             $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-            while ($row = mysqli_fetch_array($sql_watchers)) {
+            while ($row = mysqli_fetch_assoc($sql_watchers)) {
                 $watcher_email = sanitizeInput($row['watcher_email']);
 
                 // Queue Mail
@@ -1808,7 +1808,7 @@ if (isset($_POST['merge_ticket'])) {
         redirect();
     }
     // CURRENT ticket details
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
     $ticket_subject = sanitizeInput($row['ticket_subject']);
@@ -1822,7 +1822,7 @@ if (isset($_POST['merge_ticket'])) {
         flash_alert("Cannot merge into that ticket.", 'error');
         redirect();
     }
-    $merge_row = mysqli_fetch_array($sql);
+    $merge_row = mysqli_fetch_assoc($sql);
     $merge_into_ticket_id = intval($merge_row['ticket_id']);
     $client_id = intval($merge_row['ticket_client_id']);
     if ($client_id) {
@@ -1898,7 +1898,7 @@ if (isset($_GET['resolve_ticket'])) {
     $ticket_id = intval($_GET['resolve_ticket']);
 
     $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
     $ticket_first_response_at = sanitizeInput($row['ticket_first_response_at']);
@@ -1925,7 +1925,7 @@ if (isset($_GET['resolve_ticket'])) {
             LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
             WHERE ticket_id = $ticket_id
         ");
-        $row = mysqli_fetch_array($ticket_sql);
+        $row = mysqli_fetch_assoc($ticket_sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -1944,7 +1944,7 @@ if (isset($_GET['resolve_ticket'])) {
 
         // Get Company Info
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -1973,7 +1973,7 @@ if (isset($_GET['resolve_ticket'])) {
         // Also Email all the watchers
         $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
         $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-        while ($row = mysqli_fetch_array($sql_watchers)) {
+        while ($row = mysqli_fetch_assoc($sql_watchers)) {
             $watcher_email = sanitizeInput($row['watcher_email']);
 
             // Queue Mail
@@ -2021,7 +2021,7 @@ if (isset($_GET['close_ticket'])) {
             LEFT JOIN contacts ON ticket_contact_id = contact_id
             WHERE ticket_id = $ticket_id
         ");
-        $row = mysqli_fetch_array($ticket_sql);
+        $row = mysqli_fetch_assoc($ticket_sql);
 
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
@@ -2037,7 +2037,7 @@ if (isset($_GET['close_ticket'])) {
 
         // Get Company Info
         $sql = mysqli_query($mysqli, "SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
 
@@ -2066,7 +2066,7 @@ if (isset($_GET['close_ticket'])) {
         // Also Email all the watchers
         $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
         $body .= "<br><br>----------------------------------------<br>YOU ARE A COLLABORATOR ON THIS TICKET";
-        while ($row = mysqli_fetch_array($sql_watchers)) {
+        while ($row = mysqli_fetch_assoc($sql_watchers)) {
             $watcher_email = sanitizeInput($row['watcher_email']);
 
             // Queue Mail
@@ -2128,7 +2128,7 @@ if (isset($_POST['add_invoice_from_ticket'])) {
         WHERE ticket_id = $ticket_id"
     );
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['client_id']);
     $client_net_terms = intval($row['client_net_terms']);
     if ($client_net_terms == 0) {
@@ -2173,7 +2173,7 @@ if (isset($_POST['add_invoice_from_ticket'])) {
         $invoice_id = mysqli_insert_id($mysqli);
     } else {
         $sql_invoice = mysqli_query($mysqli, "SELECT invoice_prefix, invoice_number FROM invoices WHERE invoice_id = $invoice_id");
-        $row = mysqli_fetch_array($sql_invoice);
+        $row = mysqli_fetch_assoc($sql_invoice);
         $invoice_prefix = sanitizeInput($row['invoice_prefix']);
         $invoice_number = intval($row['invoice_number']);
     }
@@ -2189,7 +2189,7 @@ if (isset($_POST['add_invoice_from_ticket'])) {
 
     if ($tax_id > 0) {
         $sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE tax_id = $tax_id");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $tax_percent = floatval($row['tax_percent']);
         $tax_amount = $subtotal * $tax_percent / 100;
     } else {
@@ -2203,7 +2203,7 @@ if (isset($_POST['add_invoice_from_ticket'])) {
     //Update Invoice Balances
 
     $sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $new_invoice_amount = floatval($row['invoice_amount']) + $total;
 
@@ -2292,7 +2292,7 @@ if (isset($_POST['edit_ticket_billable_status'])) {
 
     // Get ticket details for logging
     $sql = mysqli_query($mysqli, "SELECT ticket_prefix, ticket_number, ticket_client_id FROM tickets WHERE ticket_id = $ticket_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
     $client_id = intval($row['ticket_client_id']);
@@ -2331,7 +2331,7 @@ if (isset($_POST['edit_ticket_schedule'])) {
     $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_schedule BETWEEN '$start' AND '$end' AND ticket_id != $ticket_id");
     if (mysqli_num_rows($sql) > 0) {
         $conflicting_tickets = [];
-        while ($row = mysqli_fetch_array($sql)) {
+        while ($row = mysqli_fetch_assoc($sql)) {
             $conflicting_tickets[] = $row['ticket_id'] . " - " . $row['ticket_subject'] . " @ " . $row['ticket_schedule'];
         }
     }
@@ -2343,7 +2343,7 @@ if (isset($_POST['edit_ticket_schedule'])) {
         WHERE ticket_id = $ticket_id
     ");
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $client_id = intval($row['ticket_client_id']);
     $client_name = sanitizeInput($row['client_name']);
@@ -2416,7 +2416,7 @@ if (isset($_POST['edit_ticket_schedule'])) {
         // Notify the watchers of the scheduled work
         $sql_watchers = mysqli_query($mysqli, "SELECT watcher_email FROM ticket_watchers WHERE watcher_ticket_id = $ticket_id");
 
-        while ($row = mysqli_fetch_array($sql_watchers)) {
+        while ($row = mysqli_fetch_assoc($sql_watchers)) {
             $watcher_email = sanitizeInput($row['watcher_email']);
             $data[] = [
                 'from' => $config_ticket_from_email,
@@ -2480,7 +2480,7 @@ if (isset($_GET['cancel_ticket_schedule'])) {
     $ticket_id = intval($_GET['cancel_ticket_schedule']);
 
     $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $client_id = intval($row['ticket_client_id']);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
@@ -2508,7 +2508,7 @@ if (isset($_GET['cancel_ticket_schedule'])) {
         LEFT JOIN users ON ticket_assigned_to = user_id
         WHERE ticket_id = $ticket_id
     ");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $client_id = intval($row['ticket_client_id']);
     $client_name = sanitizeInput($row['client_name']);

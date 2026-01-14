@@ -65,7 +65,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $role_id = intval($row['role_id']);
                         $role_name = nullable_htmlentities($row['role_name']);
                         $role_description = nullable_htmlentities($row['role_description']);

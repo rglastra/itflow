@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM documents
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $document_name = nullable_htmlentities($row['document_name']);
 $client_id = intval($row['document_client_id']);
 
@@ -48,7 +48,7 @@ ob_start();
                         AND document_files.file_id IS NULL
                         ORDER BY folder_name ASC, file_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_files_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_files_select)) {
                         $file_id = intval($row['file_id']);
                         $file_name = nullable_htmlentities($row['file_name']);
                         $folder_name = nullable_htmlentities($row['folder_name']);

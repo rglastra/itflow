@@ -41,7 +41,7 @@ if (isset($_GET['client_id'])) {
         exit;
     } else {
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $client_name = nullable_htmlentities($row['client_name']);
         $client_is_lead = intval($row['client_lead']);
         $client_type = nullable_htmlentities($row['client_type']);
@@ -84,7 +84,7 @@ if (isset($_GET['client_id'])) {
         $client_tag_name_display_array = array();
         $client_tag_id_array = array();
         $sql_client_tags = mysqli_query($mysqli, "SELECT * FROM client_tags LEFT JOIN tags ON client_tags.tag_id = tags.tag_id WHERE client_id = $client_id ORDER BY tag_name ASC");
-        while ($row = mysqli_fetch_array($sql_client_tags)) {
+        while ($row = mysqli_fetch_assoc($sql_client_tags)) {
 
             $client_tag_id = intval($row['tag_id']);
             $client_tag_name = nullable_htmlentities($row['tag_name']);
@@ -104,12 +104,12 @@ if (isset($_GET['client_id'])) {
 
         //Add up all the payments for the invoice and get the total amount paid to the invoice
         $sql_invoice_amounts = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_amounts FROM invoices WHERE invoice_client_id = $client_id AND invoice_status != 'Draft' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable'");
-        $row = mysqli_fetch_array($sql_invoice_amounts);
+        $row = mysqli_fetch_assoc($sql_invoice_amounts);
 
         $invoice_amounts = floatval($row['invoice_amounts']);
 
         $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_client_id = $client_id");
-        $row = mysqli_fetch_array($sql_amount_paid);
+        $row = mysqli_fetch_assoc($sql_amount_paid);
 
         $amount_paid = floatval($row['amount_paid']);
 
@@ -117,13 +117,13 @@ if (isset($_GET['client_id'])) {
 
         //Get Monthly Recurring Total
         $sql_recurring_monthly_total = mysqli_query($mysqli, "SELECT SUM(recurring_invoice_amount) AS recurring_monthly_total FROM recurring_invoices WHERE recurring_invoice_status = 1 AND recurring_invoice_frequency = 'month' AND recurring_invoice_client_id = $client_id");
-        $row = mysqli_fetch_array($sql_recurring_monthly_total);
+        $row = mysqli_fetch_assoc($sql_recurring_monthly_total);
 
         $recurring_monthly_total = floatval($row['recurring_monthly_total']);
 
         //Get Yearly Recurring Total
         $sql_recurring_yearly_total = mysqli_query($mysqli, "SELECT SUM(recurring_invoice_amount) AS recurring_yearly_total FROM recurring_invoices WHERE recurring_invoice_status = 1 AND recurring_invoice_frequency = 'year' AND recurring_invoice_client_id = $client_id");
-        $row = mysqli_fetch_array($sql_recurring_yearly_total);
+        $row = mysqli_fetch_assoc($sql_recurring_yearly_total);
 
         $recurring_yearly_total = floatval($row['recurring_yearly_total']) / 12;
 
@@ -131,7 +131,7 @@ if (isset($_GET['client_id'])) {
 
         // Get Credit Balance
         $sql_credit_balance = mysqli_query($mysqli, "SELECT SUM(credit_amount) AS credit_balance FROM credits WHERE credit_client_id = $client_id");
-        $row = mysqli_fetch_array($sql_credit_balance);
+        $row = mysqli_fetch_assoc($sql_credit_balance);
 
         $credit_balance = floatval($row['credit_balance']);
 

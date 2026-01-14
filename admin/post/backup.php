@@ -307,11 +307,11 @@ if (isset($_POST['backup_master_key'])) {
     $password = $_POST['password'];
 
     $sql = mysqli_query($mysqli, "SELECT * FROM users WHERE user_id = $session_user_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     if (password_verify($password, $row['user_password'])) {
         $site_encryption_master_key = decryptUserSpecificKey($row['user_specific_encryption_ciphertext'], $password);
-        
+
         logAction("Master Key", "Download", "$session_name retrieved the master encryption key");
 
         appNotify("Master Key", "$session_name retrieved the master encryption key");
@@ -320,13 +320,12 @@ if (isset($_POST['backup_master_key'])) {
         echo "<br>Master encryption key:<br>";
         echo "<b>$site_encryption_master_key</b>";
         echo "<br>==============================";
-    
+
     } else {
         logAction("Master Key", "Download", "$session_name attempted to retrieve the master encryption key but failed");
 
         flash_alert("Incorrect password.", 'error');
-        
+
         redirect();
     }
 }
-

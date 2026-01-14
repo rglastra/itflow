@@ -81,14 +81,14 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_clients_filter = mysqli_query($mysqli, "
-                                    SELECT DISTINCT client_id, client_name 
+                                    SELECT DISTINCT client_id, client_name
                                     FROM clients
                                     JOIN services ON service_client_id = client_id
-                                    WHERE client_archived_at IS NULL 
+                                    WHERE client_archived_at IS NULL
                                     $access_permission_query
                                     ORDER BY client_name ASC
                                 ");
-                                while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                     $client_id = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']);
                                 ?>
@@ -147,7 +147,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $service_id = intval($row['service_id']);
@@ -177,7 +177,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         </div>
                                     </div>
                                 </a>
-                        
+
                             </td>
                             <td><?php echo $service_category ?></td>
                             <td><?php echo $service_importance ?></td>

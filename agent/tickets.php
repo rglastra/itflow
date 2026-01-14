@@ -133,22 +133,22 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 //Get Total tickets open
 $sql_total_tickets_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_open FROM tickets WHERE ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_open);
+$row = mysqli_fetch_assoc($sql_total_tickets_open);
 $total_tickets_open = intval($row['total_tickets_open']);
 
 //Get Total tickets closed
 $sql_total_tickets_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_closed FROM tickets WHERE ticket_resolved_at IS NOT NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_closed);
+$row = mysqli_fetch_assoc($sql_total_tickets_closed);
 $total_tickets_closed = intval($row['total_tickets_closed']);
 
 //Get Unassigned tickets
 $sql_total_tickets_unassigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_unassigned FROM tickets WHERE ticket_assigned_to = '0' AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_unassigned);
+$row = mysqli_fetch_assoc($sql_total_tickets_unassigned);
 $total_tickets_unassigned = intval($row['total_tickets_unassigned']);
 
 //Get Total tickets assigned to me
 $sql_total_tickets_assigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_assigned FROM tickets WHERE ticket_assigned_to = $session_user_id AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_assigned);
+$row = mysqli_fetch_assoc($sql_total_tickets_assigned);
 $user_active_assigned_tickets = intval($row['total_tickets_assigned']);
 
 $sql_categories_filter = mysqli_query(
@@ -222,7 +222,7 @@ $sql_categories_filter = mysqli_query(
                                     <option value="">- All Categories -</option>
 
                                     <?php
-                                    while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                     ?>
@@ -359,7 +359,7 @@ $sql_categories_filter = mysqli_query(
                                 <select onchange="this.form.submit()" class="form-control select2" name="status[]" data-placeholder="Select Status" multiple>
 
                                         <?php $sql_ticket_status = mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_active = 1 ORDER BY ticket_status_order");
-                                        while ($row = mysqli_fetch_array($sql_ticket_status)) {
+                                        while ($row = mysqli_fetch_assoc($sql_ticket_status)) {
                                             $ticket_status_id = intval($row['ticket_status_id']);
                                             $ticket_status_name = nullable_htmlentities($row['ticket_status_name']); ?>
 
@@ -378,7 +378,7 @@ $sql_categories_filter = mysqli_query(
 
                                     <?php
                                     $sql_assign_to = mysqli_query($mysqli, "SELECT * FROM users WHERE user_type = 1 AND user_archived_at IS NULL ORDER BY user_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_assign_to)) {
+                                    while ($row = mysqli_fetch_assoc($sql_assign_to)) {
                                         $user_id = intval($row['user_id']);
                                         $user_name = nullable_htmlentities($row['user_name']);
                                         ?>
@@ -398,7 +398,7 @@ $sql_categories_filter = mysqli_query(
 
                                     <?php
                                     $sql_projects = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_completed_at IS NULL and project_archived_at IS NULL ORDER BY project_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_projects)) {
+                                    while ($row = mysqli_fetch_assoc($sql_projects)) {
                                         $project_id = intval($row['project_id']);
                                         $project_prefix = nullable_htmlentities($row['project_prefix']);
                                         $project_number = intval($row['project_number']);

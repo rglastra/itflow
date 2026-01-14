@@ -36,7 +36,7 @@ ob_start();
                         AND ticket_template_archived_at IS NULL
                         ORDER BY ticket_template_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql_ticket_templates_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_ticket_templates_select)) {
                         $ticket_template_id_select = intval($row['ticket_template_id']);
                         $ticket_template_name_select = nullable_htmlentities($row['ticket_template_name']);
                         ?>

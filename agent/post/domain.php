@@ -153,7 +153,7 @@ if (isset($_GET['archive_domain'])) {
 
     //Get domain Name
     $sql = mysqli_query($mysqli,"SELECT * FROM domains WHERE domain_id = $domain_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $domain_name = sanitizeInput($row['domain_name']);
     $client_id = intval($row['domain_client_id']);
 
@@ -175,7 +175,7 @@ if(isset($_GET['unarchive_domain'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT domain_name, domain_client_id FROM domains WHERE domain_id = $domain_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $domain_name = sanitizeInput($row['domain_name']);
     $client_id = intval($row['domain_client_id']);
 
@@ -197,7 +197,7 @@ if (isset($_GET['delete_domain'])) {
 
     // Get Domain Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT domain_name, domain_client_id FROM domains WHERE domain_id = $domain_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $domain_name = sanitizeInput($row['domain_name']);
     $client_id = intval($row['domain_client_id']);
 
@@ -229,7 +229,7 @@ if (isset($_POST['bulk_archive_domains'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT domain_name, domain_client_id FROM domains WHERE domain_id = $domain_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $domain_name = sanitizeInput($row['domain_name']);
             $client_id = intval($row['domain_client_id']);
 
@@ -266,7 +266,7 @@ if (isset($_POST['bulk_unarchive_domains'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT domain_name, domain_client_id FROM domains WHERE domain_id = $domain_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $domain_name = sanitizeInput($row['domain_name']);
             $client_id = intval($row['domain_client_id']);
 
@@ -304,7 +304,7 @@ if (isset($_POST['bulk_delete_domains'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT domain_name, domain_client_id FROM domains WHERE domain_id = $domain_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $domain_name = sanitizeInput($row['domain_name']);
             $client_id = intval($row['domain_client_id']);
 

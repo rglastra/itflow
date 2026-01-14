@@ -53,7 +53,7 @@ if (isset($_POST['add_user'])) {
     mysqli_query($mysqli, "INSERT INTO user_settings SET user_id = $user_id, user_config_force_mfa = $force_mfa");
 
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
 
     // Sanitize Config vars from load_global_settings.php
@@ -118,7 +118,7 @@ if (isset($_POST['edit_user'])) {
 
     // Get current Avatar
     $sql = mysqli_query($mysqli, "SELECT user_avatar FROM users WHERE user_id = $user_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $existing_file_name = sanitizeInput($row['user_avatar']);
 
     $extended_log_description = '';
@@ -148,7 +148,7 @@ if (isset($_POST['edit_user'])) {
             // Set Avatar
             mysqli_query($mysqli, "UPDATE users SET user_avatar = '$new_file_name' WHERE user_id = $user_id");
             $extended_alert_description = '. File successfully uploaded.';
-        
+
         }
     }
 
@@ -353,8 +353,8 @@ if (isset($_POST['ir_reset_user_password'])) {
     // Confirm logged-in user password, for security
     $admin_password = $_POST['admin_password'];
     $sql = mysqli_query($mysqli, "SELECT * FROM users WHERE user_id = $session_user_id");
-    $userRow = mysqli_fetch_array($sql);
-    
+    $userRow = mysqli_fetch_assoc($sql);
+
     if (!password_verify($admin_password, $userRow['user_password'])) {
         flash_alert("Incorrect password.", 'error');
         redirect();
@@ -364,7 +364,7 @@ if (isset($_POST['ir_reset_user_password'])) {
     $sql_users = mysqli_query($mysqli, "SELECT * FROM users WHERE (user_archived_at IS NULL AND user_id != $session_user_id)");
 
     // Reset passwords
-    while ($row = mysqli_fetch_array($sql_users)) {
+    while ($row = mysqli_fetch_assoc($sql_users)) {
         $user_id = intval($row['user_id']);
         $user_email = sanitizeInput($row['user_email']);
         $new_password = randomString();

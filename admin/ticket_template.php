@@ -8,14 +8,14 @@ require_once "includes/inc_all_admin.php";
 
 $sql = mysqli_query(
     $mysqli,
-    "SELECT SQL_CALC_FOUND_ROWS *, 
+    "SELECT SQL_CALC_FOUND_ROWS *,
             COUNT(task_template_id) AS task_count
      FROM ticket_templates
      LEFT JOIN task_templates ON task_template_ticket_template_id = ticket_template_id
      WHERE (ticket_template_name LIKE '%$q%' OR ticket_template_description LIKE '%$q%')
      AND ticket_template_archived_at IS NULL
      GROUP BY ticket_template_id
-     ORDER BY $sort $order 
+     ORDER BY $sort $order
      LIMIT $record_from, $record_to"
 );
 
@@ -69,7 +69,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while($row = mysqli_fetch_array($sql)){
+                while($row = mysqli_fetch_assoc($sql)){
                     $ticket_template_id = intval($row['ticket_template_id']);
                     $ticket_template_name = nullable_htmlentities($row['ticket_template_name']);
                     $ticket_template_description = nullable_htmlentities($row['ticket_template_description']);

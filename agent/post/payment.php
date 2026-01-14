@@ -33,7 +33,7 @@ if (isset($_POST['add_payment'])) {
 
         //Add up all the payments for the invoice and get the total amount paid to the invoice
         $sql_total_payments_amount = mysqli_query($mysqli,"SELECT SUM(payment_amount) AS payments_amount FROM payments WHERE payment_invoice_id = $invoice_id");
-        $row = mysqli_fetch_array($sql_total_payments_amount);
+        $row = mysqli_fetch_assoc($sql_total_payments_amount);
         $total_payments_amount = floatval($row['payments_amount']);
 
         //Get the invoice total
@@ -43,7 +43,7 @@ if (isset($_POST['add_payment'])) {
             WHERE invoice_id = $invoice_id"
         );
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $invoice_amount = floatval($row['invoice_amount']);
         $invoice_prefix = sanitizeInput($row['invoice_prefix']);
         $invoice_number = intval($row['invoice_number']);
@@ -58,7 +58,7 @@ if (isset($_POST['add_payment'])) {
         $contact_mobile = sanitizeInput(formatPhoneNumber($row['contact_mobile'], $row['contact_mobile_country_code']));
 
         $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $company_name = sanitizeInput($row['company_name']);
         $company_country = sanitizeInput($row['company_country']);
@@ -205,7 +205,7 @@ if (isset($_POST['apply_credit'])) {
     $credit_amount_applied = floatval($_POST['credit_amount_applied']);
 
     $sql = mysqli_query($mysqli, "SELECT * FROM invoices LEFT JOIN clients ON invoice_client_id = client_id WHERE invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $invoice_prefix = sanitizeInput($row['invoice_prefix']);
     $invoice_number = intval($row['invoice_number']);
@@ -216,20 +216,20 @@ if (isset($_POST['apply_credit'])) {
 
     // Get Credit Balance
     $sql_credit_balance = mysqli_query($mysqli, "SELECT SUM(credit_amount) AS credit_balance FROM credits WHERE credit_client_id = $client_id");
-    $row = mysqli_fetch_array($sql_credit_balance);
+    $row = mysqli_fetch_assoc($sql_credit_balance);
 
     $credit_balance = floatval($row['credit_balance']);
 
     // Get Invoice Balance
     $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments WHERE payment_invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql_amount_paid);
+    $row = mysqli_fetch_assoc($sql_amount_paid);
     $amount_paid = floatval($row['amount_paid']);
 
     $invoice_balance = $invoice_amount - $amount_paid;
 
     // Get Credit Tally applied to invoice
     $sql_credit_tally = mysqli_query($mysqli, "SELECT SUM(credit_tally) AS credit_balance FROM credits WHERE credit_invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql_credit_tally);
+    $row = mysqli_fetch_assoc($sql_credit_tally);
 
     $credit_tally = floatval($row['credit_tally']);
 
@@ -318,7 +318,7 @@ if (isset($_POST['add_payment_stripe'])) {
             LEFT JOIN contacts ON client_id = contact_client_id AND contact_primary = 1
             WHERE invoice_id = $invoice_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_number = intval($row['invoice_number']);
     $invoice_status = sanitizeInput($row['invoice_status']);
     $invoice_amount = floatval($row['invoice_amount']);
@@ -336,7 +336,7 @@ if (isset($_POST['add_payment_stripe'])) {
 
     // Get ITFlow company details
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
     $company_country = sanitizeInput($row['company_country']);
     $company_address = sanitizeInput($row['company_address']);
@@ -353,7 +353,7 @@ if (isset($_POST['add_payment_stripe'])) {
 
     // Get Client Payment Details
     $sql = mysqli_query($mysqli, "SELECT * FROM client_saved_payment_methods LEFT JOIN payment_providers ON saved_payment_provider_id = payment_provider_id LEFT JOIN client_payment_provider ON saved_payment_client_id = client_id WHERE saved_payment_id = $saved_payment_id LIMIT 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $public_key = sanitizeInput($row['payment_provider_public_key']);
     $private_key = sanitizeInput($row['payment_provider_private_key']);
@@ -513,7 +513,7 @@ if (isset($_GET['add_payment_stripe'])) {
             LEFT JOIN contacts ON clients.client_id = contacts.contact_client_id AND contact_primary = 1
             WHERE invoice_id = $invoice_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_number = intval($row['invoice_number']);
     $invoice_status = sanitizeInput($row['invoice_status']);
     $invoice_amount = floatval($row['invoice_amount']);
@@ -531,7 +531,7 @@ if (isset($_GET['add_payment_stripe'])) {
 
     // Get ITFlow company details
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
     $company_country = sanitizeInput($row['company_country']);
     $company_address = sanitizeInput($row['company_address']);
@@ -547,7 +547,7 @@ if (isset($_GET['add_payment_stripe'])) {
     $config_invoice_from_email = sanitizeInput($config_invoice_from_email);
 
     // Get Client Stripe details
-    $stripe_client_details = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM client_stripe WHERE client_id = $client_id LIMIT 1"));
+    $stripe_client_details = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM client_stripe WHERE client_id = $client_id LIMIT 1"));
     $stripe_id = sanitizeInput($stripe_client_details['stripe_id']);
     $stripe_pm = sanitizeInput($stripe_client_details['stripe_pm']);
 
@@ -715,7 +715,7 @@ if (isset($_POST['add_bulk_payment'])) {
     $result_invoices = mysqli_query($mysqli, $sql_invoices);
 
     // Loop Through Each Invoice
-    while ($row = mysqli_fetch_array($result_invoices)) {
+    while ($row = mysqli_fetch_assoc($result_invoices)) {
         $invoice_id = intval($row['invoice_id']);
         $invoice_prefix = sanitizeInput($row['invoice_prefix']);
         $invoice_number = intval($row['invoice_number']);
@@ -723,7 +723,7 @@ if (isset($_POST['add_bulk_payment'])) {
         $invoice_url_key = sanitizeInput($row['invoice_url_key']);
         $invoice_balance_query = "SELECT SUM(payment_amount) AS amount_paid FROM payments WHERE payment_invoice_id = $invoice_id";
         $result_amount_paid = mysqli_query($mysqli, $invoice_balance_query);
-        $row_amount_paid = mysqli_fetch_array($result_amount_paid);
+        $row_amount_paid = mysqli_fetch_assoc($result_amount_paid);
         $amount_paid = floatval($row_amount_paid['amount_paid']);
         $invoice_balance = $invoice_amount - $amount_paid;
 
@@ -776,13 +776,13 @@ if (isset($_POST['add_bulk_payment'])) {
             WHERE client_id = $client_id"
         );
 
-        $row = mysqli_fetch_array($sql_client);
+        $row = mysqli_fetch_assoc($sql_client);
         $client_name = sanitizeInput($row['client_name']);
         $contact_name = sanitizeInput($row['contact_name']);
         $contact_email = sanitizeInput($row['contact_email']);
 
         $sql_company = mysqli_query($mysqli,"SELECT company_name, company_phone, company_phone_country_code FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql_company);
+        $row = mysqli_fetch_assoc($sql_company);
 
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
@@ -823,18 +823,18 @@ if (isset($_GET['delete_payment'])) {
     $payment_id = intval($_GET['delete_payment']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM payments WHERE payment_id = $payment_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_id = intval($row['payment_invoice_id']);
     $deleted_payment_amount = floatval($row['payment_amount']);
 
     //Add up all the payments for the invoice and get the total amount paid to the invoice
     $sql_total_payments_amount = mysqli_query($mysqli,"SELECT SUM(payment_amount) AS total_payments_amount FROM payments WHERE payment_invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql_total_payments_amount);
+    $row = mysqli_fetch_assoc($sql_total_payments_amount);
     $total_payments_amount = floatval($row['total_payments_amount']);
 
     // Get the invoice total and details
     $sql = mysqli_query($mysqli,"SELECT * FROM invoices WHERE invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_prefix = sanitizeInput($row['invoice_prefix']);
     $invoice_number = intval($row['invoice_number']);
     $client_id = intval($row['invoice_client_id']);

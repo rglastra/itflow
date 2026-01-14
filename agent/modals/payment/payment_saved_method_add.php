@@ -6,7 +6,7 @@ $invoice_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_id = $invoice_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
 $invoice_number = intval($row['invoice_number']);
 $invoice_amount = floatval($row['invoice_amount']);
@@ -40,7 +40,7 @@ ob_start();
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM client_saved_payment_methods WHERE saved_payment_client_id = $client_id ORDER BY saved_payment_description ASC");
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $saved_payment_id = intval($row['saved_payment_id']);
                         $saved_payment_description = nullable_htmlentities($row['saved_payment_description']);
                     ?>

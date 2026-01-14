@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tickets
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $ticket_assigned_to = intval($row['ticket_assigned_to']);
@@ -49,7 +49,7 @@ ob_start();
                         AND user_archived_at IS NULL
                         ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql_users_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_users_select)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']);
 
