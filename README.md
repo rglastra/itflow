@@ -94,6 +94,7 @@ We’re incredibly grateful to the organizations and individuals who support the
 - CompuMatter
 - F1 for HELP
 - JetBrains (PhpStorm)
+- digiBandit
 
 ## License
 ITFlow is distributed "as is" under the GPL License, WITHOUT WARRANTY OF ANY KIND. See [`LICENSE`](https://github.com/itflow-org/itflow/blob/master/LICENSE) for details.
