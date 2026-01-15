@@ -944,6 +944,153 @@ if (isset($_GET['export_invoice_pdf'])) {
 
 }
 
+if (isset($_GET['export_invoice_packing_slip'])) {
+
+    $invoice_id = intval($_GET['export_invoice_packing_slip']);
+
+    $sql = mysqli_query(
+        $mysqli,
+        "SELECT * FROM invoices
+        LEFT JOIN clients ON invoice_client_id = client_id
+        LEFT JOIN contacts ON clients.client_id = contacts.contact_client_id AND contact_primary = 1
+        LEFT JOIN locations ON clients.client_id = locations.location_client_id AND location_primary = 1
+        WHERE invoice_id = $invoice_id
+        $access_permission_query
+        LIMIT 1"
+    );
+
+    $row = mysqli_fetch_assoc($sql);
+    $invoice_id = intval($row['invoice_id']);
+    $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
+    $invoice_number = intval($row['invoice_number']);
+    $invoice_date = nullable_htmlentities($row['invoice_date']);
+    $client_id = intval($row['client_id']);
+    $client_name = nullable_htmlentities($row['client_name']);
+    $location_address = nullable_htmlentities($row['location_address']);
+    $location_city = nullable_htmlentities($row['location_city']);
+    $location_state = nullable_htmlentities($row['location_state']);
+    $location_zip = nullable_htmlentities($row['location_zip']);
+    $location_country = nullable_htmlentities($row['location_country']);
+    $contact_email = nullable_htmlentities($row['contact_email']);
+    $contact_phone_country_code = nullable_htmlentities($row['contact_phone_country_code']);
+    $contact_phone = nullable_htmlentities(formatPhoneNumber($row['contact_phone'], $contact_phone_country_code));
+    $contact_extension = nullable_htmlentities($row['contact_extension']);
+
+    $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
+    $row = mysqli_fetch_assoc($sql);
+    $company_id = intval($row['company_id']);
+    $company_name = nullable_htmlentities($row['company_name']);
+    $company_country = nullable_htmlentities($row['company_country']);
+    $company_address = nullable_htmlentities($row['company_address']);
+    $company_city = nullable_htmlentities($row['company_city']);
+    $company_state = nullable_htmlentities($row['company_state']);
+    $company_zip = nullable_htmlentities($row['company_zip']);
+    $company_phone_country_code = nullable_htmlentities($row['company_phone_country_code']);
+    $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code));
+    $company_email = nullable_htmlentities($row['company_email']);
+    $company_website = nullable_htmlentities($row['company_website']);
+    $company_tax_id = nullable_htmlentities($row['company_tax_id']);
+    if ($config_invoice_show_tax_id && !empty($company_tax_id)) {
+        $company_tax_id_display = "Tax ID: $company_tax_id";
+    } else {
+        $company_tax_id_display = "";
+    }
+    $company_logo = nullable_htmlentities($row['company_logo']);
+
+    require_once("../plugins/TCPDF/tcpdf.php");
+
+    // Start TCPDF
+    $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+    $pdf->SetMargins(10, 10, 10);
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+    $pdf->AddPage();
+    $pdf->SetFont('helvetica', '', 10);
+
+    // Logo + Right Columns
+    $html = '<table width="100%" cellspacing="0" cellpadding="3">
+    <tr>
+        <td width="40%">';
+    if (!empty($company_logo) && file_exists("../uploads/settings/$company_logo")) {
+        $html .= '<img src="/uploads/settings/' . $company_logo . '" width="120">';
+    }
+    $html .= '</td>
+        <td width="60%" align="right">
+            <span style="font-size:18pt; font-weight:bold;">Packing Slip</span><br>
+            <span style="font-size:14pt;">' . $invoice_prefix . $invoice_number . '</span><br>';
+    $html .= '</td>
+    </tr>
+    </table><br>';
+
+    // Billing titles
+    $html .= '<table width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+        <td width="50%" style="font-size:14pt; font-weight:bold;">' . $company_name . '</td>
+        <td width="50%" align="right" style="font-size:14pt; font-weight:bold;">' . $client_name . '</td>
+    </tr>
+    <tr>
+        <td style="font-size:10pt; line-height:1.4;">' . nl2br("$company_address\n$company_city $company_state $company_zip\n$company_country\n$company_phone\n$company_website\n$company_tax_id_display") . '</td>
+        <td style="font-size:10pt; line-height:1.4;" align="right">' . nl2br("$location_address\n$location_city $location_state $location_zip\n$location_country\n$contact_email\n$contact_phone") . '</td>
+    </tr>
+    </table><br>';
+
+    // Items header
+    $html .= '
+    <table border="0" cellpadding="5" cellspacing="0" width="100%">
+    <tr style="background-color:#f0f0f0;">
+        <th align="left" width="50%"><strong>Item</strong></th>
+        <th align="center" width="40%"><strong>Qty</strong></th>
+        <th align="right" width="10%"><strong>Picked?</strong></th>
+    </tr>';
+
+    // Load items
+    $sub_total = 0;
+    $total_tax = 0;
+
+    $sql_items = mysqli_query($mysqli, "SELECT * FROM invoice_items WHERE item_invoice_id = $invoice_id ORDER BY item_order ASC");
+    while ($item = mysqli_fetch_assoc($sql_items)) {
+        $name = $item['item_name'];
+        $qty = $item['item_quantity'];
+
+        $html .= '
+        <tr>
+            <td><strong>' . $name . '</strong></td>
+            <td align="center">' . number_format($qty, 2) . '</td>
+            <td align="right">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="border:0.5px solid #000; width:12px; height:5px; margin-top:2px"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>';
+    }
+    $html .= '</table><br><br><br>';
+
+
+    // Picked/Checked by
+    $html .= '
+    <table width="100%" cellspacing="0" cellpadding="8" style="font-size:10pt; margin-top:20px;">
+        <tr>
+            <td width="50%" style="border:1px solid #000; height:60px;">
+                <strong>Picked By:</strong><br><br>
+            </td>
+            <td width="50%" style="border:1px solid #000; height:60px;">
+                <strong>Checked By:</strong><br><br>
+            </td>
+        </tr>
+    </table>
+    <br><br>';
+
+    $pdf->writeHTML($html, true, false, true, false, '');
+
+    $filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', "{$invoice_date}_{$company_name}_{$client_name}_Invoice_{$invoice_prefix}{$invoice_number}");
+    $pdf->Output("$filename.pdf", 'I');
+
+    exit;
+
+}
+
 if (isset($_POST['bulk_edit_invoice_category'])) {
 
     $category_id = intval($_POST['bulk_category_id']);
