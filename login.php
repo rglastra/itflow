@@ -42,6 +42,9 @@ require_once "includes/inc_set_timezone.php";
 $session_ip = sanitizeInput(getIP());
 $session_user_agent = sanitizeInput($_SERVER['HTTP_USER_AGENT'] ?? '');
 
+// IMPORTANT (Option B support): ensure this exists in this scope so logAction() can use it
+$session_user_id = intval($_SESSION['user_id'] ?? 0);
+
 $row = mysqli_fetch_assoc(mysqli_query(
     $mysqli,
     "SELECT COUNT(log_id) AS failed_login_count
@@ -54,6 +57,7 @@ $row = mysqli_fetch_assoc(mysqli_query(
 $failed_login_count = intval($row['failed_login_count']);
 
 if ($failed_login_count >= 15) {
+    // Make sure global session_user_id is not required here (will be 0 anyway)
     logAction("Login", "Blocked", "$session_ip was blocked access to login due to IP lockout");
     header("HTTP/1.1 429 Too Many Requests");
     exit("<h2>$config_app_name</h2>Your IP address has been blocked due to repeated failed login attempts. Please try again later. <br><br>This action has been logged.");
@@ -237,7 +241,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
 
         if ($agentRow === null && $clientRow === null) {
             header("HTTP/1.1 401 Unauthorized");
+
+            // Option B not possible here (we don't know user_id reliably)
             logAction("Login", "Failed", "Failed login attempt using $email");
+
             $response = "
               <div class='alert alert-danger'>
                 Incorrect username or password.
@@ -274,12 +281,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                         }
 
                         $_SESSION['pending_dual_login'] = [
-                            'email'          => $email,
-                            'agent_user_id'  => intval($agentRow['user_id']),
-                            'client_user_id' => intval($clientRow['user_id']),
+                            'email'            => $email,
+                            'agent_user_id'    => intval($agentRow['user_id']),
+                            'client_user_id'   => intval($clientRow['user_id']),
                             'agent_master_key' => $agent_master_key, // may be null
-                            'token'          => $pending_token,
-                            'created'        => time()
+                            'token'            => $pending_token,
+                            'created'          => time()
                         ];
                     }
                 }
@@ -373,7 +380,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                             $extended_log .= ", generated a new remember-me token";
                         }
 
-                        // Suspicious login checks / email notify (kept from your code)
+                        // Suspicious login checks / email notify
                         $sql_ip_prev_logins = mysqli_fetch_assoc(mysqli_query($mysqli, "
                             SELECT COUNT(log_id) AS ip_previous_logins
                             FROM logs
@@ -409,6 +416,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                             addToMailQueue($data);
                         }
 
+                        // Option B: set session_user_id BEFORE logAction()
+                        $session_user_id = $user_id;
                         logAction("Login", "Success", "$user_name successfully logged in $extended_log", 0, $user_id);
 
                         $_SESSION['user_id']    = $user_id;
@@ -419,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                             $config_start_page = "user/mfa_enforcement.php";
                         }
 
-                        // ✅ Setup encryption session key WITHOUT PASSWORD IN SESSION
+                        // Setup encryption session key WITHOUT PASSWORD IN SESSION
                         // If we are coming from MFA step, master key is in pending_mfa_login.
                         // If we are coming from login step with no MFA, decrypt now.
                         $site_encryption_master_key = null;
@@ -468,11 +477,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                         }
 
                         $_SESSION['pending_mfa_login'] = [
-                            'email'           => $user_email,
-                            'agent_user_id'   => $user_id,
-                            'agent_master_key'=> $agent_master_key, // may be null
-                            'token'           => $pending_mfa_token,
-                            'created'         => time()
+                            'email'            => $user_email,
+                            'agent_user_id'    => $user_id,
+                            'agent_master_key' => $agent_master_key, // may be null
+                            'token'            => $pending_mfa_token,
+                            'created'          => time()
                         ];
 
                         $token_field = "
@@ -488,6 +497,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                             </div>";
 
                         if ($current_code !== 0) {
+
+                            // Option B: set session_user_id BEFORE logAction()
+                            $session_user_id = $user_id;
                             logAction("Login", "MFA Failed", "$user_email failed MFA", 0, $user_id);
 
                             if (!empty($config_smtp_host)) {
@@ -518,17 +530,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
 
                     if ($config_client_portal_enable != 1) {
                         header("HTTP/1.1 401 Unauthorized");
+
                         logAction("Client Login", "Failed", "Client portal disabled; login attempt using $email");
+
                         $response = "
                           <div class='alert alert-danger'>
                             Incorrect username or password.
                           </div>";
                     } else {
 
-                        $user_id          = intval($selectedRow['contact_user_id']);
-                        $client_id        = intval($selectedRow['contact_client_id']);
-                        $contact_id       = intval($selectedRow['contact_id']);
-                        $user_auth_method = sanitizeInput($selectedRow['user_auth_method']);
+                        // Client login user id can be clobbered by SELECT users.*, contacts.*, clients.* collisions.
+                        // Prefer contact_user_id (ties to the portal user), fallback to user_id if present.
+                        $user_id = intval($selectedRow['contact_user_id'] ?? 0);
+                        if ($user_id === 0) {
+                            $user_id = intval($selectedRow['user_id'] ?? 0);
+                        }
+
+                        $client_id        = intval($selectedRow['contact_client_id'] ?? 0);
+                        $contact_id       = intval($selectedRow['contact_id'] ?? 0);
+                        $user_auth_method = sanitizeInput($selectedRow['user_auth_method'] ?? '');
 
                         if ($client_id && $contact_id && $user_auth_method === 'local') {
 
@@ -539,6 +559,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
                             $_SESSION['contact_id']       = $contact_id;
                             $_SESSION['login_method']     = "local";
 
+                            // Keep consistent with agent flow (helps any shared session checks)
+                            $_SESSION['logged']     = true;
+                            $_SESSION['csrf_token'] = randomString(32);
+
+                            // Option B: set session_user_id BEFORE logAction()
+                            $session_user_id = $user_id;
                             logAction("Client Login", "Success", "Client contact $user_email successfully logged in locally", $client_id, $user_id);
 
                             header("Location: client/index.php");
@@ -546,7 +572,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || isset($_
 
                         } else {
 
-                            logAction("Client Login", "Failed", "Failed client portal login attempt using $email (invalid auth method or missing contact/client)", $client_id ?? 0, $user_id);
+                            // if we have a users.user_id, log it
+                            $session_user_id = $user_id ?: 0;
+                            logAction(
+                                "Client Login",
+                                "Failed",
+                                "Failed client portal login attempt using $email (invalid auth method or missing contact/client)",
+                                $client_id ?? 0,
+                                $user_id
+                            );
 
                             header("HTTP/1.1 401 Unauthorized");
                             $response = "
