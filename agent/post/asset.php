@@ -128,6 +128,9 @@ if (isset($_POST['edit_asset'])) {
         }
     }
 
+    // Add to History
+    mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = '$status', asset_history_description = '$session_name updated $name', asset_history_asset_id = $asset_id");
+
     logAction("Asset", "Edit", "$session_name edited asset $name", $client_id, $asset_id);
 
     flash_alert("Asset <strong>$name</strong> edited");
@@ -152,6 +155,9 @@ if (isset($_GET['archive_asset'])) {
 
     mysqli_query($mysqli,"UPDATE assets SET asset_archived_at = NOW() WHERE asset_id = $asset_id");
 
+    // Add to History
+    mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'Archived', asset_history_description = '$session_name archived $asset_name', asset_history_asset_id = $asset_id");
+
     logAction("Asset", "Archive", "$session_name archived asset $asset_name", $client_id, $asset_id);
 
     flash_alert("Asset <strong>$asset_name</strong> archived", 'error');
@@ -175,6 +181,9 @@ if (isset($_GET['unarchive_asset'])) {
     $client_id = intval($row['asset_client_id']);
 
     mysqli_query($mysqli,"UPDATE assets SET asset_archived_at = NULL WHERE asset_id = $asset_id");
+
+    // Add to History
+    mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'UnArchived', asset_history_description = '$session_name unarchived $asset_name', asset_history_asset_id = $asset_id");
 
     logAction("Asset", "Unarchive", "$session_name unarchived asset $asset_name", $client_id, $asset_id);
 
@@ -391,6 +400,7 @@ if (isset($_POST['bulk_transfer_client_asset'])) {
             // Archive/log the current asset
             $notes = $asset_notes . "\r\n\r\n---\r\n* " . date('Y-m-d H:i:s') . ": Transferred asset $asset_name (old asset ID: $current_asset_id) from $current_client_name to $new_client_name (new asset ID: $new_asset_id)";
             mysqli_query($mysqli,"UPDATE assets SET asset_archived_at = NOW() WHERE asset_id = $current_asset_id");
+            mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'Transferred', asset_history_description = '$session_name transferred $asset_name to $new_client_name', asset_history_asset_id = $current_asset_id");
 
             // Log Archive
             logAction("Asset", "Archive", "$session_name archived asset $asset_name (via transfer)", $current_client_id, $current_asset_id);
@@ -402,6 +412,7 @@ if (isset($_POST['bulk_transfer_client_asset'])) {
             // Log the new asset
             $notes = $asset_notes . "\r\n\r\n---\r\n* " . date('Y-m-d H:i:s') . ": Transferred asset $asset_name (old asset ID: $current_asset_id) from $current_client_name to $new_client_name (new asset ID: $new_asset_id)";
             logAction("Asset", "Create", "$session_name created asset $name (via transfer)", $new_client_id, $new_asset_id);
+            mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'Transferred', asset_history_description = '$session_name created asset via transfer from $current_client_name', asset_history_asset_id = $new_asset_id");
 
             logAction("Asset", "Transfer", "$session_name Transferred asset $asset_name (old asset ID: $current_asset_id) from $current_client_name to $new_client_name (new asset ID: $new_asset_id)", $new_client_id, $new_asset_id);
 
@@ -486,6 +497,9 @@ if (isset($_POST['bulk_edit_asset_status'])) {
 
             logAction("Asset", "Edit", "$session_name set status to $status on $asset_name", $client_id, $asset_id);
 
+            // Add to History
+            mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = '$status', asset_history_description = '$session_name updated $asset_name', asset_history_asset_id = $asset_id");
+
         }
 
         logAction("Asset", "Bulk Edit", "$session_name set status to $status on $asset_count assets", $client_id);
@@ -520,6 +534,9 @@ if (isset($_POST['bulk_archive_assets'])) {
             mysqli_query($mysqli,"UPDATE assets SET asset_archived_at = NOW() WHERE asset_id = $asset_id");
 
             logAction("Asset", "Archive", "$session_name archived asset $asset_name", $client_id, $asset_id);
+
+            // Add to History
+            mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'Archived', asset_history_description = '$session_name archived $asset_name', asset_history_asset_id = $asset_id");
 
         }
 
@@ -557,6 +574,9 @@ if (isset($_POST['bulk_unarchive_assets'])) {
 
             // Individual Asset logging
             logAction("Asset", "Unarchive", "$session_name unarchived asset $asset_name", $client_id, $asset_id);
+
+            // Add to History
+            mysqli_query($mysqli,"INSERT INTO asset_history SET asset_history_status = 'UnArchived', asset_history_description = '$session_name unarchived $asset_name', asset_history_asset_id = $asset_id");
 
         }
 

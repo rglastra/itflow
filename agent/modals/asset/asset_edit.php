@@ -508,9 +508,10 @@ ob_start();
                     <ul>
                         <?php
                         while ($row = mysqli_fetch_assoc($sql_asset_history)) {
-                            $asset_history_description = nullable_htmlentities(($row['asset_history_description']));
-                            $asset_history_created_at = nullable_htmlentities(($row['asset_history_created_at']));
-                            echo "<li><small class='text-secondary'>$asset_history_created_at</small><br>$asset_history_description</li>";
+                            $asset_history_status = nullable_htmlentities($row['asset_history_status']);
+                            $asset_history_description = nullable_htmlentities($row['asset_history_description']);
+                            $asset_history_created_at = nullable_htmlentities($row['asset_history_created_at']);
+                            echo "<li>$asset_history_created_at - $asset_history_status <br/>$asset_history_description</li><br/>";
                         }
                         ?>
                     </ul>

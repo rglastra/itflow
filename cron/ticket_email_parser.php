@@ -150,8 +150,10 @@ function addTicket($contact_id, $contact_name, $contact_email, $client_id, $date
         mysqli_query($mysqli, "INSERT INTO ticket_watchers SET watcher_email = '$contact_email_esc', watcher_ticket_id = $id");
     }
 
+    // External email
+    $bad_pattern = "/do[\W_]*not[\W_]*reply|no[\W_]*reply/i";
     $data = [];
-    if ($config_ticket_client_general_notifications == 1) {
+    if ($config_ticket_client_general_notifications == 1 && !preg_match($bad_pattern, $contact_email)) {
         $subject_email = "Ticket created - [$config_ticket_prefix$ticket_number] - $subject";
         $body = "<i style='color: #808080'>##- Please type your reply above this line -##</i><br><br>Hello $contact_name,<br><br>Thank you for your email. A ticket regarding \"$subject\" has been automatically created for you.<br><br>Ticket: $config_ticket_prefix$ticket_number<br>Subject: $subject<br>Status: New<br>Portal: <a href='https://$config_base_url/guest/guest_view_ticket.php?ticket_id=$id&url_key=$url_key'>View ticket</a><br><br>--<br>$company_name - Support<br>$config_ticket_from_email<br>$company_phone";
         $data[] = [
@@ -164,6 +166,7 @@ function addTicket($contact_id, $contact_name, $contact_email, $client_id, $date
         ];
     }
 
+    // Internal email
     if ($config_ticket_new_ticket_notification_email) {
         if ($client_id == 0) {
             $client_name = "Guest";
@@ -611,7 +614,16 @@ foreach ($messages as $message) {
     // Body (prefer HTML)
     $message_body_html = $message->getHTMLBody();
     $message_body_text = $message->getTextBody();
-    $message_body = $message_body_html ?: nl2br(htmlspecialchars((string)$message_body_text));
+    $message_body_raw  = $message->getRawBody();
+
+    if (!empty($message_body_html)) {
+        $message_body = $message_body_html;
+    } elseif (!empty($message_body_text)) {
+        $message_body = nl2br(htmlspecialchars($message_body_text));
+    } else {
+        // Final fallback
+        $message_body = nl2br(htmlspecialchars($message_body_raw));
+    }
 
     // Handle attachments (inline vs regular)
     $attachments = [];

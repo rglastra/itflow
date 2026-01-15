@@ -93,6 +93,7 @@ If you want to improve ITFlow, feel free to fork the repo and create a pull requ
 We’re incredibly grateful to the organizations and individuals who support the project - a big thank you to:
 - CompuMatter
 - F1 for HELP
+- digiBandit
 - JetBrains (PhpStorm)
 
 ## License

@@ -49,7 +49,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             <div class="dropdown-menu">
                                 <button class="dropdown-item text-danger text-bold"
                                         type="submit" form="bulkActions" name="bulk_delete_api_keys">
-                                    <i class="fas fa-fw fa-trash mr-2"></i>Revoke
+                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
                                 </button>
                             </div>
                         </div>
@@ -139,9 +139,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <i class="fas fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_api_key=<?php echo $api_key_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
-                                            <i class="fas fa-fw fa-times mr-2"></i>Revoke
-                                        </a>
+                                        <?php if ($api_key_expire > date("Y-m-d H:i:s")) { ?>
+                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?revoke_api_key=<?php echo $api_key_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
+                                                <i class="fas fa-fw fa-times mr-2"></i>Revoke
+                                            </a>
+                                        <?php } ?>
+                                        <?php if ($api_key_expire < date("Y-m-d H:i:s")) { ?>
+                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_api_key=<?php echo $api_key_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
+                                                <i class="fas fa-fw fa-times mr-2"></i>Delete
+                                            </a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </td>
