@@ -743,9 +743,103 @@ foreach ($messages as $message) {
 
     // 5. Unknown sender allowed?
     if (!$email_processed && $config_ticket_email_parse_unknown_senders) {
-        $bad_from_pattern = "/daemon|postmaster/i";
+
+        $bad_from_pattern = "/daemon|postmaster|bounce|mta/i"; //  Stop NDRs with bad subjects raising new tickets
         if (!preg_match($bad_from_pattern, $from_email)) {
             $email_processed = addTicket(0, $from_name, $from_email, 0, $date, $subject, $message_body, $attachments, $original_message_file);
+
+        } else {
+
+            // Probably an NDR message without a ticket ref in the subject
+
+            $failed_recipient  = null;
+            $diagnostic_code   = null;
+            $status_code       = null;
+            $original_subject  = null;
+            $original_to       = null;
+
+            // Webklex stores DSN info in attachments, not parts
+            foreach ($message->getAttachments() as $attachment) {
+
+                $ctype = strtolower($attachment->getContentType());
+                $body  = $attachment->getContent() ?? '';
+
+                // 1. Delivery status block
+                if (strpos($ctype, 'delivery-status') !== false) {
+
+                    if (preg_match('/Final-Recipient:\s*rfc822;\s*(.+)/i', $body, $m)) {
+                        $failed_recipient = sanitizeInput(trim($m[1]));
+                    }
+
+                    if (preg_match('/Diagnostic-Code:\s*(.+)/i', $body, $m)) {
+                        $diagnostic_code = sanitizeInput(trim($m[1]));
+                    }
+
+                    if (preg_match('/Status:\s*([0-9\.]+)/i', $body, $m)) {
+                        $status_code = sanitizeInput(trim($m[1]));
+                    }
+                }
+
+                // 2. Original message headers
+                if (strpos($ctype, 'message/rfc822') !== false) {
+
+                    if (preg_match('/^To:\s*(.+)$/mi', $body, $m)) {
+                        $original_to = sanitizeInput(trim($m[1]));
+                    }
+
+                    if (preg_match('/^Subject:\s*(.+)$/mi', $body, $m)) {
+                        $original_subject = sanitizeInput(trim($m[1]));
+                    }
+                }
+            }
+
+            // 3. Fallback: extract diagnostic from human-readable text/plain
+            if (!$diagnostic_code) {
+                $text = $message->getTextBody() ?? '';
+
+                // Exim puts diagnostics on an indented line
+                if (preg_match('/\n\s{2,}(.+)/', $text, $m)) {
+                    $diagnostic_code = sanitizeInput(trim($m[1]));
+                }
+            }
+
+            // Fallbacks
+            $failed_recipient = $failed_recipient ?: 'unknown recipient';
+            $diagnostic_code  = $diagnostic_code ?: 'unknown diagnostic code';
+            $status_code      = $status_code ?: 'unknown status code';
+            $original_subject = $original_subject ?: $subject;
+
+            appNotify(
+                "Ticket",
+                "Email parser NDR: Message to $failed_recipient bounced. Subject: $original_subject Diagnostics: $status_code / $diagnostic_code - check ITFlow folder manually to see email",
+                "",
+                0
+            );
+
+            // If the original subject has a ticket, add the NDR there too
+            if (preg_match("/\[$config_ticket_prefix(\d+)\]/", $original_subject, $ticket_number_matches)) {
+
+                $ticket_number = intval($ticket_number_matches[1]);
+
+                // Craft a clean bounce message
+                $reply_body = "Email delivery failed.\n".
+                    "Recipient: $failed_recipient\n".
+                    "Status: $status_code\n".
+                    "Diagnostic: $diagnostic_code\n";
+
+                // No attachments
+                addReply(
+                    $from_email,
+                    $date,
+                    $original_subject,
+                    $ticket_number,
+                    $reply_body,
+                    []
+                );
+
+            }
+
+            $email_processed = true;
         }
     }
 
@@ -810,5 +904,5 @@ echo "\nLock File Path: $lock_file_path\n";
 if (file_exists($lock_file_path)) {
     echo "\nLock is present\n\n";
 }
-echo "Processed Emails into tickets: $processed_count\n";
+echo "Processed Emails: $processed_count\n";
 echo "Unprocessed Emails: $unprocessed_count\n";
