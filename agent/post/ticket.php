@@ -712,6 +712,12 @@ if (isset($_POST['assign_ticket'])) {
         redirect();
     }
 
+    if ($client_id) {
+        $client_uri = "&client_id=$client_id";
+    } else {
+        $client_uri = '';
+    }
+
     // Update ticket & insert reply
     mysqli_query($mysqli, "UPDATE tickets SET ticket_assigned_to = $assigned_to, ticket_status = '$ticket_status' WHERE ticket_id = $ticket_id");
 
@@ -724,7 +730,7 @@ if (isset($_POST['assign_ticket'])) {
     if ($session_user_id != $assigned_to && $assigned_to != 0) {
 
         // App Notification
-        mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = 'Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject has been assigned to you by $session_name', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$client_id', notification_client_id = $client_id, notification_user_id = $assigned_to");
+        mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = 'Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject has been assigned to you by $session_name', notification_action = '/agent/ticket.php?ticket_id=$ticket_id$client_uri', notification_client_id = $client_id, notification_user_id = $assigned_to");
 
         // Email Notification
         if (!empty($config_smtp_host)) {
@@ -735,7 +741,7 @@ if (isset($_POST['assign_ticket'])) {
             $company_name = sanitizeInput($session_company_name);
 
             $subject = "$config_app_name - Ticket $ticket_prefix$ticket_number assigned to you - $ticket_subject";
-            $body = "Hi $agent_name, <br><br>A ticket has been assigned to you!<br><br>Client: $client_name<br>Ticket Number: $ticket_prefix$ticket_number<br> Subject: $ticket_subject<br><br>https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id <br><br>Thanks, <br>$session_name<br>$company_name";
+            $body = "Hi $agent_name, <br><br>A ticket has been assigned to you!<br><br>Client: $client_name<br>Ticket Number: $ticket_prefix$ticket_number<br> Subject: $ticket_subject<br><br>https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id$client_uri <br><br>Thanks, <br>$session_name<br>$company_name";
 
             // Email Ticket Agent
             // Queue Mail
@@ -1280,6 +1286,12 @@ if (isset($_POST['bulk_ticket_reply'])) {
             $ticket_first_response_at = sanitizeInput($row['ticket_first_response_at']);
             $client_id = intval($row['ticket_client_id']);
 
+            if ($client_id) {
+                $client_uri = "&client_id=$client_id";
+            } else {
+                $client_uri = '';
+            }
+
             // Mark FR time if required
             if (empty($ticket_first_response_at)) {
                 mysqli_query($mysqli, "UPDATE tickets SET ticket_first_response_at = NOW() WHERE ticket_id = $ticket_id");
@@ -1383,13 +1395,13 @@ if (isset($_POST['bulk_ticket_reply'])) {
             // Notification for assigned ticket user
             if ($session_user_id != $ticket_assigned_to && $ticket_assigned_to != 0) {
 
-                mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that is assigned to you', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$client_id', notification_client_id = $client_id, notification_user_id = $ticket_assigned_to");
+                mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that is assigned to you', notification_action = '/agent/ticket.php?ticket_id=$ticket_id$client_uri', notification_client_id = $client_id, notification_user_id = $ticket_assigned_to");
             }
 
             // Notification for user that opened the ticket
             if ($session_user_id != $ticket_created_by && $ticket_created_by != 0) {
 
-                mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that you opened', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$client_id', notification_client_id = $client_id, notification_user_id = $ticket_created_by");
+                mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that you opened', notification_action = '/agent/ticket.php?ticket_id=$ticket_id$client_uri', notification_client_id = $client_id, notification_user_id = $ticket_created_by");
             }
         } // End Ticket Lopp
 
@@ -1639,6 +1651,12 @@ if (isset($_POST['add_ticket_reply'])) {
         $ticket_assigned_to = intval($row['ticket_assigned_to']);
         $client_id = intval($row['ticket_client_id']);
 
+        if ($client_id) {
+            $client_uri = "&client_id=$client_id";
+        } else {
+            $client_uri = '';
+        }
+
         // Sanitize Config vars from get_settings.php
         $config_ticket_from_name = sanitizeInput($config_ticket_from_name);
         $config_ticket_from_email = sanitizeInput($config_ticket_from_email);
@@ -1703,12 +1721,12 @@ if (isset($_POST['add_ticket_reply'])) {
 
         // Notification for assigned ticket user
         if ($session_user_id != $ticket_assigned_to && $ticket_assigned_to != 0) {
-            mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that is assigned to you', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$client_id', notification_client_id = $client_id, notification_user_id = $ticket_assigned_to");
+            mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that is assigned to you', notification_action = '/agent/ticket.php?ticket_id=$ticket_id$client_uri', notification_client_id = $client_id, notification_user_id = $ticket_assigned_to");
         }
 
         // Notification for user that opened the ticket
         if ($session_user_id != $ticket_created_by && $ticket_created_by != 0) {
-            mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that you opened', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$client_id', notification_client_id = $client_id, notification_user_id = $ticket_created_by");
+            mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_name updated Ticket $ticket_prefix$ticket_number - Subject: $ticket_subject that you opened', notification_action = '/agent/ticket.php?ticket_id=$ticket_id$client_uri', notification_client_id = $client_id, notification_user_id = $ticket_created_by");
         }
 
         // Handle first response
@@ -2314,8 +2332,8 @@ if (isset($_POST['edit_ticket_schedule'])) {
     $ticket_id = intval($_POST['ticket_id']);
     $onsite = intval($_POST['onsite']);
     $schedule = sanitizeInput($_POST['scheduled_date_time']);
-    $ticket_link = "ticket.php?ticket_id=$ticket_id";
-    $full_ticket_url = "https://$config_base_url/client/ticket.php?ticket_id=$ticket_id";
+    $ticket_link = "client/ticket.php?id=$ticket_id";
+    $full_ticket_url = "https://$config_base_url/client/ticket.php?id=$ticket_id";
     $ticket_link_html = "<a href=\"$full_ticket_url\">$ticket_link</a>";
 
     mysqli_query($mysqli,"UPDATE tickets
@@ -2361,6 +2379,12 @@ if (isset($_POST['edit_ticket_schedule'])) {
     $cal_location = sanitizeInput($row["location_address"]);
     $email_datetime = date('l, F j, Y \a\t g:ia', strtotime($schedule));
 
+    if ($client_id) {
+        $client_uri = "&client_id=$client_id";
+    } else {
+        $client_uri = '';
+    }
+
     // Sanitize Config Vars
     $config_ticket_from_email = sanitizeInput($config_ticket_from_email);
     $config_ticket_from_name = sanitizeInput($config_ticket_from_name);
@@ -2377,7 +2401,7 @@ if (isset($_POST['edit_ticket_schedule'])) {
             'recipient' => $user_email,
             'recipient_name' => $user_name,
             'subject' => "Ticket Scheduled - [$ticket_prefix$ticket_number] - $ticket_subject",
-            'body' => "Hello, " . $user_name . "<br><br>The ticket regarding $ticket_subject has been scheduled for $email_datetime.<br><br>--------------------------------<br><a href=\"https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$client_id\">$ticket_link</a><br>--------------------------------<br><br>Please do not reply to this email. <br><br>Ticket: $ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Portal: https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$client_id<br><br>~<br>$session_company_name<br>Support Department<br>$config_ticket_from_email",
+            'body' => "Hello, " . $user_name . "<br><br>The ticket regarding $ticket_subject has been scheduled for $email_datetime.<br><br>--------------------------------<br><a href=\"https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id$client_uri\">$ticket_link</a><br>--------------------------------<br><br>Please do not reply to this email. <br><br>Ticket: $ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Portal: https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id$client_uri<br><br>~<br>$session_company_name<br>Support Department<br>$config_ticket_from_email",
             'cal_str' => $cal_str
         ];
 
@@ -2489,6 +2513,12 @@ if (isset($_GET['cancel_ticket_schedule'])) {
     $ticket_schedule = sanitizeInput($row['ticket_schedule']);
     $ticket_cal_str = sanitizeInput($row['ticket_cal_str']);
 
+    if ($client_id) {
+        $client_uri = "&client_id=$client_id";
+    } else {
+        $client_uri = '';
+    }
+
     mysqli_query($mysqli, "UPDATE tickets SET ticket_schedule = NULL WHERE ticket_id = $ticket_id");
 
     // Sanitize Config Vars
@@ -2529,7 +2559,7 @@ if (isset($_GET['cancel_ticket_schedule'])) {
             'recipient' => $user_email,
             'recipient_name' => $user_name,
             'subject' => "Ticket Schedule Cancelled - [$ticket_prefix$ticket_number] - $ticket_subject",
-            'body' => "Hello, " . $user_name . "<br><br>Scheduled work for the ticket regarding $ticket_subject has been cancelled.<br><br>--------------------------------<br><a href=\"https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$client_id\">$ticket_link</a><br>--------------------------------<br><br>Please do not reply to this email. <br><br>Ticket: $ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Portal: https://$config_base_url/agent/ticket.php?id=$ticket_id&client_id=$client_id<br><br>~<br>$session_company_name<br>Support Department<br>$config_ticket_from_email",
+            'body' => "Hello, " . $user_name . "<br><br>Scheduled work for the ticket regarding $ticket_subject has been cancelled.<br><br>--------------------------------<br><a href=\"https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id$client_uri\">$ticket_link</a><br>--------------------------------<br><br>Please do not reply to this email. <br><br>Ticket: $ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Portal: https://$config_base_url/agent/ticket.php?id=$ticket_id&client_id=$client_id<br><br>~<br>$session_company_name<br>Support Department<br>$config_ticket_from_email",
             'cal_str' => $cal_str
         ];
 

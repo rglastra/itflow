@@ -50,9 +50,11 @@ $device_icon = getAssetIcon($asset_type);
 
 $contact_name = nullable_htmlentities($row['contact_name']);
 $contact_email = nullable_htmlentities($row['contact_email']);
-$contact_phone = nullable_htmlentities($row['contact_phone']);
+$contact_phone_country_code = nullable_htmlentities($row['contact_phone_country_code']);
+$contact_phone = nullable_htmlentities(formatPhoneNumber($row['contact_phone'], $contact_phone_country_code));
 $contact_extension = nullable_htmlentities($row['contact_extension']);
-$contact_mobile = nullable_htmlentities($row['contact_mobile']);
+$contact_mobile_country_code = nullable_htmlentities($row['contact_mobile_country_code']);
+$contact_mobile = nullable_htmlentities(formatPhoneNumber($row['contact_mobile'], $contact_mobile_country_code));
 $contact_archived_at = nullable_htmlentities($row['contact_archived_at']);
 if ($contact_archived_at) {
     $contact_name_display = "<span class='text-danger' title='Archived'><s>$contact_name</s></span>";
@@ -356,10 +358,13 @@ ob_start();
                         <div class="mt-2"><i class="fa fa-fw fa-envelope text-secondary mr-2"></i><a href='mailto:<?php echo $contact_email; ?>'><?php echo $contact_email; ?></a><button class='btn btn-sm clipboardjs' data-clipboard-text='<?php echo $contact_email; ?>'><i class='far fa-copy text-secondary'></i></button></div>
                     <?php }
                     if ($contact_phone) { ?>
-                        <div class="mt-2"><i class="fa fa-fw fa-phone text-secondary mr-2"></i><?php echo formatPhoneNumber($contact_phone); echo " $contact_extension"; ?></div>
+                        <div class="mt-2"><i class="fa fa-fw fa-phone text-secondary mr-2"></i><?= $contact_phone ?></div>
+                    <?php }
+                    if ($contact_extension) { ?>
+                        <div class="mt-1"><i class="fa fa-fw text-secondary mr-2"></i><?= "ext. $contact_extension" ?></div>
                     <?php }
                     if ($contact_mobile) { ?>
-                        <div class="mt-2"><i class="fa fa-fw fa-mobile-alt text-secondary mr-2"></i><?php echo formatPhoneNumber($contact_mobile); ?></div>
+                        <div class="mt-2"><i class="fa fa-fw fa-mobile-alt text-secondary mr-2"></i><?= $contact_mobile ?></div>
                     <?php } ?>
 
                 </div>
