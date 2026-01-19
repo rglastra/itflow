@@ -211,7 +211,7 @@ if (isset($_GET['approve_ticket_task'])) {
 
 
     // Notify tech
-    mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_contact_email approved ticket task $task_name', notification_action = 'ticket.php?ticket_id=$ticket_id', notification_client_id = $session_client_id, notification_user_id = $created_by");
+    mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_contact_email approved ticket task $task_name', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$session_client_id', notification_client_id = $session_client_id, notification_user_id = $created_by");
     // TODO: Email agent
 
     // Logging
@@ -237,7 +237,7 @@ if (isset($_POST['add_ticket_feedback'])) {
         if ($feedback == "Bad") {
             $ticket_details = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT ticket_number FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
             $ticket_number = intval($ticket_details['ticket_number']);
-            appNotify("Feedback", "$session_contact_name rated ticket $config_ticket_prefix$ticket_number as bad (ID: $ticket_id)", "/agent/ticket.php?ticket_id=$ticket_id", $session_client_id, $ticket_id);
+            appNotify("Feedback", "$session_contact_name rated ticket $config_ticket_prefix$ticket_number as bad (ID: $ticket_id)", "/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id", $session_client_id, $ticket_id);
         }
 
         // Custom action/notif handler

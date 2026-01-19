@@ -170,13 +170,15 @@ function addTicket($contact_id, $contact_name, $contact_email, $client_id, $date
     if ($config_ticket_new_ticket_notification_email) {
         if ($client_id == 0) {
             $client_name = "Guest";
+            $client_uri = '';
         } else {
             $client_sql = mysqli_query($mysqli, "SELECT client_name FROM clients WHERE client_id = $client_id");
             $client_row = mysqli_fetch_assoc($client_sql);
             $client_name = sanitizeInput($client_row['client_name']);
+            $client_uri = "&client_id=$client_id";
         }
         $email_subject = "$config_app_name - New Ticket - $client_name: $subject";
-        $email_body = "Hello, <br><br>This is a notification that a new ticket has been raised in ITFlow. <br>Client: $client_name<br>Priority: Low (email parsed)<br>Link: https://$config_base_url/agent/ticket.php?ticket_id=$id <br><br>--------------------------------<br><br><b>$subject</b><br>$message";
+        $email_body = "Hello, <br><br>This is a notification that a new ticket has been raised in ITFlow. <br>Client: $client_name<br>Priority: Low (email parsed)<br>Link: https://$config_base_url/agent/ticket.php?ticket_id=$id$client_uri <br><br>--------------------------------<br><br><b>$subject</b><br>$message";
 
         $data[] = [
             'from' => $config_ticket_from_email,
@@ -253,7 +255,7 @@ function addReply($from_email, $date, $subject, $ticket_number, $message, $attac
             $config_ticket_prefix_esc = mysqli_real_escape_string($mysqli, $config_ticket_prefix);
             $ticket_number_esc2 = mysqli_real_escape_string($mysqli, $ticket_number);
 
-            appNotify("Ticket", "Email parser: $from_email attempted to re-open ticket $config_ticket_prefix_esc$ticket_number_esc2 (ID $ticket_id) - check inbox manually to see email", "/agent/ticket.php?ticket_id=$ticket_id", $client_id);
+            appNotify("Ticket", "Email parser: $from_email attempted to re-open ticket $config_ticket_prefix_esc$ticket_number_esc2 (ID $ticket_id) - check inbox manually to see email", "/agent/ticket.php?ticket_id=$ticket_id&client_id=$client_id", $client_id);
 
             $email_subject = "Action required: This ticket is already closed";
             $email_body = "Hi there, <br><br>You've tried to reply to a ticket that is closed - we won't see your response. <br><br>Please raise a new ticket by sending a new e-mail to our support address below. <br><br>--<br>$company_name - Support<br>$config_ticket_from_email<br>$company_phone";
@@ -325,7 +327,7 @@ function addReply($from_email, $date, $subject, $ticket_number, $message, $attac
                 $tech_name = sanitizeInput($tech_row['user_name']);
 
                 $email_subject = "$config_app_name - Ticket updated - [$config_ticket_prefix$ticket_number] $ticket_subject";
-                $email_body    = "Hello $tech_name,<br><br>A new reply has been added to the below ticket.<br><br>Client: $client_name<br>Ticket: $config_ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Link: https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id<br><br>--------------------------------<br>$message_esc";
+                $email_body    = "Hello $tech_name,<br><br>A new reply has been added to the below ticket.<br><br>Client: $client_name<br>Ticket: $config_ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Link: https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$client_id<br><br>--------------------------------<br>$message_esc";
 
                 $data = [
                     [
