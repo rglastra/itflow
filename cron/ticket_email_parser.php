@@ -68,7 +68,7 @@ register_shutdown_function(function() use ($lock_file_path) {
 });
 
 // Allowed attachment extensions
-$allowed_extensions = array('jpg', 'jpeg', 'gif', 'png', 'webp', 'pdf', 'txt', 'md', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'xlsm', 'zip', 'tar', 'gz');
+$allowed_extensions = array('jpg', 'jpeg', 'gif', 'png', 'webp', 'svg', 'pdf', 'txt', 'md', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'xlsm', 'zip', 'tar', 'gz');
 
 /** ------------------------------------------------------------------
  * Ticket / Reply helpers (unchanged)
