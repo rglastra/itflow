@@ -305,6 +305,7 @@ if ($view == 1) {
         $document_description     = nullable_htmlentities($row['document_description']);
         $document_created_by_name = nullable_htmlentities($row['user_name']);
         $document_created_at      = $row['document_created_at'];
+        $document_updated_at      = $row['document_updated_at'];
         $document_archived_at     = $row['document_archived_at'];
 
         $items[] = [
@@ -314,7 +315,7 @@ if ($view == 1) {
             'description'       => $document_description,
             'mime'              => 'Document',
             'size'              => null,
-            'created_at'        => $document_created_at,
+            'updated_at'        => $document_updated_at,
             'created_by'        => $document_created_by_name,
             'archived_at'       => $document_archived_at,
         ];
@@ -631,7 +632,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                     </th>
                                     <th>
                                         <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=created&order=<?php echo $disp; ?>">
-                                            Uploaded <?php if ($sort == 'created') { echo $order_icon; } ?>
+                                            Updated <?php if ($sort == 'created') { echo $order_icon; } ?>
                                         </a>
                                     </th>
                                     <th></th>
@@ -765,7 +766,8 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         $document_name            = $item['name'];
                                         $document_description     = $item['description'];
                                         $document_created_by_name = $item['created_by'];
-                                        $document_created_at      = date("m/d/Y", strtotime($item['created_at']));
+                                        $document_created_at      = date("m/d/Y", strtotime($item['updated_at']));
+                                        //$document_updated_at      = date("m/d/Y", strtotime($item['updated_at']));
                                         $document_archived_at     = $item['archived_at'];
 
                                         $sql_shared = mysqli_query(

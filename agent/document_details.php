@@ -115,7 +115,7 @@ $page_title = $row['document_name'];
                         <div class="float-right">
                             <div>
                                 Date:
-                                <strong><?= date('Y-m-d', strtotime($document_created_at)); ?></strong>
+                                <strong><?= date('Y-m-d', strtotime($document_updated_at)); ?></strong>
                             </div>
                             <?php if($document_created_by_name) { ?>
                             <div>
