@@ -54,8 +54,17 @@ if (isset($_POST['add_ticket'])) {
         $client_name = sanitizeInput($session_client_name);
         $details = removeEmoji($details);
 
-        $email_subject = "ITFlow - New Ticket - $client_name: $subject";
-        $email_body = "Hello, <br><br>This is a notification that a new ticket has been raised in ITFlow. <br>Client: $client_name<br>Priority: $priority<br>Link: https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id <br><br><b>$subject</b><br>$details";
+        $client_language = getClientLanguage($session_client_id);
+        $ticket_link = "https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id";
+        
+        $email_subject = getEmailText($client_language, 'email_ticket_new_subject', [$client_name, $subject]);
+        $email_body = getEmailText($client_language, 'email_ticket_new_body', [
+            $client_name,
+            $priority,
+            $ticket_link,
+            $subject,
+            $details
+        ]);
 
         // Queue Mail
         $data = [
@@ -118,8 +127,17 @@ if (isset($_POST['add_ticket_comment'])) {
             $tech_email = sanitizeInput($tech_details['user_email']);
             $tech_name = sanitizeInput($tech_details['user_name']);
 
-            $subject = "$config_app_name Ticket updated - [$config_ticket_prefix$ticket_number] $ticket_subject";
-            $body    = "Hello $tech_name,<br><br>A new reply has been added to the below ticket, check ITFlow for full details.<br><br>Client: $client_name<br>Ticket: $config_ticket_prefix$ticket_number<br>Subject: $ticket_subject<br><br>https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id";
+            $client_language = getClientLanguage($session_client_id);
+            $ticket_link = "https://$config_base_url/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id";
+            
+            $subject = getEmailText($client_language, 'email_ticket_reply_subject', [$config_ticket_prefix.$ticket_number, $ticket_subject]);
+            $body = getEmailText($client_language, 'email_ticket_reply_body', [
+                $tech_name,
+                $client_name,
+                $config_ticket_prefix.$ticket_number,
+                $ticket_subject,
+                $ticket_link
+            ]);
 
             $data = [
                 [

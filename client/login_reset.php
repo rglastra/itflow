@@ -78,8 +78,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             mysqli_query($mysqli, "INSERT INTO logs SET log_type = 'Contact', log_action = 'Modify', log_description = 'Sent a portal password reset e-mail for $email.', log_ip = '$ip', log_user_agent = '$user_agent', log_client_id = $client");
 
             // Send reset email
-            $subject = "Password reset for $company_name Client Portal";
-            $body = "Hello $name,<br><br>Someone (probably you) has requested a new password for your account on $company_name\'s Client Portal. <br><br><b>Please <a href=\'$url\'>click here</a> to reset your password.</b> <br><br>Alternatively, copy and paste this URL into your browser:<br> $url<br><br><i>If you didn\'t request this change, you can safely ignore this email.</i><br><br>--<br>$company_name - Support<br>$config_ticket_from_email<br>$company_phone";
+            // Get contact's client for language detection
+            $contact_result = mysqli_query($mysqli, "SELECT contact_client_id FROM contacts WHERE contact_email = '$email' LIMIT 1");
+            $contact_language = 'en_US';
+            if ($contact_result && mysqli_num_rows($contact_result) > 0) {
+                $contact_row = mysqli_fetch_assoc($contact_result);
+                $contact_language = getClientLanguage($contact_row['contact_client_id']);
+            }
+            
+            $subject = getEmailText($contact_language, 'email_password_reset_subject', [$company_name]);
+            $body = getEmailText($contact_language, 'email_password_reset_body', [
+                $name,
+                $company_name,
+                $url,
+                $url,
+                $company_name,
+                $config_ticket_from_email,
+                $company_phone
+            ]);
 
             $data = [
                 [
@@ -132,8 +148,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             mysqli_query($mysqli, "INSERT INTO logs SET log_type = 'Contact User', log_action = 'Modify', log_description = 'Reset portal password for $email.', log_ip = '$ip', log_user_agent = '$user_agent', log_client_id = $client, log_user_id = $user_id");
 
             // Send confirmation email
-            $subject = "Password reset confirmation for $company_name Client Portal";
-            $body = "Hello $name,<br><br>Your password for your account on $company_name\'s Client Portal was successfully reset. You should be all set! <br><br><b>If you didn\'t reset your password, please get in touch ASAP.</b><br><br>--<br>$company_name - Support<br>$config_ticket_from_email<br>$company_phone";
+            // Get contact's client for language detection
+            $contact_result = mysqli_query($mysqli, "SELECT contact_client_id FROM contacts WHERE contact_email = '$email' LIMIT 1");
+            $contact_language = 'en_US';
+            if ($contact_result && mysqli_num_rows($contact_result) > 0) {
+                $contact_row = mysqli_fetch_assoc($contact_result);
+                $contact_language = getClientLanguage($contact_row['contact_client_id']);
+            }
+            
+            $subject = getEmailText($contact_language, 'email_password_reset_confirm_subject', [$company_name]);
+            $body = getEmailText($contact_language, 'email_password_reset_confirm_body', [
+                $name,
+                $company_name,
+                $company_name,
+                $config_ticket_from_email,
+                $company_phone
+            ]);
 
 
             $data = [
