@@ -46,6 +46,8 @@ $invoice_category_id = intval($row['invoice_category_id']);
 $client_id = intval($row['client_id']);
 $client_name = nullable_htmlentities($row['client_name']);
 $client_name_escaped = sanitizeInput($row['client_name']);
+$client_language = nullable_htmlentities($row["client_language"]);
+if ($client_language) { i18n_init($client_language); }
 $location_address = nullable_htmlentities($row['location_address']);
 $location_city = nullable_htmlentities($row['location_city']);
 $location_state = nullable_htmlentities($row['location_state']);
