@@ -23,7 +23,7 @@ ITFlow has an automatic database migration system. When you update your Docker c
 
 2. **Access the admin panel** and navigate to:
    ```
-   Admin → System Settings → Database
+   Admin → Update
    ```
    
 3. **Click "Update Database"** - ITFlow will automatically apply all pending migrations including this one
@@ -48,7 +48,7 @@ UPDATE `settings` SET `config_current_database_version` = '2.3.9';
 
 The automatic migration system works the same way:
 1. Pull the latest code
-2. Navigate to Admin → System Settings → Database
+2. Navigate to Admin → Update
 3. Click "Update Database"
 
 Or run manually via MySQL/phpMyAdmin using the SQL above.

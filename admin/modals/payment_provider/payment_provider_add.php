@@ -44,6 +44,7 @@ ob_start();
                         </div>
                         <select class="form-control select2" name="provider">
                             <option>Stripe</option>
+                            <option>Mollie</option>
                         </select>
                     </div>
                 </div>
@@ -54,7 +55,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="public_key" placeholder="Publishable API Key (pk_...)">
+                        <input type="text" class="form-control" name="public_key" placeholder="Publishable API Key (pk_... / test_...)">
                     </div>
                 </div>
 
@@ -64,7 +65,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="private_key" placeholder="Secret API Key (sk_...)">
+                        <input type="text" class="form-control" name="private_key" placeholder="Secret API Key (sk_... / live_...)">
                     </div>
                 </div>
 

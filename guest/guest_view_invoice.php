@@ -181,8 +181,12 @@ if ($balance > 0) {
                             $payment_provider_threshold == 0 ||
                             $payment_provider_threshold > $invoice_amount
                         ) 
-                    ){ ?>
-                        <a class="btn btn-success" href="guest_pay_invoice_stripe.php?invoice_id=<?php echo $invoice_id; ?>&url_key=<?php echo $url_key; ?>"><i class="fa fa-fw fa-credit-card mr-2"></i>Pay Now </a>
+                    ){ 
+                        if ($payment_provider_name === 'Stripe') { ?>
+                            <a class="btn btn-success" href="guest_pay_invoice_stripe.php?invoice_id=<?php echo $invoice_id; ?>&url_key=<?php echo $url_key; ?>"><i class="fa fa-fw fa-credit-card mr-2"></i>Pay Now (Card)</a>
+                        <?php } elseif ($payment_provider_name === 'Mollie') { ?>
+                            <a class="btn btn-success" href="guest_pay_invoice_mollie.php?invoice_id=<?php echo $invoice_id; ?>&url_key=<?php echo $url_key; ?>"><i class="fa fa-fw fa-credit-card mr-2"></i>Pay Now</a>
+                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>
