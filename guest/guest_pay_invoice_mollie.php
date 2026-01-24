@@ -88,8 +88,8 @@ try {
             "value" => number_format($balance_to_pay, 2, '.', '')
         ],
         "description" => "$company_name - Invoice $invoice_prefix$invoice_number",
-        "redirectUrl" => "https://" . $config_base_url . "/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key",
-        "webhookUrl" => "https://" . $config_base_url . "/guest/guest_mollie_webhook.php",
+        "redirectUrl" => "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key",
+        "webhookUrl" => "https://$config_base_url/guest/guest_mollie_webhook.php",
         "metadata" => [
             "invoice_id" => $invoice_id,
             "client_id" => $client_id,

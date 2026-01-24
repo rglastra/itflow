@@ -1,0 +1,157 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Factories/Factory.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 7
+			path: src/Http/Data/DataCollection.php
+
+		-
+			message: '#^Deprecated in PHP 8\.0\: Required parameter \$amount follows optional parameter \$description\.$#'
+			identifier: parameter.requiredAfterOptional
+			count: 1
+			path: src/Http/Requests/CreatePaymentRefundRequest.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Resources/ResourceCollection.php
+
+		-
+			message: '#^Dead catch \- Throwable is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/Webhooks/WebhookEntity.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/CustomerEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/MandateEndpointCollectionTest.php
+
+		-
+			message: '#^Access to an undefined property Mollie\\Api\\Resources\\Issuer\:\:\$_links\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/EndpointCollection/MethodIssuerEndpointCollectionTest.php
+
+		-
+			message: '#^Access to an undefined property Mollie\\Api\\Resources\\Issuer\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/EndpointCollection/MethodIssuerEndpointCollectionTest.php
+
+		-
+			message: '#^Access to an undefined property Mollie\\Api\\Resources\\Issuer\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/EndpointCollection/MethodIssuerEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/MethodIssuerEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/PaymentLinkEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/PaymentRefundEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/ProfileEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 2
+			path: tests/EndpointCollection/ProfileMethodEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/SalesInvoiceEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/SessionEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/SubscriptionEndpointCollectionTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/EndpointCollection/WebhookEndpointCollectionTest.php
+
+		-
+			message: '#^Call to an undefined method Mollie\\Api\\Fake\\ResourceResponseBuilder\:\:add\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Fake/ResourceResponseBuilderTest.php
+
+		-
+			message: '#^Call to an undefined method Mollie\\Api\\Fake\\ResourceResponseBuilder\:\:embed\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/Fake/ResourceResponseBuilderTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Http/Auth/AccessTokenAuthenticatorTest.php
+
+		-
+			message: '#^Access to an undefined property Mollie\\Api\\Resources\\AnyResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Resources/ResourceHydratorTest.php
+
+		-
+			message: '#^Access to an undefined property Mollie\\Api\\Resources\\AnyResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Resources/ResourceHydratorTest.php
+
+		-
+			message: '#^Call to an undefined method Mollie\\Api\\Resources\\ResourceHydrator\:\:expects\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/Resources/ResourceResolverTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Resources/WebhookTest.php
