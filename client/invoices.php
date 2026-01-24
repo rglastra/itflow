@@ -17,7 +17,7 @@ if ($session_contact_primary == 0 && !$session_contact_is_billing_contact) {
 $invoices_sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_client_id = $session_client_id AND invoice_status != 'Draft' ORDER BY invoice_date DESC");
 ?>
 
-<h3>Invoices</h3>
+<h3><?php echo __('invoices'); ?></h3>
 <div class="row">
 
     <div class="col-md-10">
@@ -25,12 +25,12 @@ $invoices_sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_clie
         <table class="table tabled-bordered border border-dark">
             <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Scope</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Due</th>
-                <th>Status</th>
+                <th><?php echo __('invoice_number'); ?></th>
+                <th><?php echo __('invoice_scope'); ?></th>
+                <th><?php echo __('invoice_amount'); ?></th>
+                <th><?php echo __('invoice_date'); ?></th>
+                <th><?php echo __('invoice_due'); ?></th>
+                <th><?php echo __('invoice_status'); ?></th>
             </tr>
             </thead>
             <tbody>
@@ -83,7 +83,7 @@ $invoices_sql = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_clie
                     <td class="<?php echo $overdue_color; ?>"><?php echo $invoice_due; ?></td>
                     <td>
                         <span class="p-2 badge badge-<?php echo $invoice_badge_color; ?>">
-                            <?php echo $invoice_status; ?>
+                            <?php echo __('invoice_status_' . strtolower(str_replace([' ', '-'], '_', $invoice_status)), $invoice_status); ?>
                         </span>
                     </td>
                 </tr>
