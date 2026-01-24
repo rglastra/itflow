@@ -1083,6 +1083,75 @@ function generateReadablePassword($security_level)
     return $password;
 }
 
+/**
+ * Get client's preferred language for emails and client portal
+ * Falls back to system/company default if not set
+ * 
+ * @param int $client_id Client ID
+ * @return string Language code (e.g., 'en_US', 'de_DE', 'nl_NL')
+ */
+function getClientLanguage($client_id) {
+    global $mysqli, $session_locale;
+    
+    $client_id = intval($client_id);
+    
+    // Try to get language from client settings
+    $result = mysqli_query($mysqli, "SELECT client_language FROM clients WHERE client_id = $client_id LIMIT 1");
+    
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $client_language = $row['client_language'];
+        
+        if (!empty($client_language)) {
+            return $client_language;
+        }
+    }
+    
+    // Fall back to current system language, or English as final default
+    return !empty($session_locale) ? $session_locale : 'en_US';
+}
+
+/**
+ * Get translated email content
+ * 
+ * @param string $locale Language code
+ * @param string $key Translation key
+ * @param array $params Parameters to substitute in the translation
+ * @return string Translated and formatted text
+ */
+function getEmailText($locale, $key, $params = []) {
+    global $lang;
+    
+    // Save current locale
+    $current_locale = isset($_COOKIE['itflow_language']) ? $_COOKIE['itflow_language'] : 'en_US';
+    
+    // Temporarily load the target locale
+    $lang_backup = $lang;
+    $lang = [];
+    
+    // Load language files for the target locale
+    $lang_dir = __DIR__ . "/lang/{$locale}/";
+    if (is_dir($lang_dir)) {
+        $lang_files = glob($lang_dir . "*.php");
+        foreach ($lang_files as $lang_file) {
+            require $lang_file;
+        }
+    }
+    
+    // Get the translation
+    $text = isset($lang[$key]) ? $lang[$key] : $key;
+    
+    // Substitute parameters if provided
+    if (!empty($params)) {
+        $text = vsprintf($text, $params);
+    }
+    
+    // Restore original locale
+    $lang = $lang_backup;
+    
+    return $text;
+}
+
 function addToMailQueue($data) {
 
     global $mysqli;

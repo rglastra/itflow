@@ -561,12 +561,36 @@ if (isset($_GET['email_invoice'])) {
 
     $balance = $invoice_amount - $amount_paid;
 
+    // Get client language for email
+    $client_language = getClientLanguage($client_id);
+
     if ($invoice_status == 'Paid') {
-        $subject = "Invoice $invoice_prefix$invoice_number Receipt";
-        $body = "Hello $contact_name,<br><br>Please click on the link below to see your invoice regarding \"$invoice_scope\" marked <b>paid</b>.<br><br><a href=\'https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key\'>Invoice Link</a><br><br><br>--<br>$company_name - Billing<br>$config_invoice_from_email<br>$company_phone";
+        $subject = getEmailText($client_language, 'email_invoice_subject_paid', [$invoice_prefix.$invoice_number]);
+        $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+        $body = getEmailText($client_language, 'email_invoice_body_paid', [
+            $contact_name,
+            $invoice_scope,
+            $invoice_link,
+            $company_name,
+            $config_invoice_from_email,
+            $company_phone
+        ]);
     } else {
-        $subject = "Invoice $invoice_prefix$invoice_number";
-        $body = "Hello $contact_name,<br><br>Please view the details of your invoice regarding \"$invoice_scope\" below.<br><br>Invoice: $invoice_prefix$invoice_number<br>Issue Date: $invoice_date<br>Total: " . numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code) . "<br>Balance Due: " . numfmt_format_currency($currency_format, $balance, $invoice_currency_code) . "<br>Due Date: $invoice_due<br><br><br>To view your invoice, please click <a href=\'https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key\'>here</a>.<br><br><br>--<br>$company_name - Billing<br>$config_invoice_from_email<br>$company_phone";
+        $subject = getEmailText($client_language, 'email_invoice_subject', [$invoice_prefix.$invoice_number]);
+        $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+        $body = getEmailText($client_language, 'email_invoice_body', [
+            $contact_name,
+            $invoice_scope,
+            $invoice_prefix.$invoice_number,
+            $invoice_date,
+            numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code),
+            numfmt_format_currency($currency_format, $balance, $invoice_currency_code),
+            $invoice_due,
+            $invoice_link,
+            $company_name,
+            $config_invoice_from_email,
+            $company_phone
+        ]);
     }
 
     // Queue Mail
