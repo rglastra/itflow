@@ -45,6 +45,10 @@ if ($config_https_only && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'o
 // Set Timezone after session_start
 require_once "includes/inc_set_timezone.php";
 
+// Initialize i18n (internationalization) system
+require_once "includes/i18n.php";
+i18n_init();
+
 // IP & User Agent for logging
 $session_ip = sanitizeInput(getIP());
 $session_user_agent = sanitizeInput($_SERVER['HTTP_USER_AGENT'] ?? '');
