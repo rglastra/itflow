@@ -564,6 +564,11 @@ if (isset($_GET['email_invoice'])) {
     // Get client language for email
     $client_language = getClientLanguage($client_id);
 
+    // Check if payment provider is configured
+    $payment_provider_sql = mysqli_query($mysqli, "SELECT * FROM payment_providers WHERE payment_provider_active = 1 LIMIT 1");
+    $payment_provider = mysqli_fetch_array($payment_provider_sql);
+    $payment_provider_name = $payment_provider ? sanitizeInput($payment_provider['payment_provider_name']) : '';
+
     if ($invoice_status == 'Paid') {
         $subject = getEmailText($client_language, 'email_invoice_subject_paid', [$invoice_prefix.$invoice_number]);
         $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
@@ -578,6 +583,15 @@ if (isset($_GET['email_invoice'])) {
     } else {
         $subject = getEmailText($client_language, 'email_invoice_subject', [$invoice_prefix.$invoice_number]);
         $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+        
+        // Add payment button/link if Mollie is configured
+        $payment_button_html = '';
+        if ($payment_provider_name === 'Mollie' && $balance > 0) {
+            $payment_link = "https://$config_base_url/guest/guest_pay_invoice_mollie.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+            $payment_button_text = $client_language === 'nl_NL' ? 'Betaal Nu' : ($client_language === 'de_DE' ? 'Jetzt Bezahlen' : 'Pay Now');
+            $payment_button_html = "<br><br><a href=\"$payment_link\" style=\"display: inline-block; padding: 12px 24px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;\">$payment_button_text</a>";
+        }
+
         $body = getEmailText($client_language, 'email_invoice_body', [
             $contact_name,
             $invoice_scope,
@@ -590,7 +604,7 @@ if (isset($_GET['email_invoice'])) {
             $company_name,
             $config_invoice_from_email,
             $company_phone
-        ]);
+        ]) . $payment_button_html;
     }
 
     // Queue Mail
