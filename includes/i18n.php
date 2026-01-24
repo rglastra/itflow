@@ -84,7 +84,7 @@ function i18n_init($locale = null) {
     }
     
     // Whitelist of allowed locales to prevent path injection attacks
-    $allowed_locales = ['en_US', 'de_DE'];
+    $allowed_locales = ['en_US', 'de_DE', 'nl_NL'];
     if (!in_array($locale, $allowed_locales, true)) {
         $locale = 'en_US'; // Fallback to safe default
     }
@@ -162,7 +162,7 @@ function __t($key, $replacements = [], $default = '') {
 function i18n_get_available_languages() {
     // Hardcoded whitelist of supported languages for security
     // Add new languages here when translation files are available
-    $allowed_locales = ['en_US', 'de_DE'];
+    $allowed_locales = ['en_US', 'de_DE', 'nl_NL'];
     
     $languages = [];
     foreach ($allowed_locales as $locale) {
