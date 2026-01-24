@@ -273,7 +273,7 @@ if (isset($_POST['bulk_archive_files'])) {
             $document_name = sanitizeInput($row['document_name']);
             $client_id = intval($row['document_client_id']);
 
-            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NOW() WHERE document_id = $document_id");
+            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NOW(), document_updated_at = document_updated_at WHERE document_id = $document_id");
 
             logAction("Document", "Archive", "$session_name archived document $document_name", $client_id, $document_id);
 
@@ -409,7 +409,7 @@ if (isset($_POST['bulk_restore_files'])) {
             $document_name = sanitizeInput($row['document_name']);
             $client_id = intval($row['document_client_id']);
 
-            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL WHERE document_id = $document_id");
+            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
             logAction("Document", "Restore", "$session_name restored document $document_name", $client_id, $document_id);
 
@@ -498,7 +498,7 @@ if (isset($_POST['bulk_move_files'])) {
             $document_name = sanitizeInput(getFieldById('documents', $document_id, 'document_name'));
 
             // Move document
-            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id WHERE document_id = $document_id");
+            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
             // Per-document log
             logAction(

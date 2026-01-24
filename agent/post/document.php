@@ -248,7 +248,7 @@ if (isset($_POST['move_document'])) {
     $folder_name = sanitizeInput($row['folder_name']);
 
     // Document edit query
-    mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id WHERE document_id = $document_id");
+    mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
     logAction("Document", "Move", "$session_name moved document $document_name to folder $folder_name", $client_id, $document_id);
 
@@ -272,7 +272,7 @@ if (isset($_POST['rename_document'])) {
     $old_document_name = sanitizeInput($row['document_name']);
 
     // Document edit query
-    mysqli_query($mysqli,"UPDATE documents SET document_name = '$name' WHERE document_id = $document_id");
+    mysqli_query($mysqli,"UPDATE documents SET document_name = '$name', document_updated_at = document_updated_at WHERE document_id = $document_id");
 
     logAction("Document", "Edit", "$session_name renamed document $old_document_name to $name", $client_id, $document_id);
 
@@ -307,7 +307,7 @@ if (isset($_POST['bulk_move_document'])) {
             $document_name = sanitizeInput(getFieldById('documents', $document_id, 'document_name'));
 
             // Document move query
-            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id WHERE document_id = $document_id");
+            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
             logAction("Document", "Move", "$session_name moved document $document_name to folder $folder_name", $client_id, $document_id);
         }
@@ -605,7 +605,7 @@ if (isset($_POST['toggle_document_visibility'])) {
     $document_name = sanitizeInput($row['document_name']);
     $client_id = intval($row['document_client_id']);
 
-    mysqli_query($mysqli,"UPDATE documents SET document_client_visible = $document_visible WHERE document_id = $document_id");
+    mysqli_query($mysqli,"UPDATE documents SET document_client_visible = $document_visible, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
     logAction("Document", "Edit", "$session_name changed document $document_name visibilty to $visable_wording in the client portal", $client_id, $document_id);
 
@@ -671,7 +671,7 @@ if (isset($_GET['archive_document'])) {
     $document_name = sanitizeInput($row['document_name']);
     $client_id = intval($row['document_client_id']);
 
-    mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NOW() WHERE document_id = $document_id");
+    mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NOW(), document_updated_at = document_updated_at WHERE document_id = $document_id");
 
     // Remove Associations
     // File Association
@@ -712,7 +712,7 @@ if (isset($_GET['restore_document'])) {
     $document_name = sanitizeInput($row['document_name']);
     $client_id = intval($row['document_client_id']);
 
-    mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL WHERE document_id = $document_id");
+    mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
     logAction("Document", "Restore", "$session_name restored document $document_name", $client_id, $document_id);
 
