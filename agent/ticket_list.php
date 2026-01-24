@@ -1,3 +1,18 @@
+<?php
+/**
+ * Translate priority/status values from database
+ * Maps English DB values to translated strings
+ */
+function translatePriority($priority) {
+    $priority_lower = strtolower($priority);
+    return __('priority_' . $priority_lower, $priority);
+}
+
+function translateStatus($status) {
+    $status_lower = strtolower(str_replace(' ', '_', $status));
+    return __('status_' . $status_lower, $status);
+}
+?>
 <div class="card card-dark">
     <div class="card-body">
         <form id="bulkActions" action="post.php" method="post">
@@ -18,56 +33,56 @@
 
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_number&order=<?php echo $disp; ?>">
-                                    Ticket <?php if ($sort == 'ticket_number') { echo $order_icon; } ?>
+                                    <?php echo __('ticket'); ?> <?php if ($sort == 'ticket_number') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_subject&order=<?php echo $disp; ?>">
-                                    Subject <?php if ($sort == 'ticket_subject') { echo $order_icon; } ?>
+                                    <?php echo __('subject'); ?> <?php if ($sort == 'ticket_subject') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             
                             <th>
                                 <?php if (!$client_url) { ?>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                    Client <?php if ($sort == 'client_name') { echo $order_icon; } ?> /
+                                    <?php echo __('client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?> /
                                 </a>
                                 <?php } ?>
                                 <a class="text-secondary <?php if ($client_url) { echo "text-dark"; } ?>" href="?<?php echo $url_query_strings_sort; ?>&sort=contact_name&order=<?php echo $disp; ?>">
-                                    Contact <?php if ($sort == 'contact_name') { echo $order_icon; } ?>
+                                    <?php echo __('contact'); ?> <?php if ($sort == 'contact_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php if ($config_module_enable_accounting && lookupUserPermission("module_sales") >= 2) { ?>
                             <th class="text-center">
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_billable&order=<?php echo $disp; ?>">
-                                    Billable <?php if ($sort == 'ticket_billable') { echo $order_icon; } ?>
+                                    <?php echo __('billable'); ?> <?php if ($sort == 'ticket_billable') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php } ?>
 
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_priority&order=<?php echo $disp; ?>">
-                                    Priority <?php if ($sort == 'ticket_priority') { echo $order_icon; } ?>
+                                    <?php echo __('priority'); ?> <?php if ($sort == 'ticket_priority') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_status&order=<?php echo $disp; ?>">
-                                    Status <?php if ($sort == 'ticket_status') { echo $order_icon; } ?>
+                                    <?php echo __('status'); ?> <?php if ($sort == 'ticket_status') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=user_name&order=<?php echo $disp; ?>">
-                                    Assigned <?php if ($sort == 'user_name') { echo $order_icon; } ?>
+                                    <?php echo __('assigned'); ?> <?php if ($sort == 'user_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_updated_at&order=<?php echo $disp; ?>">
-                                    Last Response <?php if ($sort == 'ticket_updated_at') { echo $order_icon; } ?>
+                                    <?php echo __('last_response'); ?> <?php if ($sort == 'ticket_updated_at') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_created_at&order=<?php echo $disp; ?>">
-                                    Created <?php if ($sort == 'ticket_created_at') { echo $order_icon; } ?>
+                                    <?php echo __('created'); ?> <?php if ($sort == 'ticket_created_at') { echo $order_icon; } ?>
                                 </a>
                             </th>
                         </tr>
@@ -125,9 +140,9 @@
                             $ticket_assigned_to = intval($row['ticket_assigned_to']);
                             if (empty($ticket_assigned_to)) {
                                 if (!empty($ticket_closed_at)) {
-                                    $ticket_assigned_to_display = "<p>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p>" . __('not_assigned') . "</p>";
                                 } else {
-                                    $ticket_assigned_to_display = "<p class='text-danger'>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p class='text-danger'>" . __('not_assigned') . "</p>";
                                 }
                             } else {
                                 $ticket_assigned_to_display = nullable_htmlentities($row['user_name']);
@@ -145,7 +160,7 @@
 
                             // Defaults to prevent undefined errors
                             $ticket_reply_created_at = "";
-                            $ticket_reply_created_at_time_ago = "Never";
+                            $ticket_reply_created_at_time_ago = __('never');
                             $ticket_reply_by_display = "";
                             $ticket_reply_type = "Client"; // Default to client for un-replied tickets
 

@@ -18,6 +18,6 @@ Working on adding comprehensive internationalization support with modular langua
 - Complete PR #1255 implementation
 - Add PR #1256 enhancements
 - Full Dutch translations
-- Mollie payment integration
+- Mollie payment integration with payment links? 
 
 See full details at https://github.com/itflow-org/itflow/pull/1255 and #1256
