@@ -9,6 +9,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/session_init.php';
 // Set Timezone
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/inc_set_timezone.php';
 
+// Load i18n for translations
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/i18n.php';
+
 $ip = sanitizeInput(getIP());
 $user_agent = sanitizeInput($_SERVER['HTTP_USER_AGENT']);
 $os = sanitizeInput(getOS($user_agent));

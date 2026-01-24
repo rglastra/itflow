@@ -20,7 +20,6 @@ $sql = mysqli_query(
 // Ensure valid invoice
 if (!$sql || mysqli_num_rows($sql) !== 1) {
     echo "<br><h2>Oops, something went wrong! Please ensure you have the correct URL and have not already paid this invoice.</h2>";
-    require_once 'includes/guest_footer.php';
     error_log("Mollie payment error - Invoice with ID $invoice_id not found or not eligible.");
     exit();
 }
@@ -40,7 +39,6 @@ $sql_company = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id =
 $company_row = mysqli_fetch_array($sql_company);
 $company_name = nullable_htmlentities($company_row['company_name']);
 $company_locale = nullable_htmlentities($company_row['company_locale']);
-$config_base_url = nullable_htmlentities($company_row['company_base_url'] ?? '');
 
 // Add up all payments made to the invoice
 $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments WHERE payment_invoice_id = $invoice_id");
