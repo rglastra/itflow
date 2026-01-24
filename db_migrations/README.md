@@ -3,52 +3,81 @@
 ## Overview
 This migration adds per-client language preference support to ITFlow, allowing each client to receive emails and view their portal in their preferred language.
 
+**Database Version**: 2.3.8 → 2.3.9
+
 ## Changes
-- Adds `client_language` column to `clients` table
+- Adds `client_language` column to `clients` table (varchar(10), nullable)
 - Creates index on `client_language` for performance
+- Updates database version to 2.3.9
 
 ## Installation Instructions
 
-### For New Installations
-No action needed - include this in the base `db.sql` schema.
+### For Docker Deployments (Recommended)
 
-### For Existing Installations
+ITFlow has an automatic database migration system. When you update your Docker container:
 
-#### Option 1: Manual SQL Execution (Recommended)
-Run the SQL directly in your MySQL/MariaDB database:
+1. **Pull the latest changes** from your fork:
+   ```bash
+   docker compose exec itflow git pull origin master
+   ```
+
+2. **Access the admin panel** and navigate to:
+   ```
+   Admin → System Settings → Database
+   ```
+   
+3. **Click "Update Database"** - ITFlow will automatically apply all pending migrations including this one
+
+4. **Verify** the migration completed successfully by checking the database version shows `2.3.9`
+
+### Alternative: Manual Database Update (Docker)
+
+If you prefer to run the update manually:
 
 ```bash
-mysql -u your_user -p your_database < db_migrations/001_add_client_language.sql
+# Access the database container
+docker compose exec itflow-db mysql -u itflow -p itflow
+
+# Run the migration SQL
+ALTER TABLE `clients` ADD COLUMN `client_language` varchar(10) DEFAULT NULL AFTER `client_currency_code`;
+CREATE INDEX `idx_client_language` ON `clients` (`client_language`);
+UPDATE `settings` SET `config_current_database_version` = '2.3.9';
 ```
 
-Or via phpMyAdmin/Adminer:
-1. Open your database management tool
-2. Select the ITFlow database
-3. Run the SQL from `db_migrations/001_add_client_language.sql`
+### For Non-Docker/Traditional Installations
 
-#### Option 2: Via Command Line
-```bash
-cd /path/to/itflow
-mysql -u itflow_user -p itflow_db < db_migrations/001_add_client_language.sql
-```
+The automatic migration system works the same way:
+1. Pull the latest code
+2. Navigate to Admin → System Settings → Database
+3. Click "Update Database"
+
+Or run manually via MySQL/phpMyAdmin using the SQL above.
 
 ## Verification
-After running the migration, verify the column was added:
+
+Check the migration was successful:
 
 ```sql
+-- Check database version
+SELECT config_current_database_version FROM settings;
+-- Should return: 2.3.9
+
+-- Verify column exists
 DESCRIBE clients;
+-- Should show client_language column
 ```
 
-You should see `client_language` column of type `varchar(10)` after `client_currency_code`.
-
 ## Rollback (if needed)
+
 ```sql
 ALTER TABLE `clients` DROP COLUMN `client_language`;
 DROP INDEX `idx_client_language` ON `clients`;
+UPDATE `settings` SET `config_current_database_version` = '2.3.8';
 ```
 
 ## Notes
-- The column defaults to NULL, which means "use system default language"
-- Existing clients will have NULL until language is set explicitly
+- The column defaults to NULL (use system default language)
+- Existing clients will have NULL until language is explicitly set
 - No data migration needed - NULL is a valid state
-- Supported languages: en_US, de_DE, nl_NL (can be extended)
+- Supported languages: en_US, de_DE, nl_NL (extensible)
+- The automatic migration system in `admin/database_updates.php` handles this when updating from 2.3.8 to 2.3.9
