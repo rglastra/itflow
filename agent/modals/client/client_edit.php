@@ -17,6 +17,7 @@ $client_tax_id_number = nullable_htmlentities($row['client_tax_id_number']);
 $client_abbreviation = nullable_htmlentities($row['client_abbreviation']);
 $client_rate = floatval($row['client_rate']);
 $client_notes = nullable_htmlentities($row['client_notes']);
+$client_language = nullable_htmlentities($row['client_language']);
 $client_created_at = nullable_htmlentities($row['client_created_at']);
 $client_archived_at = nullable_htmlentities($row['client_archived_at']);
 
@@ -168,7 +169,23 @@ ob_start();
                         </div>
                     </div>
                 </div>
+    <div class="form-group">
+                    <label>Language <small class="text-muted">(for emails and client portal)</small></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-fw fa-language"></i></span>
+                        </div>
+                        <select class="form-control select2" name="language">
+                            <option value="">- System Default -</option>
+                            <option value="en_US" <?php if ($client_language == 'en_US') { echo 'selected'; } ?>>English (US)</option>
+                            <option value="de_DE" <?php if ($client_language == 'de_DE') { echo 'selected'; } ?>>Deutsch (German)</option>
+                            <option value="nl_NL" <?php if ($client_language == 'nl_NL') { echo 'selected'; } ?>>Nederlands (Dutch)</option>
+                        </select>
+                    </div>
+                    <small class="form-text text-muted">Leave as "System Default" to use the company's default language. This controls the language used for emails and the client portal.</small>
+                </div>
 
+            
             </div>
 
             <?php if ($config_module_enable_accounting) { ?>

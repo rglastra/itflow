@@ -87,8 +87,22 @@ if (isset($_POST['add_payment'])) {
 
             if ($email_receipt == 1) {
 
-                $subject = "Payment Received - Invoice $invoice_prefix$invoice_number";
-                $body = "Hello $contact_name,<br><br>We have received your payment in full for the amount of " . numfmt_format_currency($currency_format, $amount, $invoice_currency_code) . " for invoice <a href=\'https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key\'>$invoice_prefix$invoice_number</a>. Please keep this email as a receipt for your records.<br><br>Amount Paid: " . numfmt_format_currency($currency_format, $amount, $invoice_currency_code) . "<br>Payment Method: $payment_method<br>Payment Reference: $reference<br><br>Thank you for your business!<br><br><br>--<br>$company_name - Billing Department<br>$config_invoice_from_email<br>$company_phone";
+                $client_language = getClientLanguage($client_id);
+                $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+                
+                $subject = getEmailText($client_language, 'email_payment_received_subject', [$invoice_prefix.$invoice_number]);
+                $body = getEmailText($client_language, 'email_payment_received_body', [
+                    $contact_name,
+                    numfmt_format_currency($currency_format, $amount, $invoice_currency_code),
+                    $invoice_link,
+                    $invoice_prefix.$invoice_number,
+                    numfmt_format_currency($currency_format, $amount, $invoice_currency_code),
+                    $payment_method,
+                    $reference,
+                    $company_name,
+                    $config_invoice_from_email,
+                    $company_phone
+                ]);
 
                 // Queue Mail
                 $email = [
@@ -122,8 +136,23 @@ if (isset($_POST['add_payment'])) {
 
             if ($email_receipt == 1) {
 
-                $subject = "Partial Payment Received - Invoice $invoice_prefix$invoice_number";
-                $body = "Hello $contact_name,<br><br>We have received partial payment in the amount of " . numfmt_format_currency($currency_format, $amount, $invoice_currency_code) . " and it has been applied to invoice <a href=\'https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key\'>$invoice_prefix$invoice_number</a>. Please keep this email as a receipt for your records.<br><br>Amount Paid: " . numfmt_format_currency($currency_format, $amount, $invoice_currency_code) . "<br>Payment Method: $payment_method<br>Payment Reference: $reference<br>Invoice Balance: " . numfmt_format_currency($currency_format, $invoice_balance, $invoice_currency_code) . "<br><br>Thank you for your business!<br><br><br>~<br>$company_name - Billing<br>$config_invoice_from_email<br>$company_phone";
+                $client_language = getClientLanguage($client_id);
+                $invoice_link = "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
+                
+                $subject = getEmailText($client_language, 'email_payment_partial_subject', [$invoice_prefix.$invoice_number]);
+                $body = getEmailText($client_language, 'email_payment_partial_body', [
+                    $contact_name,
+                    numfmt_format_currency($currency_format, $amount, $invoice_currency_code),
+                    $invoice_link,
+                    $invoice_prefix.$invoice_number,
+                    numfmt_format_currency($currency_format, $amount, $invoice_currency_code),
+                    $payment_method,
+                    $reference,
+                    numfmt_format_currency($currency_format, $invoice_balance, $invoice_currency_code),
+                    $company_name,
+                    $config_invoice_from_email,
+                    $company_phone
+                ]);
 
                 // Queue Mail
                 $email = [

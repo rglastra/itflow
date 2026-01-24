@@ -16,7 +16,7 @@ if ($session_contact_primary == 0 && !$session_contact_is_billing_contact) {
 $quotes_sql = mysqli_query($mysqli, "SELECT * FROM quotes WHERE quote_client_id = $session_client_id AND quote_status != 'Draft' ORDER BY quote_date DESC");
 ?>
 
-<h3>Quotes</h3>
+<h3><?php echo __('quotes'); ?></h3>
 <div class="row">
 
     <div class="col-md-10">
@@ -24,11 +24,11 @@ $quotes_sql = mysqli_query($mysqli, "SELECT * FROM quotes WHERE quote_client_id 
         <table class="table tabled-bordered border border-dark">
             <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Scope</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Status</th>
+                <th><?php echo __('quote_number'); ?></th>
+                <th><?php echo __('quote_scope'); ?></th>
+                <th><?php echo __('quote_amount'); ?></th>
+                <th><?php echo __('quote_date'); ?></th>
+                <th><?php echo __('quote_status'); ?></th>
             </tr>
             </thead>
             <tbody>
@@ -73,7 +73,7 @@ $quotes_sql = mysqli_query($mysqli, "SELECT * FROM quotes WHERE quote_client_id 
                     <td><?php echo $quote_date; ?></td>
                     <td>
                         <span class="p-2 badge badge-<?php echo $quote_badge_color; ?>">
-                            <?php echo $quote_status; ?>
+                            <?php echo __('quote_status_' . strtolower(str_replace([' ', '-'], '_', $quote_status)), $quote_status); ?>
                         </span>
                     </td>
 

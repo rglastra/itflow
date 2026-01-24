@@ -4134,10 +4134,21 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.8'");
     }
 
-    // if (CURRENT_DATABASE_VERSION == '2.3.8') {
-    //     // Insert queries here required to update to DB version 2.3.9
+    if (CURRENT_DATABASE_VERSION == '2.3.8') {
+        // Add client_language column for per-client language preferences (i18n support)
+        mysqli_query($mysqli, "ALTER TABLE `clients` ADD COLUMN `client_language` varchar(10) DEFAULT NULL AFTER `client_currency_code`");
+        
+        // Add index for performance
+        mysqli_query($mysqli, "CREATE INDEX `idx_client_language` ON `clients` (`client_language`)");
+        
+        // Update to next version
+        mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.9'");
+    }
+
+    // if (CURRENT_DATABASE_VERSION == '2.3.9') {
+    //     // Insert queries here required to update to DB version 2.4.0
     //     // Then, update the database to the next sequential version
-    //     mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.9'");
+    //     mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.4.0'");
     // }
 
 } else {

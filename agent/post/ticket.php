@@ -138,8 +138,21 @@ if (isset($_POST['add_ticket'])) {
 
         // EMAILING
 
-        $subject = "Ticket Created [$ticket_prefix$ticket_number] - $ticket_subject";
-        $body = "<i style=\'color: #808080\'>##- Please type your reply above this line -##</i><br><br>Hello $contact_name,<br><br>A ticket regarding \"$ticket_subject\" has been created for you.<br><br>--------------------------------<br>$ticket_details--------------------------------<br><br>Ticket: $ticket_prefix$ticket_number<br>Subject: $ticket_subject<br>Status: Open<br>Portal: <a href=\'https://$config_base_url/guest/guest_view_ticket.php?ticket_id=$ticket_id&url_key=$url_key\'>View ticket</a><br><br>--<br>$company_name - Support<br>$config_ticket_from_email<br>$company_phone";
+        $client_language = getClientLanguage($client_id);
+        $ticket_link = "https://$config_base_url/guest/guest_view_ticket.php?ticket_id=$ticket_id&url_key=$url_key";
+        
+        $subject = getEmailText($client_language, 'email_ticket_created_subject', [$ticket_prefix.$ticket_number, $ticket_subject]);
+        $body = getEmailText($client_language, 'email_ticket_created_body', [
+            $contact_name,
+            $ticket_subject,
+            $ticket_details,
+            $ticket_prefix.$ticket_number,
+            $ticket_subject,
+            $ticket_link,
+            $company_name,
+            $config_ticket_from_email,
+            $company_phone
+        ]);
 
         // Verify contact email is valid
         if (filter_var($contact_email, FILTER_VALIDATE_EMAIL)) {
