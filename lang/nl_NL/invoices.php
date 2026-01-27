@@ -15,6 +15,7 @@ $lang['invoice_amount'] = 'Bedrag';
 $lang['invoice_date'] = 'Datum';
 $lang['invoice_due'] = 'Vervaldatum';
 $lang['invoice_status'] = 'Status';
+$lang['tax_id'] = 'BTW-nummer';
 
 // Factuurstatussen
 $lang['invoice_status_draft'] = 'Concept';

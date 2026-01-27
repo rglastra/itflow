@@ -94,7 +94,7 @@ if (isset($_GET['invoice_id'])) {
     $company_website = nullable_htmlentities($row['company_website']);
     $company_tax_id = nullable_htmlentities($row['company_tax_id']);
     if ($config_invoice_show_tax_id && !empty($company_tax_id)) {
-        $company_tax_id_display = "Tax ID: $company_tax_id";
+        $company_tax_id_display = __("tax_id", "Tax ID") . ": $company_tax_id";
     } else {
         $company_tax_id_display = "";
     }
