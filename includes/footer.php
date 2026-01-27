@@ -25,7 +25,9 @@ if (basename(dirname($_SERVER['REQUEST_URI'])) === 'guest') { ?>
 </div> <!-- ./wrapper -->
 
 <!-- Set the browser window title to the clients name -->
+<?php if (!isset($page_title_custom)) { ?>
 <script>document.title = <?php echo json_encode("$tab_title - $page_title"); ?>;</script>
+<?php } ?>
 
 <!-- REQUIRED SCRIPTS -->
 
