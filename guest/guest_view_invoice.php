@@ -73,7 +73,7 @@ $company_state = nullable_htmlentities($row['company_state']);
 $company_zip = nullable_htmlentities($row['company_zip']);
 $company_country = nullable_htmlentities($row['company_country']);
 $company_phone_country_code = nullable_htmlentities($row['company_phone_country_code']);
-$company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code));
+$company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code, true));
 $company_email = nullable_htmlentities($row['company_email']);
 $company_website = nullable_htmlentities($row['company_website']);
 $company_tax_id = nullable_htmlentities($row['company_tax_id']);
@@ -96,8 +96,9 @@ $payment_provider_id = intval($row['payment_provider_id']);
 $payment_provider_name = nullable_htmlentities($row['payment_provider_name']);
 $payment_provider_threshold = floatval($row['payment_provider_threshold']);
 
-//Set Currency Format
-$currency_format = numfmt_create($company_locale, NumberFormatter::CURRENCY);
+//Set Currency Format - use client language if set, otherwise company locale
+$locale_for_currency = !empty($client_language) ? $client_language : $company_locale;
+$currency_format = numfmt_create($locale_for_currency, NumberFormatter::CURRENCY);
 
 $invoice_tally_total = 0; // Default
 
@@ -165,10 +166,10 @@ if ($balance > 0) {
 <div class="card">
     <div class="card-header bg-light d-print-none">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
+                <?php /* Account balance hidden - too busy
                 <h4 class="mt-1"><?php echo __("account_balance", "Account Balance"); ?>: <b><?php echo numfmt_format_currency($currency_format, $account_balance, $invoice_currency_code); ?></b></h4>
-            </div>
-            <div class="col-6">
+                */ ?>
                 <div class="float-right">
                     <a class="btn btn-default" href="#" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i><?php echo __("print", "Print"); ?></a>
                     <a class="btn btn-default" href="guest_post.php?export_invoice_pdf=<?php echo $invoice_id; ?>&url_key=<?php echo $url_key; ?>">
@@ -197,12 +198,12 @@ if ($balance > 0) {
     <div class="card-body">
 
         <div class="row mb-3">
-            <?php if (file_exists("../uploads/settings/$company_logo")) { ?>
+            <?php if (!empty($company_logo) && file_exists("../uploads/settings/$company_logo")) { ?>
             <div class="col-sm-2">
                 <img class="img-fluid" src="<?php echo "../uploads/settings/$company_logo"; ?>" alt="Company logo">
             </div>
             <?php } ?>
-            <div class="col-sm-6 <?php if (!file_exists("../uploads/settings/$company_logo")) { echo "col-sm-8"; } ?>">
+            <div class="col-sm-6 <?php if (empty($company_logo) || !file_exists("../uploads/settings/$company_logo")) { echo "col-sm-8"; } ?>">
                 <ul class="list-unstyled">
                     <li><h4><strong><?php echo $company_name; ?></strong></h4></li>
                     <li><?php echo $company_address; ?></li>

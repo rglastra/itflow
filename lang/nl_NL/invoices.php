@@ -75,8 +75,9 @@ $lang['paid'] = 'Betaald';
 $lang['balance'] = 'Openstaand';
 $lang['invoice_payments'] = 'Betalingen';
 $lang['invoice_balance'] = 'Openstaand Saldo';
-$lang['pay_now'] = 'Nu Betalen';
-$lang['pay_now_card'] = 'Nu Betalen (Card)';
+$lang['pay_now'] = 'Betalen';
+$lang['pay_now_card'] = 'Betalen (Kaart)';
+$lang['account_balance'] = 'Rekeningsaldo';
 
 // Factuurnotities/Berichten
 $lang['invoice_thank_you'] = 'Bedankt voor uw opdracht!';
