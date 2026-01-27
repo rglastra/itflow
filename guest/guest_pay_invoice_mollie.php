@@ -76,6 +76,12 @@ if (empty($mollie_api_key)) {
 // Initialize Mollie
 require_once '../plugins/mollie-api-php/init.php';
 
+// Initialize language for translations
+if (!empty($client_language)) {
+    require_once '../includes/i18n.php';
+    i18n_init($client_language);
+}
+
 try {
     $mollie = new \Mollie\Api\MollieApiClient();
     $mollie->setApiKey($mollie_api_key);
@@ -96,10 +102,11 @@ try {
             "currency" => $invoice_currency_code,
             "value" => number_format($balance_to_pay, 2, '.', '')
         ],
-        "description" => "$company_name - Invoice $invoice_prefix$invoice_number",
+        "description" => "$company_name - " . __("invoice", "Invoice") . " $invoice_prefix$invoice_number",
         "redirectUrl" => "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key",
         "webhookUrl" => "https://$config_base_url/guest/guest_mollie_webhook.php",
         "locale" => $mollie_locale,
+        "billingEmail" => $client_email,
         "metadata" => [
             "invoice_id" => $invoice_id,
             "client_id" => $client_id,
