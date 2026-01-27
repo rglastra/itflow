@@ -234,56 +234,66 @@ if ($balance > 0) {
     </div>
     <div class="card-body">
 
-        <div class="row mb-3">
-            <?php if (!empty($company_logo) && file_exists("../uploads/settings/$company_logo")) { ?>
-            <div class="col-sm-2">
-                <img class="img-fluid" src="<?php echo "../uploads/settings/$company_logo"; ?>" alt="Company logo">
+        <!-- Top Row: Logo Left, Company Details Right -->
+        <div class="row mb-4">
+            <div class="col-sm-6">
+                <?php if (!empty($company_logo) && file_exists("../uploads/settings/$company_logo")) { ?>
+                    <img class="img-fluid" style="max-width: 200px;" src="<?php echo "../uploads/settings/$company_logo"; ?>" alt="Company logo">
+                <?php } ?>
             </div>
-            <?php } ?>
-            <div class="col-sm-6 <?php if (empty($company_logo) || !file_exists("../uploads/settings/$company_logo")) { echo "col-sm-8"; } ?>">
-                <ul class="list-unstyled">
-                    <li><h4><strong><?php echo $company_name; ?></strong></h4></li>
-                    <li><?php echo $company_address; ?></li>
-                    <li><?php echo "$company_city $company_state $company_zip, $company_country"; ?></li>
-                    <li><?php echo "$company_email | $company_phone"; ?></li>
-                    <li><?php echo $company_website; ?></li>
-                    <?php if ($company_tax_id_display) { ?>
-                    <li><?php echo $company_tax_id_display; ?></li>
-                    <?php } ?>
-                </ul>
+            <div class="col-sm-6">
+                <div class="text-right">
+                    <strong><?php echo $company_name; ?></strong><br>
+                    <?php echo $company_address; ?><br>
+                    <?php echo $company_zip; ?> <?php echo $company_city; ?><br>
+                    <?php if ($company_phone) { echo $company_phone . '<br>'; } ?>
+                    <?php if ($config_invoice_show_tax_id && !empty($company_tax_id)) { 
+                        echo __("tax_id", "Tax ID") . ": " . $company_tax_id; 
+                    } ?>
+                </div>
             </div>
+        </div>
 
-            <div class="col-sm-4">
-                <h3 class="text-right"><strong><?php echo __("invoice", "INVOICE"); ?></strong></h3>
-                <h5 class="badge badge-<?php echo $invoice_badge_color; ?> p-2 float-right">
-                    <?php echo "$invoice_status"; ?>
-                </h5>
+        <!-- Client Details -->
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <?php echo $client_name; ?><br>
+                <?php if ($location_address) { echo $location_address . '<br>'; } ?>
+                <?php if ($location_city) { echo "$location_zip $location_city<br>"; } ?>
+            </div>
+        </div>
+
+        <!-- FACTUUR Heading -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <h3><strong><?php echo __("invoice", "FACTUUR"); ?></strong></h3>
+            </div>
+        </div>
+
+        <!-- Invoice Details Table -->
+        <div class="row mb-4">
+            <div class="col-sm-8">
                 <table class="table table-sm table-borderless">
                     <tr>
-                        <th><?php echo __("invoice_number", "Invoice #"); ?>:</th>
-                        <td class="text-right"><?php echo "$invoice_prefix$invoice_number"; ?></td>
+                        <td style="width: 180px;"><strong><?php echo __("invoice_number", "Factuurnummer"); ?></strong></td>
+                        <td><strong><?php echo __("invoice_date", "Factuurdatum"); ?></strong></td>
+                        <td><strong><?php echo __("invoice_due", "Vervaldatum"); ?></strong></td>
+                        <?php if ($config_invoice_show_tax_id && !empty($company_tax_id)) { ?>
+                        <td><strong><?php echo __("tax_id", "BTW Nummer"); ?></strong></td>
+                        <?php } ?>
                     </tr>
                     <tr>
-                        <th><?php echo __("invoice_date", "Date"); ?>:</th>
-                        <td class="text-right"><?php echo $invoice_date; ?></td>
-                    </tr>
-                    <tr>
-                        <th><?php echo __("invoice_due", "Due"); ?>:</th>
-                        <td class="text-right"><?php echo $invoice_due; ?></td>
+                        <td><?php echo "$invoice_prefix$invoice_number"; ?></td>
+                        <td><?php echo date('d-m-Y', strtotime($invoice_date)); ?></td>
+                        <td><?php echo date('d-m-Y', strtotime($invoice_due)); ?></td>
+                        <?php if ($config_invoice_show_tax_id && !empty($company_tax_id)) { ?>
+                        <td><?php echo $company_tax_id; ?></td>
+                        <?php } ?>
                     </tr>
                 </table>
             </div>
-
-        </div>
-        <div class="row mb-3 bg-light p-3">
-            <div class="col">
-                <h6><strong><?php echo __("bill_to", "Bill To"); ?>:</strong></h6>
-                <ul class="list-unstyled mb-0">
-                    <li><?php echo $client_name; ?></li>
-                    <li><?php echo $location_address; ?></li>
-                    <li><?php echo "$location_city $location_state $location_zip, $location_country"; ?></li>
-                    <li><?php echo "$contact_email | $contact_phone $contact_extension"; ?></li>
-                </ul>
+            <div class="col-sm-4 text-right d-print-none">
+                <span class="badge badge-<?php echo $invoice_badge_color; ?> p-2"><?php echo $invoice_status; ?></span>
             </div>
         </div>
 
@@ -291,15 +301,14 @@ if ($balance > 0) {
             <div class="col-md-12">
                 <div class="card">
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="bg-light">
+                        <table class="table mb-0">
+                            <thead class="thead-light">
                             <tr>
-                                <th><?php echo __("item", "Item"); ?></th>
-                                <th><?php echo __("description", "Description"); ?></th>
-                                <th class="text-center"><?php echo __("qty", "Qty"); ?></th>
-                                <th class="text-right"><?php echo __("unit_price", "Unit Price"); ?></th>
-                                <th class="text-right"><?php echo __("tax", "Tax"); ?></th>
-                                <th class="text-right"><?php echo __("amount", "Amount"); ?></th>
+                                <th style="width: 5%;">#</th>
+                                <th style="width: 35%;"><?php echo __("description", "Omschrijving"); ?></th>
+                                <th class="text-right" style="width: 15%;"><?php echo __("unit_price", "Prijs"); ?></th>
+                                <th class="text-right" style="width: 15%;"><?php echo __("amount", "Bedrag"); ?></th>
+                                <th class="text-right" style="width: 15%;"><?php echo __("tax", "Btw"); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -307,6 +316,7 @@ if ($balance > 0) {
 
                             $total_tax = 0.00;
                             $sub_total = 0.00 - $invoice_discount;
+                            $item_number = 1;
 
                             while ($row = mysqli_fetch_array($sql_invoice_items)) {
                                 $item_id = intval($row['item_id']);
@@ -319,15 +329,22 @@ if ($balance > 0) {
                                 $total_tax = $item_tax + $total_tax;
                                 $sub_total = $item_price * $item_quantity + $sub_total;
 
+                                // Get tax percentage for this item
+                                $sql_tax = mysqli_query($mysqli, "SELECT tax_percent FROM taxes WHERE tax_id = " . intval($row['item_tax_id']));
+                                $tax_row = mysqli_fetch_array($sql_tax);
+                                $tax_percent = isset($tax_row['tax_percent']) ? floatval($tax_row['tax_percent']) : 0;
+
                                 ?>
 
                                 <tr>
-                                    <td><?php echo $item_name; ?></td>
-                                    <td><?php echo nl2br($item_description); ?></td>
-                                    <td class="text-center"><?php echo $item_quantity; ?></td>
+                                    <td><?php echo $item_number++; ?></td>
+                                    <td>
+                                        <strong><?php echo $item_name; ?></strong>
+                                        <?php if ($item_description) { echo '<br><small>' . nl2br($item_description) . '</small>'; } ?>
+                                    </td>
                                     <td class="text-right"><?php echo numfmt_format_currency($currency_format, $item_price, $invoice_currency_code); ?></td>
-                                    <td class="text-right"><?php echo numfmt_format_currency($currency_format, $item_tax, $invoice_currency_code); ?></td>
-                                    <td class="text-right"><?php echo numfmt_format_currency($currency_format, $item_total, $invoice_currency_code); ?></td>
+                                    <td class="text-right"><?php echo numfmt_format_currency($currency_format, $item_price * $item_quantity, $invoice_currency_code); ?></td>
+                                    <td class="text-right"><?php echo number_format($tax_percent, 0); ?>%</td>
                                 </tr>
 
                             <?php } ?>
@@ -339,56 +356,35 @@ if ($balance > 0) {
             </div>
         </div>
 
+        <!-- Totals Section -->
         <div class="row mb-3">
             <div class="col-sm-7">
                 <?php if (!empty($invoice_note)) { ?>
                     <div class="card">
                         <div class="card-body">
+                            <strong><?php echo __("notes", "Notes"); ?>:</strong><br>
                             <?php echo nl2br($invoice_note); ?>
                         </div>
                     </div>
                 <?php } ?>
             </div>
-            <div class="col-sm-3 offset-sm-2">
-                <table class="table table-hover mb-0">
+            <div class="col-sm-5">
+                <table class="table table-borderless mb-0">
                     <tbody>
                     <tr>
-                        <td><?php echo __("subtotal", "Subtotal"); ?>:</td>
-                        <td class="text-right"><?php echo numfmt_format_currency($currency_format, $sub_total, $invoice_currency_code); ?></td>
+                        <td class="text-right"><strong><?php echo __("subtotal", "Totaal exclusief BTW"); ?></strong></td>
+                        <td class="text-right" style="width: 150px;"><strong><?php echo numfmt_format_currency($currency_format, $sub_total, $invoice_currency_code); ?></strong></td>
                     </tr>
-                    <?php
-                    if ($invoice_discount > 0) {
-                        ?>
-                        <tr>
-                            <td><?php echo __("discount", "Discount"); ?>:</td>
-                            <td class="text-right">-<?php echo numfmt_format_currency($currency_format, $invoice_discount, $invoice_currency_code); ?></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
                     <?php if ($total_tax > 0) { ?>
                         <tr>
-                            <td><?php echo __("tax", "Tax"); ?>:</td>
+                            <td class="text-right"><?php echo __("tax", "BTW"); ?></td>
                             <td class="text-right"><?php echo numfmt_format_currency($currency_format, $total_tax, $invoice_currency_code); ?></td>
                         </tr>
                     <?php } ?>
-                    <tr>
-                        <td><?php echo __("total", "Total"); ?>:</td>
-                        <td class="text-right"><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></td>
+                    <tr style="border-top: 2px solid #000;">
+                        <td class="text-right"><strong><?php echo __("total", "Totaal inclusief BTW"); ?></strong></td>
+                        <td class="text-right"><strong><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></strong></td>
                     </tr>
-                    <?php if ($amount_paid > 0) { ?>
-                        <tr>
-                            <td><div class="text-success"><?php echo __("paid", "Paid"); ?>:</div></td>
-                            <td class="text-right text-success"><?php echo numfmt_format_currency($currency_format, $amount_paid, $invoice_currency_code); ?></td>
-                        </tr>
-                    <?php
-                    } 
-                    ?>
-                    <tr class="h5 text-bold">
-                        <td><?php echo __("balance", "Balance"); ?>:</td>
-                        <td class="text-right"><?php echo numfmt_format_currency($currency_format, $balance, $invoice_currency_code); ?></td>
-                    </tr>
-
                     </tbody>
                 </table>
             </div>
