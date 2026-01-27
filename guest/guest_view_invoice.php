@@ -40,6 +40,8 @@ $company_name = nullable_htmlentities($row['company_name']);
 
 // Initialize i18n for page title translation
 if ($client_language) {
+    // Force client language by setting cookie to prevent i18n priority checks from overriding
+    $_COOKIE['itflow_language'] = $client_language;
     require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/i18n.php';
     i18n_init($client_language);
     $view_invoice_text = __("view_invoice", "View Invoice");
@@ -88,7 +90,9 @@ $client_language = nullable_htmlentities($row["client_language"]);
 // Debug: Check if client language is being loaded
 error_log("DEBUG: Client language from DB: " . var_export($client_language, true));
 
-if ($client_language) { 
+// Force client language by setting cookie temporarily to prevent i18n from overriding
+if ($client_language) {
+    $_COOKIE['itflow_language'] = $client_language;
     i18n_init($client_language); 
     error_log("DEBUG: i18n initialized with language: $client_language");
     error_log("DEBUG: Test translation for 'invoice': " . __("invoice", "Invoice"));
