@@ -222,7 +222,7 @@ if ($balance > 0) {
                 <h4 class="mt-1"><?php echo __("account_balance", "Account Balance"); ?>: <b><?php echo numfmt_format_currency($currency_format, $account_balance, $invoice_currency_code); ?></b></h4>
                 */ ?>
                 <div class="float-right">
-                    <a class="btn btn-default" href="#" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i><?php echo __("print", "Print"); ?></a>
+                    <a class="btn btn-default" href="#" onclick="window.print(); return false;"><i class="fas fa-fw fa-print mr-2"></i><?php echo __("print", "Print"); ?></a>
                     <a class="btn btn-default" href="guest_post.php?export_invoice_pdf=<?php echo $invoice_id; ?>&url_key=<?php echo $url_key; ?>">
                         <i class="fa fa-fw fa-download mr-2"></i><?php echo __("download", "Download"); ?>
                     </a>
