@@ -33,6 +33,7 @@ $invoice_currency_code = nullable_htmlentities($row['invoice_currency_code']);
 $client_id = intval($row['client_id']);
 $client_name = nullable_htmlentities($row['client_name']);
 $client_email = nullable_htmlentities($row['client_email'] ?? '');
+$client_language = nullable_htmlentities($row['client_language']);
 
 // Get company info
 $sql_company = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
@@ -79,6 +80,16 @@ try {
     $mollie = new \Mollie\Api\MollieApiClient();
     $mollie->setApiKey($mollie_api_key);
 
+    // Map client language to Mollie locale format
+    $mollie_locale = 'en_US'; // Default
+    if (!empty($client_language)) {
+        if ($client_language === 'nl_NL') {
+            $mollie_locale = 'nl_NL';
+        } elseif ($client_language === 'de_DE') {
+            $mollie_locale = 'de_DE';
+        }
+    }
+
     // Create payment
     $payment = $mollie->payments->create([
         "amount" => [
@@ -88,6 +99,7 @@ try {
         "description" => "$company_name - Invoice $invoice_prefix$invoice_number",
         "redirectUrl" => "https://$config_base_url/guest/guest_view_invoice.php?invoice_id=$invoice_id&url_key=$invoice_url_key",
         "webhookUrl" => "https://$config_base_url/guest/guest_mollie_webhook.php",
+        "locale" => $mollie_locale,
         "metadata" => [
             "invoice_id" => $invoice_id,
             "client_id" => $client_id,
