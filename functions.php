@@ -1432,24 +1432,13 @@ function getDomainExpirationDate($domain) {
 
 function validateWhitelabelKey($key)
 {
-    $public_key = "-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr0k+4ZJudkdGMCFLx5b9
-H/sOozvWphFJsjVIF0vPVx9J0bTdml65UdS+32JagIHfPtEUTohaMnI3IAxxCDzl
-655qmtjL7RHHdx9UMIKCmtAZOtd2u6rEyZH7vB7cKA49ysKGIaQSGwTQc8DCgsrK
-uxRuX04xq9T7T+zuzROw3Y9WjFy9RwrONqLuG8LqO0j7bk5LKYeLAV7u3E/QiqNx
-lEljN2UVJ3FZ/LkXeg8ORkV+IHs/toRIfPs/4VQnjEwk5BU6DX2STOvbeZnTqwP3
-zgjRYR/zGN5l+az6RB3+0mJRdZdv/y2aRkBlwTxx2gOrPbQAco4a/IOmkE3EbHe7
-6wIDAQAP
------END PUBLIC KEY-----";
-
-    if (openssl_public_decrypt(base64_decode($key), $decrypted, $public_key)) {
-        $key_info = json_decode($decrypted, true);
-        if ($key_info['expires'] > date('Y-m-d H:i:s', strtotime('-7 day'))) {
-            return $key_info;
-        }
-    }
-
-    return false;
+    // Fork override: White label functionality enabled without key validation
+    // Return valid key info with far-future expiration
+    return [
+        'expires' => '2099-12-31 23:59:59',
+        'licensed_to' => 'Self-hosted',
+        'type' => 'unlimited'
+    ];
 }
 
 // When provided a module name (e.g. module_support), returns the associated permission level (false=none, 1=read, 2=write, 3=full)
