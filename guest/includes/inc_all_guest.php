@@ -21,10 +21,7 @@ $browser = sanitizeInput(getWebBrowser($user_agent));
 $sql = mysqli_query($mysqli, "SELECT company_name FROM companies WHERE company_id = 1");
 $row = mysqli_fetch_array($sql);
 
-// Only set session_company_name if page_title_custom is not already set
-if (!isset($page_title_custom)) {
-    $session_company_name = $row['company_name'];
-}
+$session_company_name = $row['company_name'];
 
 // Page setup
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/page_title.php';
