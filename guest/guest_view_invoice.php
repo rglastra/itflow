@@ -266,7 +266,7 @@ if ($balance > 0) {
         <!-- FACTUUR Heading -->
         <div class="row mb-3">
             <div class="col-12">
-                <h3><strong><?php echo __("invoice", "FACTUUR"); ?></strong></h3>
+                <h3><strong><?php echo __("invoice", "Invoice"); ?></strong></h3>
             </div>
         </div>
 
@@ -275,11 +275,11 @@ if ($balance > 0) {
             <div class="col-sm-8">
                 <table class="table table-sm table-borderless">
                     <tr>
-                        <td style="width: 180px;"><strong><?php echo __("invoice_number", "Factuurnummer"); ?></strong></td>
-                        <td><strong><?php echo __("invoice_date", "Factuurdatum"); ?></strong></td>
-                        <td><strong><?php echo __("invoice_due", "Vervaldatum"); ?></strong></td>
+                        <td style="width: 180px;"><strong><?php echo __("invoice_number_header", "#"); ?></strong></td>
+                        <td><strong><?php echo __("invoice_date_header", "Date"); ?></strong></td>
+                        <td><strong><?php echo __("invoice_due_header", "Due"); ?></strong></td>
                         <?php if ($config_invoice_show_tax_id && !empty($company_tax_id)) { ?>
-                        <td><strong><?php echo __("tax_id", "BTW Nummer"); ?></strong></td>
+                        <td><strong><?php echo __("tax_id", "BTW-nummer"); ?></strong></td>
                         <?php } ?>
                     </tr>
                     <tr>
@@ -305,10 +305,10 @@ if ($balance > 0) {
                             <thead class="thead-light">
                             <tr>
                                 <th style="width: 5%;">#</th>
-                                <th style="width: 35%;"><?php echo __("description", "Omschrijving"); ?></th>
-                                <th class="text-right" style="width: 15%;"><?php echo __("unit_price", "Prijs"); ?></th>
+                                <th style="width: 35%;"><?php echo __("description", "Description"); ?></th>
+                                <th class="text-right" style="width: 15%;"><?php echo __("unit_price", "Stukprijs"); ?></th>
                                 <th class="text-right" style="width: 15%;"><?php echo __("amount", "Bedrag"); ?></th>
-                                <th class="text-right" style="width: 15%;"><?php echo __("tax", "Btw"); ?></th>
+                                <th class="text-right" style="width: 15%;"><?php echo __("tax_rate", "BTW"); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -372,18 +372,34 @@ if ($balance > 0) {
                 <table class="table table-borderless mb-0">
                     <tbody>
                     <tr>
-                        <td class="text-right"><strong><?php echo __("subtotal", "Totaal exclusief BTW"); ?></strong></td>
-                        <td class="text-right" style="width: 150px;"><strong><?php echo numfmt_format_currency($currency_format, $sub_total, $invoice_currency_code); ?></strong></td>
+                        <td class="text-right"><strong><?php echo __("subtotal", "Subtotaal"); ?></strong></td>
+                        <td class="text-right" style="width: 150px;"><strong><?php echo numfmt_format_currency($currency_format, $sub_total + $invoice_discount, $invoice_currency_code); ?></strong></td>
                     </tr>
+                    <?php if ($invoice_discount > 0) { ?>
+                        <tr>
+                            <td class="text-right"><?php echo __("discount", "Korting"); ?>:</td>
+                            <td class="text-right">-<?php echo numfmt_format_currency($currency_format, $invoice_discount, $invoice_currency_code); ?></td>
+                        </tr>
+                    <?php } ?>
                     <?php if ($total_tax > 0) { ?>
                         <tr>
-                            <td class="text-right"><?php echo __("tax", "BTW"); ?></td>
+                            <td class="text-right"><?php echo __("tax", "BTW"); ?>:</td>
                             <td class="text-right"><?php echo numfmt_format_currency($currency_format, $total_tax, $invoice_currency_code); ?></td>
                         </tr>
                     <?php } ?>
                     <tr style="border-top: 2px solid #000;">
-                        <td class="text-right"><strong><?php echo __("total", "Totaal inclusief BTW"); ?></strong></td>
+                        <td class="text-right"><strong><?php echo __("total", "Totaal"); ?></strong></td>
                         <td class="text-right"><strong><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></strong></td>
+                    </tr>
+                    <?php if ($amount_paid > 0) { ?>
+                        <tr>
+                            <td class="text-right"><div class="text-success"><?php echo __("paid", "Betaald"); ?>:</div></td>
+                            <td class="text-right text-success"><?php echo numfmt_format_currency($currency_format, $amount_paid, $invoice_currency_code); ?></td>
+                        </tr>
+                    <?php } ?>
+                    <tr class="h5 text-bold">
+                        <td class="text-right"><?php echo __("balance", "Openstaand"); ?>:</td>
+                        <td class="text-right"><?php echo numfmt_format_currency($currency_format, $balance, $invoice_currency_code); ?></td>
                     </tr>
                     </tbody>
                 </table>

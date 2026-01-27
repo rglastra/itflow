@@ -10,11 +10,16 @@ global $lang;
 $lang['invoices'] = 'Invoices';
 $lang['invoice'] = 'Invoice';
 $lang['invoice_number'] = '#';
+$lang['invoice_number_header'] = 'Invoice Number';
 $lang['invoice_scope'] = 'Scope';
 $lang['invoice_amount'] = 'Amount';
 $lang['invoice_date'] = 'Date';
+$lang['invoice_date_header'] = 'Date';
 $lang['invoice_due'] = 'Due';
+$lang['invoice_due_header'] = 'Due';
 $lang['invoice_status'] = 'Status';
+$lang['tax_id'] = 'Tax ID';
+$lang['tax_rate'] = 'Tax';
 
 // Invoice Statuses
 $lang['invoice_status_draft'] = 'Draft';

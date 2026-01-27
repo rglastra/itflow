@@ -10,12 +10,16 @@ global $lang;
 $lang['invoices'] = 'Facturen';
 $lang['invoice'] = 'Factuur';
 $lang['invoice_number'] = 'Factuurnummer';
+$lang['invoice_number_header'] = 'Factuurnummer';
 $lang['invoice_scope'] = 'Omschrijving';
 $lang['invoice_amount'] = 'Bedrag';
 $lang['invoice_date'] = 'Datum';
+$lang['invoice_date_header'] = 'Datum';
 $lang['invoice_due'] = 'Vervaldatum';
+$lang['invoice_due_header'] = 'Vervaldatum';
 $lang['invoice_status'] = 'Status';
 $lang['tax_id'] = 'BTW-nummer';
+$lang['tax_rate'] = 'BTW';
 
 // Factuurstatussen
 $lang['invoice_status_draft'] = 'Concept';

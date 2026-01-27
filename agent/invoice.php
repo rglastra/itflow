@@ -351,7 +351,7 @@ if (isset($_GET['invoice_id'])) {
             <!-- FACTUUR Heading -->
             <div class="row mb-3">
                 <div class="col-12">
-                    <h3><strong><?php echo __('invoice', 'FACTUUR'); ?></strong></h3>
+                    <h3><strong><?php echo __('invoice', 'Invoice'); ?></strong></h3>
                 </div>
             </div>
 
@@ -360,11 +360,11 @@ if (isset($_GET['invoice_id'])) {
                 <div class="col-sm-8">
                     <table class="table table-sm table-borderless">
                         <tr>
-                            <td style="width: 180px;"><strong><?php echo __('invoice_number', 'Factuurnummer'); ?></strong></td>
-                            <td><strong><?php echo __('invoice_date', 'Factuurdatum'); ?></strong></td>
-                            <td><strong><?php echo __('invoice_due', 'Vervaldatum'); ?></strong></td>
+                            <td style="width: 180px;"><strong><?php echo __('invoice_number_header', '#'); ?></strong></td>
+                            <td><strong><?php echo __('invoice_date_header', 'Date'); ?></strong></td>
+                            <td><strong><?php echo __('invoice_due_header', 'Due'); ?></strong></td>
                             <?php if ($config_invoice_show_tax_id && !empty($company_tax_id)) { ?>
-                            <td><strong><?php echo __('tax_id', 'BTW Nummer'); ?></strong></td>
+                            <td><strong><?php echo __('tax_id', 'BTW-nummer'); ?></strong></td>
                             <?php } ?>
                         </tr>
                         <tr>
@@ -393,10 +393,10 @@ if (isset($_GET['invoice_id'])) {
                                 <tr>
                                     <th class="d-print-none"></th>
                                     <th style="width: 5%;">#</th>
-                                    <th style="width: 35%;"><?php echo __('description', 'Omschrijving'); ?></th>
-                                    <th class="text-right" style="width: 15%;"><?php echo __('unit_price', 'Prijs'); ?></th>
+                                    <th style="width: 35%;"><?php echo __('description', 'Description'); ?></th>
+                                    <th class="text-right" style="width: 15%;"><?php echo __('unit_price', 'Stukprijs'); ?></th>
                                     <th class="text-right" style="width: 15%;"><?php echo __('amount', 'Bedrag'); ?></th>
-                                    <th class="text-right" style="width: 15%;"><?php echo __('tax', 'Btw'); ?></th>
+                                    <th class="text-right" style="width: 15%;"><?php echo __('tax_rate', 'BTW'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -529,7 +529,7 @@ if (isset($_GET['invoice_id'])) {
                         <tbody>
 
                         <tr>
-                            <td class="text-right"><strong><?php echo __('subtotal', 'Totaal exclusief BTW'); ?></strong></td>
+                            <td class="text-right"><strong><?php echo __('subtotal', 'Subtotaal'); ?></strong></td>
                             <td class="text-right" style="width: 150px;"><strong><?php echo numfmt_format_currency($currency_format, $sub_total, $invoice_currency_code); ?></strong></td>
                         </tr>
                         <?php
@@ -559,7 +559,7 @@ if (isset($_GET['invoice_id'])) {
                             </tr>
                         <?php } ?>
                         <tr style="border-top: 2px solid #000;">
-                            <td class="text-right"><strong><?php echo __('total', 'Totaal inclusief BTW'); ?></strong></td>
+                            <td class="text-right"><strong><?php echo __('total', 'Totaal'); ?></strong></td>
                             <td class="text-right"><strong><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></strong></td>
                         </tr>
                         <?php
