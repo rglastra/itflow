@@ -497,10 +497,11 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
 
                 <!-- Search + view toggle -->
                 <form autocomplete="off">
-                    <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
-                    <input type="hidden" name="view" value="<?php echo $view; ?>">
-                    <input type="hidden" name="folder_id" value="<?php echo $get_folder_id; ?>">
-                    <input type="hidden" name="archived" value="<?= $archived; ?>">
+                    <input type="hidden" name="client_id" value="<?= $client_id ?>">
+                    <input type="hidden" name="view" value="<?= $view ?>">
+                    <input type="hidden" name="folder_id" value="<?= $get_folder_id ?>">
+                    <input type="hidden" name="archived" value="<?= $archived ?>">
+                    <input type="hidden" name="folders_expanded" value="<?= $folders_expanded ?>">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="input-group mb-3 mb-md-0">
@@ -573,7 +574,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                             $bread_crumb_folder_id   = $folder['folder_id'];
                             $bread_crumb_folder_name = $folder['folder_name']; ?>
                             <li class="breadcrumb-item">
-                                <a href="?client_id=<?php echo $client_id; ?>&folder_id=<?php echo $bread_crumb_folder_id; ?>&archived=<?= $archived ?>">
+                                <a href="?client_id=<?= $client_id ?>&folder_id=<?= $bread_crumb_folder_id ?>&archived=<?= $archived ?>&folders_expanded=<?= $folders_expanded ?>">
                                     <i class="fas fa-fw fa-folder-open mr-2"></i><?php echo $bread_crumb_folder_name; ?>
                                 </a>
                             </li>
