@@ -72,34 +72,72 @@ function is_ancestor_folder($folder_id, $current_folder_id, $client_id) {
     }
 }
 
-function display_folders($parent_folder_id, $client_id, $indent = 0) {
-    global $mysqli, $get_folder_id, $session_user_role, $archive_query, $archived;
+function display_folders($parent_folder_id, $client_id, $indent = 0, $render_root = false) {
+    global $mysqli, $get_folder_id, $session_user_role, $archive_query, $archived, $num_root_items;
 
-    $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_client_id = $client_id ORDER BY folder_name ASC");
+    // Always render root (only once)
+    if ($parent_folder_id == 0 && $indent == 0) {
+        echo '<li class="nav-item">';
+        echo '<a class="nav-link ' . ($get_folder_id == 0 ? 'active' : '') . '"';
+        echo ' href="?client_id=' . $client_id . '&folder_id=0&archived=' . $archived . '">';
+        echo '/';
+
+        if ($num_root_items > 0) {
+            echo "<span class='badge badge-pill badge-dark float-right mt-1'>$num_root_items</span>";
+        }
+
+        echo '</a>';
+        echo '</li>';
+    }
+
+    $sql_folders = mysqli_query(
+        $mysqli,
+        "SELECT * FROM folders
+         WHERE parent_folder = $parent_folder_id
+         AND folder_client_id = $client_id
+         ORDER BY folder_name ASC"
+    );
+
     while ($row = mysqli_fetch_assoc($sql_folders)) {
         $folder_id   = intval($row['folder_id']);
         $folder_name = nullable_htmlentities($row['folder_name']);
 
-        // Count files in folder
-        $row_files = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('file_id') AS num FROM files WHERE file_folder_id = $folder_id AND file_client_id = $client_id AND file_$archive_query"));
+        $row_files = mysqli_fetch_assoc(mysqli_query(
+            $mysqli,
+            "SELECT COUNT('file_id') AS num
+             FROM files
+             WHERE file_folder_id = $folder_id
+             AND file_client_id = $client_id
+             AND file_$archive_query"
+        ));
         $num_files = intval($row_files['num']);
 
-        // Count documents in folder
-        $row_docs = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('document_id') AS num FROM documents WHERE document_folder_id = $folder_id AND document_client_id = $client_id AND document_$archive_query"));
+        $row_docs = mysqli_fetch_assoc(mysqli_query(
+            $mysqli,
+            "SELECT COUNT('document_id') AS num
+             FROM documents
+             WHERE document_folder_id = $folder_id
+             AND document_client_id = $client_id
+             AND document_$archive_query"
+        ));
         $num_docs = intval($row_docs['num']);
 
         $num_total = $num_files + $num_docs;
 
-        // Count subfolders
-        $subfolder_result = mysqli_query($mysqli, "SELECT COUNT(*) AS count FROM folders WHERE parent_folder = $folder_id AND folder_client_id = $client_id");
+        $subfolder_result = mysqli_query(
+            $mysqli,
+            "SELECT COUNT(*) AS count
+             FROM folders
+             WHERE parent_folder = $folder_id
+             AND folder_client_id = $client_id"
+        );
         $subfolder_count  = intval(mysqli_fetch_assoc($subfolder_result)['count']);
 
         echo '<li class="nav-item">';
         echo '<div class="row">';
         echo '<div class="col-10">';
-        echo '<a class="nav-link ';
-        if ($get_folder_id == $folder_id) { echo "active"; }
-        echo '" href="?client_id=' . $client_id . '&folder_id=' . $folder_id . '&archived=' . $archived . '">';
+        echo '<a class="nav-link ' . ($get_folder_id == $folder_id ? 'active' : '') . '"';
+        echo ' href="?client_id=' . $client_id . '&folder_id=' . $folder_id . '&archived=' . $archived . '">';
 
         echo str_repeat('&nbsp;', $indent * 4);
 
@@ -125,12 +163,10 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item ajax-modal" href="#"
-                    data-modal-url="modals/folder/folder_rename.php?id=<?= $folder_id ?>">
+                   data-modal-url="modals/folder/folder_rename.php?id=<?= $folder_id ?>">
                     <i class="fas fa-fw fa-edit mr-2"></i>Rename
                 </a>
-                <?php
-                // Only show delete if admin and no contents and no subfolders
-                if ($session_user_role == 3 && $num_total == 0 && $subfolder_count == 0) { ?>
+                <?php if ($session_user_role == 3 && $num_total == 0 && $subfolder_count == 0) { ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_folder=<?php echo $folder_id; ?>">
                         <i class="fas fa-fw fa-trash mr-2"></i>Delete
@@ -411,12 +447,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                 <h4>Folders</h4>
                 <hr>
                 <ul class="nav nav-pills flex-column bg-light">
-                    <li class="nav-item">
-                        <a class="nav-link <?php if ($get_folder_id == 0) { echo "active"; } ?>"
-                           href="?client_id=<?php echo $client_id; ?>&folder_id=0&archived=<?= $archived ?>">
-                            / <?php if ($num_root_items > 0) { echo "<span class='badge badge-pill badge-dark float-right mt-1'>$num_root_items</span>"; } ?>
-                        </a>
-                    </li>
+
                     <?php
                     // Start folder tree from root
                     display_folders(0, $client_id);
