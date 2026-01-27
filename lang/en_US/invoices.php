@@ -27,6 +27,7 @@ $lang['invoice_status_non_billable'] = 'Non-Billable';
 
 // Invoice Actions
 $lang['invoice_view'] = 'View Invoice';
+$lang['view_invoice'] = 'View Invoice';
 $lang['invoice_download'] = 'Download Invoice';
 $lang['invoice_pay'] = 'Pay Invoice';
 $lang['invoice_print'] = 'Print Invoice';

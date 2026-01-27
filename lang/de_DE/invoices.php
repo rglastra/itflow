@@ -27,6 +27,7 @@ $lang['invoice_status_non_billable'] = 'Nicht abrechenbar';
 
 // Invoice Actions
 $lang['invoice_view'] = 'Rechnung ansehen';
+$lang['view_invoice'] = 'Rechnung ansehen';
 $lang['invoice_download'] = 'Rechnung herunterladen';
 $lang['invoice_pay'] = 'Rechnung bezahlen';
 $lang['invoice_print'] = 'Rechnung drucken';

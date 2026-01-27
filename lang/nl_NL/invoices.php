@@ -28,6 +28,7 @@ $lang['invoice_status_non_billable'] = 'Niet-factureerbaar';
 
 // Factuuracties
 $lang['invoice_view'] = 'Factuur Bekijken';
+$lang['view_invoice'] = 'Bekijk Factuur';
 $lang['invoice_download'] = 'Factuur Downloaden';
 $lang['invoice_pay'] = 'Factuur Betalen';
 $lang['invoice_print'] = 'Factuur Afdrukken';

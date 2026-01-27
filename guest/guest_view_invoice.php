@@ -161,6 +161,9 @@ if ($balance > 0) {
     $balance_text_color = "";
 }
 
+// Set custom page title
+$session_company_name = "$company_name - " . __("view_invoice", "View Invoice") . " $invoice_prefix$invoice_number";
+
 ?>
 
 <div class="card">
