@@ -1,17 +1,56 @@
 <?php
 
-require_once "includes/inc_all_guest.php";
+// Load core config before inc_all_guest to set custom page title
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions.php';
 
 if (!isset($_GET['invoice_id'], $_GET['url_key'])) {
+    require_once "includes/inc_all_guest.php";
     echo "<br><h2>Oops, something went wrong! Please raise a ticket if you believe this is an error.</h2>";
     require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php';
-
     exit();
 }
 
 $url_key = sanitizeInput($_GET['url_key']);
 $invoice_id = intval($_GET['invoice_id']);
 
+// Load invoice data to set custom page title
+$sql = mysqli_query(
+    $mysqli,
+    "SELECT invoice_prefix, invoice_number, client_language, companies.company_name
+    FROM invoices
+    LEFT JOIN clients ON invoice_client_id = client_id
+    LEFT JOIN companies ON companies.company_id = 1
+    WHERE invoice_id = $invoice_id
+    AND invoice_url_key = '$url_key'"
+);
+
+if (mysqli_num_rows($sql) !== 1) {
+    require_once "includes/inc_all_guest.php";
+    echo "<br><h2>Oops, something went wrong! Please raise a ticket if you believe this is an error.</h2>";
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php';
+    exit();
+}
+
+$row = mysqli_fetch_array($sql);
+$invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
+$invoice_number = intval($row['invoice_number']);
+$client_language = nullable_htmlentities($row['client_language']);
+$company_name = nullable_htmlentities($row['company_name']);
+
+// Initialize i18n for page title translation
+if ($client_language) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/i18n.php';
+    i18n_init($client_language);
+}
+
+// Set custom page title before including header
+$page_title_custom = "$company_name - " . __("view_invoice", "View Invoice") . " $invoice_prefix$invoice_number";
+
+// Now include all guest files with header
+require_once "includes/inc_all_guest.php";
+
+// Re-query for full invoice data
 $sql = mysqli_query(
     $mysqli,
     "SELECT * FROM invoices
@@ -21,14 +60,6 @@ $sql = mysqli_query(
     WHERE invoice_id = $invoice_id
     AND invoice_url_key = '$url_key'"
 );
-
-if (mysqli_num_rows($sql) !== 1) {
-    // Invalid invoice/key
-    echo "<br><h2>Oops, something went wrong! Please raise a ticket if you believe this is an error.</h2>";
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php';
-
-    exit();
-}
 
 $row = mysqli_fetch_array($sql);
 
@@ -160,9 +191,6 @@ if ($balance > 0) {
 } else {
     $balance_text_color = "";
 }
-
-// Set custom page title
-$session_company_name = "$company_name - " . __("view_invoice", "View Invoice") . " $invoice_prefix$invoice_number";
 
 ?>
 

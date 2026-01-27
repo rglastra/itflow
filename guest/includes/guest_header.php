@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="robots" content="noindex">
 
-    <title><?php echo nullable_htmlentities($session_company_name); ?></title>
+    <title><?php echo nullable_htmlentities(isset($page_title_custom) ? $page_title_custom : $session_company_name); ?></title>
 
     <!-- 
     Favicon
