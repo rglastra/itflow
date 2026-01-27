@@ -42,10 +42,16 @@ $company_name = nullable_htmlentities($row['company_name']);
 if ($client_language) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/i18n.php';
     i18n_init($client_language);
+    $view_invoice_text = __("view_invoice", "View Invoice");
+} else {
+    $view_invoice_text = "View Invoice";
 }
 
 // Set custom page title before including header
-$page_title_custom = "$company_name - " . __("view_invoice", "View Invoice") . " $invoice_prefix$invoice_number";
+$page_title_custom = "$company_name - $view_invoice_text $invoice_prefix$invoice_number";
+
+// Debug: ensure variable persists
+global $page_title_custom;
 
 // Now include all guest files with header
 require_once "includes/inc_all_guest.php";

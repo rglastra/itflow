@@ -16,6 +16,7 @@ if (!empty($_SESSION['alert_message'])) {
             "progressBar": false,
             "positionClass": "toast-top-center",
             "preventDuplicates": false,
+            "preventOpenDuplicates": true,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
@@ -24,7 +25,9 @@ if (!empty($_SESSION['alert_message'])) {
             "showEasing": "swing",
             "hideEasing": "linear",
             "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+            "hideMethod": "fadeOut",
+            "escapeHtml": false,
+            "preventDuplicateTitleUpdate": true
         }
 
         toastr["<?php echo $_SESSION['alert_type']; ?>"]("<?php echo $_SESSION['alert_message']; ?>")
