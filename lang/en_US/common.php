@@ -16,6 +16,7 @@ $lang['password'] = 'Password';
 $lang['email'] = 'Email';
 $lang['name'] = 'Name';
 $lang['description'] = 'Description';
+$lang['notes'] = 'Notes';
 $lang['save'] = 'Save';
 $lang['cancel'] = 'Cancel';
 $lang['delete'] = 'Delete';

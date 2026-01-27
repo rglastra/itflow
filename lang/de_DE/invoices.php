@@ -57,6 +57,7 @@ $lang['item_price'] = 'Preis';
 $lang['item_tax'] = 'MwSt.';
 $lang['item_total'] = 'Gesamt';
 $lang['invoice_subtotal'] = 'Zwischensumme';
+$lang['credit'] = 'Guthaben';
 $lang['invoice_tax'] = 'MwSt.';
 $lang['invoice_total'] = 'Gesamt';
 $lang['invoice_payments'] = 'Zahlungen';

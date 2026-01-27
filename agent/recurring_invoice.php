@@ -53,6 +53,8 @@ if (isset($_GET['recurring_invoice_id'])) {
     $category_id = intval($row['recurring_invoice_category_id']);
     $client_id = intval($row['client_id']);
     $client_name = nullable_htmlentities($row['client_name']);
+    $client_language = nullable_htmlentities($row['client_language']);
+    if ($client_language) { i18n_init($client_language); }
     $location_address = nullable_htmlentities($row['location_address']);
     $location_city = nullable_htmlentities($row['location_city']);
     $location_state = nullable_htmlentities($row['location_state']);
@@ -259,12 +261,12 @@ if (isset($_GET['recurring_invoice_id'])) {
                                 <thead class="bg-light">
                                     <tr>
                                         <th class="d-print-none"></th>
-                                        <th>Item</th>
-                                        <th>Description</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-right">Price</th>
-                                        <th class="text-right">Tax</th>
-                                        <th class="text-right">Amount</th>
+                                        <th><?php echo __('item', 'Item'); ?></th>
+                                        <th><?php echo __('description', 'Description'); ?></th>
+                                        <th class="text-center"><?php echo __('qty', 'Qty'); ?></th>
+                                        <th class="text-right"><?php echo __('unit_price', 'Price'); ?></th>
+                                        <th class="text-right"><?php echo __('tax', 'Tax'); ?></th>
+                                        <th class="text-right"><?php echo __('amount', 'Amount'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -381,7 +383,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                 <div class="col-sm-7">
                     <div class="card">
                         <div class="card-header text-bold">
-                            Notes
+                            <?php echo __('notes', 'Notes'); ?>
                             <div class="card-tools d-print-none">
                                 <a href="#" class="btn btn-light btn-tool" data-toggle="modal" data-target="#recurringInvoiceNoteModal">
                                     <i class="fas fa-edit"></i>
@@ -397,23 +399,23 @@ if (isset($_GET['recurring_invoice_id'])) {
                     <table class="table table-hover mb-0">
                         <tbody>
                             <tr>
-                                <td>Subtotal</td>
+                                <td><?php echo __('subtotal', 'Subtotal'); ?></td>
                                 <td class="text-right"><?php echo numfmt_format_currency($currency_format, $sub_total, $recurring_invoice_currency_code); ?></td>
                             </tr>
                             <?php if ($recurring_invoice_discount > 0) { ?>
                                 <tr>
-                                    <td>Discount</td>
+                                    <td><?php echo __('discount', 'Discount'); ?></td>
                                     <td class="text-right">-<?php echo numfmt_format_currency($currency_format, $recurring_invoice_discount, $recurring_invoice_currency_code); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php if ($total_tax > 0) { ?>
                                 <tr>
-                                    <td>Tax</td>
+                                    <td><?php echo __('tax', 'Tax'); ?></td>
                                     <td class="text-right"><?php echo numfmt_format_currency($currency_format, $total_tax, $recurring_invoice_currency_code); ?></td>
                                 </tr>
                             <?php } ?>
                             <tr class="h5 text-bold">
-                                <td>Total</td>
+                                <td><?php echo __('total', 'Total'); ?></td>
                                 <td class="text-right"><?php echo numfmt_format_currency($currency_format, $recurring_invoice_amount, $recurring_invoice_currency_code); ?></td>
                             </tr>
                         </tbody>

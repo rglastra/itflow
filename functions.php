@@ -1120,7 +1120,7 @@ function getClientLanguage($client_id) {
  * @return string Translated and formatted text
  */
 function getEmailText($locale, $key, $params = []) {
-    global $lang;
+    global $lang, $mysqli, $session_user_id;
     
     // Save current locale
     $current_locale = isset($_COOKIE['itflow_language']) ? $_COOKIE['itflow_language'] : 'en_US';
@@ -1131,8 +1131,16 @@ function getEmailText($locale, $key, $params = []) {
     
     // Load language files for the target locale
     $lang_dir = __DIR__ . "/lang/{$locale}/";
+    
+    // Debug logging
+    $dir_exists = is_dir($lang_dir) ? 'yes' : 'no';
+    $debug_msg = "getEmailText called: locale=$locale, key=$key, lang_dir=$lang_dir, dir_exists=$dir_exists";
+    
     if (is_dir($lang_dir)) {
         $lang_files = glob($lang_dir . "*.php");
+        $file_count = count($lang_files);
+        $debug_msg .= ", files_found=$file_count";
+        
         foreach ($lang_files as $lang_file) {
             require $lang_file;
         }
@@ -1140,6 +1148,13 @@ function getEmailText($locale, $key, $params = []) {
     
     // Get the translation
     $text = isset($lang[$key]) ? $lang[$key] : $key;
+    $key_found = isset($lang[$key]) ? 'yes' : 'no';
+    $debug_msg .= ", key_found=$key_found";
+    
+    // Log debug information
+    if (isset($mysqli) && isset($session_user_id)) {
+        mysqli_query($mysqli, "INSERT INTO logs SET log_type = 'Debug', log_action = 'Translation', log_description = '" . mysqli_real_escape_string($mysqli, $debug_msg) . "', log_user_id = $session_user_id");
+    }
     
     // Substitute parameters if provided
     if (!empty($params)) {

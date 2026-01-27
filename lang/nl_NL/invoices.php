@@ -67,6 +67,7 @@ $lang['item_total'] = 'Totaal';
 $lang['subtotal'] = 'Subtotaal';
 $lang['invoice_subtotal'] = 'Subtotaal';
 $lang['discount'] = 'Korting';
+$lang['credit'] = 'Credit';
 $lang['invoice_tax'] = 'BTW';
 $lang['total'] = 'Totaal';
 $lang['invoice_total'] = 'Totaal';

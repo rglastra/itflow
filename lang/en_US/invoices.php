@@ -57,6 +57,7 @@ $lang['item_price'] = 'Price';
 $lang['item_tax'] = 'Tax';
 $lang['item_total'] = 'Total';
 $lang['invoice_subtotal'] = 'Subtotal';
+$lang['credit'] = 'Credit';
 $lang['invoice_tax'] = 'Tax';
 $lang['invoice_total'] = 'Total';
 $lang['invoice_payments'] = 'Payments';

@@ -15,7 +15,7 @@ $lang['email_thank_you'] = 'Bedankt';
 $lang['email_invoice_subject_paid'] = 'Factuur %s Ontvangstbevestiging';
 $lang['email_invoice_subject'] = 'Factuur %s';
 $lang['email_invoice_body_paid'] = 'Hallo %s,<br><br>Klik op onderstaande link om uw factuur betreffende "%s" gemarkeerd als <b>betaald</b> te bekijken.<br><br><a href="%s">Factuur Link</a><br><br><br>--<br>%s - Financiële Administratie<br>%s<br>%s';
-$lang['email_invoice_body'] = 'Hallo %s,<br><br>Bekijk hieronder de details van uw factuur betreffende "%s".<br><br>Factuur: %s<br>Factuurdatum: %s<br>Totaal: %s<br>Openstaand Saldo: %s<br>Vervaldatum: %s<br><br><br>Om uw factuur te bekijken, klik <a href="%s">hier</a>.<br><br><br>--<br>%s - Financiële Administratie<br>%s<br>%s';
+$lang['email_invoice_body'] = 'Hallo %s,<br><br>Bekijk hieronder de details van uw factuur betreffende "%s".<br><br>Factuur: %s<br>Factuurdatum: %s<br>Totaal: %s<br>Openstaand Saldo: %s<br>Vervaldatum: %s<br><br><br>Om uw factuur te bekijken, klik <a href="%s">hier</a>.<br><br><br>--<br>%s - Facturatie<br>%s<br>%s';
 $lang['email_invoice_line_invoice'] = 'Factuur';
 $lang['email_invoice_line_issue_date'] = 'Factuurdatum';
 $lang['email_invoice_line_total'] = 'Totaal';
@@ -23,7 +23,7 @@ $lang['email_invoice_line_balance'] = 'Openstaand Saldo';
 $lang['email_invoice_line_due_date'] = 'Vervaldatum';
 $lang['email_invoice_view_link'] = 'Om uw factuur te bekijken, klik';
 $lang['email_invoice_view_here'] = 'hier';
-$lang['email_invoice_signature_billing'] = 'Financiële Administratie';
+$lang['email_invoice_signature_billing'] = 'Facturatie';
 
 // Offerte E-mails
 $lang['email_quote_subject'] = 'Offerte [%s]';

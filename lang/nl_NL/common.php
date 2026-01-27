@@ -16,6 +16,7 @@ $lang['password'] = 'Wachtwoord';
 $lang['email'] = 'E-mail';
 $lang['name'] = 'Naam';
 $lang['description'] = 'Beschrijving';
+$lang['notes'] = 'Notities';
 $lang['save'] = 'Opslaan';
 $lang['cancel'] = 'Annuleren';
 $lang['delete'] = 'Verwijderen';

@@ -55,6 +55,8 @@ if (isset($_GET['invoice_id'])) {
     $category_id = intval($row['invoice_category_id']);
     $client_id = intval($row['client_id']);
     $client_name = nullable_htmlentities($row['client_name']);
+    $client_language = nullable_htmlentities($row['client_language']);
+    if ($client_language) { i18n_init($client_language); }
     $location_address = nullable_htmlentities($row['location_address']);
     $location_city = nullable_htmlentities($row['location_city']);
     $location_state = nullable_htmlentities($row['location_state']);
@@ -337,21 +339,21 @@ if (isset($_GET['invoice_id'])) {
                 </div>
 
                 <div class="col-sm-4">
-                    <h3 class="text-right"><strong>INVOICE</strong></h3>
+                    <h3 class="text-right"><strong><?php echo __('invoice', 'INVOICE'); ?></strong></h3>
                     <h5 class="badge badge-<?php echo $invoice_badge_color; ?> p-2 float-right">
                         <?php echo "$invoice_status"; ?>
                     </h5>
                     <table class="table table-sm table-borderless">
                         <tr>
-                            <th>Invoice #:</th>
+                            <th><?php echo __('invoice_number', 'Invoice #'); ?>:</th>
                             <td class="text-right"><?php echo "$invoice_prefix$invoice_number"; ?></td>
                         </tr>
                         <tr>
-                            <th>Date:</th>
+                            <th><?php echo __('invoice_date', 'Date'); ?>:</th>
                             <td class="text-right"><?php echo $invoice_date; ?></td>
                         </tr>
                         <tr>
-                            <th>Due:</th>
+                            <th><?php echo __('invoice_due', 'Due'); ?>:</th>
                             <td class="text-right"><?php echo $invoice_due; ?></td>
                         </tr>
                     </table>
@@ -360,7 +362,7 @@ if (isset($_GET['invoice_id'])) {
             </div>
             <div class="row mb-3 bg-light p-3">
                 <div class="col">
-                    <h6><strong>Bill To:</strong></h6>
+                    <h6><strong><?php echo __('bill_to', 'Bill To'); ?>:</strong></h6>
                     <ul class="list-unstyled mb-0">
                         <li><?php echo $client_name; ?></li>
                         <li><?php echo $location_address; ?></li>
@@ -380,12 +382,12 @@ if (isset($_GET['invoice_id'])) {
                                 <thead class="bg-light">
                                 <tr>
                                     <th class="d-print-none"></th>
-                                    <th>Item</th>
-                                    <th>Description</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-right">Unit Price</th>
-                                    <th class="text-right">Tax</th>
-                                    <th class="text-right">Amount</th>
+                                    <th><?php echo __('item', 'Item'); ?></th>
+                                    <th><?php echo __('description', 'Description'); ?></th>
+                                    <th class="text-center"><?php echo __('qty', 'Qty'); ?></th>
+                                    <th class="text-right"><?php echo __('unit_price', 'Unit Price'); ?></th>
+                                    <th class="text-right"><?php echo __('tax', 'Tax'); ?></th>
+                                    <th class="text-right"><?php echo __('amount', 'Amount'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -512,14 +514,14 @@ if (isset($_GET['invoice_id'])) {
                         <tbody>
 
                         <tr>
-                            <td>Subtotal:</td>
+                            <td><?php echo __('subtotal', 'Subtotal'); ?>:</td>
                             <td class="text-right"><?php echo numfmt_format_currency($currency_format, $sub_total, $invoice_currency_code); ?></td>
                         </tr>
                         <?php
                         if ($invoice_discount > 0) {
                             ?>
                             <tr>
-                                <td>Discount:</td>
+                                <td><?php echo __('discount', 'Discount'); ?>:</td>
                                 <td class="text-right">-<?php echo numfmt_format_currency($currency_format, $invoice_discount, $invoice_currency_code); ?></td>
                             </tr>
                         <?php
@@ -529,7 +531,7 @@ if (isset($_GET['invoice_id'])) {
                         if ($invoice_credit > 0) {
                             ?>
                             <tr>
-                                <td>Credit:</td>
+                                <td><?php echo __('credit', 'Credit'); ?>:</td>
                                 <td class="text-right">-<?php echo numfmt_format_currency($currency_format, $invoice_credit, $invoice_currency_code); ?></td>
                             </tr>
                         <?php
@@ -537,24 +539,24 @@ if (isset($_GET['invoice_id'])) {
                         ?>
                         <?php if ($total_tax > 0) { ?>
                             <tr>
-                                <td>Tax:</td>
+                                <td><?php echo __('tax', 'Tax'); ?>:</td>
                                 <td class="text-right"><?php echo numfmt_format_currency($currency_format, $total_tax, $invoice_currency_code); ?></td>
                             </tr>
                         <?php } ?>
                         <tr>
-                            <td>Total:</td>
+                            <td><?php echo __('total', 'Total'); ?>:</td>
                             <td class="text-right"><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></td>
                         </tr>
                         <?php
                         if ($amount_paid > 0) { ?>
                             <tr>
-                                <td><div class="text-success">Paid:</div></td>
+                                <td><div class="text-success"><?php echo __('paid', 'Paid'); ?>:</div></td>
                                 <td class="text-right text-success"><?php echo numfmt_format_currency($currency_format, $amount_paid, $invoice_currency_code); ?></td>
                             </tr>
                         <?php } ?>
 
                         <tr class="h5 text-bold">
-                            <td>Balance:</td>
+                            <td><?php echo __('balance', 'Balance'); ?>:</td>
                             <td class="text-right"><?php echo numfmt_format_currency($currency_format, $balance, $invoice_currency_code); ?></td>
                         </tr>
                         </tbody>

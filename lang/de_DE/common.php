@@ -16,6 +16,7 @@ $lang['password'] = 'Passwort';
 $lang['email'] = 'E-Mail';
 $lang['name'] = 'Name';
 $lang['description'] = 'Beschreibung';
+$lang['notes'] = 'Notizen';
 $lang['save'] = 'Speichern';
 $lang['cancel'] = 'Abbrechen';
 $lang['delete'] = 'Löschen';

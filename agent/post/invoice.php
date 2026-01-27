@@ -564,6 +564,9 @@ if (isset($_GET['email_invoice'])) {
     // Get client language for email
     $client_language = getClientLanguage($client_id);
 
+    // Debug: Log the client language being used
+    mysqli_query($mysqli, "INSERT INTO logs SET log_type = 'Debug', log_action = 'Email', log_description = 'Sending invoice email with language: $client_language for client ID: $client_id', log_user_id = $session_user_id, log_entity_id = $invoice_id");
+
     // Check if payment provider is configured
     $payment_provider_sql = mysqli_query($mysqli, "SELECT * FROM payment_providers WHERE payment_provider_active = 1 LIMIT 1");
     $payment_provider = mysqli_fetch_array($payment_provider_sql);
