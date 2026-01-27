@@ -138,9 +138,11 @@
             <div class="ml-1 mt-1 text-secondary">Paid
                 <span class="text-dark float-right"> <?php echo numfmt_format_currency($currency_format, $amount_paid, $client_currency_code); ?></span>
             </div>
+            <?php /* Balance removed - makes page too busy
             <div class="ml-1 mt-1 text-secondary">Balance
                 <span class="<?php if ($balance > 0) { echo "text-danger"; }else{ echo "text-dark"; } ?> float-right"> <?php echo numfmt_format_currency($currency_format, $balance, $client_currency_code); ?></span>
             </div>
+            */ ?>
             <?php /* Credit Not Ready 2025-08-27 JQ 
             if ($credit_balance) { ?>
             <div class="ml-1 mt-1 text-secondary">Credit

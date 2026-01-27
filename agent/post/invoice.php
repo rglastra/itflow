@@ -543,7 +543,7 @@ if (isset($_GET['email_invoice'])) {
     $company_city = sanitizeInput($row['company_city']);
     $company_state = sanitizeInput($row['company_state']);
     $company_zip = sanitizeInput($row['company_zip']);
-    $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
+    $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code'], true));
     $company_email = sanitizeInput($row['company_email']);
     $company_website = sanitizeInput($row['company_website']);
     $company_logo = sanitizeInput($row['company_logo']);
@@ -589,12 +589,15 @@ if (isset($_GET['email_invoice'])) {
         
         // Add payment button/link if Mollie is configured
         $payment_button_html = '';
+        $payment_button_text = $client_language === 'nl_NL' ? 'Betalen' : ($client_language === 'de_DE' ? 'Bezahlen' : 'Pay Now');
         if ($payment_provider_name === 'Mollie' && $balance > 0) {
             $payment_link = "https://$config_base_url/guest/guest_pay_invoice_mollie.php?invoice_id=$invoice_id&url_key=$invoice_url_key";
-            $payment_button_text = $client_language === 'nl_NL' ? 'Betaal Nu' : ($client_language === 'de_DE' ? 'Jetzt Bezahlen' : 'Pay Now');
             $payment_button_html = "<br><br><a href=\"$payment_link\" style=\"display: inline-block; padding: 12px 24px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;\">$payment_button_text</a>";
         }
 
+        // Use consistent payment button text: just "Betalen" in Dutch
+        $payment_button_text = $client_language === 'nl_NL' ? 'Betalen' : ($client_language === 'de_DE' ? 'Bezahlen' : 'Pay Now');
+        
         $body = getEmailText($client_language, 'email_invoice_body', [
             $contact_name,
             $invoice_scope,
@@ -826,7 +829,7 @@ if (isset($_GET['export_invoice_pdf'])) {
     $company_state = nullable_htmlentities($row['company_state']);
     $company_zip = nullable_htmlentities($row['company_zip']);
     $company_phone_country_code = nullable_htmlentities($row['company_phone_country_code']);
-    $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code));
+    $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code, true));
     $company_email = nullable_htmlentities($row['company_email']);
     $company_website = nullable_htmlentities($row['company_website']);
     $company_tax_id = nullable_htmlentities($row['company_tax_id']);

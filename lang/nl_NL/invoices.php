@@ -9,7 +9,7 @@ global $lang;
 // Factuurlijst/Tabel
 $lang['invoices'] = 'Facturen';
 $lang['invoice'] = 'Factuur';
-$lang['invoice_number'] = '#';
+$lang['invoice_number'] = 'Factuurnummer';
 $lang['invoice_scope'] = 'Omschrijving';
 $lang['invoice_amount'] = 'Bedrag';
 $lang['invoice_date'] = 'Datum';

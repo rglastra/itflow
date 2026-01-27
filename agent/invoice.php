@@ -89,7 +89,7 @@ if (isset($_GET['invoice_id'])) {
     $company_state = nullable_htmlentities($row['company_state']);
     $company_zip = nullable_htmlentities($row['company_zip']);
     $company_phone_country_code = nullable_htmlentities($row['company_phone_country_code']);
-    $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code));
+    $company_phone = nullable_htmlentities(formatPhoneNumber($row['company_phone'], $company_phone_country_code, true));
     $company_email = nullable_htmlentities($row['company_email']);
     $company_website = nullable_htmlentities($row['company_website']);
     $company_tax_id = nullable_htmlentities($row['company_tax_id']);
@@ -320,12 +320,12 @@ if (isset($_GET['invoice_id'])) {
         <div class="card-body">
 
             <div class="row mb-3">
-                <?php if (file_exists("../uploads/settings/$company_logo")) { ?>
+                <?php if (!empty($company_logo) && file_exists("../uploads/settings/$company_logo")) { ?>
                 <div class="col-sm-2">
                     <img class="img-fluid" src="<?php echo "../uploads/settings/$company_logo"; ?>" alt="Company logo">
                 </div>
                 <?php } ?>
-                <div class="col-sm-6 <?php if (!file_exists("../uploads/settings/$company_logo")) { echo "col-sm-8"; } ?>">
+                <div class="col-sm-6 <?php if (empty($company_logo) || !file_exists("../uploads/settings/$company_logo")) { echo "col-sm-8"; } ?>">
                     <ul class="list-unstyled">
                         <li><h4><strong><?php echo $company_name; ?></strong></h4></li>
                         <li><?php echo $company_address; ?></li>

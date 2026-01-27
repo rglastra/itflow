@@ -363,6 +363,20 @@ function formatPhoneNumber($phoneNumber, $country_code = '', $show_country_code 
             }
             break;
 
+        case '31': // Netherlands
+            if ($startsWith($digits, '0')) {
+                $digits = substr($digits, 1);
+            }
+            if (strlen($digits) === 9) {
+                // Format as (0)6XX XXX XXX for mobile or (0)XX XXX XXXX for landline
+                if ($digits[0] === '6') {
+                    $formatted = '(0)' . substr($digits, 0, 3) . ' ' . substr($digits, 3, 3) . ' ' . substr($digits, 6);
+                } else {
+                    $formatted = '(0)' . substr($digits, 0, 2) . ' ' . substr($digits, 2, 3) . ' ' . substr($digits, 5);
+                }
+            }
+            break;
+
         case '971': // UAE
             if (strlen($digits) === 9) {
                 $formatted = substr($digits, 0, 3) . ' ' . substr($digits, 3, 3) . ' ' . substr($digits, 6);
