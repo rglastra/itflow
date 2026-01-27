@@ -84,7 +84,17 @@ $client_id = intval($row['client_id']);
 $client_name = nullable_htmlentities($row['client_name']);
 $client_name_escaped = sanitizeInput($row['client_name']);
 $client_language = nullable_htmlentities($row["client_language"]);
-if ($client_language) { i18n_init($client_language); }
+
+// Debug: Check if client language is being loaded
+error_log("DEBUG: Client language from DB: " . var_export($client_language, true));
+
+if ($client_language) { 
+    i18n_init($client_language); 
+    error_log("DEBUG: i18n initialized with language: $client_language");
+    error_log("DEBUG: Test translation for 'invoice': " . __("invoice", "Invoice"));
+} else {
+    error_log("DEBUG: No client language set, i18n not initialized");
+}
 $location_address = nullable_htmlentities($row['location_address']);
 $location_city = nullable_htmlentities($row['location_city']);
 $location_state = nullable_htmlentities($row['location_state']);
