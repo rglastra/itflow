@@ -26,8 +26,7 @@ if (!empty($_SESSION['alert_message'])) {
             "hideEasing": "linear",
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut",
-            "escapeHtml": false,
-            "preventDuplicateTitleUpdate": true
+            "escapeHtml": false
         }
 
         toastr["<?php echo $_SESSION['alert_type']; ?>"]("<?php echo $_SESSION['alert_message']; ?>")
