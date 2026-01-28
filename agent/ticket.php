@@ -705,7 +705,7 @@ if (isset($_GET['ticket_id'])) {
                         $user_avatar = nullable_htmlentities($row['user_avatar']);
                         $user_initials = initials($row['user_name']);
                         $avatar_link = "../uploads/users/$user_id/$user_avatar";
-                        $ticket_reply_time_worked = date_create($row['ticket_reply_time_worked']);
+                        $ticket_reply_time_worked = $row['ticket_reply_time_worked'];
                     }
 
                     $sql_ticket_reply_attachments = mysqli_query(
@@ -737,7 +737,14 @@ if (isset($_GET['ticket_id'])) {
                                         <div>
                                             <?php if ($ticket_reply_type !== "Client") { ?>
                                                 <div>
-                                                    <br><small class="text-muted">Time worked: <?php echo date_format($ticket_reply_time_worked, 'H:i:s'); ?></small>
+                                                    <br>
+                                                    <small>
+                                                        <i class="far fa-fw fa-clock text-secondary"></i>
+                                                        Time worked:
+                                                        <span class="text-muted">
+                                                            <?= formatDuration($ticket_reply_time_worked) ?>
+                                                        </span>
+                                                    </small>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -810,7 +817,7 @@ if (isset($_GET['ticket_id'])) {
             <div class="col-md-3">
 
                 <!-- Ticket details right card -->
-                <div class="card <?php if(!$ticket_resolved_at) { echo "collapsed-card"; } ?>">
+                <div class="card">
                     <div class="card-header">
                         <h5 class="card-title"><i class="fas fa-fw fa-life-ring mr-2"></i>Ticket Details</h5>
 
@@ -824,45 +831,45 @@ if (isset($_GET['ticket_id'])) {
 
                         <!-- Created -->
                         <div title="<?php echo $ticket_created_at; ?>">
-                            <i class="fa fa-fw fa-calendar text-secondary mr-2"></i><strong>Created: </strong><?php echo "$ticket_date ($ticket_created_at_ago)"; ?>
+                            <i class="fas fa-fw fa-calendar text-secondary mr-2"></i><strong class="mr-2">Created:</strong><?= date('M d, Y', strtotime($ticket_date)) . " ($ticket_created_at_ago)" ?>
                         </div>
 
                         <!-- Created by -->
-                        <?php if (!empty($ticket_created_by)) {
+                        <?php if ($ticket_created_by) {
                             $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT user_name FROM users WHERE user_id = $ticket_created_by"));
                             $ticket_created_by_display = nullable_htmlentities($row['user_name']);
                             ?>
 
                             <div class="mt-1">
-                                <i class="far fa-fw fa-user text-secondary mr-2"></i><strong>Created by: </strong><?php echo $ticket_created_by_display; ?>
+                                <i class="far fa-fw fa-user text-secondary mr-2"></i><strong class="mr-2">Created by:</strong><?= $ticket_created_by_display ?>
                             </div>
                         <?php } ?>
 
                         <!-- Source -->
-                        <?php if (!empty($ticket_source)) { ?>
+                        <?php if ($ticket_source) { ?>
                             <div class="mt-1">
-                                <i class="far fa-fw fa-question-circle text-secondary mr-2"></i><strong>Source: </strong><?php echo $ticket_source; ?>
+                                <i class="far fa-fw fa-question-circle text-secondary mr-2"></i><strong class="mr-2">Source:</strong><?= $ticket_source ?>
                             </div>
                         <?php } ?>
 
                         <!-- Category -->
-                        <?php if ($ticket_category > 0) { ?>
+                        <?php if ($ticket_category) { ?>
                             <div class="mt-1">
-                                <i class="fas fa-fw fa-layer-group mr-2 text-secondary"></i><strong>Category: </strong><?php echo $ticket_category_display; ?>
+                                <i class="fas fa-fw fa-layer-group mr-2 text-secondary"></i><strong class="mr-2">Category:</strong><?= $ticket_category_display ?>
                             </div>
                         <?php } ?>
 
                         <!-- First response (for SLA) -->
                         <?php if ($ticket_first_response_at) { ?>
-                            <div title="First Response: <?php echo $ticket_created_at; ?>">
-                                <i class="fa fa-fw fa-user-clock text-secondary mr-2"></i><strong>FR: </strong><?php echo "$ticket_first_response_at"; ?>
+                            <div class="mt-1">
+                                <i class="fas fa-fw fa-user-clock text-secondary mr-2"></i><strong class="mr-2">First Response:</strong><?= date('M d, Y • h:m A', strtotime($ticket_first_response_at)) ?>
                             </div>
                         <?php } ?>
 
                         <!-- Time tracking -->
                         <?php if ($ticket_total_reply_time) { ?>
                             <div class="mt-1">
-                                <i class="far fa-fw fa-clock text-secondary mr-2"></i><strong>Time worked: </strong><?php echo $ticket_total_reply_time; ?>
+                                <i class="far fa-fw fa-clock text-secondary mr-2"></i><strong class="mr-2">Time worked:</strong><?= formatDuration($ticket_total_reply_time) ?>
                             </div>
                         <?php } ?>
 
@@ -875,15 +882,15 @@ if (isset($_GET['ticket_id'])) {
 <!--                        --><?php //} ?>
 
                         <!-- Resolved -->
-                        <?php if (!empty($ticket_resolved_at)) { ?>
+                        <?php if ($ticket_resolved_at) { ?>
                             <hr>
-                            <div class="mt-1" title="<?php echo $ticket_resolved_at; ?>">
-                                <i class="fa fa-fw fa-check text-secondary mr-2"></i><strong>Resolved: </strong><?php echo "$ticket_resolved_date ($ticket_resolved_at_ago)"; ?>
+                            <div class="mt-1" title="<?= $ticket_resolved_at ?>">
+                                <i class="fas fa-fw fa-check text-secondary mr-2"></i><strong class="mr-2">Resolved:</strong><?= date('M d, Y • h:m A', strtotime($ticket_resolved_at)) . " ($ticket_resolved_at_ago)" ?>
                             </div>
                         <?php } ?>
 
                         <!-- Ticket closure info -->
-                        <?php if (!empty($ticket_closed_at)) {
+                        <?php if ($ticket_closed_at) {
 
                             $ticket_closed_by_display = 'User';
                             if (!empty($ticket_closed_by)) {
@@ -893,11 +900,11 @@ if (isset($_GET['ticket_id'])) {
                             }
                             ?>
                             <div class="mt-1">
-                                <i class="fa fa-fw fa-user text-secondary mr-2"></i><strong>Closed by: </strong><?php echo ucwords($ticket_closed_by_display); ?>
+                                <i class="fas fa-fw fa-user text-secondary mr-2"></i><strong class="mr-2">Closed by:</strong><?= ucwords($ticket_closed_by_display) ?>
                             </div>
 
-                            <div class="mt-1" title="<?php echo $ticket_closed_at; ?>">
-                                <i class="fa fa-fw fa-clock text-secondary mr-2"></i><strong>Closed: </strong><?php echo "$ticket_closed_date ($ticket_closed_at_ago)"; ?>
+                            <div class="mt-1">
+                                <i class="fas fa-fw fa-clock text-secondary mr-2"></i><strong class="mr-2">Closed:</strong><?= date('M d, Y • h:m A', strtotime($ticket_closed_at)) . " ($ticket_closed_at_ago)" ?>
                             </div>
 
                             <?php if ($ticket_feedback) { ?>
