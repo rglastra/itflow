@@ -183,7 +183,7 @@ $(document).ready(function() {
         browser_spellcheck: true,
         contextmenu: false,
         resize: true,
-        min_height: 300,
+        min_height: 150,
         max_height: 600,
         promotion: false,
         branding: false,
@@ -321,7 +321,7 @@ $(document).ready(function() {
         plugins: 'link image lists table code fullscreen autoresize',
         license_key: 'gpl',
         setup: function(editor) {
-            
+
             editor.on('init', function() {
                 window.onbeforeunload = function() {
                     // If editor is dirty AND not inside a visible modal → warn

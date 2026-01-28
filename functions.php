@@ -1998,3 +1998,20 @@ function dbRollback(mysqli $mysqli): void
 {
     $mysqli->rollback();
 }
+
+function formatDuration($time) {
+    // expects "HH:MM:SS"
+    [$h, $m, $s] = array_map('intval', explode(':', $time));
+
+    $parts = [];
+
+    if ($h > 0) $parts[] = $h . 'h';
+    if ($m > 0) $parts[] = $m . 'm';
+
+    // show seconds only if under 1 minute total OR if nothing else exists
+    if ($h == 0 && $m == 0) {
+        $parts[] = $s . 's';
+    }
+
+    return implode(' ', $parts);
+}
