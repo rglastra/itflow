@@ -439,13 +439,13 @@ if (isset($_GET['ticket_id'])) {
             <div class="card card-body">
 
                 <div title="<?php echo $ticket_updated_at; ?>">
-                    <i class="fa fa-fw fa-history text-secondary mr-2"></i>Last updated: <strong><?= date('M d, Y • g:i A', strtotime($ticket_updated_at)) . "</strong> <span class='text-muted small'>($ticket_updated_at_ago)</span>" ?>
+                    <i class="fa fa-fw fa-history text-secondary mr-2"></i>Updated: <strong><?= date('M d, Y • g:i A', strtotime($ticket_updated_at)) . "</strong> <span class='text-muted small'>($ticket_updated_at_ago)</span>" ?>
                 </div>
 
                 <!-- Ticket assign (disable if closed -->
                 <?php if (empty($ticket_closed_at)) { ?>
                     <div class="mt-1">
-                        <i class="fas fa-fw fa-user-tie mr-2 text-secondary"></i>Assigned Agent:
+                        <i class="fas fa-fw fa-user-tie mr-2 text-secondary"></i>Agent:
                         <a class="ajax-modal" href="#"
                             data-modal-url="modals/ticket/ticket_assign.php?id=<?= $ticket_id ?>">
                             <?= $ticket_assigned_to_display ?>
@@ -453,7 +453,7 @@ if (isset($_GET['ticket_id'])) {
                     </div>
                 <?php } else { ?>
                     <div class="mt-1">
-                        <i class="fas fa-fw fa-user-check mr-2 text-secondary"></i>Assigned Agent: <?php echo $ticket_assigned_to_display; ?>
+                        <i class="fas fa-fw fa-user-check mr-2 text-secondary"></i>Agent: <?php echo $ticket_assigned_to_display; ?>
                     </div>
                 <?php } ?>
                 <!-- End ticket assign -->
@@ -565,9 +565,9 @@ if (isset($_GET['ticket_id'])) {
                             <input type="hidden" name="ticket_id" id="ticket_id" value="<?php echo $ticket_id; ?>">
                             <input type="hidden" name="client_id" id="client_id" value="<?php echo $client_id; ?>">
 
-                            <div class="card card-body d-print-none pb-0">
+                            <div class="card card-body d-print-none p-3">
 
-                                <div class="form-group">
+                                <div class="form-group mb-0">
                                     <div class="btn-group btn-block btn-group-toggle" data-toggle="buttons">
                                         <label class="btn btn-outline-dark active">
                                             <input type="radio" name="public_reply_type" value="0" checked>Internal
@@ -585,19 +585,17 @@ if (isset($_GET['ticket_id'])) {
 
                             </div>
 
-                            <div class="form-group mb-0">
+                            <div class="form-group">
                                 <textarea
                                     class="form-control tinymceTicket" name="ticket_reply"
                                     placeholder="Type a response">
                                 </textarea>
                             </div>
 
-
-                            <div class="card card-body pb-0">
-
-                                <div class="form-row">
-                                    <div class="col-md-3">
-                                        <div class="input-group mb-3">
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <select class="form-control select2" name="status" required>
 
                                                 <!-- Show all active ticket statuses, apart from new or closed as these are system-managed -->
@@ -617,10 +615,12 @@ if (isset($_GET['ticket_id'])) {
                                             </select>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- Time Tracking -->
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-3">
+                                <!-- Time Tracking -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <div class="input-group-prepend px-0 col-2">
                                                 <input type="text" class="form-control" inputmode="numeric" id="hours" name="hours" placeholder="Hrs" min="0" max="23" pattern="0?[0-9]|1[0-9]|2[0-3]">
                                             </div>
@@ -639,14 +639,14 @@ if (isset($_GET['ticket_id'])) {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-3">
-                                        <div class="btn-toolbar float-right">
-                                            <button type="submit" id="ticket_add_reply" name="add_ticket_reply" class="btn btn-success ml-3"><i class="fas fa-check mr-2"></i>Submit</button>
-                                        </div>
-                                    </div>
-
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="btn-toolbar float-right mb-3">
+                                        <button type="submit" id="ticket_add_reply" name="add_ticket_reply" class="btn btn-success ml-3"><i class="fas fa-check mr-2"></i>Submit</button>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </form>

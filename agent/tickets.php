@@ -214,26 +214,20 @@ $sql_categories_filter = mysqli_query(
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-light"><i class="fas fa-layer-group"></i></span>
-                                </div>
-                                <select class="form-control select2" name="category" onchange="this.form.submit()">
-                                    <option value="">- All Categories -</option>
+                            <select class="form-control select2" name="category" onchange="this.form.submit()">
+                                <option value="">- All Categories -</option>
 
-                                    <?php
-                                    while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
-                                        $category_id = intval($row['category_id']);
-                                        $category_name = nullable_htmlentities($row['category_name']);
-                                    ?>
-                                        <option <?php if ($category_filter == $category_id) { echo "selected"; } ?> value="<?php echo $category_id; ?>"><?php echo $category_name; ?></option>
-                                    <?php
-                                    }
-                                    ?>
+                                <?php
+                                while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
+                                    $category_id = intval($row['category_id']);
+                                    $category_name = nullable_htmlentities($row['category_name']);
+                                ?>
+                                    <option <?php if ($category_filter == $category_id) { echo "selected"; } ?> value="<?php echo $category_id; ?>"><?php echo $category_name; ?></option>
+                                <?php
+                                }
+                                ?>
 
-                                </select>
-
-                            </div>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-5">

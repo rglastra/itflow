@@ -125,9 +125,9 @@
                             $ticket_assigned_to = intval($row['ticket_assigned_to']);
                             if (empty($ticket_assigned_to)) {
                                 if (!empty($ticket_closed_at)) {
-                                    $ticket_assigned_to_display = "<p>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p>Unassigned</p>";
                                 } else {
-                                    $ticket_assigned_to_display = "<p class='text-danger'>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p class='text-muted'>Unassigned</p>";
                                 }
                             } else {
                                 $ticket_assigned_to_display = nullable_htmlentities($row['user_name']);
@@ -203,7 +203,7 @@
                                 <!-- Ticket Number -->
                                 <td>
                                     <a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>">
-                                        <span class="badge badge-pill badge-secondary p-3"><?php echo "$ticket_prefix$ticket_number"; ?></span>
+                                        <span class="badge badge-pill badge-dark p-2"><?php echo "$ticket_prefix$ticket_number"; ?></span>
                                     </a>
                                 </td>
 
@@ -212,12 +212,12 @@
                                     <a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= $ticket_subject ?></a>
 
                                     <?php if($task_count && $completed_task_count > 0) { ?>
-                                    <div class="progress mt-2" style="height: 20px;">
+                                    <div class="progress mt-1" style="height: 15px;">
                                         <div class="progress-bar" style="width: <?php echo $tasks_completed_percent; ?>%;"><?php echo $completed_task_count.' / '.$task_count; ?></div>
                                     </div>
                                     <?php } ?>
                                     <?php if($task_count && $completed_task_count == 0) { ?>
-                                    <div class="mt-2" style="height: 20px; background-color:#e9ecef;">
+                                    <div class="mt-1" style="height: 15px; background-color:#e9ecef;">
                                         <p class="text-center" ><?php echo $completed_task_count.' / '.$task_count; ?></p>
                                     </div>
                                     <?php } ?>
