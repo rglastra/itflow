@@ -173,7 +173,7 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
                     ?>
 
                     <tr>
-                        <th>Gross Profit</th>
+                        <th>Gross Revenue</th>
                         <?php
 
                         $payment_total_amount_for_quarter_one = 0;
