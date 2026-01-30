@@ -39,8 +39,8 @@ $row = mysqli_fetch_assoc($sql);
 
 $session_avatar = $row['user_avatar'];
 $session_user_type = intval($row['user_type']);
-$session_user_archived_at = $row['user_archived_at'];
 $session_user_status = intval($row['user_status']);
+$session_user_archived_at = $row['user_archived_at'];
 
 // Check user type is client aka 2
 if ($session_user_type !== 2) {
@@ -63,7 +63,7 @@ if ($session_user_archived_at !== null) {
     redirect("/login.php");
 }
 
-// Get company info from database
+// Load company session vars
 $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
 $row = mysqli_fetch_assoc($sql);
 
@@ -74,7 +74,7 @@ $session_company_currency = $row['company_currency'];
 $currency_format = numfmt_create($session_company_locale, NumberFormatter::CURRENCY);
 $session_company_logo = $row['company_logo'];
 
-// Get contact info
+// Load contact session vars
 $contact_sql = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_id = $session_contact_id AND contact_client_id = $session_client_id");
 $contact = mysqli_fetch_assoc($contact_sql);
 
@@ -95,7 +95,7 @@ if ($contact['contact_billing'] == 1) {
     $session_contact_is_billing_contact = true;
 }
 
-// Get client info
+// Load client session vars
 $client_sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $session_client_id");
 $client = mysqli_fetch_assoc($client_sql);
 
