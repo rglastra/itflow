@@ -16,14 +16,7 @@ if (!isset($_SESSION)) {
 }
 
 if (!isset($_SESSION['client_logged_in']) || !$_SESSION['client_logged_in']) {
-    header("Location: /login.php");
-    die;
-}
-
-// Check user type
-if ($_SESSION['user_type'] !== 2) {
-    header("Location: /login.php");
-    exit();
+    redirect("/login.php");
 }
 
 // Set Timezone
@@ -39,6 +32,36 @@ $session_client_id = intval($_SESSION['client_id']);
 $session_contact_id = intval($_SESSION['contact_id']);
 $session_user_id = intval($_SESSION['user_id']);
 
+// Load user session vars
+$sql = mysqli_query($mysqli, "SELECT * FROM users WHERE users.user_id = $session_user_id");
+
+$row = mysqli_fetch_assoc($sql);
+
+$session_avatar = $row['user_avatar'];
+$session_user_type = intval($row['user_type']);
+$session_user_archived_at = $row['user_archived_at'];
+$session_user_status = intval($row['user_status']);
+
+// Check user type is client aka 2
+if ($session_user_type !== 2) {
+    session_unset();
+    session_destroy();
+    redirect("/login.php");
+}
+
+// Check User is active
+if ($session_user_status !== 1) {
+    session_unset();
+    session_destroy();
+    redirect("/login.php");
+}
+
+// Check User is archived
+if ($session_user_archived_at !== null) {
+    session_unset();
+    session_destroy();
+    redirect("/login.php");
+}
 
 // Get company info from database
 $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
