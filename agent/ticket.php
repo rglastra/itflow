@@ -396,7 +396,7 @@ if (isset($_GET['ticket_id'])) {
                                         <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/ticket/ticket_summary.php?ticket_id=<?= $ticket_id ?>" data-modal-size="lg">
                                             <i class="fas fa-fw fa-lightbulb mr-2"></i>Summarize
                                         </a>
-                                        <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/ticket/ticket_merge.php?ticket_id=<?= $ticket_id ?>">
+                                        <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/ticket/ticket_merge_v2.php?ticket_id=<?= $ticket_id ?>">
                                             <i class="fas fa-fw fa-clone mr-2"></i>Merge
                                         </a>
                                         <?php if (empty($ticket_closed_at) && $client_id) { ?>
