@@ -241,7 +241,7 @@ $sql_categories_filter = mysqli_query(
                                     <a class="dropdown-item" href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'list']))); ?>">List</a>
                                     <?php if ($status !== 'Closed') {?>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item " href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'kanbanv2']))); ?>">Kanban</a>
+                                        <a class="dropdown-item " href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'kanban']))); ?>">Kanban</a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@ $sql_categories_filter = mysqli_query(
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item ajax-modal" href="#"
-                                            data-modal-url="modals/ticket/ticket_bulk_merge_v2.php"
+                                            data-modal-url="modals/ticket/ticket_bulk_merge.php"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-clone mr-2"></i>Merge
                                         </a>
@@ -416,8 +416,8 @@ $sql_categories_filter = mysqli_query(
 if (isset($_GET["view"])) {
     if ($_GET["view"] == "list") {
         require_once "ticket_list.php";
-    } elseif ($_GET["view"] == "kanbanv2") {
-        require_once "ticket_kanban_v2.php";
+    } elseif ($_GET["view"] == "kanban") {
+        require_once "ticket_kanban.php";
     }
 } else {
     // here we have to get default view setting
