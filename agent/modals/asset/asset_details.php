@@ -35,6 +35,7 @@ $asset_install_date = nullable_htmlentities($row['asset_install_date']);
 $asset_photo = nullable_htmlentities($row['asset_photo']);
 $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
 $asset_notes = nullable_htmlentities($row['asset_notes']);
+$asset_favorite = intval($row['asset_favorite']);
 $asset_created_at = nullable_htmlentities($row['asset_created_at']);
 $asset_vendor_id = intval($row['asset_vendor_id']);
 $asset_location_id = intval($row['asset_location_id']);
@@ -145,7 +146,7 @@ $sql_related_credentials = mysqli_query($mysqli, "
         credentials.credential_password,
         credentials.credential_otp_secret,
         credentials.credential_note,
-        credentials.credential_important,
+        credentials.credential_favorite,
         credentials.credential_contact_id,
         credentials.credential_asset_id
     FROM credentials
@@ -221,7 +222,9 @@ if (isset($_GET['client_id'])) {
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-<?php echo $device_icon; ?> mr-2"></i><strong><?php echo $asset_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-<?= $device_icon ?> mr-2"></i><strong><?= $asset_name ?></strong>
+        <?php if ($asset_favorite) { ?><i class="fas fa-fw text-warning fa-star" title="Favorite"></i><?php } ?>
+    </h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -277,7 +280,9 @@ ob_start();
         <div class="tab-pane fade show active" id="pills-asset-details<?php echo $asset_id; ?>">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-bold"><i class="fa fa-fw text-secondary fa-<?php echo $device_icon; ?> mr-3"></i><?php echo $asset_name; ?></h3>
+                    <h3 class="text-bold"><i class="fa fa-fw text-secondary fa-<?= $device_icon ?> mr-2"></i><?= $asset_name ?>
+                        <?php if ($asset_favorite) { ?><i class="fas fa-fw text-warning fa-star" title="Favorite"></i><?php } ?>
+                    </h3>
                     <?php if ($asset_photo) { ?>
                         <img class="img-fluid img-circle p-3" alt="asset_photo" src="<?php echo "../uploads/clients/$client_id/$asset_photo"; ?>">
                     <?php } ?>
@@ -512,7 +517,7 @@ ob_start();
                             $otp_display = "<span onmouseenter='showOTPViaCredentialID($credential_id)'><i class='far fa-clock'></i> <span id='otp_$credential_id'><i>Hover..</i></span></span>";
                         }
                         $credential_note = nullable_htmlentities($row['credential_note']);
-                        $credential_important = intval($row['credential_important']);
+                        $credential_favorite = intval($row['credential_favorite']);
                         $credential_contact_id = intval($row['credential_contact_id']);
                         $credential_asset_id = intval($row['credential_asset_id']);
 

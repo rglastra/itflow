@@ -34,6 +34,7 @@ $asset_install_date = nullable_htmlentities($row['asset_install_date']);
 $asset_photo = nullable_htmlentities($row['asset_photo']);
 $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
 $asset_notes = nullable_htmlentities($row['asset_notes']);
+$asset_favorite = intval($row['asset_favorite']);
 $asset_created_at = nullable_htmlentities($row['asset_created_at']);
 $asset_archived_at = nullable_htmlentities($row['asset_archived_at']);
 $asset_vendor_id = intval($row['asset_vendor_id']);
@@ -105,9 +106,20 @@ ob_start();
                     <label>Name <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
+                            <span class="input-group-text"><i class="fas fa-fw fa-tag"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name the asset" maxlength="200" value="<?= $asset_name ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="Asset name or asset tag" maxlength="200" value="<?= $asset_name ?>" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox"
+                                            name="favorite"
+                                            value="1"
+                                            <?php if($asset_favorite) { echo 'checked'; } ?>>
+                                    <i class="far fa-star"></i>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -345,6 +345,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount"></span>)
                             </button>
                             <div class="dropdown-menu">
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_favorite_assets">
+                                    <i class="fas fa-fw fa-star text-warning mr-2"></i>Favorite
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_unfavorite_assets">
+                                    <i class="far fa-fw fa-star mr-2"></i>Unfavorite
+                                </button>
+                                <div class="dropdown-divider"></div>
                                 <?php if ($client_url) { ?>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_contact.php?<?= $client_url ?>"
@@ -590,6 +600,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             $asset_physical_location_display = "";
                         }
                         $asset_notes = nullable_htmlentities($row['asset_notes']);
+                        $asset_favorite = intval($row['asset_favorite']);
                         $asset_created_at = nullable_htmlentities($row['asset_created_at']);
                         $asset_archived_at = nullable_htmlentities($row['asset_archived_at']);
                         $asset_vendor_id = intval($row['asset_vendor_id']);
@@ -660,7 +671,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <div class="media">
                                         <i class="fa fa-fw fa-2x fa-<?= $device_icon ?> mr-3 mt-1"></i>
                                         <div class="media-body">
-                                            <div><?= $asset_name ?></div>
+                                            <div><?= $asset_name ?> <?php if ($asset_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?></div>
                                             <div><small class="text-secondary"><?= $asset_description ?></small></div>
                                             <?php
                                             if ($asset_tags_display) { ?>

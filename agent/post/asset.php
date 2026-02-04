@@ -16,7 +16,7 @@ if (isset($_POST['add_asset'])) {
 
     $alert_extended = "";
 
-    mysqli_query($mysqli,"INSERT INTO assets SET asset_name = '$name', asset_description = '$description', asset_type = '$type', asset_make = '$make', asset_model = '$model', asset_serial = '$serial', asset_os = '$os', asset_uri = '$uri', asset_uri_2 = '$uri_2', asset_uri_client = '$uri_client', asset_location_id = $location, asset_vendor_id = $vendor, asset_contact_id = $contact, asset_status = '$status', asset_purchase_reference = '$purchase_reference', asset_purchase_date = $purchase_date, asset_warranty_expire = $warranty_expire, asset_install_date = $install_date, asset_physical_location = '$physical_location', asset_notes = '$notes', asset_client_id = $client_id");
+    mysqli_query($mysqli,"INSERT INTO assets SET asset_name = '$name', asset_description = '$description', asset_type = '$type', asset_make = '$make', asset_model = '$model', asset_serial = '$serial', asset_os = '$os', asset_uri = '$uri', asset_uri_2 = '$uri_2', asset_uri_client = '$uri_client', asset_location_id = $location, asset_vendor_id = $vendor, asset_contact_id = $contact, asset_status = '$status', asset_purchase_reference = '$purchase_reference', asset_purchase_date = $purchase_date, asset_warranty_expire = $warranty_expire, asset_install_date = $install_date, asset_physical_location = '$physical_location', asset_notes = '$notes', asset_favorite = $favorite, asset_client_id = $client_id");
 
     $asset_id = mysqli_insert_id($mysqli);
 
@@ -88,7 +88,7 @@ if (isset($_POST['edit_asset'])) {
     $row = mysqli_fetch_assoc($sql);
     $existing_file_name = sanitizeInput($row['asset_photo']);
 
-    mysqli_query($mysqli,"UPDATE assets SET asset_name = '$name', asset_description = '$description', asset_type = '$type', asset_make = '$make', asset_model = '$model', asset_serial = '$serial', asset_os = '$os', asset_uri = '$uri', asset_uri_2 = '$uri_2', asset_uri_client = '$uri_client', asset_location_id = $location, asset_vendor_id = $vendor, asset_contact_id = $contact, asset_status = '$status', asset_purchase_reference = '$purchase_reference', asset_purchase_date = $purchase_date, asset_warranty_expire = $warranty_expire, asset_install_date = $install_date, asset_physical_location = '$physical_location', asset_notes = '$notes' WHERE asset_id = $asset_id");
+    mysqli_query($mysqli,"UPDATE assets SET asset_name = '$name', asset_description = '$description', asset_type = '$type', asset_make = '$make', asset_model = '$model', asset_serial = '$serial', asset_os = '$os', asset_uri = '$uri', asset_uri_2 = '$uri_2', asset_uri_client = '$uri_client', asset_location_id = $location, asset_vendor_id = $vendor, asset_contact_id = $contact, asset_status = '$status', asset_purchase_reference = '$purchase_reference', asset_purchase_date = $purchase_date, asset_warranty_expire = $warranty_expire, asset_install_date = $install_date, asset_physical_location = '$physical_location', asset_notes = '$notes', asset_favorite = $favorite WHERE asset_id = $asset_id");
 
     $sql_interfaces = mysqli_query($mysqli, "SELECT * FROM asset_interfaces WHERE interface_asset_id = $asset_id AND interface_primary = 1");
 
@@ -505,6 +505,78 @@ if (isset($_POST['bulk_edit_asset_status'])) {
         logAction("Asset", "Bulk Edit", "$session_name set status to $status on $asset_count assets", $client_id);
 
         flash_alert("You set the status <strong>$status</strong> on <strong>$asset_count</strong> assets.");
+    }
+
+    redirect();
+
+}
+
+if (isset($_POST['bulk_favorite_assets'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 2);
+
+    if (isset($_POST['asset_ids'])) {
+
+        $count = count($_POST['asset_ids']);
+
+        foreach ($_POST['asset_ids'] as $asset_id) {
+
+            $asset_id = intval($asset_id);
+
+            // Get Asset Name and Client ID for logging and alert message
+            $sql = mysqli_query($mysqli,"SELECT asset_name, asset_client_id FROM assets WHERE asset_id = $asset_id");
+            $row = mysqli_fetch_assoc($sql);
+            $asset_name = sanitizeInput($row['asset_name']);
+            $client_id = intval($row['asset_client_id']);
+
+            mysqli_query($mysqli,"UPDATE assets SET asset_favorite = 1 WHERE asset_id = $asset_id");
+
+            logAction("Asset", "Edit", "$session_name marked asset $asset_name a favorite", $client_id, $asset_id);
+
+        }
+
+        logAction("Asset", "Bulk Edit", "$session_name favorited $count assets", $client_id);
+
+        flash_alert("Favorited <strong>$count</strong> asset(s)");
+
+    }
+
+    redirect();
+
+}
+
+if (isset($_POST['bulk_unfavorite_assets'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 2);
+
+    if (isset($_POST['asset_ids'])) {
+
+        $count = count($_POST['asset_ids']);
+
+        foreach ($_POST['asset_ids'] as $asset_id) {
+
+            $asset_id = intval($asset_id);
+
+            // Get Asset Name and Client ID for logging and alert message
+            $sql = mysqli_query($mysqli,"SELECT asset_name, asset_client_id FROM assets WHERE asset_id = $asset_id");
+            $row = mysqli_fetch_assoc($sql);
+            $asset_name = sanitizeInput($row['asset_name']);
+            $client_id = intval($row['asset_client_id']);
+
+            mysqli_query($mysqli,"UPDATE assets SET asset_favorite = 0 WHERE asset_id = $asset_id");
+
+            logAction("Asset", "Edit", "$session_name unfavorited asset $asset_name", $client_id, $asset_id);
+
+        }
+
+        logAction("Asset", "Bulk Edit", "$session_name unfavorited $count assets", $client_id);
+
+        flash_alert("Unfavorited <strong>$count</strong> asset(s)");
+
     }
 
     redirect();

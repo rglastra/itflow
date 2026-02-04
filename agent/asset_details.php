@@ -51,6 +51,7 @@ if (isset($_GET['asset_id'])) {
         $asset_photo = nullable_htmlentities($row['asset_photo']);
         $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
         $asset_notes = nullable_htmlentities($row['asset_notes']);
+        $asset_favorite = intval($row['asset_favorite']);
         $asset_created_at = nullable_htmlentities($row['asset_created_at']);
         $asset_vendor_id = intval($row['asset_vendor_id']);
         $asset_location_id = intval($row['asset_location_id']);
@@ -226,7 +227,7 @@ if (isset($_GET['asset_id'])) {
                 credentials.credential_password,
                 credentials.credential_otp_secret,
                 credentials.credential_note,
-                credentials.credential_important,
+                credentials.credential_favorite,
                 credentials.credential_contact_id,
                 credentials.credential_asset_id
             FROM credentials
@@ -273,7 +274,9 @@ if (isset($_GET['asset_id'])) {
                             data-modal-url="modals/asset/asset_edit.php?id=<?= $asset_id ?>">
                             <i class="fas fa-fw fa-edit"></i>
                         </button>
-                        <h4 class="text-bold"><i class="fa fa-fw text-secondary fa-<?= $device_icon; ?> mr-3"></i><?= $asset_name; ?></h4>
+                        <h4 class="text-bold"><i class="fa fa-fw text-secondary fa-<?= $device_icon; ?> mr-2"></i><?= $asset_name; ?>
+                            <?php if ($asset_favorite) { ?><i class="fas fa-fw text-warning fa-star" title="Favorite"></i><?php } ?>
+                        </h4>
                         <?php if ($asset_photo) { ?>
                             <img class="img-fluid img-circle p-3" alt="asset_photo" src="<?= "../uploads/clients/$client_id/$asset_photo"; ?>">
                         <?php } ?>
@@ -288,25 +291,25 @@ if (isset($_GET['asset_id'])) {
                             </div>
                         <?php } ?>
                         <?php if ($asset_type) { ?>
-                            <div class="mt-1"><i class="fa fa-fw fa-tag text-secondary mr-3"></i><?= $asset_type; ?></div>
+                            <div class="mt-1"><i class="fa fa-fw fa-tag text-secondary mr-2"></i><?= $asset_type; ?></div>
                         <?php }
                         if ($asset_make) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-circle text-secondary mr-3"></i><?= "$asset_make $asset_model"; ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-circle text-secondary mr-2"></i><?= "$asset_make $asset_model"; ?></div>
                         <?php }
                         if ($asset_os) { ?>
-                            <div class="mt-2"><i class="fab fa-fw fa-windows text-secondary mr-3"></i><?= "$asset_os"; ?></div>
+                            <div class="mt-2"><i class="fab fa-fw fa-windows text-secondary mr-2"></i><?= "$asset_os"; ?></div>
                         <?php }
                         if ($asset_serial) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-barcode text-secondary mr-3"></i><?= $asset_serial; ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-barcode text-secondary mr-2"></i><?= $asset_serial; ?></div>
                         <?php }
                         if ($asset_purchase_date) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-shopping-cart text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_purchase_date)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-shopping-cart text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_purchase_date)); ?></div>
                         <?php }
                         if ($asset_install_date) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-calendar-check text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_install_date)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-calendar-check text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_install_date)); ?></div>
                         <?php }
                         if ($asset_warranty_expire) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-exclamation-triangle text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_warranty_expire)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-exclamation-triangle text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_warranty_expire)); ?></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -657,7 +660,7 @@ if (isset($_GET['asset_id'])) {
                                         $otp_display = "<span onmouseenter='showOTPViaCredentialID($credential_id)'><i class='far fa-clock'></i> <span id='otp_$credential_id'><i>Hover..</i></span></span>";
                                     }
                                     $credential_note = nullable_htmlentities($row['credential_note']);
-                                    $credential_important = intval($row['credential_important']);
+                                    $credential_favorite = intval($row['credential_favorite']);
                                     $credential_contact_id = intval($row['credential_contact_id']);
                                     $credential_asset_id = intval($row['credential_asset_id']);
 

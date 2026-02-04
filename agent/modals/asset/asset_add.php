@@ -98,12 +98,17 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label>Name <strong class="text-danger">*</strong> / <span class="text-secondary" title="Pin to Overview">Favorite</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
+                            <span class="input-group-text"><i class="fas fa-fw fa-tag"></i></span>
                         </div>
                         <input type="text" class="form-control" name="name" placeholder="Asset name or asset tag" maxlength="200" required autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="favortie" value="1">
+                            </div>
+                        </div>
                     </div>
                 </div>
 

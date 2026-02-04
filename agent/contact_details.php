@@ -371,10 +371,10 @@ if (isset($_GET['contact_id'])) {
                                 $asset_make = nullable_htmlentities($row['asset_make']);
                                 $asset_model = nullable_htmlentities($row['asset_model']);
                                 $asset_serial = nullable_htmlentities($row['asset_serial']);
-                                if (empty($asset_serial)) {
-                                    $asset_serial_display = "-";
-                                } else {
+                                if ($asset_serial) {
                                     $asset_serial_display = $asset_serial;
+                                } else {
+                                     $asset_serial_display = "-";
                                 }
                                 $asset_os = nullable_htmlentities($row['asset_os']);
                                 if (empty($asset_os)) {
@@ -405,6 +405,7 @@ if (isset($_GET['contact_id'])) {
                                 $asset_photo = nullable_htmlentities($row['asset_photo']);
                                 $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
                                 $asset_notes = nullable_htmlentities($row['asset_notes']);
+                                $asset_favorite = intval($row['asset_favorite']);
                                 $asset_created_at = nullable_htmlentities($row['asset_created_at']);
                                 $device_icon = getAssetIcon($asset_type);
 
@@ -433,14 +434,15 @@ if (isset($_GET['contact_id'])) {
                                 ?>
                                 <tr>
                                     <th>
-                                        <i class="fa fa-fw text-secondary fa-<?php echo $device_icon; ?> mr-2"></i>
+                                        <i class="fa fa-fw text-secondary fa-<?= $device_icon ?> mr-1"></i>
                                         <a class="text-secondary ajax-modal" href="#"
                                             data-modal-size="lg"
                                             data-modal-url="modals/asset/asset_details.php?id=<?= $asset_id ?>">
-                                            <?php echo $asset_name; ?>
+                                            <?= $asset_name ?>
+                                            <?php if ($asset_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?>
                                         </a>
                                         <div class="mt-0">
-                                            <small class="text-muted"><?php echo $asset_description; ?></small>
+                                            <small class="text-muted"><?= $asset_description ?></small>
                                         </div>
                                         <?php
                                         if ($asset_tags_display) { ?>
@@ -449,17 +451,17 @@ if (isset($_GET['contact_id'])) {
                                             </div>
                                         <?php } ?>
                                     </th>
-                                    <td><?php echo $asset_type; ?></td>
+                                    <td><?= $asset_type ?></td>
                                     <td>
-                                        <?php echo $asset_make; ?>
+                                        <?= $asset_make ?>
                                         <div class="mt-0">
-                                            <small class="text-muted"><?php echo $asset_model; ?></small>
+                                            <small class="text-muted"><?= $asset_model ?></small>
                                         </div>
                                     </td>
-                                    <td><?php echo $asset_serial_display; ?></td>
+                                    <td><?= $asset_serial_display ?></td>
 
-                                    <td><?php echo $asset_install_date_display; ?></td>
-                                    <td><?php echo $asset_status; ?></td>
+                                    <td><?= $asset_install_date_display ?></td>
+                                    <td><?= $asset_status ?></td>
                                     <td>
                                         <div class="dropdown dropleft text-center">
                                             <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></button>
@@ -474,16 +476,16 @@ if (isset($_GET['contact_id'])) {
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item"
-                                                    href="post.php?unlink_asset_from_contact&contact_id=<?php echo $contact_id; ?>&asset_id=<?php echo $asset_id; ?>"
+                                                    href="post.php?unlink_asset_from_contact&contact_id=<?= $contact_id ?>&asset_id=<?= $asset_id ?>"
                                                     class="btn btn-secondary btn-sm" title="Unlink">
                                                     <i class="fas fa-fw fa-unlink mr-2"></i>Unlink
                                                 </a>
                                                 <?php if ($session_user_role == 3) { ?>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-danger" href="post.php?archive_asset=<?php echo $asset_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
+                                                    <a class="dropdown-item text-danger" href="post.php?archive_asset=<?= $asset_id ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
                                                         <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                     </a>
-                                                    <a class="dropdown-item text-danger text-bold" href="post.php?delete_asset=<?php echo $asset_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
+                                                    <a class="dropdown-item text-danger text-bold" href="post.php?delete_asset=<?=  $asset_id ?>&csrf_token=<?= $_SESSION['csrf_token'] ?>">
                                                         <i class="fas fa-fw fa-trash mr-2"></i>Delete
                                                     </a>
                                                 <?php } ?>
@@ -557,7 +559,7 @@ if (isset($_GET['contact_id'])) {
                                     $otp_display = "<span onmouseenter='showOTPViaCredentialID($credential_id)'><i class='far fa-clock'></i> <span id='otp_$credential_id'><i>Hover..</i></span></span>";
                                 }
                                 $credential_note = nullable_htmlentities($row['credential_note']);
-                                $credential_important = intval($row['credential_important']);
+                                $credential_favorite = intval($row['credential_favorite']);
                                 $credential_contact_id = intval($row['credential_contact_id']);
                                 $credential_asset_id = intval($row['credential_asset_id']);
 

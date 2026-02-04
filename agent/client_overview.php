@@ -23,6 +23,15 @@ $sql_important_contacts = mysqli_query(
     ORDER BY contact_primary DESC, contact_name DESC LIMIT 5"
 );
 
+$sql_favorite_assets = mysqli_query(
+    $mysqli,
+    "SELECT * FROM assets
+    WHERE asset_client_id = $client_id
+        AND asset_favorite = 1
+        AND asset_archived_at IS NULL
+    ORDER BY asset_type ASC, asset_name ASC"
+);
+
 $sql_recent_tickets = mysqli_query(
     $mysqli,
     "SELECT * FROM tickets
@@ -275,6 +284,45 @@ $sql_asset_retired = mysqli_query(
                                     <br>
                                     <div class="text-secondary"><i class='fa fa-fw fa-mobile-alt text-secondary'></i> <?php echo "$contact_mobile"; ?></div>
                                 <?php } ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+
+                </table>
+            </div>
+        </div>
+        <?php } ?>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <?php if (mysqli_num_rows($sql_favorite_assets) > 0) { ?>
+        <div class="card card-dark mb-3">
+            <div class="card-header">
+                <h5 class="card-title"><i class="fas fa-fw fa-star mr-2"></i>Favorite Assets</h5>
+            </div>
+            <div class="card-body p-2">
+                <table class="table table-borderless table-sm">
+                    <?php
+
+                    while ($row = mysqli_fetch_assoc($sql_favorite_assets)) {
+                        $asset_id = intval($row['asset_id']);
+                        $asset_name = nullable_htmlentities($row['asset_name']);
+                        $asset_type = nullable_htmlentities($row['asset_type']);
+                        $asset_icon = getAssetIcon($asset_type);
+
+                        ?>
+                        <tr>
+                            <td>
+                                <a href="#" class="ajax-modal"
+                                    data-modal-size="lg"
+                                    data-modal-url="modals/asset/asset_details.php?id=<?= $asset_id ?>">
+                                        <i class="fas fa-fw fa-<?= $asset_icon ?> text-muted mr-2"></i><?= $asset_name ?>
+                                </a>
+
                             </td>
                         </tr>
                         <?php

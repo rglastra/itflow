@@ -478,14 +478,16 @@ ob_start();
                                     $asset_tag_name_display_array[] = "<a href='assets.php?$client_url tags[]=$asset_tag_id'><span class='badge text-light p-1 mr-1' style='background-color: $asset_tag_color;'><i class='fa fa-fw fa-$asset_tag_icon mr-2'></i>$asset_tag_name</span></a>";
                                 }
                                 $asset_tags_display = implode('', $asset_tag_name_display_array);
+                                $asset_favorite = intval($row['asset_favorite']);
+
                                 ?>
                                 <tr>
                                     <th>
-                                        <i class="fa fa-fw text-secondary fa-<?= $device_icon ?> mr-2"></i>
                                         <a href="#" class="ajax-modal"
                                            data-modal-size="lg"
                                            data-modal-url="modals/asset/asset_details.php?id=<?= $asset_id ?>">
-                                            <?= $asset_name ?>
+                                               <i class="fa fa-fw text-secondary fa-<?= $device_icon ?> mr-2"></i><?= $asset_name ?>
+                                            <?php if ($asset_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?>
                                         </a>
                                         <div class="mt-0">
                                             <small class="text-muted"><?= $asset_description ?></small>
