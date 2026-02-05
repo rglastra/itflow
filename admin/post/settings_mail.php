@@ -2,6 +2,10 @@
 
 defined('FROM_POST_HANDLER') || die("Direct file access is not allowed");
 
+if (!defined('MICROSOFT_OAUTH_BASE_URL')) {
+    define('MICROSOFT_OAUTH_BASE_URL', 'https://login.microsoftonline.com/');
+}
+
 if (isset($_POST['oauth_connect_microsoft_mail'])) {
 
     validateCSRFToken($_POST['csrf_token']);
@@ -55,7 +59,7 @@ if (isset($_POST['oauth_connect_microsoft_mail'])) {
 
     $scope = 'offline_access openid profile https://outlook.office.com/IMAP.AccessAsUser.All https://outlook.office.com/SMTP.Send';
 
-    $authorize_url = 'https://login.microsoftonline.com/' . rawurlencode($config_mail_oauth_tenant_id) . '/oauth2/v2.0/authorize?'
+    $authorize_url = MICROSOFT_OAUTH_BASE_URL . rawurlencode($config_mail_oauth_tenant_id) . '/oauth2/v2.0/authorize?'
         . http_build_query([
             'client_id' => $config_mail_oauth_client_id,
             'response_type' => 'code',
@@ -334,7 +338,7 @@ if (isset($_POST['test_email_imap'])) {
                     redirect();
                 }
 
-                $token_url = "https://login.microsoftonline.com/" . rawurlencode($config_mail_oauth_tenant_id) . "/oauth2/v2.0/token";
+                $token_url = MICROSOFT_OAUTH_BASE_URL . rawurlencode($config_mail_oauth_tenant_id) . "/oauth2/v2.0/token";
                 $response = $http_form_post($token_url, [
                     'client_id' => $config_mail_oauth_client_id,
                     'client_secret' => $config_mail_oauth_client_secret,
@@ -521,7 +525,7 @@ if (isset($_POST['test_oauth_token_refresh'])) {
 
     $token_url = 'https://oauth2.googleapis.com/token';
     if ($provider === 'microsoft_oauth') {
-        $token_url = "https://login.microsoftonline.com/" . rawurlencode($oauth_tenant_id) . "/oauth2/v2.0/token";
+        $token_url = MICROSOFT_OAUTH_BASE_URL . rawurlencode($oauth_tenant_id) . "/oauth2/v2.0/token";
     }
 
     $post_fields = http_build_query([
