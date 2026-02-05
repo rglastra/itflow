@@ -243,6 +243,32 @@ require_once "includes/inc_all_admin.php";
                     </div>
                 </div>
 
+                <?php
+                if (defined('BASE_URL') && !empty(BASE_URL)) {
+                    $mail_oauth_callback_uri = rtrim((string) BASE_URL, '/') . '/admin/oauth_microsoft_mail_callback.php';
+                } else {
+                    $mail_oauth_callback_uri = 'https://' . rtrim((string) $config_base_url, '/') . '/admin/oauth_microsoft_mail_callback.php';
+                }
+                ?>
+
+                <div class="form-group">
+                    <label>Microsoft OAuth Connect (Web)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
+                        </div>
+                        <input type="text" class="form-control" readonly value="<?php echo htmlspecialchars($mail_oauth_callback_uri); ?>">
+                        <div class="input-group-append">
+                            <button type="submit" name="oauth_connect_microsoft_mail" class="btn btn-outline-primary">
+                                <i class="fas fa-fw fa-sign-in-alt mr-2"></i>Connect Microsoft 365
+                            </button>
+                        </div>
+                    </div>
+                    <small class="text-secondary">
+                        Add this callback URI in Entra App Registration, then click Connect to authorize and store refresh token automatically.
+                    </small>
+                </div>
+
                 <hr>
 
                 <button type="submit" name="edit_mail_imap_settings" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
@@ -359,7 +385,22 @@ require_once "includes/inc_all_admin.php";
         </div>
     </div>
 
-    <?php if (!empty($config_smtp_host) && !empty($config_smtp_port) && !empty($config_mail_from_email) && !empty($config_mail_from_name)) { ?>
+    <?php
+    $smtp_standard_ready = !empty($config_smtp_host)
+        && !empty($config_smtp_port)
+        && !empty($config_mail_from_email)
+        && !empty($config_mail_from_name);
+
+    $smtp_oauth_ready = ($config_smtp_provider === 'google_oauth' || $config_smtp_provider === 'microsoft_oauth')
+        && !empty($config_mail_from_email)
+        && !empty($config_mail_from_name)
+        && !empty($config_mail_oauth_client_id)
+        && !empty($config_mail_oauth_client_secret)
+        && !empty($config_mail_oauth_refresh_token)
+        && ($config_smtp_provider !== 'microsoft_oauth' || !empty($config_mail_oauth_tenant_id));
+    ?>
+
+    <?php if ($smtp_standard_ready || $smtp_oauth_ready) { ?>
 
     <div class="card card-dark">
         <div class="card-header py-3">
@@ -409,7 +450,21 @@ require_once "includes/inc_all_admin.php";
 
     <?php } ?>
 
-    <?php if (!empty($config_imap_username) && !empty($config_imap_password) && !empty($config_imap_host) && !empty($config_imap_port)) { ?>
+    <?php
+    $imap_standard_ready = !empty($config_imap_username)
+        && !empty($config_imap_password)
+        && !empty($config_imap_host)
+        && !empty($config_imap_port);
+
+    $imap_oauth_ready = ($config_imap_provider === 'google_oauth' || $config_imap_provider === 'microsoft_oauth')
+        && !empty($config_imap_username)
+        && !empty($config_mail_oauth_client_id)
+        && !empty($config_mail_oauth_client_secret)
+        && !empty($config_mail_oauth_refresh_token)
+        && ($config_imap_provider !== 'microsoft_oauth' || !empty($config_mail_oauth_tenant_id));
+    ?>
+
+    <?php if ($imap_standard_ready || $imap_oauth_ready) { ?>
 
     <div class="card card-dark">
         <div class="card-header py-3">
@@ -422,6 +477,46 @@ require_once "includes/inc_all_admin.php";
                 <div class="input-group-append">
                     <button type="submit" name="test_email_imap" class="btn btn-success"><i class="fas fa-fw fa-inbox mr-2"></i>Test</button>
                 </div>
+            </form>
+        </div>
+    </div>
+
+    <?php } ?>
+
+    <?php
+    $oauth_provider_for_test = '';
+    if ($config_imap_provider === 'google_oauth' || $config_imap_provider === 'microsoft_oauth') {
+        $oauth_provider_for_test = $config_imap_provider;
+    } elseif ($config_smtp_provider === 'google_oauth' || $config_smtp_provider === 'microsoft_oauth') {
+        $oauth_provider_for_test = $config_smtp_provider;
+    }
+
+    $oauth_has_required_fields = !empty($oauth_provider_for_test)
+        && !empty($config_mail_oauth_client_id)
+        && !empty($config_mail_oauth_client_secret)
+        && !empty($config_mail_oauth_refresh_token)
+        && ($oauth_provider_for_test !== 'microsoft_oauth' || !empty($config_mail_oauth_tenant_id));
+    ?>
+
+    <?php if ($oauth_has_required_fields) { ?>
+
+    <div class="card card-dark">
+        <div class="card-header py-3">
+            <h3 class="card-title"><i class="fas fa-fw fa-key mr-2"></i>Test OAuth Token Refresh</h3>
+        </div>
+        <div class="card-body">
+            <form action="post.php" method="post" autocomplete="off">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
+                <input type="hidden" name="oauth_provider" value="<?php echo htmlspecialchars($oauth_provider_for_test); ?>">
+
+                <p class="text-secondary mb-3">
+                    This validates your refresh token and stores a new access token for
+                    <?php echo $oauth_provider_for_test === 'microsoft_oauth' ? 'Microsoft 365' : 'Google Workspace'; ?>.
+                </p>
+
+                <button type="submit" name="test_oauth_token_refresh" class="btn btn-success">
+                    <i class="fas fa-fw fa-sync-alt mr-2"></i>Test OAuth Token Refresh
+                </button>
             </form>
         </div>
     </div>

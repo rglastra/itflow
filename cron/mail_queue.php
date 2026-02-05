@@ -23,6 +23,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\OAuthTokenProvider;
 
+if (!defined('GOOGLE_OAUTH_TOKEN_URL')) {
+    define('GOOGLE_OAUTH_TOKEN_URL', 'https://oauth2.googleapis.com/token');
+}
+
+if (!defined('MICROSOFT_OAUTH_BASE_URL')) {
+    define('MICROSOFT_OAUTH_BASE_URL', 'https://login.microsoftonline.com/');
+}
+
 /** =======================================================================
  *  XOAUTH2 Token Provider for PHPMailer (simple “static” provider)
  * ======================================================================= */
@@ -93,10 +101,113 @@ if (file_exists($lock_file_path)) {
 file_put_contents($lock_file_path, "Locked");
 
 /** =======================================================================
- *  Mail sender function (defined inside this cron)
- *  - Handles standard SMTP and XOAUTH2 for Google/Microsoft
- *  - Reuses shared OAuth settings
+ *  Mail OAuth helpers + sender function
  * ======================================================================= */
+function tokenIsExpired(?string $expires_at): bool {
+    if (empty($expires_at)) {
+        return true;
+    }
+
+    $ts = strtotime($expires_at);
+
+    if ($ts === false) {
+        return true;
+    }
+
+    return ($ts - 60) <= time();
+}
+
+function httpFormPost(string $url, array $fields): array {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields, '', '&'));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+
+    $raw = curl_exec($ch);
+    $err = curl_error($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    curl_close($ch);
+
+    return [
+        'ok' => ($raw !== false && $code >= 200 && $code < 300),
+        'body' => $raw,
+        'code' => $code,
+        'err' => $err,
+    ];
+}
+
+function persistMailOauthTokens(string $access_token, string $expires_at, ?string $refresh_token = null): void {
+    global $mysqli;
+
+    $access_token_esc = mysqli_real_escape_string($mysqli, $access_token);
+    $expires_at_esc = mysqli_real_escape_string($mysqli, $expires_at);
+
+    $refresh_sql = '';
+    if (!empty($refresh_token)) {
+        $refresh_token_esc = mysqli_real_escape_string($mysqli, $refresh_token);
+        $refresh_sql = ", config_mail_oauth_refresh_token = '{$refresh_token_esc}'";
+    }
+
+    mysqli_query($mysqli, "UPDATE settings SET config_mail_oauth_access_token = '{$access_token_esc}', config_mail_oauth_access_token_expires_at = '{$expires_at_esc}'{$refresh_sql} WHERE company_id = 1");
+}
+
+function refreshMailOauthAccessToken(string $provider, string $oauth_client_id, string $oauth_client_secret, string $oauth_tenant_id, string $oauth_refresh_token): ?array {
+    $result = null;
+    $response = null;
+
+    if (!empty($oauth_client_id) && !empty($oauth_client_secret) && !empty($oauth_refresh_token)) {
+        if ($provider === 'google_oauth') {
+            $response = httpFormPost(GOOGLE_OAUTH_TOKEN_URL, [
+                'client_id' => $oauth_client_id,
+                'client_secret' => $oauth_client_secret,
+                'refresh_token' => $oauth_refresh_token,
+                'grant_type' => 'refresh_token',
+            ]);
+        } elseif ($provider === 'microsoft_oauth' && !empty($oauth_tenant_id)) {
+            $token_url = MICROSOFT_OAUTH_BASE_URL . rawurlencode($oauth_tenant_id) . "/oauth2/v2.0/token";
+            $response = httpFormPost($token_url, [
+                'client_id' => $oauth_client_id,
+                'client_secret' => $oauth_client_secret,
+                'refresh_token' => $oauth_refresh_token,
+                'grant_type' => 'refresh_token',
+            ]);
+        }
+    }
+
+    if (is_array($response) && !empty($response['ok'])) {
+        $json = json_decode($response['body'], true);
+
+        if (is_array($json) && !empty($json['access_token'])) {
+            $expires_at = date('Y-m-d H:i:s', time() + (int)($json['expires_in'] ?? 3600));
+            $result = [
+                'access_token' => $json['access_token'],
+                'expires_at' => $expires_at,
+                'refresh_token' => $json['refresh_token'] ?? null,
+            ];
+        }
+    }
+
+    return $result;
+}
+
+function resolveMailOauthAccessToken(string $provider, string $oauth_client_id, string $oauth_client_secret, string $oauth_tenant_id, string $oauth_refresh_token, string $oauth_access_token, string $oauth_access_token_expires_at): ?string {
+    if (!empty($oauth_access_token) && !tokenIsExpired($oauth_access_token_expires_at)) {
+        return $oauth_access_token;
+    }
+
+    $tokens = refreshMailOauthAccessToken($provider, $oauth_client_id, $oauth_client_secret, $oauth_tenant_id, $oauth_refresh_token);
+
+    if (!is_array($tokens) || empty($tokens['access_token']) || empty($tokens['expires_at'])) {
+        return null;
+    }
+
+    persistMailOauthTokens($tokens['access_token'], $tokens['expires_at'], $tokens['refresh_token'] ?? null);
+
+    return $tokens['access_token'];
+}
+
 function sendQueueEmail(
     string $provider,
     string $host,
@@ -153,27 +264,21 @@ function sendQueueEmail(
         $mail->AuthType = 'XOAUTH2';
         $mail->Username = $username;
 
-        // Pick/refresh access token
-        $accessToken  = trim($oauth_access_token);
-        $needsRefresh = empty($accessToken);
-        if (!$needsRefresh && !empty($oauth_access_token_expires_at)) {
-            $expTs = strtotime($oauth_access_token_expires_at);
-            if ($expTs && $expTs <= time() + 60) $needsRefresh = true;
-        }
+        $access_token = resolveMailOauthAccessToken(
+            $provider,
+            trim($oauth_client_id),
+            trim($oauth_client_secret),
+            trim($oauth_tenant_id),
+            trim($oauth_refresh_token),
+            trim($oauth_access_token),
+            trim($oauth_access_token_expires_at)
+        );
 
-        if ($needsRefresh) {
-            if ($provider === 'google_oauth' && function_exists('getGoogleAccessToken')) {
-                $accessToken = getGoogleAccessToken($username);
-            } elseif ($provider === 'microsoft_oauth' && function_exists('getMicrosoftAccessToken')) {
-                $accessToken = getMicrosoftAccessToken($username);
-            }
-        }
-
-        if (empty($accessToken)) {
+        if (empty($access_token)) {
             throw new Exception("Missing OAuth access token for XOAUTH2 SMTP.");
         }
 
-        $mail->setOAuth(new StaticTokenProvider($username, $accessToken));
+        $mail->setOAuth(new StaticTokenProvider($username, $access_token));
     } else {
         // Standard SMTP (with or without auth)
         $mail->SMTPAuth = !empty($username);

@@ -862,7 +862,7 @@ foreach ($messages as $message) {
             // >>> Put the extra logging RIGHT HERE
             $subj = (string)$message->getSubject();
             $uid  = method_exists($message, 'getUid') ? $message->getUid() : 'n/a';
-            $path = property_exists($targetFolder, 'path') ? $targetFolder->path : 'ITFlow';
+            $path = (is_object($targetFolder) && property_exists($targetFolder, 'path')) ? (string)$targetFolder->path : $targetFolderPath;
             logApp(
                 "Cron-Email-Parser",
                 "warning",
