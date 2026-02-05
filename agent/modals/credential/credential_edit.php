@@ -20,7 +20,7 @@ $credential_otp_secret = nullable_htmlentities($row['credential_otp_secret']);
 $credential_note = nullable_htmlentities($row['credential_note']);
 $credential_created_at = nullable_htmlentities($row['credential_created_at']);
 $credential_archived_at = nullable_htmlentities($row['credential_archived_at']);
-$credential_important = intval($row['credential_important']);
+$credential_favorite = intval($row['credential_favorite']);
 $credential_contact_id = intval($row['credential_contact_id']);
 $credential_asset_id = intval($row['credential_asset_id']);
 
@@ -75,7 +75,13 @@ ob_start();
                         <input type="text" class="form-control" name="name" placeholder="Name of Credential" maxlength="200" value="<?php echo $credential_name; ?>" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="important" value="1" <?php if ($credential_important == 1) { echo "checked"; } ?>>
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox"
+                                            name="favorite"
+                                            value="1"
+                                            <?php if($credential_favorite) { echo 'checked'; } ?>>
+                                    <i class="far fa-star"></i>
+                                </label>
                             </div>
                         </div>
                     </div>

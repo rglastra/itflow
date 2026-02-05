@@ -419,7 +419,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <div class="media">
                                             <i class="fa fa-fw fa-2x fa-key mr-3"></i>
                                             <div class="media-body">
-                                                <div><?php echo $credential_name; ?></div>
+                                                <div><?php echo $credential_name; ?> <?php if ($credential_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?></div>
                                                 <div><small class="text-secondary"><?php echo $credential_description; ?></small></div>
                                                 <?php
                                                 if (!empty($credential_tags_display)) { ?>

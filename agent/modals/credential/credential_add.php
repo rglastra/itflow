@@ -75,7 +75,9 @@ ob_start();
                         <input type="text" class="form-control" name="name" placeholder="Name of Login" maxlength="200" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="important" value="1">
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox" name="favorite" value="1"><i class="far fa-star"></i>
+                                </label>
                             </div>
                         </div>
                     </div>
