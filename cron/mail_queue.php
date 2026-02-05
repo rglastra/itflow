@@ -43,7 +43,7 @@ class StaticTokenProvider implements OAuthTokenProvider {
  *  Load settings
  * ======================================================================= */
 $sql_settings = mysqli_query($mysqli, "SELECT * FROM settings WHERE company_id = 1");
-$row = mysqli_fetch_array($sql_settings);
+$row = mysqli_fetch_assoc($sql_settings);
 
 $config_enable_cron      = intval($row['config_enable_cron']);
 
@@ -307,7 +307,7 @@ function sendQueueEmail(
 $sql_queue = mysqli_query($mysqli, "SELECT * FROM email_queue WHERE email_status = 0 AND email_queued_at <= NOW()");
 
 if (mysqli_num_rows($sql_queue) > 0) {
-    while ($rowq = mysqli_fetch_array($sql_queue)) {
+    while ($rowq = mysqli_fetch_assoc($sql_queue)) {
         $email_id             = (int)$rowq['email_id'];
         $email_from           = $rowq['email_from'];
         $email_from_name      = $rowq['email_from_name'];
@@ -401,7 +401,7 @@ $sql_failed_queue = mysqli_query(
 );
 
 if (mysqli_num_rows($sql_failed_queue) > 0) {
-    while ($rowf = mysqli_fetch_array($sql_failed_queue)) {
+    while ($rowf = mysqli_fetch_assoc($sql_failed_queue)) {
         $email_id             = (int)$rowf['email_id'];
         $email_from           = $rowf['email_from'];
         $email_from_name      = $rowf['email_from_name'];
