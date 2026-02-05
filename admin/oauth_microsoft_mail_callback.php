@@ -4,9 +4,11 @@ require_once "../config.php";
 require_once "../functions.php";
 require_once "../includes/check_login.php";
 
+$settings_mail_path = '/admin/settings_mail.php';
+
 if (!isset($session_is_admin) || !$session_is_admin) {
     flash_alert("Admin access required.", 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 $state = sanitizeInput($_GET['state'] ?? '');
@@ -26,17 +28,17 @@ if (!empty($error)) {
     }
 
     flash_alert($msg, 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 if (empty($state) || empty($code) || empty($session_state) || !hash_equals($session_state, $state) || time() > $session_state_expires) {
     flash_alert("Microsoft OAuth callback validation failed. Please try connecting again.", 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 if (empty($config_mail_oauth_client_id) || empty($config_mail_oauth_client_secret) || empty($config_mail_oauth_tenant_id)) {
     flash_alert("Microsoft OAuth settings are incomplete. Please fill Client ID, Client Secret, and Tenant ID.", 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 if (defined('BASE_URL') && !empty(BASE_URL)) {
@@ -70,13 +72,13 @@ curl_close($ch);
 if ($raw_body === false || $http_code < 200 || $http_code >= 300) {
     $reason = !empty($curl_err) ? $curl_err : "HTTP $http_code";
     flash_alert("Microsoft OAuth token exchange failed: $reason", 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 $json = json_decode($raw_body, true);
 if (!is_array($json) || empty($json['refresh_token']) || empty($json['access_token'])) {
     flash_alert("Microsoft OAuth token exchange failed: refresh token or access token missing.", 'error');
-    redirect('/admin/settings_mail.php');
+    redirect($settings_mail_path);
 }
 
 $refresh_token = (string) $json['refresh_token'];
@@ -98,4 +100,4 @@ mysqli_query($mysqli, "UPDATE settings SET
 
 logAction("Settings", "Edit", "$session_name completed Microsoft OAuth connect flow for mail settings");
 flash_alert("Microsoft OAuth connected successfully. Token expires at $expires_at.");
-redirect('/admin/settings_mail.php');
+redirect($settings_mail_path);
