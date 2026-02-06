@@ -46,6 +46,7 @@ This file documents all notable changes made to ITFlow.
 - Tickets: Use a more friendly time worked instead of 02:41:00 translates to 2h 41m.
 - Update wording on ticket to invoice item details.
 - Merge Tickets: Now wth a ticket merge dropdown list of tickets instead of a text field.
+- Role Permissions can now be set during role creation, update Permission UI to use radio buttons instead of select boxes.
 - Bump TinyMCE 8.2.2 to 8.3.2.
 - Bump PHPMailer from 7.0.1 to 7.0.2.
 - Bump Datatables from 2.3.4 to 2.3.7.
