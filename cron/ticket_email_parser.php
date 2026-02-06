@@ -912,5 +912,3 @@ if (file_exists($lock_file_path)) {
 }
 echo "Processed Emails: $processed_count\n";
 echo "Unprocessed Emails: $unprocessed_count\n";
-
-echo "Im a random Git test delete me when done";
