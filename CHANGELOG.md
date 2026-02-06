@@ -2,7 +2,7 @@
 
 This file documents all notable changes made to ITFlow.
 
-## [26.2] Stable Release
+## [26.02] Stable Release
 ### Bug Fixes
 - Mail Parser - Do not automatically send new ticket notifications to noreply/donotreply addresses.
 - Ticket: removed newline \n on Parsed emails.
