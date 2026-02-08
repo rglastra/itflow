@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM ticket_replies
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_reply_type = nullable_htmlentities($row['ticket_reply_type']);
 $ticket_reply_time_worked = date_create($row['ticket_reply_time_worked']);
 $ticket_reply_time_worked_formatted = date_format($ticket_reply_time_worked, 'H:i:s');

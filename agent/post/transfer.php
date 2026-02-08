@@ -14,13 +14,13 @@ if (isset($_POST['add_transfer'])) {
 
     // Get Source Account Name for logging
     $sql = mysqli_query($mysqli,"SELECT account_name, account_currency_code FROM accounts WHERE account_id = $account_from");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $source_account_name = sanitizeInput($row['account_name']);
     $account_currency_code = sanitizeInput($row['account_currency_code']);
 
     // Get Destination Account Name for logging
     $sql = mysqli_query($mysqli,"SELECT account_name FROM accounts WHERE account_id = $account_to");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $destination_account_name = sanitizeInput($row['account_name']);
 
     mysqli_query($mysqli,"INSERT INTO expenses SET expense_date = '$date', expense_amount = $amount, expense_currency_code = '$session_company_currency', expense_vendor_id = 0, expense_category_id = 0, expense_account_id = $account_from");
@@ -72,7 +72,7 @@ if (isset($_GET['delete_transfer'])) {
     $transfer_id = intval($_GET['delete_transfer']);
 
     // Query the transfer ID to get the Payment and Expense IDs, so we can delete those as well
-    $row = mysqli_fetch_array(mysqli_query($mysqli,"SELECT * FROM transfers WHERE transfer_id = $transfer_id"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM transfers WHERE transfer_id = $transfer_id"));
     $expense_id = intval($row['transfer_expense_id']);
     $revenue_id = intval($row['transfer_revenue_id']);
 

@@ -25,7 +25,7 @@ if (isset($_POST['add_ticket'])) {
     $config_ticket_new_ticket_notification_email = filter_var($config_ticket_new_ticket_notification_email, FILTER_VALIDATE_EMAIL);
 
     //Generate a unique URL key for clients to access
-    $url_key = randomString(156);
+    $url_key = randomString(32);
 
     // Ensure priority is low/med/high (as can be user defined)
     if ($_POST['priority'] !== "Low" && $_POST['priority'] !== "Medium" && $_POST['priority'] !== "High") {
@@ -104,7 +104,7 @@ if (isset($_POST['add_ticket_comment'])) {
 
 
         // Get ticket details &  Notify the assigned tech (if any)
-        $ticket_details = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients ON ticket_client_id = client_id WHERE ticket_id = $ticket_id LIMIT 1"));
+        $ticket_details = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients ON ticket_client_id = client_id WHERE ticket_id = $ticket_id LIMIT 1"));
 
         $ticket_number = intval($ticket_details['ticket_number']);
         $ticket_assigned_to = intval($ticket_details['ticket_assigned_to']);
@@ -114,7 +114,7 @@ if (isset($_POST['add_ticket_comment'])) {
         if ($ticket_details && $ticket_assigned_to !== 0) {
 
             // Get tech details
-            $tech_details = mysqli_fetch_array(mysqli_query($mysqli, "SELECT user_email, user_name FROM users WHERE user_id = $ticket_assigned_to LIMIT 1"));
+            $tech_details = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT user_email, user_name FROM users WHERE user_id = $ticket_assigned_to LIMIT 1"));
             $tech_email = sanitizeInput($tech_details['user_email']);
             $tech_name = sanitizeInput($tech_details['user_name']);
 
@@ -185,6 +185,43 @@ if (isset($_POST['add_ticket_comment'])) {
     }
 }
 
+if (isset($_GET['approve_ticket_task'])) {
+
+    $task_id = intval($_GET['approve_ticket_task']);
+    $approval_id = intval($_GET['approval_id']);
+    $url_key = sanitizeInput($_GET['approval_url_key']);
+
+    $approval_row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM task_approvals LEFT JOIN tasks on task_id = approval_task_id WHERE approval_id = $approval_id AND approval_task_id = $task_id AND approval_url_key = '$url_key' AND approval_status = 'pending' AND approval_scope = 'client'"));
+
+    $task_name = nullable_htmlentities($approval_row['task_name']);
+    $scope = nullable_htmlentities($approval_row['approval_scope']);
+    $type = nullable_htmlentities($approval_row['approval_type']);
+    $required_user = intval($approval_row['approval_required_user_id']);
+    $created_by = intval($approval_row['approval_created_by']);
+    $ticket_id = intval($approval_row['task_ticket_id']);
+
+    if (!$approval_row) {
+        flash_alert("Cannot find/approve that task", 'warning');
+        redirect();
+        exit;
+    }
+
+    // Approve
+    mysqli_query($mysqli, "UPDATE task_approvals SET approval_status = 'approved', approval_approved_by = $session_user_id WHERE approval_id = $approval_id AND approval_task_id = $task_id AND approval_url_key = '$url_key' AND approval_status = 'pending' AND approval_scope = 'client'");
+
+
+    // Notify tech
+    mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = 'Ticket', notification = '$session_contact_email approved ticket task $task_name', notification_action = 'ticket.php?ticket_id=$ticket_id&client_id=$session_client_id', notification_client_id = $session_client_id, notification_user_id = $created_by");
+    // TODO: Email agent
+
+    // Logging
+    logAction("Task", "Edit", "Contact $session_contact_email approved task $task_name (approval $approval_id)", $session_client_id, $task_id);
+
+    flash_alert("Task Approved");
+    redirect();
+
+}
+
 if (isset($_POST['add_ticket_feedback'])) {
 
     $ticket_id = intval($_POST['ticket_id']);
@@ -198,9 +235,9 @@ if (isset($_POST['add_ticket_feedback'])) {
 
         // Notify on bad feedback
         if ($feedback == "Bad") {
-            $ticket_details = mysqli_fetch_array(mysqli_query($mysqli, "SELECT ticket_number FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
+            $ticket_details = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT ticket_number FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
             $ticket_number = intval($ticket_details['ticket_number']);
-            appNotify("Feedback", "$session_contact_name rated ticket $config_ticket_prefix$ticket_number as bad (ID: $ticket_id)", "/agent/ticket.php?ticket_id=$ticket_id", $session_client_id, $ticket_id);
+            appNotify("Feedback", "$session_contact_name rated ticket $config_ticket_prefix$ticket_number as bad (ID: $ticket_id)", "/agent/ticket.php?ticket_id=$ticket_id&client_id=$session_client_id", $session_client_id, $ticket_id);
         }
 
         // Custom action/notif handler
@@ -220,7 +257,7 @@ if (isset($_GET['resolve_ticket'])) {
     $ticket_id = intval($_GET['resolve_ticket']);
 
     // Get ticket details for logging
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -252,7 +289,7 @@ if (isset($_GET['reopen_ticket'])) {
     $ticket_id = intval($_GET['reopen_ticket']);
 
     // Get ticket details for logging
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -285,7 +322,7 @@ if (isset($_GET['close_ticket'])) {
     $ticket_id = intval($_GET['close_ticket']);
 
     // Get ticket details for logging
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1"));
 
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);
@@ -402,7 +439,7 @@ if (isset($_POST['edit_contact'])) {
 
     // Get the existing contact_user_id - we look it up ourselves so the user can't just overwrite random users
     $sql = mysqli_query($mysqli,"SELECT contact_user_id FROM contacts WHERE contact_id = $contact_id AND contact_client_id = $session_client_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_user_id = intval($row['contact_user_id']);
 
     // Check the email isn't already in use
@@ -448,7 +485,7 @@ if (isset($_GET['add_payment_by_provider'])) {
             LEFT JOIN contacts ON client_id = contact_client_id AND contact_primary = 1
             WHERE invoice_id = $invoice_id AND client_id = $session_client_id"
     );
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_number = intval($row['invoice_number']);
     $invoice_status = sanitizeInput($row['invoice_status']);
     $invoice_amount = floatval($row['invoice_amount']);
@@ -472,7 +509,7 @@ if (isset($_GET['add_payment_by_provider'])) {
 
     // Get ITFlow company details
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_name = sanitizeInput($row['company_name']);
     $company_country = sanitizeInput($row['company_country']);
     $company_address = sanitizeInput($row['company_address']);
@@ -489,7 +526,7 @@ if (isset($_GET['add_payment_by_provider'])) {
 
     // Get Client Payment Details
     $sql = mysqli_query($mysqli, "SELECT * FROM client_saved_payment_methods LEFT JOIN payment_providers ON saved_payment_provider_id = payment_provider_id LEFT JOIN client_payment_provider ON saved_payment_client_id = client_id WHERE saved_payment_id = $saved_payment_id LIMIT 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $public_key = sanitizeInput($row['payment_provider_public_key']);
     $private_key = sanitizeInput($row['payment_provider_private_key']);
@@ -647,7 +684,7 @@ if (isset($_POST['create_stripe_customer'])) {
         LIMIT 1
     ");
 
-    $stripe_provider = mysqli_fetch_array($stripe_provider_result);
+    $stripe_provider = mysqli_fetch_assoc($stripe_provider_result);
     if (!$stripe_provider) {
         flash_alert("Stripe provider is not configured in the system.", 'danger');
         redirect("saved_payment_methods.php");
@@ -662,7 +699,7 @@ if (isset($_POST['create_stripe_customer'])) {
     }
 
     // Check if client already has a Stripe customer
-    $existing_customer = mysqli_fetch_array(mysqli_query($mysqli, "
+    $existing_customer = mysqli_fetch_assoc(mysqli_query($mysqli, "
         SELECT payment_provider_client
         FROM client_payment_provider
         WHERE client_id = $session_client_id
@@ -735,7 +772,7 @@ if (isset($_GET['create_stripe_checkout'])) {
         LIMIT 1
     ");
 
-    $stripe_provider = mysqli_fetch_array($stripe_provider_result);
+    $stripe_provider = mysqli_fetch_assoc($stripe_provider_result);
     if (!$stripe_provider) {
         http_response_code(400);
         echo json_encode(['error' => 'Stripe provider not configured']);
@@ -803,7 +840,7 @@ if (isset($_GET['stripe_save_card'])) {
         LIMIT 1
     ");
 
-    $stripe_provider = mysqli_fetch_array($stripe_provider_result);
+    $stripe_provider = mysqli_fetch_assoc($stripe_provider_result);
     if (!$stripe_provider) {
         flash_alert("Stripe provider not configured.", 'danger');
         redirect("saved_payment_methods.php");
@@ -825,7 +862,7 @@ if (isset($_GET['stripe_save_card'])) {
         AND payment_provider_id = $stripe_provider_id
         LIMIT 1
     ");
-    $client_provider = mysqli_fetch_array($client_provider_query);
+    $client_provider = mysqli_fetch_assoc($client_provider_query);
     $stripe_customer_id = sanitizeInput($client_provider['payment_provider_client'] ?? '');
 
     if (empty($stripe_customer_id)) {
@@ -884,7 +921,7 @@ if (isset($_GET['stripe_save_card'])) {
         WHERE companies.company_id = settings.company_id
         AND companies.company_id = 1
     ");
-    $row = mysqli_fetch_array($sql_settings);
+    $row = mysqli_fetch_assoc($sql_settings);
 
     $company_name = sanitizeInput($row['company_name']);
     $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone'], $row['company_phone_country_code']));
@@ -933,7 +970,7 @@ if (isset($_GET['delete_saved_payment'])) {
         AND payment_provider_active = 1
         LIMIT 1
     ");
-    $stripe_provider = mysqli_fetch_array($stripe_provider_result);
+    $stripe_provider = mysqli_fetch_assoc($stripe_provider_result);
 
     if (!$stripe_provider) {
         flash_alert("Stripe provider is not configured.", 'danger');
@@ -957,7 +994,7 @@ if (isset($_GET['delete_saved_payment'])) {
         LIMIT 1
     ");
 
-    $saved_payment = mysqli_fetch_array($saved_payment_result);
+    $saved_payment = mysqli_fetch_assoc($saved_payment_result);
 
     if (!$saved_payment) {
         flash_alert("Payment method not found or does not belong to you.", 'danger');
@@ -1003,7 +1040,7 @@ if (isset($_GET['delete_saved_payment'])) {
         WHERE recurring_invoice_client_id = $session_client_id
     ");
 
-    while ($row = mysqli_fetch_array($recurring_invoices)) {
+    while ($row = mysqli_fetch_assoc($recurring_invoices)) {
         $recurring_invoice_id = intval($row['recurring_invoice_id']);
 
         mysqli_query($mysqli, "
@@ -1027,7 +1064,7 @@ if (isset($_POST['set_recurring_payment'])) {
 
     // Get Recurring Invoice Info for logging and alerting
     $sql = mysqli_query($mysqli, "SELECT * FROM recurring_invoices WHERE recurring_invoice_id = $recurring_invoice_id AND recurring_invoice_client_id = $session_client_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $recurring_invoice_prefix = sanitizeInput($row['recurring_invoice_prefix']);
     $recurring_invoice_number = intval($row['recurring_invoice_number']);
     $recurring_invoice_currency_code = sanitizeInput($row['recurring_invoice_currency_code']);
@@ -1044,7 +1081,7 @@ if (isset($_POST['set_recurring_payment'])) {
             AND payment_provider_active = 1
         ");
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $provider_id = intval($row['payment_provider_id']);
         $provider_name = sanitizeInput($row['payment_provider_name']);

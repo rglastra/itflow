@@ -6,7 +6,7 @@ $vendor_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_id = $vendor_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $vendor_name = nullable_htmlentities($row['vendor_name']);
 $vendor_description = nullable_htmlentities($row['vendor_description']);
 $vendor_account_number = nullable_htmlentities($row['vendor_account_number']);
@@ -105,7 +105,7 @@ ob_start();
                             <?php
 
                             $sql_vendor_templates = mysqli_query($mysqli, "SELECT * FROM vendor_templates WHERE vendor_template_archived_at IS NULL ORDER BY vendor_template_name ASC");
-                            while ($row = mysqli_fetch_array($sql_vendor_templates)) {
+                            while ($row = mysqli_fetch_assoc($sql_vendor_templates)) {
                                 $vendor_template_id_select = $row['vendor_template_id'];
                                 $vendor_template_name_select = nullable_htmlentities($row['vendor_template_name']); ?>
                                 <option <?php if ($vendor_template_id == $vendor_template_id_select) { echo "selected"; } ?> value="<?php echo $vendor_template_id_select; ?>"><?php echo $vendor_template_name_select; ?></option>

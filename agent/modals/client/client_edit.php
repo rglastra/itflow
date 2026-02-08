@@ -6,7 +6,7 @@ $client_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $client_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $client_name = nullable_htmlentities($row['client_name']);
 $client_is_lead = intval($row['client_lead']);
 $client_type = nullable_htmlentities($row['client_type']);
@@ -23,7 +23,7 @@ $client_archived_at = nullable_htmlentities($row['client_archived_at']);
 // Client Tags
 $client_tag_id_array = array();
 $sql_client_tags = mysqli_query($mysqli, "SELECT tag_id FROM client_tags WHERE client_id = $client_id");
-while ($row = mysqli_fetch_array($sql_client_tags)) {
+while ($row = mysqli_fetch_assoc($sql_client_tags)) {
     $client_tag_id = intval($row['tag_id']);
     $client_tag_id_array[] = $client_tag_id;
 }
@@ -109,7 +109,7 @@ ob_start();
                             <?php
 
                             $referral_sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Referral' AND (category_archived_at > '$client_created_at' OR category_archived_at IS NULL) ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($referral_sql)) {
+                            while ($row = mysqli_fetch_assoc($referral_sql)) {
                                 $referral = nullable_htmlentities($row['category_name']);
                                 ?>
                                 <option <?php if ($client_referral == $referral) {
@@ -152,7 +152,7 @@ ob_start();
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 1 ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>

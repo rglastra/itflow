@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $event_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM calendar_events LEFT JOIN calendars ON event_calendar_id = calendar_id WHERE event_id = $event_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $event_title = nullable_htmlentities($row['event_title']);
 $event_description = nullable_htmlentities($row['event_description']);
 $event_location = nullable_htmlentities($row['event_location']);
@@ -71,7 +71,7 @@ ob_start();
                             <?php
 
                             $sql_calendars_select = mysqli_query($mysqli, "SELECT * FROM calendars ORDER BY calendar_name ASC");
-                            while ($row = mysqli_fetch_array($sql_calendars_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_calendars_select)) {
                                 $calendar_id_select = intval($row['calendar_id']);
                                 $calendar_name_select = nullable_htmlentities($row['calendar_name']);
                                 $calendar_color_select = nullable_htmlentities($row['calendar_color']);
@@ -156,7 +156,7 @@ ob_start();
                                 <?php
 
                                 $sql_clients = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN contacts ON clients.client_id = contacts.contact_client_id AND contact_primary = 1 ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql_clients)) {
+                                while ($row = mysqli_fetch_assoc($sql_clients)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name_select = nullable_htmlentities($row['client_name']);
                                     $contact_email_select = nullable_htmlentities($row['contact_email']);

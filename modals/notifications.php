@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fas fa-bell mr-2'></i>Notifications<span class='badge badge-secondary badge-pill px-3 ml-3'><?php echo $num_notifications; ?><span></h5>
+    <h5 class="modal-title"><i class='fas fa-bell mr-2'></i>Notifications<span class='badge badge-secondary badge-pill px-3 ml-3'><?= $num_notifications ?><span></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -28,9 +28,9 @@ ob_start();
 <div class="modal-body">
     <?php if ($num_notifications) { ?>
     <table class="table table-sm table-hover table-borderless">
-    
 
-        <?php while ($row = mysqli_fetch_array($sql)) {
+
+        <?php while ($row = mysqli_fetch_assoc($sql)) {
 
             $notification_id = intval($row["notification_id"]);
             $notification_type = nullable_htmlentities($row["notification_type"]);
@@ -47,16 +47,16 @@ ob_start();
                 $notification_action = "#";
             }
             ?>
-        
+
         <tr class="notification-item">
             <th>
-                <a class="text-dark" href="<?php echo $notification_action; ?>">
-                    <i class="fas fa-bullhorn mr-2"></i><?php echo $notification_type; ?>
+                <a class="text-dark" href="<?= $notification_action ?>">
+                    <i class="fas fa-bullhorn mr-2"></i><?= $notification_type ?>
                     <small class="text-muted float-right">
-                        <?php echo $notification_timestamp_formated; ?>
+                        <?= $notification_timestamp_formated ?>
                     </small>
                     <br>
-                    <small class="text-secondary text-wrap"><?php echo $notification_details; ?></small>
+                    <small class="text-secondary text-wrap"><?= $notification_details ?></small>
                  </a>
             </th>
         </tr>
@@ -78,10 +78,8 @@ ob_start();
 </div>
 <div class="modal-footer">
     <?php if ($num_notifications) { ?>
-    
-    <a href="/agent/post.php?dismiss_all_notifications&csrf_token=<?php echo $_SESSION[
-        "csrf_token"
-    ]; ?>" class="btn btn-primary">
+
+    <a href="/agent/post.php?dismiss_all_notifications&csrf_token=<?= $_SESSION["csrf_token"] ?>" class="btn btn-primary">
         <span class="text-white text-bold"><i class="fas fa-check mr-2"></i>Dismiss all</span>
     </a>
     <a href="/agent/notifications.php" class="btn btn-secondary">

@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $vendor_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_id = $vendor_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $name = sanitizeInput($row['vendor_name']);
 $description = sanitizeInput($row['vendor_description']);
 $account_number = sanitizeInput($row['vendor_account_number']);

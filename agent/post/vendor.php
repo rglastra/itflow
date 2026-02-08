@@ -15,7 +15,7 @@ if (isset($_POST['add_vendor_from_template'])) {
     //GET Vendor Info
     $sql_vendor_templates = mysqli_query($mysqli,"SELECT * FROM vendor_templates WHERE vendor_template_id = $vendor_template_id");
 
-    $row = mysqli_fetch_array($sql_vendor_templates);
+    $row = mysqli_fetch_assoc($sql_vendor_templates);
 
     $name = sanitizeInput($row['vendor_template_name']);
     $description = sanitizeInput($row['vendor_template_description']);
@@ -90,7 +90,7 @@ if (isset($_GET['archive_vendor'])) {
 
     //Get Vendor Name
     $sql = mysqli_query($mysqli,"SELECT * FROM vendors WHERE vendor_id = $vendor_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $vendor_name = sanitizeInput($row['vendor_name']);
     $client_id = intval($row['vendor_client_id']);
 
@@ -110,7 +110,7 @@ if(isset($_GET['unarchive_vendor'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT vendor_name, vendor_client_id FROM vendors WHERE vendor_id = $vendor_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $vendor_name = sanitizeInput($row['vendor_name']);
     $client_id = intval($row['vendor_client_id']);
 
@@ -130,7 +130,7 @@ if (isset($_GET['delete_vendor'])) {
 
     //Get Vendor Name
     $sql = mysqli_query($mysqli,"SELECT * FROM vendors WHERE vendor_id = $vendor_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $vendor_name = sanitizeInput($row['vendor_name']);
     $client_id = intval($row['vendor_client_id']);
     $vendor_template_id = intval($row['vendor_template_id']);
@@ -168,7 +168,7 @@ if (isset($_POST['bulk_archive_vendors'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT vendor_name, vendor_client_id FROM vendors WHERE vendor_id = $vendor_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $vendor_name = sanitizeInput($row['vendor_name']);
             $client_id = intval($row['vendor_client_id']);
 
@@ -205,7 +205,7 @@ if (isset($_POST['bulk_unarchive_vendors'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT vendor_name, vendor_client_id FROM vendors WHERE vendor_id = $vendor_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $vendor_name = sanitizeInput($row['vendor_name']);
             $client_id = intval($row['vendor_client_id']);
 
@@ -243,7 +243,7 @@ if (isset($_POST['bulk_delete_vendors'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT vendor_name, vendor_client_id, vendor_template_id FROM vendors WHERE vendor_id = $vendor_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $vendor_name = sanitizeInput($row['vendor_name']);
             $client_id = intval($row['vendor_client_id']);
             $vendor_template_id = intval($row['vendor_template_id']);

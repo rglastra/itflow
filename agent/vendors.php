@@ -149,7 +149,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $vendor_id = intval($row['vendor_id']);
                         $vendor_name = nullable_htmlentities($row['vendor_name']);
                         $vendor_description = nullable_htmlentities($row['vendor_description']);

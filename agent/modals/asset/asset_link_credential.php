@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM assets
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $asset_name = nullable_htmlentities($row['asset_name']);
 $client_id = intval($row['asset_client_id']);
 
@@ -46,7 +46,7 @@ ob_start();
                         AND credentials.credential_archived_at IS NULL
                         ORDER BY credentials.credential_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_credentials_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_credentials_select)) {
                         $credential_id = intval($row['credential_id']);
                         $credential_name = nullable_htmlentities($row['credential_name']);
                         ?>

@@ -13,7 +13,7 @@ if ($client_id) {
 
 $sql = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_id = $project_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $project_name = nullable_htmlentities($row['project_name']);
 
 // Generate the HTML form content using output buffering.
@@ -40,7 +40,7 @@ ob_start();
                     <?php
 
                     $sql_tickets_select = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients on ticket_client_id = client_id WHERE ticket_project_id = 0 AND ticket_closed_at IS NULL $client_ticket_select_query");
-                    while ($row = mysqli_fetch_array($sql_tickets_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_tickets_select)) {
                         $ticket_id_select = intval($row['ticket_id']);
                         $ticket_prefix_select = nullable_htmlentities($row['ticket_prefix']);
                         $ticket_number_select = intval($row['ticket_number']);

@@ -19,7 +19,7 @@ if (isset($_GET['project_template_id'])) {
         exit;
     }
 
-    $row = mysqli_fetch_array($sql_project_templates);
+    $row = mysqli_fetch_assoc($sql_project_templates);
 
     $project_template_name = nullable_htmlentities($row['project_template_name']);
     $project_template_description = nullable_htmlentities($row['project_template_description']);
@@ -143,7 +143,7 @@ if (isset($_GET['project_template_id'])) {
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql_ticket_templates)) {
+                        while ($row = mysqli_fetch_assoc($sql_ticket_templates)) {
                             $ticket_template_id = intval($row['ticket_template_id']);
                             $ticket_template_order = intval($row['ticket_template_order']);
                             $ticket_template_name = nullable_htmlentities($row['ticket_template_name']);
@@ -199,7 +199,7 @@ if (isset($_GET['project_template_id'])) {
             <h5 class="text-secondary"><i class="fas fa-fw fa-tasks mr-2"></i>Project Task Templates</h5>
             <table class="table">
                 <?php
-                while($row = mysqli_fetch_array($sql_task_templates)){
+                while($row = mysqli_fetch_assoc($sql_task_templates)){
                     $task_template_id = intval($row['task_template_id']);
                     $task_template_name = nullable_htmlentities($row['task_template_name']);
                 ?>

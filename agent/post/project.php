@@ -43,7 +43,7 @@ if (isset($_POST['add_project'])) {
             AND project_template_ticket_templates.project_template_id = $project_template_id");
         $ticket_template_count = mysqli_num_rows($sql_ticket_templates);
 
-        while ($row = mysqli_fetch_array($sql_ticket_templates)) {
+        while ($row = mysqli_fetch_assoc($sql_ticket_templates)) {
             $ticket_template_id = intval($row['ticket_template_id']);
             $ticket_template_order = intval($row['ticket_template_order']);
             $ticket_template_subject = sanitizeInput($row['ticket_template_subject']);
@@ -69,7 +69,7 @@ if (isset($_POST['add_project'])) {
                 "SELECT * FROM task_templates WHERE task_template_ticket_template_id = $ticket_template_id");
             $task_template_count = mysqli_num_rows($sql_task_templates);
 
-            while ($row = mysqli_fetch_array($sql_task_templates)) {
+            while ($row = mysqli_fetch_assoc($sql_task_templates)) {
                 $task_template_id = intval($row['task_template_id']);
                 $task_template_order = intval($row['task_template_order']);
                 $task_template_name = sanitizeInput($row['task_template_name']);
@@ -116,7 +116,7 @@ if (isset($_GET['close_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_name, project_client_id FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $project_name = sanitizeInput($row['project_name']);
     $client_id = intval($row['project_client_id']);
 
@@ -138,7 +138,7 @@ if (isset($_GET['archive_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_name, project_client_id FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $project_name = sanitizeInput($row['project_name']);
     $client_id = intval($row['project_client_id']);
 
@@ -160,7 +160,7 @@ if (isset($_GET['unarchive_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_name, project_client_id FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $project_name = sanitizeInput($row['project_name']);
     $client_id = sanitizeInput($row['project_client_id']);
 
@@ -184,7 +184,7 @@ if (isset($_GET['delete_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_name, project_client_id FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $project_name = sanitizeInput($row['project_name']);
     $client_id = intval($row['project_client_id']);
 
@@ -206,7 +206,7 @@ if (isset($_POST['link_ticket_to_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_client_id, project_name FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['project_client_id']);
     $project_name = sanitizeInput($row['project_name']);
 
@@ -221,7 +221,7 @@ if (isset($_POST['link_ticket_to_project'])) {
 
             // Get Ticket Info
             $sql = mysqli_query($mysqli, "SELECT ticket_prefix, ticket_number, ticket_subject FROM tickets WHERE ticket_id = $ticket_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $ticket_prefix = sanitizeInput($row['ticket_prefix']);
             $ticket_number = intval($row['ticket_number']);
             $ticket_subject = sanitizeInput($row['ticket_subject']);
@@ -250,7 +250,7 @@ if (isset($_POST['link_closed_ticket_to_project'])) {
 
     // Get Project Name and Client ID for logging
     $sql = mysqli_query($mysqli, "SELECT project_client_id, project_name FROM projects WHERE project_id = $project_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $client_id = intval($row['project_client_id']);
     $project_name = sanitizeInput($row['project_name']);
 
@@ -260,7 +260,7 @@ if (isset($_POST['link_closed_ticket_to_project'])) {
         flash_alert("Cannot merge into that ticket.", 'error');
         redirect();
     }
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $ticket_id = intval($row['ticket_id']);
     $ticket_prefix = sanitizeInput($row['ticket_prefix']);
     $ticket_number = intval($row['ticket_number']);

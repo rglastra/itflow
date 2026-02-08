@@ -57,7 +57,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?php echo $client_id_select; ?>"><?php echo $client_name; ?></option>
@@ -111,7 +111,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT vendor_name, vendor_id FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -225,7 +225,7 @@ ob_start();
                     <?php
                     $sql_assets_select = mysqli_query($mysqli, "SELECT * FROM assets LEFT JOIN contacts ON asset_contact_id = contact_id WHERE asset_archived_at IS NULL AND asset_client_id = $client_id ORDER BY asset_archived_at ASC, asset_name ASC");
 
-                    while ($row = mysqli_fetch_array($sql_assets_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets_select)) {
                         $asset_id_select = intval($row['asset_id']);
                         $asset_name_select = nullable_htmlentities($row['asset_name']);
                         $asset_type_select = nullable_htmlentities($row['asset_type']);
@@ -265,7 +265,7 @@ ob_start();
                     <?php
                     $sql_contacts_select = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
 
-                    while ($row = mysqli_fetch_array($sql_contacts_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_contacts_select)) {
                         $contact_id_select = intval($row['contact_id']);
                         $contact_name_select = nullable_htmlentities($row['contact_name']);
                         $contact_email_select = nullable_htmlentities($row['contact_email']);

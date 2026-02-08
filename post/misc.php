@@ -41,7 +41,7 @@ if (isset($_GET['dismiss_all_notifications'])) {
 
     $num_notifications = mysqli_num_rows($sql);
 
-    while($row = mysqli_fetch_array($sql)) {
+    while($row = mysqli_fetch_assoc($sql)) {
         $notification_id = intval($row['notification_id']);
         $notification_dismissed_at = sanitizeInput($row['notification_dismissed_at']);
 
@@ -65,7 +65,7 @@ if (isset($_GET['deactivate_shared_item'])) {
 
     // Get details of the shared link
     $sql = mysqli_query($mysqli, "SELECT item_type, item_related_id, item_client_id FROM shared_items WHERE item_id = $item_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $item_type = sanitizeInput($row['item_type']);
     $item_related_id = intval($row['item_related_id']);
     $client_id = intval($row['item_client_id']);

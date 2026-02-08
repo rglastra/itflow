@@ -25,7 +25,7 @@ $data = "otpauth://totp/ITFlow:$session_email?secret=$token";
             <form action="post.php" method="post" autocomplete="off">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
                 <div class="modal-body">
-                        
+
                     <div class="text-center">
                         <img src='../../plugins/barcode/barcode.php?f=png&s=qr&d=<?php echo $data; ?>'>
                         <p><span class='text-secondary'>Secret:</span> <?php echo $token; ?>
@@ -51,4 +51,3 @@ $data = "otpauth://totp/ITFlow:$session_email?secret=$token";
         </div>
     </div>
 </div>
-

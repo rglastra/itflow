@@ -117,7 +117,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $tag_id = intval($row['tag_id']);
                         $tag_name = nullable_htmlentities($row['tag_name']);
                         $tag_color = nullable_htmlentities($row['tag_color']);

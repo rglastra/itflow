@@ -12,7 +12,7 @@ if (isset($_POST['add_credential'])) {
 
     require_once 'credential_model.php';
 
-    mysqli_query($mysqli,"INSERT INTO credentials SET credential_name = '$name', credential_description = '$description', credential_uri = '$uri', credential_uri_2 = '$uri_2', credential_username = '$username', credential_password = '$password', credential_otp_secret = '$otp_secret', credential_note = '$note', credential_important = $important, credential_contact_id = $contact_id, credential_asset_id = $asset_id, credential_client_id = $client_id");
+    mysqli_query($mysqli,"INSERT INTO credentials SET credential_name = '$name', credential_description = '$description', credential_uri = '$uri', credential_uri_2 = '$uri_2', credential_username = '$username', credential_password = '$password', credential_otp_secret = '$otp_secret', credential_note = '$note', credential_favorite = $favorite, credential_contact_id = $contact_id, credential_asset_id = $asset_id, credential_client_id = $client_id");
 
     $credential_id = mysqli_insert_id($mysqli);
 
@@ -49,7 +49,7 @@ if (isset($_POST['edit_credential'])) {
     }
 
     // Update the credential entry with the new details
-    mysqli_query($mysqli,"UPDATE credentials SET credential_name = '$name', credential_description = '$description', credential_uri = '$uri', credential_uri_2 = '$uri_2', credential_username = '$username', credential_password = '$password', credential_otp_secret = '$otp_secret', credential_note = '$note', credential_important = $important, credential_contact_id = $contact_id, credential_asset_id = $asset_id WHERE credential_id = $credential_id");
+    mysqli_query($mysqli,"UPDATE credentials SET credential_name = '$name', credential_description = '$description', credential_uri = '$uri', credential_uri_2 = '$uri_2', credential_username = '$username', credential_password = '$password', credential_otp_secret = '$otp_secret', credential_note = '$note', credential_favorite = $favorite, credential_contact_id = $contact_id, credential_asset_id = $asset_id WHERE credential_id = $credential_id");
 
     // Tags
     // Delete existing tags
@@ -79,7 +79,7 @@ if(isset($_GET['archive_credential'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -101,7 +101,7 @@ if(isset($_GET['unarchive_credential'])){
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -123,7 +123,7 @@ if (isset($_GET['delete_credential'])) {
 
     // Get Credential Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -152,7 +152,7 @@ if (isset($_POST['bulk_assign_credential_tags'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -187,6 +187,78 @@ if (isset($_POST['bulk_assign_credential_tags'])) {
 
 }
 
+if (isset($_POST['bulk_favorite_credentials'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 2);
+
+    if (isset($_POST['credential_ids'])) {
+
+        $count = count($_POST['credential_ids']);
+
+        foreach ($_POST['credential_ids'] as $credential_id) {
+
+            $credential_id = intval($credential_id);
+
+            // Get Asset Name and Client ID for logging and alert message
+            $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
+            $row = mysqli_fetch_assoc($sql);
+            $credential_name = sanitizeInput($row['credential_name']);
+            $client_id = intval($row['credential_client_id']);
+
+            mysqli_query($mysqli,"UPDATE credentials SET credential_favorite = 1 WHERE credential_id = $credential_id");
+
+            logAction("Credential", "Edit", "$session_name marked credential $credential_name a favorite", $client_id, $credential_id);
+
+        }
+
+        logAction("Credential", "Bulk Edit", "$session_name favorited $count credentials", $client_id);
+
+        flash_alert("Favorited <strong>$count</strong> credential(s)");
+
+    }
+
+    redirect();
+
+}
+
+if (isset($_POST['bulk_unfavorite_credentials'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 2);
+
+    if (isset($_POST['credential_ids'])) {
+
+        $count = count($_POST['credential_ids']);
+
+        foreach ($_POST['credential_ids'] as $credential_id) {
+
+            $credential_id = intval($credential_id);
+
+            // Get Asset Name and Client ID for logging and alert message
+            $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
+            $row = mysqli_fetch_assoc($sql);
+            $credential_name = sanitizeInput($row['credential_name']);
+            $client_id = intval($row['credential_client_id']);
+
+            mysqli_query($mysqli,"UPDATE credentials SET credential_favorite = 0 WHERE credential_id = $credential_id");
+
+            logAction("Credential", "Edit", "$session_name unfavorited credential $credential_name", $client_id, $credential_id);
+
+        }
+
+        logAction("Crednetial", "Bulk Edit", "$session_name unfavorited $count credentials", $client_id);
+
+        flash_alert("Unfavorited <strong>$count</strong> credential(s)");
+
+    }
+
+    redirect();
+
+}
+
 if (isset($_POST['bulk_archive_credentials'])) {
 
     validateCSRFToken($_POST['csrf_token']);
@@ -205,7 +277,7 @@ if (isset($_POST['bulk_archive_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -242,7 +314,7 @@ if (isset($_POST['bulk_unarchive_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 
@@ -280,7 +352,7 @@ if (isset($_POST['bulk_delete_credentials'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $credential_name = sanitizeInput($row['credential_name']);
             $client_id = intval($row['credential_client_id']);
 

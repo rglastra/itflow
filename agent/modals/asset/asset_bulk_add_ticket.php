@@ -66,7 +66,7 @@ ob_start();
                             <option value="0">- Not Categorized -</option>
                             <?php
                             $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($sql_categories)) {
+                            while ($row = mysqli_fetch_assoc($sql_categories)) {
                                 $category_id = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
 
@@ -96,7 +96,7 @@ ob_start();
                         "SELECT user_id, user_name FROM users
                         WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $user_id = intval($row['user_id']);
                         $user_name = nullable_htmlentities($row['user_name']); ?>
                         <option <?php if ($session_user_id == $user_id) { echo "selected"; } ?> value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
@@ -116,7 +116,7 @@ ob_start();
                     <?php
 
                     $sql_projects = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_completed_at IS NULL AND project_archived_at IS NULL ORDER BY project_name ASC");
-                    while ($row = mysqli_fetch_array($sql_projects)) {
+                    while ($row = mysqli_fetch_assoc($sql_projects)) {
                         $project_id_select = intval($row['project_id']);
                         $project_name_select = nullable_htmlentities($row['project_name']); ?>
                         <option value="<?php echo $project_id_select; ?>"><?php echo $project_name_select; ?></option>

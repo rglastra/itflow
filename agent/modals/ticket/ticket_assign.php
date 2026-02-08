@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tickets
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $ticket_assigned_to = intval($row['ticket_assigned_to']);
@@ -42,14 +42,14 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-user-check"></i></span>
                 </div>
                 <select class="form-control select2" name="assigned_to">
-                    <option value="0">Not Assigned</option>
+                    <option value="0">Unassigned</option>
                     <?php
                     $sql_users_select = mysqli_query($mysqli, "SELECT user_id, user_name FROM users
                         WHERE user_type = 1
                         AND user_archived_at IS NULL
                         ORDER BY user_name ASC"
                     );
-                    while ($row = mysqli_fetch_array($sql_users_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_users_select)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']);
 

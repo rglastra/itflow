@@ -6,6 +6,20 @@ $ticket_ids = array_map('intval', $_GET['ticket_ids'] ?? []);
 
 $count = count($ticket_ids);
 
+$whereNotIn = '';
+if (!empty($ticket_ids)) {
+    $ids = implode(',', $ticket_ids);
+    $whereNotIn = "AND ticket_id NOT IN ($ids)";
+}
+
+$sql_merge = mysqli_query($mysqli, "SELECT * FROM tickets
+    LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
+    LEFT JOIN clients ON client_id = ticket_client_id
+    WHERE ticket_closed_at IS NULL
+    $whereNotIn
+    ORDER BY ticket_status ASC, ticket_id DESC"
+);
+
 ob_start();
 
 ?>
@@ -23,21 +37,32 @@ ob_start();
     <input type="hidden" name="merge_move_replies" value="0"> <!-- Default 0 -->
     <div class="modal-body">
 
+        <div class="alert alert-dark">
+            Selected tickets will be closed once merging is complete.
+        </div>
+
         <div class="form-group">
-            <label>Ticket number to merge tickets into <strong class="text-danger">*</strong></label>
+            <label>Ticket number to merge this ticket into <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <?php
-                    // Show the ticket prefix, or just the tag icon
-                    if (empty($ticket_prefix)) {
-                        echo "<span class=\"input-group-text\"><i class=\"fa fa-fw fa-tag\"></i></span>";
-                    } else {
-                        echo "<div class=\"input-group-text\"> $ticket_prefix </div>";
-                    }
-                    ?>
+                    <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
-                <input type="text" class="form-control" id="merge_into_ticket_number" name="merge_into_ticket_number" placeholder="Ticket number" onfocusout="merge_into_number_get_details()">
-                <!-- Calls Javascript function merge_into_number_get_details() after leaving input field -->
+                <select class="form-control select2" name="merge_into_ticket_number" required>
+                    <option value=''>- Select a Ticket -</option>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($sql_merge)) {
+                        $ticket_id_merge = intval($row['ticket_id']);
+                        $ticket_prefix_merge = nullable_htmlentities($row['ticket_prefix']);
+                        $ticket_number_merge = intval($row['ticket_number']);
+                        $ticket_status_name_merge = nullable_htmlentities($row['ticket_status_name']);
+                        $client_name_merge = nullable_htmlentities($row['client_name']);
+                        $ticket_subject_merge = nullable_htmlentities($row['ticket_subject']);
+                        ?>
+                        <option value="<?= $ticket_id_merge ?>">
+                            <?= "$ticket_prefix_merge$ticket_number_merge ($ticket_status_name_merge) $client_name_merge -  $ticket_subject_merge" ?>
+                        </option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
 
@@ -51,29 +76,11 @@ ob_start();
             </div>
         </div>
 
-        <div class="alert alert-dark" role="alert">
-            <i>Selected tickets will be closed once merging is complete.</i>
-        </div>
-
-
-        <hr>
-        <div class="form-group" id="merge_into_details_div" hidden>
-            <h5 id="merge_into_details_number"></h5>
-            <p id="merge_into_details_client"></p>
-            <p id="merge_into_details_subject"></p>
-            <p id="merge_into_details_priority"></p>
-            <p id="merge_into_details_status"></p>
-        </div>
-
     </div>
     <div class="modal-footer">
-        <button type="submit" id="merge_ticket_btn" name="bulk_merge_tickets" class="btn btn-primary text-bold" disabled><i class="fa fa-check mr-2"></i>Merge</button>
+        <button type="submit" name="bulk_merge_tickets" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Merge</button>
         <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
-        <!-- Merge button starts disabled. Is enabled by the merge_into_number_get_details Javascript function-->
     </div>
 </form>
-
-<!-- Ticket merge JS -->
-<script src="/agent/js/ticket_merge.js"></script>
 
 <?php require_once '../../../includes/modal_footer.php';

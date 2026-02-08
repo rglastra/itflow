@@ -7,7 +7,7 @@
                     <table class="table table-striped table-borderless table-hover">
                         <thead class="text-dark <?php if (!$num_rows[0]) { echo "d-none"; } ?> text-nowrap">
                         <tr>
-                            
+
                             <td>
                                 <?php if ($status !== 'Closed') { ?>
                                 <div class="form-check">
@@ -26,7 +26,7 @@
                                     Subject <?php if ($sort == 'ticket_subject') { echo $order_icon; } ?>
                                 </a>
                             </th>
-                            
+
                             <th>
                                 <?php if (!$client_url) { ?>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
@@ -39,7 +39,7 @@
                             </th>
                             <?php if ($config_module_enable_accounting && lookupUserPermission("module_sales") >= 2) { ?>
                             <th class="text-center">
-                                <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=ticket_billable&order=<?php echo $disp; ?>">
+                                <a class="text-secondary" href="?<?= $url_query_strings_sort ?>&sort=ticket_billable&order=<?= $disp ?>">
                                     Billable <?php if ($sort == 'ticket_billable') { echo $order_icon; } ?>
                                 </a>
                             </th>
@@ -75,7 +75,7 @@
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $ticket_id = intval($row['ticket_id']);
                             $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                             $ticket_number = intval($row['ticket_number']);
@@ -125,9 +125,9 @@
                             $ticket_assigned_to = intval($row['ticket_assigned_to']);
                             if (empty($ticket_assigned_to)) {
                                 if (!empty($ticket_closed_at)) {
-                                    $ticket_assigned_to_display = "<p>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p>Unassigned</p>";
                                 } else {
-                                    $ticket_assigned_to_display = "<p class='text-danger'>Not Assigned</p>";
+                                    $ticket_assigned_to_display = "<p class='text-muted'>Unassigned</p>";
                                 }
                             } else {
                                 $ticket_assigned_to_display = nullable_htmlentities($row['user_name']);
@@ -157,7 +157,7 @@
                                 AND ticket_reply_archived_at IS NULL
                                 ORDER BY ticket_reply_id DESC LIMIT 1"
                             );
-                            $row = mysqli_fetch_array($sql_ticket_reply);
+                            $row = mysqli_fetch_assoc($sql_ticket_reply);
 
                             if ($row) {
                                 $ticket_reply_type = nullable_htmlentities($row['ticket_reply_type']);
@@ -186,7 +186,7 @@
                             if($task_count) {
                                 $tasks_completed_percent = round(($completed_task_count / $task_count) * 100);
                             }
-                            
+
                             ?>
 
                             <tr class="<?php if(empty($ticket_closed_at) && empty($ticket_updated_at)) { echo "text-bold"; }?> <?php if (empty($ticket_closed_at) && $ticket_reply_type == "Client") { echo "table-warning"; } ?>">
@@ -199,11 +199,11 @@
                                     </div>
                                     <?php } ?>
                                 </td>
-                                
+
                                 <!-- Ticket Number -->
                                 <td>
                                     <a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>">
-                                        <span class="badge badge-pill badge-secondary p-3"><?php echo "$ticket_prefix$ticket_number"; ?></span>
+                                        <span class="badge badge-pill badge-dark p-2"><?php echo "$ticket_prefix$ticket_number"; ?></span>
                                     </a>
                                 </td>
 
@@ -212,12 +212,12 @@
                                     <a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= $ticket_subject ?></a>
 
                                     <?php if($task_count && $completed_task_count > 0) { ?>
-                                    <div class="progress mt-2" style="height: 20px;">
+                                    <div class="progress mt-1" style="height: 15px;">
                                         <div class="progress-bar" style="width: <?php echo $tasks_completed_percent; ?>%;"><?php echo $completed_task_count.' / '.$task_count; ?></div>
                                     </div>
                                     <?php } ?>
                                     <?php if($task_count && $completed_task_count == 0) { ?>
-                                    <div class="mt-2" style="height: 20px; background-color:#e9ecef;">
+                                    <div class="mt-1" style="height: 15px; background-color:#e9ecef;">
                                         <p class="text-center" ><?php echo $completed_task_count.' / '.$task_count; ?></p>
                                     </div>
                                     <?php } ?>
@@ -242,9 +242,9 @@
                                             data-modal-url="modals/ticket/ticket_billable.php?id=<?= $ticket_id ?>">
                                             <?php
                                             if ($ticket_billable == 1) {
-                                                echo "<span class='badge badge-pill badge-success p-2'>Yes</span>";
+                                                echo "<span class='badge badge-pill badge-success p-2'><i class='fas fa-fw fa-check'></i></span>";
                                             } else {
-                                                echo "<span class='badge badge-pill badge-secondary p-2'>No</span>";
+                                                echo "<span class='badge badge-pill badge-secondary p-2'><i class='fas fa-fw fa-minus'></i></span>";
                                             }
                                             ?>
                                         </a>
@@ -303,7 +303,7 @@
 
                             <?php
                         }
-                        
+
                         ?>
 
                         </tbody>

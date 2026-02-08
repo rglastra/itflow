@@ -37,7 +37,7 @@ ob_start();
                         AND user_archived_at IS NULL
                         ORDER BY user_name DESC"
                     );
-                    while ($row = mysqli_fetch_array($sql_users_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_users_select)) {
                         $user_id_select = intval($row['user_id']);
                         $user_name_select = nullable_htmlentities($row['user_name']);
 

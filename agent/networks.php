@@ -123,7 +123,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 AND ( EXISTS (SELECT 1 FROM networks WHERE network_location_id = location_id  AND $archive_query) OR location_id = $location_filter)
                                 ORDER BY location_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_locations_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations_filter)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -150,7 +150,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -248,7 +248,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $network_id = intval($row['network_id']);

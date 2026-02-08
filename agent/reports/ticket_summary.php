@@ -36,7 +36,7 @@ $largest_ticket_month = 0;
         <form class="p-3">
             <select onchange="this.form.submit()" class="form-control" name="year">
                 <?php
-                while ($row = mysqli_fetch_array($sql_ticket_years)) {
+                while ($row = mysqli_fetch_assoc($sql_ticket_years)) {
                     $ticket_year = intval($row['ticket_year']); ?>
                     <option <?php if ($year == $ticket_year) { ?> selected <?php } ?>><?php echo $ticket_year; ?></option>
                 <?php } ?>
@@ -76,7 +76,7 @@ $largest_ticket_month = 0;
                 for ($month = 1; $month <= 12; $month++) {
 
                     $sql_tickets = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS tickets_for_month FROM tickets WHERE YEAR(ticket_created_at) = $year AND MONTH(ticket_created_at) = $month");
-                    $row = mysqli_fetch_array($sql_tickets);
+                    $row = mysqli_fetch_assoc($sql_tickets);
                     $tickets_for_month = intval($row['tickets_for_month']);
 
                     if ($tickets_for_month > 0 && $tickets_for_month > $largest_ticket_month) {
@@ -111,7 +111,7 @@ $largest_ticket_month = 0;
             // Recompute for the chart dataset (values already gathered above, but we echo directly again)
             for ($month = 1; $month <= 12; $month++) {
                 $sql_tickets = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS tickets_for_month FROM tickets WHERE YEAR(ticket_created_at) = $year AND MONTH(ticket_created_at) = $month");
-                $row = mysqli_fetch_array($sql_tickets);
+                $row = mysqli_fetch_assoc($sql_tickets);
                 $tickets_for_month = intval($row['tickets_for_month']);
                 echo "$tickets_for_month,";
             }

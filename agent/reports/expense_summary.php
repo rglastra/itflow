@@ -35,7 +35,7 @@ $largest_expense_month = 0;
     <div class="card-body">
         <form class="mb-3">
             <select onchange="this.form.submit()" class="form-control" name="year">
-                <?php while ($row = mysqli_fetch_array($sql_expense_years)) {
+                <?php while ($row = mysqli_fetch_assoc($sql_expense_years)) {
                     $expense_year = intval($row['expense_year']); ?>
                     <option <?php if ($year == $expense_year) { ?> selected <?php } ?>><?php echo $expense_year; ?></option>
                 <?php } ?>
@@ -67,7 +67,7 @@ $largest_expense_month = 0;
                 </tr>
                 </thead>
                 <tbody>
-                <?php while ($row = mysqli_fetch_array($sql_categories)) {
+                <?php while ($row = mysqli_fetch_assoc($sql_categories)) {
                     $category_id = intval($row['category_id']);
                     $category_name = nullable_htmlentities($row['category_name']); ?>
                     <tr>
@@ -76,7 +76,7 @@ $largest_expense_month = 0;
                         $total_expense_for_all_months = 0;
                         for ($month = 1; $month <= 12; $month++) {
                             $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS expense_amount_for_month FROM expenses WHERE expense_category_id = $category_id AND YEAR(expense_date) = $year AND MONTH(expense_date) = $month");
-                            $rowm = mysqli_fetch_array($sql_expenses);
+                            $rowm = mysqli_fetch_assoc($sql_expenses);
                             $expense_amount_for_month = floatval($rowm['expense_amount_for_month']);
                             $total_expense_for_all_months += $expense_amount_for_month;
                             ?>
@@ -100,7 +100,7 @@ $largest_expense_month = 0;
                     $grand_total_all_months = 0;
                     for ($month = 1; $month <= 12; $month++) {
                         $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS expense_total_amount_for_month FROM expenses WHERE YEAR(expense_date) = $year AND MONTH(expense_date) = $month AND expense_vendor_id > 0");
-                        $rowt = mysqli_fetch_array($sql_expenses);
+                        $rowt = mysqli_fetch_assoc($sql_expenses);
                         $expense_total_amount_for_month = floatval($rowt['expense_total_amount_for_month']);
                         $grand_total_all_months += $expense_total_amount_for_month;
                         ?>
@@ -139,7 +139,7 @@ $largest_expense_month = 0;
             // Build series and track the largest month for axis max
             for ($month = 1; $month <= 12; $month++) {
                 $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS expense_amount_for_month FROM expenses WHERE YEAR(expense_date) = $year AND MONTH(expense_date) = $month AND expense_vendor_id > 0");
-                $rowm = mysqli_fetch_array($sql_expenses);
+                $rowm = mysqli_fetch_assoc($sql_expenses);
                 $expenses_for_month = floatval($rowm['expense_amount_for_month']);
 
                 if ($expenses_for_month > 0 && $expenses_for_month > $largest_expense_month) {

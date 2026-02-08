@@ -4,12 +4,12 @@ require_once '../../../includes/modal_header.php';
 
 $user_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM users 
+$sql = mysqli_query($mysqli, "SELECT * FROM users
     LEFT JOIN user_settings ON users.user_id = user_settings.user_id
     WHERE users.user_id = $user_id LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $user_name = nullable_htmlentities($row['user_name']);
 $user_email = nullable_htmlentities($row['user_email']);
 $user_avatar = nullable_htmlentities($row['user_avatar']);
@@ -114,7 +114,7 @@ ob_start();
                         <select class="form-control select2" name="role" required>
                             <?php
                             $sql_user_roles = mysqli_query($mysqli, "SELECT * FROM user_roles WHERE role_archived_at IS NULL");
-                            while ($row = mysqli_fetch_array($sql_user_roles)) {
+                            while ($row = mysqli_fetch_assoc($sql_user_roles)) {
                                 $role_id = intval($row['role_id']);
                                 $role_name = nullable_htmlentities($row['role_name']);
 
@@ -175,7 +175,7 @@ ob_start();
                     <?php
 
                     $sql_client_select = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL ORDER BY client_name ASC");
-                    while ($row = mysqli_fetch_array($sql_client_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_client_select)) {
                         $client_id_select = intval($row['client_id']);
                         $client_name_select = nullable_htmlentities($row['client_name']);
 

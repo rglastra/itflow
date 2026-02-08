@@ -32,10 +32,6 @@ plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/URI/*
 plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/CSS/*
 !plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/CSS/.gitkeep
 .vscode/settings.json
-xcustom/*
-!xcustom/readme.php
-post/xcustom
-!post/xcustom/readme.php
 admin/custom/*
 !admin/custom/readme.php
 agent/custom/*
@@ -53,5 +49,3 @@ setup/custom/*
 api/v1/custom/*
 !api/v1/custom/readme.php
 .zed
-
-

@@ -16,7 +16,7 @@ if (isset($_POST['add_expense'])) {
 
     // Check for and process attachment
     $extended_alert_description = '';
-    
+
     if (isset($_FILES['file']['tmp_name'])) {
 
         if ($new_file_name = checkFileUpload($_FILES['file'], array('jpg', 'jpeg', 'gif', 'png', 'webp', 'pdf'))) {
@@ -81,11 +81,11 @@ if (isset($_POST['edit_expense'])) {
 }
 
 if (isset($_GET['delete_expense'])) {
-    
+
     $expense_id = intval($_GET['delete_expense']);
 
     $sql = mysqli_query($mysqli,"SELECT * FROM expenses WHERE expense_id = $expense_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $expense_receipt = sanitizeInput($row['expense_receipt']);
     $expense_description = sanitizeInput($row['expense_description']);
     $client_id = intval($row['expense_client_id']);
@@ -120,7 +120,7 @@ if (isset($_POST['bulk_edit_expense_category'])) {
 
             // Get Expense Details for Logging
             $sql = mysqli_query($mysqli,"SELECT expense_description, expense_client_id FROM expenses WHERE expense_id = $expense_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $expense_description = sanitizeInput($row['expense_description']);
             $client_id = intval($row['expense_client_id']);
 
@@ -157,7 +157,7 @@ if (isset($_POST['bulk_edit_expense_account'])) {
 
             // Get Expense Details for Logging
             $sql = mysqli_query($mysqli,"SELECT expense_description, expense_client_id FROM expenses WHERE expense_id = $expense_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $expense_description = sanitizeInput($row['expense_description']);
             $client_id = intval($row['expense_client_id']);
 
@@ -209,7 +209,7 @@ if (isset($_POST['bulk_edit_expense_client'])) {
 }
 
 if (isset($_POST['bulk_delete_expenses'])) {
-    
+
     validateCSRFToken($_POST['csrf_token']);
 
     validateAdminRole();
@@ -225,7 +225,7 @@ if (isset($_POST['bulk_delete_expenses'])) {
             $expense_id = intval($expense_id);
 
             $sql = mysqli_query($mysqli,"SELECT * FROM expenses WHERE expense_id = $expense_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $expense_description = sanitizeInput($row['expense_description']);
             $expense_receipt = sanitizeInput($row['expense_receipt']);
             $client_id = intval($row['expense_client_id']);
@@ -249,7 +249,7 @@ if (isset($_POST['bulk_delete_expenses'])) {
 }
 
 if (isset($_POST['export_expenses_csv'])) {
-    
+
     $date_from = sanitizeInput($_POST['date_from']);
     $date_to = sanitizeInput($_POST['date_to']);
     $account = intval($_POST['account']);

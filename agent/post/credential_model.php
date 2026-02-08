@@ -11,6 +11,6 @@ $username = encryptCredentialEntry(trim($_POST['username']));
 $password = encryptCredentialEntry(trim($_POST['password']));
 $otp_secret = sanitizeInput($_POST['otp_secret']);
 $note = sanitizeInput($_POST['note']);
-$important = intval($_POST['important'] ?? 0);
+$favorite = intval($_POST['favorite'] ?? 0);
 $contact_id = intval($_POST['contact'] ?? 0);
 $asset_id = intval($_POST['asset'] ?? 0);

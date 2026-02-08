@@ -6,7 +6,7 @@ $ticket_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $ticket_billable = intval($row['ticket_billable']);

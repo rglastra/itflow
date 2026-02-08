@@ -37,32 +37,32 @@ $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('invoice_id') AS n
 $overdue_count = $row['num'];
 
 $sql_total_draft_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_draft_amount FROM invoices WHERE invoice_status = 'Draft' $client_query");
-$row = mysqli_fetch_array($sql_total_draft_amount);
+$row = mysqli_fetch_assoc($sql_total_draft_amount);
 $total_draft_amount = floatval($row['total_draft_amount']);
 
 $sql_total_sent_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_sent_amount FROM invoices WHERE invoice_status = 'Sent' $client_query");
-$row = mysqli_fetch_array($sql_total_sent_amount);
+$row = mysqli_fetch_assoc($sql_total_sent_amount);
 $total_sent_amount = floatval($row['total_sent_amount']);
 
 $sql_total_viewed_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_viewed_amount FROM invoices WHERE invoice_status = 'Viewed' $client_query");
-$row = mysqli_fetch_array($sql_total_viewed_amount);
+$row = mysqli_fetch_assoc($sql_total_viewed_amount);
 $total_viewed_amount = floatval($row['total_viewed_amount']);
 
 $sql_total_cancelled_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_cancelled_amount FROM invoices WHERE invoice_status = 'Cancelled' $client_query");
-$row = mysqli_fetch_array($sql_total_cancelled_amount);
+$row = mysqli_fetch_assoc($sql_total_cancelled_amount);
 $total_cancelled_amount = floatval($row['total_cancelled_amount']);
 
 $sql_total_partial_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_partial_amount FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_status = 'Partial' $client_query");
-$row = mysqli_fetch_array($sql_total_partial_amount);
+$row = mysqli_fetch_assoc($sql_total_partial_amount);
 $total_partial_amount = floatval($row['total_partial_amount']);
 $total_partial_count = mysqli_num_rows($sql_total_partial_amount);
 
 $sql_total_overdue_partial_amount = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_overdue_partial_amount FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_status = 'Partial' AND invoice_due < CURDATE() $client_query");
-$row = mysqli_fetch_array($sql_total_overdue_partial_amount);
+$row = mysqli_fetch_assoc($sql_total_overdue_partial_amount);
 $total_overdue_partial_amount = floatval($row['total_overdue_partial_amount']);
 
 $sql_total_overdue_amount = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS total_overdue_amount FROM invoices WHERE invoice_status != 'Draft' AND invoice_status != 'Paid' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable' AND invoice_due < CURDATE() $client_query");
-$row = mysqli_fetch_array($sql_total_overdue_amount);
+$row = mysqli_fetch_assoc($sql_total_overdue_amount);
 $total_overdue_amount = floatval($row['total_overdue_amount']);
 
 $real_overdue_amount = $total_overdue_amount - $total_overdue_partial_amount;
@@ -202,7 +202,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                             <?php
                             $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Income' AND EXISTS (SELECT 1 FROM invoices WHERE invoice_category_id = category_id) ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                 $category_id = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
                             ?>
@@ -313,7 +313,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $invoice_id = intval($row['invoice_id']);
                         $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                         $invoice_number = nullable_htmlentities($row['invoice_number']);

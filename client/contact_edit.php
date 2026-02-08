@@ -28,7 +28,7 @@ $sql_contact = mysqli_query(
     WHERE contact_id = $contact_id AND contact_client_id = $session_client_id AND contacts.contact_archived_at IS NULL LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql_contact);
+$row = mysqli_fetch_assoc($sql_contact);
 
 if ($row) {
     $contact_id = intval($row['contact_id']);

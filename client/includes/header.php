@@ -84,7 +84,7 @@ header("X-Frame-Options: DENY"); // Legacy
                     ORDER BY custom_link_order ASC, custom_link_name ASC"
                 );
 
-                while ($row = mysqli_fetch_array($sql_custom_links)) {
+                while ($row = mysqli_fetch_assoc($sql_custom_links)) {
                     $custom_link_name = nullable_htmlentities($row['custom_link_name']);
                     $custom_link_uri = nullable_htmlentities($row['custom_link_uri']);
                     $custom_link_new_tab = intval($row['custom_link_new_tab']);

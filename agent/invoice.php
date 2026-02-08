@@ -37,7 +37,7 @@ if (isset($_GET['invoice_id'])) {
         exit();
     }
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $invoice_id = intval($row['invoice_id']);
     $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
     $invoice_number = intval($row['invoice_number']);
@@ -78,7 +78,7 @@ if (isset($_GET['invoice_id'])) {
     $page_title = "{$row['invoice_prefix']}{$row['invoice_number']}";
 
     $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $company_id = intval($row['company_id']);
     $company_name = nullable_htmlentities($row['company_name']);
     $company_country = nullable_htmlentities($row['company_country']);
@@ -138,14 +138,14 @@ if (isset($_GET['invoice_id'])) {
 
     //Add up all the payments for the invoice and get the total amount paid to the invoice
     $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments WHERE payment_invoice_id = $invoice_id");
-    $row = mysqli_fetch_array($sql_amount_paid);
+    $row = mysqli_fetch_assoc($sql_amount_paid);
     $amount_paid = floatval($row['amount_paid']);
 
     $balance = $invoice_amount - $amount_paid;
 
     // Get Credit Balance
     $sql_credit_balance = mysqli_query($mysqli, "SELECT SUM(credit_amount) AS credit_balance FROM credits WHERE credit_client_id = $client_id");
-    $row = mysqli_fetch_array($sql_credit_balance);
+    $row = mysqli_fetch_assoc($sql_credit_balance);
 
     $credit_balance = floatval($row['credit_balance']);
 
@@ -181,7 +181,7 @@ if (isset($_GET['invoice_id'])) {
     ");
 
     if (mysqli_num_rows($products_sql) > 0) {
-        while ($row = mysqli_fetch_array($products_sql)) {
+        while ($row = mysqli_fetch_assoc($products_sql)) {
             $products[] = $row;
         }
         $json_products = json_encode($products);
@@ -287,6 +287,9 @@ if (isset($_GET['invoice_id'])) {
                                 </a>
                                 <a class="dropdown-item" href="post.php?export_invoice_pdf=<?php echo $invoice_id; ?>" target="_blank">
                                     <i class="fa fa-fw fa-download text-secondary mr-2"></i>Download PDF
+                                </a>
+                                <a class="dropdown-item" href="post.php?export_invoice_packing_slip=<?php echo $invoice_id; ?>" target="_blank">
+                                    <i class="fa fa-fw fa-box-open text-secondary mr-2"></i>Packing Slip
                                 </a>
                                 <?php if (!empty($config_smtp_host) && !empty($contact_email)) { ?>
                                     <a class="dropdown-item" href="post.php?email_invoice=<?php echo $invoice_id; ?>">
@@ -394,7 +397,7 @@ if (isset($_GET['invoice_id'])) {
                                 $total_tax = 0.00;
                                 $sub_total = 0.00;
 
-                                while ($row = mysqli_fetch_array($sql_invoice_items)) {
+                                while ($row = mysqli_fetch_assoc($sql_invoice_items)) {
                                     $item_id = intval($row['item_id']);
                                     $item_name = nullable_htmlentities($row['item_name']);
                                     $item_description = nullable_htmlentities($row['item_description']);
@@ -467,7 +470,7 @@ if (isset($_GET['invoice_id'])) {
                                                 <option value="0">No Tax</option>
                                                 <?php
                                                 $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE tax_archived_at IS NULL ORDER BY tax_name ASC");
-                                                while ($row = mysqli_fetch_array($taxes_sql)) {
+                                                while ($row = mysqli_fetch_assoc($taxes_sql)) {
                                                     $tax_id = intval($row['tax_id']);
                                                     $tax_name = nullable_htmlentities($row['tax_name']);
                                                     $tax_percent = floatval($row['tax_percent']);
@@ -591,7 +594,7 @@ if (isset($_GET['invoice_id'])) {
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql_history)) {
+                        while ($row = mysqli_fetch_assoc($sql_history)) {
                             $history_created_at = $row['history_created_at'];
                             $history_status = nullable_htmlentities($row['history_status']);
                             $history_description = nullable_htmlentities($row['history_description']);
@@ -639,7 +642,7 @@ if (isset($_GET['invoice_id'])) {
                             <tbody>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_payments)) {
+                            while ($row = mysqli_fetch_assoc($sql_payments)) {
                                 $payment_id = intval($row['payment_id']);
                                 $payment_date = nullable_htmlentities($row['payment_date']);
                                 $payment_amount = floatval($row['payment_amount']);
@@ -703,7 +706,7 @@ if (isset($_GET['invoice_id'])) {
                             <tbody>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_tickets)) {
+                            while ($row = mysqli_fetch_assoc($sql_tickets)) {
                                 $ticket_id = intval($row['ticket_id']);
                                 $ticket_created_at = nullable_htmlentities($row['ticket_created_at']);
                                 $ticket_subject = nullable_htmlentities($row['ticket_subject']);

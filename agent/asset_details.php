@@ -29,7 +29,7 @@ if (isset($_GET['asset_id'])) {
 
     } else {
 
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $client_id = intval($row['client_id']);
         $client_name = nullable_htmlentities($row['client_name']);
         $asset_id = intval($row['asset_id']);
@@ -51,6 +51,7 @@ if (isset($_GET['asset_id'])) {
         $asset_photo = nullable_htmlentities($row['asset_photo']);
         $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
         $asset_notes = nullable_htmlentities($row['asset_notes']);
+        $asset_favorite = intval($row['asset_favorite']);
         $asset_created_at = nullable_htmlentities($row['asset_created_at']);
         $asset_vendor_id = intval($row['asset_vendor_id']);
         $asset_location_id = intval($row['asset_location_id']);
@@ -66,8 +67,11 @@ if (isset($_GET['asset_id'])) {
 
         $contact_name = nullable_htmlentities($row['contact_name']);
         $contact_email = nullable_htmlentities($row['contact_email']);
-        $contact_phone = nullable_htmlentities($row['contact_phone']);
-        $contact_mobile = nullable_htmlentities($row['contact_mobile']);
+        $contact_phone_country_code = nullable_htmlentities($row['contact_phone_country_code']);
+        $contact_phone = nullable_htmlentities(formatPhoneNumber($row['contact_phone'], $contact_phone_country_code));
+        $contact_extension = nullable_htmlentities($row['contact_extension']);
+        $contact_mobile_country_code = nullable_htmlentities($row['contact_mobile_country_code']);
+        $contact_mobile = nullable_htmlentities(formatPhoneNumber($row['contact_mobile'], $contact_mobile_country_code));
         $contact_archived_at = nullable_htmlentities($row['contact_archived_at']);
         if ($contact_archived_at) {
             $contact_name_display = "<span class='text-danger' title='Archived'><s>$contact_name</s></span>";
@@ -122,7 +126,7 @@ if (isset($_GET['asset_id'])) {
         $asset_tag_name_display_array = array();
         $asset_tag_id_array = array();
         $sql_asset_tags = mysqli_query($mysqli, "SELECT * FROM asset_tags LEFT JOIN tags ON asset_tag_tag_id = tag_id WHERE asset_tag_asset_id = $asset_id ORDER BY tag_name ASC");
-        while ($row = mysqli_fetch_array($sql_asset_tags)) {
+        while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
 
             $asset_tag_id = intval($row['tag_id']);
             $asset_tag_name = nullable_htmlentities($row['tag_name']);
@@ -223,7 +227,7 @@ if (isset($_GET['asset_id'])) {
                 credentials.credential_password,
                 credentials.credential_otp_secret,
                 credentials.credential_note,
-                credentials.credential_important,
+                credentials.credential_favorite,
                 credentials.credential_contact_id,
                 credentials.credential_asset_id
             FROM credentials
@@ -270,7 +274,9 @@ if (isset($_GET['asset_id'])) {
                             data-modal-url="modals/asset/asset_edit.php?id=<?= $asset_id ?>">
                             <i class="fas fa-fw fa-edit"></i>
                         </button>
-                        <h4 class="text-bold"><i class="fa fa-fw text-secondary fa-<?= $device_icon; ?> mr-3"></i><?= $asset_name; ?></h4>
+                        <h4 class="text-bold"><i class="fa fa-fw text-secondary fa-<?= $device_icon; ?> mr-2"></i><?= $asset_name; ?>
+                            <?php if ($asset_favorite) { ?><i class="fas fa-fw text-warning fa-star" title="Favorite"></i><?php } ?>
+                        </h4>
                         <?php if ($asset_photo) { ?>
                             <img class="img-fluid img-circle p-3" alt="asset_photo" src="<?= "../uploads/clients/$client_id/$asset_photo"; ?>">
                         <?php } ?>
@@ -285,25 +291,25 @@ if (isset($_GET['asset_id'])) {
                             </div>
                         <?php } ?>
                         <?php if ($asset_type) { ?>
-                            <div class="mt-1"><i class="fa fa-fw fa-tag text-secondary mr-3"></i><?= $asset_type; ?></div>
+                            <div class="mt-1"><i class="fa fa-fw fa-tag text-secondary mr-2"></i><?= $asset_type; ?></div>
                         <?php }
                         if ($asset_make) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-circle text-secondary mr-3"></i><?= "$asset_make $asset_model"; ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-circle text-secondary mr-2"></i><?= "$asset_make $asset_model"; ?></div>
                         <?php }
                         if ($asset_os) { ?>
-                            <div class="mt-2"><i class="fab fa-fw fa-windows text-secondary mr-3"></i><?= "$asset_os"; ?></div>
+                            <div class="mt-2"><i class="fab fa-fw fa-windows text-secondary mr-2"></i><?= "$asset_os"; ?></div>
                         <?php }
                         if ($asset_serial) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-barcode text-secondary mr-3"></i><?= $asset_serial; ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-barcode text-secondary mr-2"></i><?= $asset_serial; ?></div>
                         <?php }
                         if ($asset_purchase_date) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-shopping-cart text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_purchase_date)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-shopping-cart text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_purchase_date)); ?></div>
                         <?php }
                         if ($asset_install_date) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-calendar-check text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_install_date)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-calendar-check text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_install_date)); ?></div>
                         <?php }
                         if ($asset_warranty_expire) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-exclamation-triangle text-secondary mr-3"></i><?= date('Y-m-d', strtotime($asset_warranty_expire)); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-exclamation-triangle text-secondary mr-2"></i><?= date('Y-m-d', strtotime($asset_warranty_expire)); ?></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -351,10 +357,13 @@ if (isset($_GET['asset_id'])) {
                             <div class="mt-2"><i class="fa fa-fw fa-envelope text-secondary mr-2"></i><a href='mailto:<?= $contact_email; ?>'><?= $contact_email; ?></a><button class='btn btn-sm clipboardjs' data-clipboard-text='<?= $contact_email; ?>'><i class='far fa-copy text-secondary'></i></button></div>
                         <?php }
                         if ($contact_phone) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-phone text-secondary mr-2"></i><?= formatPhoneNumber($contact_phone); echo " $contact_extension"; ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-phone text-secondary mr-2"></i><?= $contact_phone ?></div>
+                        <?php }
+                        if ($contact_extension) { ?>
+                            <div class="mt-1"><i class="fa fa-fw text-secondary mr-2"></i><?= "ext. $contact_extension" ?></div>
                         <?php }
                         if ($contact_mobile) { ?>
-                            <div class="mt-2"><i class="fa fa-fw fa-mobile-alt text-secondary mr-2"></i><?= formatPhoneNumber($contact_mobile); ?></div>
+                            <div class="mt-2"><i class="fa fa-fw fa-mobile-alt text-secondary mr-2"></i><?= $contact_mobile ?></div>
                         <?php } ?>
 
                     </div>
@@ -517,7 +526,7 @@ if (isset($_GET['asset_id'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php while ($row = mysqli_fetch_array($sql_related_interfaces)) { ?>
+                                    <?php while ($row = mysqli_fetch_assoc($sql_related_interfaces)) { ?>
                                         <?php
                                             $interface_id       = intval($row['interface_id']);
                                             $interface_name     = nullable_htmlentities($row['interface_name']);
@@ -626,7 +635,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_credentials)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_credentials)) {
                                     $credential_id = intval($row['credential_id']);
                                     $credential_name = nullable_htmlentities($row['credential_name']);
                                     $credential_description = nullable_htmlentities($row['credential_description']);
@@ -651,7 +660,7 @@ if (isset($_GET['asset_id'])) {
                                         $otp_display = "<span onmouseenter='showOTPViaCredentialID($credential_id)'><i class='far fa-clock'></i> <span id='otp_$credential_id'><i>Hover..</i></span></span>";
                                     }
                                     $credential_note = nullable_htmlentities($row['credential_note']);
-                                    $credential_important = intval($row['credential_important']);
+                                    $credential_favorite = intval($row['credential_favorite']);
                                     $credential_contact_id = intval($row['credential_contact_id']);
                                     $credential_asset_id = intval($row['credential_asset_id']);
 
@@ -659,7 +668,7 @@ if (isset($_GET['asset_id'])) {
                                     $credential_tag_name_display_array = array();
                                     $credential_tag_id_array = array();
                                     $sql_credential_tags = mysqli_query($mysqli, "SELECT * FROM credential_tags LEFT JOIN tags ON credential_tags.tag_id = tags.tag_id WHERE credential_id = $credential_id ORDER BY tag_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_credential_tags)) {
+                                    while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
 
                                         $credential_tag_id = intval($row['tag_id']);
                                         $credential_tag_name = nullable_htmlentities($row['tag_name']);
@@ -758,7 +767,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_software)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_software)) {
                                     $software_id = intval($row['software_id']);
                                     $software_name = nullable_htmlentities($row['software_name']);
                                     $software_version = nullable_htmlentities($row['software_version']);
@@ -775,7 +784,7 @@ if (isset($_GET['asset_id'])) {
                                     // Asset Licenses
                                     $asset_licenses_sql = mysqli_query($mysqli, "SELECT asset_id FROM software_assets WHERE software_id = $software_id");
                                     $asset_licenses_array = array();
-                                    while ($row = mysqli_fetch_array($asset_licenses_sql)) {
+                                    while ($row = mysqli_fetch_assoc($asset_licenses_sql)) {
                                         $asset_licenses_array[] = intval($row['asset_id']);
                                         $seat_count = $seat_count + 1;
                                     }
@@ -784,7 +793,7 @@ if (isset($_GET['asset_id'])) {
                                     // Contact Licenses
                                     $contact_licenses_sql = mysqli_query($mysqli, "SELECT contact_id FROM software_contacts WHERE software_id = $software_id");
                                     $contact_licenses_array = array();
-                                    while ($row = mysqli_fetch_array($contact_licenses_sql)) {
+                                    while ($row = mysqli_fetch_assoc($contact_licenses_sql)) {
                                         $contact_licenses_array[] = intval($row['contact_id']);
                                         $seat_count = $seat_count + 1;
                                     }
@@ -844,7 +853,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_documents)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_documents)) {
                                     $document_id = intval($row['document_id']);
                                     $document_name = nullable_htmlentities($row['document_name']);
                                     $document_description = nullable_htmlentities($row['document_description']);
@@ -923,7 +932,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_files)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_files)) {
                                     $file_id = intval($row['file_id']);
                                     $file_name = nullable_htmlentities($row['file_name']);
                                     $file_description = nullable_htmlentities($row['file_description']);
@@ -995,7 +1004,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_recurring_tickets)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_recurring_tickets)) {
                                     $recurring_ticket_id = intval($row['recurring_ticket_id']);
                                     $recurring_ticket_subject = nullable_htmlentities($row['recurring_ticket_subject']);
                                     $recurring_ticket_priority = nullable_htmlentities($row['recurring_ticket_priority']);
@@ -1074,7 +1083,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_related_tickets)) {
+                                while ($row = mysqli_fetch_assoc($sql_related_tickets)) {
                                     $ticket_id = intval($row['ticket_id']);
                                     $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                                     $ticket_number = intval($row['ticket_number']);
@@ -1165,7 +1174,7 @@ if (isset($_GET['asset_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_linked_services)) {
+                                while ($row = mysqli_fetch_assoc($sql_linked_services)) {
                                     $service_id = intval($row['service_id']);
                                     $service_name = nullable_htmlentities($row['service_name']);
                                     $service_description = nullable_htmlentities($row['service_description']);

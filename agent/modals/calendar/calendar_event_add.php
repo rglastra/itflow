@@ -49,7 +49,7 @@
                                         <?php
 
                                         $sql = mysqli_query($mysqli, "SELECT * FROM calendars ORDER BY calendar_name ASC");
-                                        while ($row = mysqli_fetch_array($sql)) {
+                                        while ($row = mysqli_fetch_assoc($sql)) {
                                             $calendar_id = intval($row['calendar_id']);
                                             $calendar_name = nullable_htmlentities($row['calendar_name']);
                                             $calendar_color = nullable_htmlentities($row['calendar_color']);
@@ -133,7 +133,7 @@
                                             <?php
 
                                             $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN contacts ON clients.client_id = contacts.contact_client_id AND contact_primary = 1 ORDER BY client_name ASC");
-                                            while ($row = mysqli_fetch_array($sql)) {
+                                            while ($row = mysqli_fetch_assoc($sql)) {
                                                 $client_id = intval($row['client_id']);
                                                 $client_name = nullable_htmlentities($row['client_name']);
                                                 $contact_email = nullable_htmlentities($row['contact_email']);

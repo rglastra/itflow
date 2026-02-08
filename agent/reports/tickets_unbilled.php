@@ -68,7 +68,7 @@ $rows = 0;
             <form class="mb-3">
                 <select onchange="this.form.submit()" class="form-control" name="year">
                     <?php
-                    while ($row = mysqli_fetch_array($sql_ticket_years)) {
+                    while ($row = mysqli_fetch_assoc($sql_ticket_years)) {
                         $ticket_year = intval($row['ticket_year']); ?>
                         <option <?php if ($year == $ticket_year) { ?> selected <?php } ?> > <?php echo $ticket_year; ?></option>
                     <?php } ?>
@@ -87,7 +87,7 @@ $rows = 0;
                     </thead>
                     <tbody>
                     <?php
-                    while ($row = mysqli_fetch_array($sql_clients)) {
+                    while ($row = mysqli_fetch_assoc($sql_clients)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
 
@@ -103,7 +103,7 @@ $rows = 0;
                             AND
                                 ticket_client_id = $client_id"
                         );
-                        $row = mysqli_fetch_array($sql_ticket_raised_count);
+                        $row = mysqli_fetch_assoc($sql_ticket_raised_count);
                         $ticket_raised_count = intval($row['ticket_raised_count']);
 
                         // Calculate total tickets raised in period that are closed and billable
@@ -122,7 +122,7 @@ $rows = 0;
                             AND
                                 ticket_billable = 1
                         ");
-                        $row = mysqli_fetch_array($sql_ticket_closed_count);
+                        $row = mysqli_fetch_assoc($sql_ticket_closed_count);
                         $ticket_closed_count = intval($row['ticket_closed_count']);
 
                         // Calculate total tickets raised in period that are closed and billable, but not invoiced
@@ -142,7 +142,7 @@ $rows = 0;
                                 ticket_billable = 1
                             AND
                                 ticket_invoice_id = 0");
-                        $row = mysqli_fetch_array($sql_ticket_unbilled_count);
+                        $row = mysqli_fetch_assoc($sql_ticket_unbilled_count);
                         $ticket_unbilled_count = intval($row['ticket_unbilled_count']);
 
                         if ($ticket_unbilled_count > 0) {
@@ -179,4 +179,3 @@ $rows = 0;
 
 <?php
 require_once "../../includes/footer.php";
-

@@ -48,7 +48,7 @@ $num_rows = mysqli_num_rows($sql);
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $provider_id = intval($row['ai_provider_id']);
                     $provider_name = nullable_htmlentities($row['ai_provider_name']);
                     $url = nullable_htmlentities($row['ai_provider_api_url']);

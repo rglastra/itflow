@@ -40,7 +40,7 @@ ob_start();
                             AND network_client_id = $client_id
                         ORDER BY network_name ASC
                     ");
-                    while ($net_row = mysqli_fetch_array($sql_network_select)) {
+                    while ($net_row = mysqli_fetch_assoc($sql_network_select)) {
                         $network_id_select   = intval($net_row['network_id']);
                         $network_name_select = nullable_htmlentities($net_row['network_name']);
                         $network_select = nullable_htmlentities($net_row['network']);

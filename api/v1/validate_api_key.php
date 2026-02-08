@@ -91,7 +91,7 @@ if (isset($api_key)) {
         // SUCCESS
 
         // Set client ID, company ID & key name
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $api_key_name = htmlentities($row['api_key_name']);
         $api_key_decrypt_hash = $row['api_key_decrypt_hash']; // No sanitization
         $client_id = intval($row['api_key_client_id']);

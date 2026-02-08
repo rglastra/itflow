@@ -16,7 +16,7 @@ require_once "../functions.php";
 
 $sql_settings = mysqli_query($mysqli, "SELECT * FROM settings WHERE settings.company_id = 1");
 
-$row = mysqli_fetch_array($sql_settings);
+$row = mysqli_fetch_assoc($sql_settings);
 
 // Company Settings
 $config_enable_cron = intval($row['config_enable_cron']);
@@ -35,7 +35,7 @@ if ($config_enable_cron == 0) {
 
 // REFRESH DOMAIN WHOIS DATA (1 a day/run)
 //  Get the oldest updated domain (MariaDB shows NULLs first when ordering by default)
-$row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT domain_id, domain_name, domain_expire FROM `domains` WHERE domain_archived_at IS NULL ORDER BY domain_updated_at LIMIT 1"));
+$row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT domain_id, domain_name, domain_expire FROM `domains` WHERE domain_archived_at IS NULL ORDER BY domain_updated_at LIMIT 1"));
 
 if ($row) {
 

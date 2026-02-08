@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $network_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_id = $network_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $network_name = nullable_htmlentities($row['network_name']);
 $network_description = nullable_htmlentities($row['network_description']);
 $network_vlan = intval($row['network_vlan']);
@@ -84,9 +84,9 @@ ob_start();
                         </div>
                         <select class="form-control select2" name="location">
                             <option value="">- Select Location -</option>
-                            <?php 
+                            <?php
                             $locations_sql = mysqli_query($mysqli, "SELECT location_id, location_name FROM locations WHERE location_client_id = $client_id");
-                            while ($row = mysqli_fetch_array($locations_sql)) {
+                            while ($row = mysqli_fetch_assoc($locations_sql)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                                 ?>

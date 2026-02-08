@@ -248,7 +248,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 AND ( EXISTS (SELECT 1 FROM assets WHERE asset_location_id = location_id  AND $archive_query) OR location_id = $location_filter)
                                 ORDER BY location_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_locations_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations_filter)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -275,7 +275,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -303,7 +303,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 GROUP BY tag_id
                                 HAVING COUNT(asset_tag_asset_id) > 0 OR tag_id IN ($tag_filter)
                             ");
-                            while ($row = mysqli_fetch_array($sql_tags_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_filter)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']); ?>
 
@@ -345,6 +345,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount"></span>)
                             </button>
                             <div class="dropdown-menu">
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_favorite_assets">
+                                    <i class="fas fa-fw fa-star text-warning mr-2"></i>Favorite
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_unfavorite_assets">
+                                    <i class="far fa-fw fa-star mr-2"></i>Unfavorite
+                                </button>
+                                <div class="dropdown-divider"></div>
                                 <?php if ($client_url) { ?>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_contact.php?<?= $client_url ?>"
@@ -524,7 +534,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $client_id = intval($row['client_id']);
                         $client_name = nullable_htmlentities($row['client_name']);
                         $asset_id = intval($row['asset_id']);
@@ -590,6 +600,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             $asset_physical_location_display = "";
                         }
                         $asset_notes = nullable_htmlentities($row['asset_notes']);
+                        $asset_favorite = intval($row['asset_favorite']);
                         $asset_created_at = nullable_htmlentities($row['asset_created_at']);
                         $asset_archived_at = nullable_htmlentities($row['asset_archived_at']);
                         $asset_vendor_id = intval($row['asset_vendor_id']);
@@ -630,7 +641,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         $asset_tag_name_display_array = array();
                         $asset_tag_id_array = array();
                         $sql_asset_tags = mysqli_query($mysqli, "SELECT * FROM asset_tags LEFT JOIN tags ON asset_tag_tag_id = tag_id WHERE asset_tag_asset_id = $asset_id ORDER BY tag_name ASC");
-                        while ($row = mysqli_fetch_array($sql_asset_tags)) {
+                        while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
 
                             $asset_tag_id = intval($row['tag_id']);
                             $asset_tag_name = nullable_htmlentities($row['tag_name']);
@@ -660,7 +671,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <div class="media">
                                         <i class="fa fa-fw fa-2x fa-<?= $device_icon ?> mr-3 mt-1"></i>
                                         <div class="media-body">
-                                            <div><?= $asset_name ?></div>
+                                            <div><?= $asset_name ?> <?php if ($asset_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?></div>
                                             <div><small class="text-secondary"><?= $asset_description ?></small></div>
                                             <?php
                                             if ($asset_tags_display) { ?>

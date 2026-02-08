@@ -253,7 +253,7 @@ if (isset($_POST['restore'])) {
         mysqli_query($mysqli, "SET FOREIGN_KEY_CHECKS = 0");
         $tables = mysqli_query($mysqli, "SHOW TABLES");
         if ($tables) {
-            while ($row = mysqli_fetch_array($tables)) {
+            while ($row = mysqli_fetch_row($tables)) {
                 mysqli_query($mysqli, "DROP TABLE IF EXISTS `" . $row[0] . "`");
             }
         }
@@ -620,7 +620,7 @@ if (isset($_POST['add_telemetry'])) {
         $comments = sanitizeInput($_POST['comments']);
 
         $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
 
         $company_name = $row['company_name'];
         $website = $row['company_website'];

@@ -20,9 +20,9 @@ require_once 'includes/inc_all.php';
     <p>Client Primary Contact: <?php if ($session_contact_primary == 1) {echo "Yes"; } else {echo "No";} ?></p>
     <p>Client Technical Contact: <?php if ($session_contact_is_technical_contact) {echo "Yes"; } else {echo "No";} ?></p>
     <p>Client Billing Contact: <?php if ($session_contact_is_billing_contact == $session_contact_id) {echo "Yes"; } else {echo "No";} ?></p>
-
-
+    <br>
     <p>Login via: <?php echo $_SESSION['login_method'] ?> </p>
+    <p>User ID: <?php echo $_SESSION['user_id'] ?> </p>
 
 
     <!--  // Show option to change password if auth provider is local -->

@@ -45,7 +45,7 @@ if (isset($_GET['project_id'])) {
         exit;
     }
 
-    $row = mysqli_fetch_array($sql_project);
+    $row = mysqli_fetch_assoc($sql_project);
 
     $project_id = intval($row['project_id']);
     $project_prefix = nullable_htmlentities($row['project_prefix']);
@@ -138,17 +138,17 @@ if (isset($_GET['project_id'])) {
     }
 
     //Get Total Ticket Time
-    $sql_ticket_total_reply_time = mysqli_query($mysqli, "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(ticket_reply_time_worked))) AS ticket_total_reply_time FROM ticket_replies 
+    $sql_ticket_total_reply_time = mysqli_query($mysqli, "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(ticket_reply_time_worked))) AS ticket_total_reply_time FROM ticket_replies
         LEFT JOIN tickets ON ticket_id = ticket_reply_ticket_id
         WHERE ticket_reply_archived_at IS NULL AND ticket_project_id = $project_id");
-    $row = mysqli_fetch_array($sql_ticket_total_reply_time);
+    $row = mysqli_fetch_assoc($sql_ticket_total_reply_time);
     $ticket_total_reply_time = nullable_htmlentities($row['ticket_total_reply_time']);
 
     // Get all Assigned ticket Users as a comma-separated string
     $sql_project_collaborators = mysqli_query($mysqli, "
         SELECT GROUP_CONCAT(DISTINCT user_name SEPARATOR ', ') AS user_names
         FROM users
-        LEFT JOIN ticket_replies ON user_id = ticket_reply_by 
+        LEFT JOIN ticket_replies ON user_id = ticket_reply_by
         LEFT JOIN tickets ON ticket_id = ticket_reply_ticket_id
         WHERE ticket_reply_archived_at IS NULL AND ticket_project_id = $project_id
     ");
@@ -294,38 +294,38 @@ if (isset($_GET['project_id'])) {
                                     <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item ajax-modal" href="#" 
+                                    <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_assign.php"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-user-check mr-2"></i>Assign Agent
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item ajax-modal" href="#" 
+                                        <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_edit_category.php"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-layer-group mr-2"></i>Set Category
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item ajax-modal" href="#" 
+                                        <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_edit_priority.php"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-thermometer-half mr-2"></i>Set Priority
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item ajax-modal" href="#" 
+                                        <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_reply.php"
                                             data-modal-size="lg"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-paper-plane mr-2"></i>Update/Reply
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item ajax-modal" href="#" 
+                                        <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_merge.php"
                                             data-bulk="true">
                                             <i class="fas fa-fw fa-clone mr-2"></i>Merge
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item ajax-modal" href="#" 
+                                        <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/ticket/ticket_bulk_resolve.php"
                                             data-modal-size="lg"
                                             data-bulk="true">
@@ -385,7 +385,7 @@ if (isset($_GET['project_id'])) {
                                 <tbody>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_tickets)) {
+                                while ($row = mysqli_fetch_assoc($sql_tickets)) {
                                     $ticket_id = intval($row['ticket_id']);
                                     $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
                                     $ticket_number = nullable_htmlentities($row['ticket_number']);
@@ -446,7 +446,7 @@ if (isset($_GET['project_id'])) {
                                     AND ticket_reply_archived_at IS NULL
                                     ORDER BY ticket_reply_id DESC LIMIT 1"
                                     );
-                                    $row = mysqli_fetch_array($sql_ticket_reply);
+                                    $row = mysqli_fetch_assoc($sql_ticket_reply);
 
                                     if ($row) {
                                         $ticket_reply_type = nullable_htmlentities($row['ticket_reply_type']);
@@ -517,7 +517,7 @@ if (isset($_GET['project_id'])) {
                 <div class="card-body p-0">
                     <table class="table table-sm">
                         <?php
-                        while($row = mysqli_fetch_array($sql_tasks)){
+                        while($row = mysqli_fetch_assoc($sql_tasks)){
                             $task_id = intval($row['task_id']);
                             $task_name = nullable_htmlentities($row['task_name']);
                             $task_completed_at = nullable_htmlentities($row['task_completed_at']);

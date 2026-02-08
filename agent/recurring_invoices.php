@@ -153,7 +153,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $recurring_invoice_id = intval($row['recurring_invoice_id']);
                     $recurring_invoice_prefix = nullable_htmlentities($row['recurring_invoice_prefix']);
                     $recurring_invoice_number = intval($row['recurring_invoice_number']);
@@ -211,7 +211,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <select class="form-control select2" name="saved_payment_id" onchange="this.form.submit()">
                                         <option value="0">Disabled</option>
                                         <?php
-                                            while ($row = mysqli_fetch_array($sql_saved_payments)) {
+                                            while ($row = mysqli_fetch_assoc($sql_saved_payments)) {
                                                 $saved_payment_id = intval($row['saved_payment_id']);
                                                 $saved_payment_description = nullable_htmlentities($row['saved_payment_description']);
 
@@ -222,7 +222,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 </form>
                             <?php } else { ?>
                                 No Cards on File
-                            <?php } ?>  
+                            <?php } ?>
                         </td>
                         <td>
                             <span class="p-2 badge badge-<?php echo $status_badge_color; ?>">

@@ -6,7 +6,7 @@ $rack_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM racks WHERE rack_id = $rack_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $rack_name = nullable_htmlentities($row['rack_name']);
 $rack_description = nullable_htmlentities($row['rack_description']);
 $rack_model = nullable_htmlentities($row['rack_model']);
@@ -138,7 +138,7 @@ ob_start();
                             <?php
 
                             $sql_location_select = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
-                            while ($row = mysqli_fetch_array($sql_location_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_location_select)) {
                                 $location_id_select = intval($row['location_id']);
                                 $location_name_select = nullable_htmlentities($row['location_name']);
                                 ?>

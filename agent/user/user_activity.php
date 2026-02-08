@@ -22,7 +22,7 @@ $sql_recent_logs = mysqli_query($mysqli, "SELECT * FROM logs
         <tbody>
         <?php
 
-        while ($row = mysqli_fetch_array($sql_recent_logins)) {
+        while ($row = mysqli_fetch_assoc($sql_recent_logins)) {
             $log_id = intval($row['log_id']);
             $log_ip = nullable_htmlentities($row['log_ip']);
             $log_user_agent = nullable_htmlentities($row['log_user_agent']);
@@ -58,7 +58,7 @@ $sql_recent_logs = mysqli_query($mysqli, "SELECT * FROM logs
         <tbody>
         <?php
 
-        while ($row = mysqli_fetch_array($sql_recent_logs)) {
+        while ($row = mysqli_fetch_assoc($sql_recent_logs)) {
             $log_id = intval($row['log_id']);
             $log_type = nullable_htmlentities($row['log_type']);
             $log_action = nullable_htmlentities($row['log_action']);

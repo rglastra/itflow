@@ -45,7 +45,7 @@ $num_rows = mysqli_num_rows($sql);
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $payment_method_id = intval($row['payment_method_id']);
                     $payment_method_name = nullable_htmlentities($row['payment_method_name']);
                     $payment_method_description = nullable_htmlentities($row['payment_method_description']);

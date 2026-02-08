@@ -33,7 +33,7 @@ if (isset($_GET['recurring_invoice_id'])) {
         exit();
     }
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $recurring_invoice_prefix = nullable_htmlentities($row['recurring_invoice_prefix']);
     $recurring_invoice_number = intval($row['recurring_invoice_number']);
     $recurring_invoice_scope = nullable_htmlentities($row['recurring_invoice_scope']);
@@ -85,7 +85,7 @@ if (isset($_GET['recurring_invoice_id'])) {
     $page_title = "{$row['recurring_invoice_prefix']}{$row['recurring_invoice_number']}";
 
     $sql = mysqli_query($mysqli, "SELECT * FROM companies WHERE company_id = 1");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $company_id = intval($row['company_id']);
     $company_name = nullable_htmlentities($row['company_name']);
@@ -106,7 +106,7 @@ if (isset($_GET['recurring_invoice_id'])) {
     $products_sql = mysqli_query($mysqli, "SELECT product_name AS label, product_description AS description, product_price AS price, product_tax_id AS tax FROM products WHERE product_archived_at IS NULL");
 
     if (mysqli_num_rows($products_sql) > 0) {
-        while ($row = mysqli_fetch_array($products_sql)) {
+        while ($row = mysqli_fetch_assoc($products_sql)) {
             $products[] = $row;
         }
         $json_products = json_encode($products);
@@ -158,7 +158,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                                 <select class="form-control select2" name="saved_payment_id" onchange="this.form.submit()">
                                     <option value="0">Disabled</option>
                                     <?php
-                                        while ($row = mysqli_fetch_array($sql_saved_payments)) {
+                                        while ($row = mysqli_fetch_assoc($sql_saved_payments)) {
                                             $saved_payment_id = intval($row['saved_payment_id']);
                                             $saved_payment_description = nullable_htmlentities($row['saved_payment_description']);
 
@@ -273,7 +273,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                                 $total_tax = 0.00;
                                 $sub_total = 0.00;
 
-                                while ($row = mysqli_fetch_array($sql_items)) {
+                                while ($row = mysqli_fetch_assoc($sql_items)) {
                                     $item_id = intval($row['item_id']);
                                     $item_name = nullable_htmlentities($row['item_name']);
                                     $item_description = nullable_htmlentities($row['item_description']);
@@ -328,7 +328,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                                             <input type="hidden" name="item_order" value="<?php
                                                 //find largest order number and add 1
                                                 $sql = mysqli_query($mysqli, "SELECT MAX(item_order) AS item_order FROM invoice_items WHERE item_recurring_invoice_id = $recurring_invoice_id");
-                                                $row = mysqli_fetch_array($sql);
+                                                $row = mysqli_fetch_assoc($sql);
                                                 $item_order = intval($row['item_order']) + 1;
                                                 echo $item_order;
                                                 ?>">
@@ -351,7 +351,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                                                     <?php
 
                                                     $taxes_sql = mysqli_query($mysqli, "SELECT tax_id, tax_name, tax_percent FROM taxes WHERE tax_archived_at IS NULL ORDER BY tax_name ASC");
-                                                    while ($row = mysqli_fetch_array($taxes_sql)) {
+                                                    while ($row = mysqli_fetch_assoc($taxes_sql)) {
                                                         $tax_id = intval($row['tax_id']);
                                                         $tax_name = nullable_htmlentities($row['tax_name']);
                                                         $tax_percent = floatval($row['tax_percent']);
@@ -448,7 +448,7 @@ if (isset($_GET['recurring_invoice_id'])) {
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql_history)) {
+                        while ($row = mysqli_fetch_assoc($sql_history)) {
                             $history_created_at = nullable_htmlentities($row['history_created_at']);
                             $history_status = nullable_htmlentities($row['history_status']);
                             $history_description = nullable_htmlentities($row['history_description']);

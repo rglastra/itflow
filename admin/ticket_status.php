@@ -67,7 +67,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $ticket_status_id = intval($row['ticket_status_id']);
                     $ticket_status_name = nullable_htmlentities($row['ticket_status_name']);
                     $ticket_status_color = nullable_htmlentities($row['ticket_status_color']);
@@ -81,7 +81,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     ?>
                     <tr>
                         <td>
-                            <a href="#" 
+                            <a href="#"
                                 <?php if ( $ticket_status_id > 5 ) { ?>
                                 class="ajax-modal" data-modal-url="modals/ticket_status/ticket_status_edit.php?id=<?= $ticket_status_id ?>"
                                 <?php } ?>

@@ -4,20 +4,13 @@
 DEFINE("WORDING_ROLECHECK_FAILED", "You are not permitted to do that!");
 
 // Function to generate both crypto & URL safe random strings
-function randomString($length = 16) {
-    // Generate some cryptographically safe random bytes
-    //  Generate a little more than requested as we'll lose some later converting
-    $random_bytes = random_bytes($length + 5);
-
-    // Convert the bytes to something somewhat human-readable
-    $random_base_64 = base64_encode($random_bytes);
-
-    // Replace the nasty characters that come with base64
-    $bad_chars = array("/", "+", "=");
-    $random_string = str_replace($bad_chars, random_int(0, 9), $random_base_64);
-
-    // Truncate the string to the requested $length and return
-    return substr($random_string, 0, $length);
+function randomString(int $length = 16): string {
+    $bytes = random_bytes((int) ceil($length * 3 / 4));
+    return substr(
+        rtrim(strtr(base64_encode($bytes), '+/', '-_'), '='),
+        0,
+        $length
+    );
 }
 
 // Older keygen function - only used for TOTP currently
@@ -1176,7 +1169,7 @@ function getTicketStatusName($ticket_status) {
     global $mysqli;
 
     $status_id = intval($ticket_status);
-    $row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_id = $status_id LIMIT 1"));
+    $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_id = $status_id LIMIT 1"));
 
     if ($row) {
         return nullable_htmlentities($row['ticket_status_name']);
@@ -1372,7 +1365,7 @@ function lookupUserPermission($module) {
 			module_name = '$module' AND user_role_permissions.user_role_id = $session_user_role"
     );
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     if (isset($row['user_role_permission_level'])) {
         return intval($row['user_role_permission_level']);
@@ -1433,7 +1426,7 @@ function appNotify($type, $details, $action = null, $client_id = 0, $entity_id =
         WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL
     ");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = mysqli_fetch_assoc($sql)) {
         $user_id = intval($row['user_id']);
 
         mysqli_query($mysqli, "INSERT INTO notifications SET notification_type = '$type', notification = '$details', notification_action = '$action', notification_client_id = $client_id, notification_entity_id = $entity_id, notification_user_id = $user_id");
@@ -1442,6 +1435,10 @@ function appNotify($type, $details, $action = null, $client_id = 0, $entity_id =
 
 function logAction($type, $action, $description, $client_id = 0, $entity_id = 0) {
     global $mysqli, $session_user_agent, $session_ip, $session_user_id;
+
+    $client_id = intval($client_id);
+    $entity_id = intval($entity_id);
+    $session_user_id = intval($session_user_id);
 
     if (empty($session_user_id)) {
         $session_user_id = 0;
@@ -1572,7 +1569,7 @@ function display_folder_options($parent_folder_id, $client_id, $indent = 0) {
     global $mysqli;
 
     $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_client_id = $client_id ORDER BY folder_name ASC");
-    while ($row = mysqli_fetch_array($sql_folders)) {
+    while ($row = mysqli_fetch_assoc($sql_folders)) {
         $folder_id = intval($row['folder_id']);
         $folder_name = nullable_htmlentities($row['folder_name']);
 
@@ -2000,4 +1997,21 @@ function dbCommit(mysqli $mysqli): void
 function dbRollback(mysqli $mysqli): void
 {
     $mysqli->rollback();
+}
+
+function formatDuration($time) {
+    // expects "HH:MM:SS"
+    [$h, $m, $s] = array_map('intval', explode(':', $time));
+
+    $parts = [];
+
+    if ($h > 0) $parts[] = $h . 'h';
+    if ($m > 0) $parts[] = $m . 'm';
+
+    // show seconds only if under 1 minute total OR if nothing else exists
+    if ($h == 0 && $m == 0) {
+        $parts[] = $s . 's';
+    }
+
+    return implode(' ', $parts);
 }

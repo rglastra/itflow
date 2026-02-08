@@ -5,8 +5,8 @@ require_once '../../../includes/modal_header.php';
 $calendar_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM calendars WHERE calendar_id = $calendar_id LIMIT 1");
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $calendar_name = nullable_htmlentities($row['calendar_name']);
 $calendar_color = nullable_htmlentities($row['calendar_color']);
 

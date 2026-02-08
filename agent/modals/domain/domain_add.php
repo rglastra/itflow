@@ -23,7 +23,7 @@ ob_start();
             <li class="nav-item">
                 <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
             </li>
-            
+
         </ul>
 
         <hr>
@@ -47,7 +47,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?php echo $client_id_select; ?>"><?php echo $client_name; ?></option>
@@ -94,7 +94,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -115,7 +115,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -136,7 +136,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -157,7 +157,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -187,7 +187,7 @@ ob_start();
             </div>
 
         </div>
-    
+
     </div>
 
     <div class="modal-footer">

@@ -99,7 +99,7 @@ if (isset($_GET['archive_rack'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_client_id FROM racks WHERE rack_id = $rack_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $client_id = intval($row['rack_client_id']);
 
@@ -121,7 +121,7 @@ if (isset($_GET['unarchive_rack'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_client_id FROM racks WHERE rack_id = $rack_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $client_id = intval($row['rack_client_id']);
 
@@ -143,7 +143,7 @@ if (isset($_GET['delete_rack'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_client_id, rack_photo FROM racks WHERE rack_id = $rack_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $rack_photo = sanitizeInput($row['rack_photo']);
     $client_id = intval($row['rack_client_id']);
@@ -176,7 +176,7 @@ if (isset($_POST['add_rack_unit'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_client_id FROM racks WHERE rack_id = $rack_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $client_id = intval($row['rack_client_id']);
 
@@ -222,7 +222,7 @@ if (isset($_POST['edit_rack_unit'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_client_id FROM racks WHERE rack_id = $rack_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $client_id = intval($row['rack_client_id']);
 
@@ -244,7 +244,7 @@ if (isset($_GET['remove_rack_unit'])) {
 
     // Get Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT rack_name, rack_id, rack_client_id FROM racks LEFT JOIN rack_units ON unit_rack_id = rack_id WHERE unit_id = $unit_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $rack_name = sanitizeInput($row['rack_name']);
     $unit_device = sanitizeInput($row['unit_device']);
     $client_id = intval($row['rack_client_id']);

@@ -145,7 +145,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <?php
                                     $sql_vendors_filter = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE EXISTS (SELECT 1 FROM expenses WHERE expense_vendor_id = vendor_id) ORDER BY vendor_name ASC");
 
-                                    while ($row = mysqli_fetch_array($sql_vendors_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_vendors_filter)) {
                                         $vendor_id = intval($row['vendor_id']);
                                         $vendor_name = nullable_htmlentities($row['vendor_name']);
                                     ?>
@@ -165,7 +165,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                     <?php
                                     $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Expense' AND EXISTS (SELECT 1 FROM expenses WHERE expense_category_id = category_id) ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                     ?>
@@ -185,7 +185,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                     <?php
                                     $sql_accounts_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM expenses WHERE expense_account_id = account_id) ORDER BY account_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_accounts_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_accounts_filter)) {
                                         $account_id = intval($row['account_id']);
                                         $account_name = nullable_htmlentities($row['account_name']);
                                     ?>
@@ -251,7 +251,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $expense_id = intval($row['expense_id']);
                         $expense_date = nullable_htmlentities($row['expense_date']);
                         $expense_amount = floatval($row['expense_amount']);

@@ -61,7 +61,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while($row = mysqli_fetch_array($sql)){
+                while($row = mysqli_fetch_assoc($sql)){
                     $project_template_id = intval($row['project_template_id']);
                     $project_template_name = nullable_htmlentities($row['project_template_name']);
                     $project_template_description = nullable_htmlentities($row['project_template_description']);
@@ -124,7 +124,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </tr>
 
                 <?php
-                
+
                 }
 
                 ?>

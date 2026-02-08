@@ -104,7 +104,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $saved_payment_id = intval($row['saved_payment_id']);
                     $client_id = intval($row['saved_payment_client_id']);
                     $client_name = nullable_htmlentities($row['client_name']);

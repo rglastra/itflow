@@ -4,12 +4,12 @@ require_once '../../../includes/modal_header.php';
 
 $asset_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM assets 
+$sql = mysqli_query($mysqli, "SELECT * FROM assets
     LEFT JOIN asset_interfaces ON interface_asset_id = asset_id AND interface_primary = 1
     WHERE asset_id = $asset_id LIMIT 1"
 );
-                     
-$row = mysqli_fetch_array($sql);
+
+$row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['asset_client_id']);
 $asset_id = intval($row['asset_id']);
 $asset_type = nullable_htmlentities($row['asset_type']);
@@ -34,6 +34,7 @@ $asset_install_date = nullable_htmlentities($row['asset_install_date']);
 $asset_photo = nullable_htmlentities($row['asset_photo']);
 $asset_physical_location = nullable_htmlentities($row['asset_physical_location']);
 $asset_notes = nullable_htmlentities($row['asset_notes']);
+$asset_favorite = intval($row['asset_favorite']);
 $asset_created_at = nullable_htmlentities($row['asset_created_at']);
 $asset_archived_at = nullable_htmlentities($row['asset_archived_at']);
 $asset_vendor_id = intval($row['asset_vendor_id']);
@@ -44,7 +45,7 @@ $asset_network_id = intval($row['interface_network_id']);
 $device_icon = getAssetIcon($asset_type);
 
 // Asset History Query
-$sql_asset_history = mysqli_query($mysqli, "SELECT * FROM asset_history 
+$sql_asset_history = mysqli_query($mysqli, "SELECT * FROM asset_history
     WHERE asset_history_asset_id = $asset_id
     ORDER BY asset_history_id
     DESC LIMIT 10"
@@ -53,7 +54,7 @@ $sql_asset_history = mysqli_query($mysqli, "SELECT * FROM asset_history
 // Tags
 $asset_tag_id_array = array();
 $sql_asset_tags = mysqli_query($mysqli, "SELECT asset_tag_tag_id FROM asset_tags WHERE asset_tag_asset_id = $asset_id");
-while ($row = mysqli_fetch_array($sql_asset_tags)) {
+while ($row = mysqli_fetch_assoc($sql_asset_tags)) {
     $asset_tag_tag_id = intval($row['asset_tag_tag_id']);
     $asset_tag_id_array[] = $asset_tag_tag_id;
 }
@@ -105,9 +106,20 @@ ob_start();
                     <label>Name <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
+                            <span class="input-group-text"><i class="fas fa-fw fa-tag"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name the asset" maxlength="200" value="<?= $asset_name ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="Asset name or asset tag" maxlength="200" value="<?= $asset_name ?>" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox"
+                                            name="favorite"
+                                            value="1"
+                                            <?php if($asset_favorite) { echo 'checked'; } ?>>
+                                    <i class="far fa-star"></i>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -195,7 +207,7 @@ ob_start();
                             <?php
 
                             $sql_networks = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_id = $asset_network_id OR network_archived_at IS NULL AND network_client_id = $client_id ORDER BY network_name ASC");
-                            while ($row = mysqli_fetch_array($sql_networks)) {
+                            while ($row = mysqli_fetch_assoc($sql_networks)) {
                                 $network_id_select = intval($row['network_id']);
                                 $network_name_select = nullable_htmlentities($row['network_name']);
                                 $network_select = nullable_htmlentities($row['network']);
@@ -313,7 +325,7 @@ ob_start();
                             <?php
 
                             $sql_locations = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_id = $asset_location_id OR location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
-                            while ($row = mysqli_fetch_array($sql_locations)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations)) {
                                 $location_id_select = intval($row['location_id']);
                                 $location_name_select = nullable_htmlentities($row['location_name']);
                                 $location_archived_at = nullable_htmlentities($row['location_archived_at']);
@@ -341,7 +353,7 @@ ob_start();
                             <?php
 
                             $sql_contacts = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_id = $asset_contact_id OR contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
-                            while ($row = mysqli_fetch_array($sql_contacts)) {
+                            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                                 $contact_id_select = intval($row['contact_id']);
                                 $contact_name_select = nullable_htmlentities($row['contact_name']);
                                 $contact_archived_at = nullable_htmlentities($row['contact_archived_at']);
@@ -389,7 +401,7 @@ ob_start();
                             <?php
 
                             $sql_vendors = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_id = $asset_vendor_id OR vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql_vendors)) {
+                            while ($row = mysqli_fetch_assoc($sql_vendors)) {
                                 $vendor_id_select = intval($row['vendor_id']);
                                 $vendor_name_select = nullable_htmlentities($row['vendor_name']);
                                 $vendor_archived_at = nullable_htmlentities($row['vendor_archived_at']);
@@ -479,7 +491,7 @@ ob_start();
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 5 ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>
@@ -507,10 +519,11 @@ ob_start();
                     <label>Asset History</label>
                     <ul>
                         <?php
-                        while ($row = mysqli_fetch_array($sql_asset_history)) {
-                            $asset_history_description = nullable_htmlentities(($row['asset_history_description']));
-                            $asset_history_created_at = nullable_htmlentities(($row['asset_history_created_at']));
-                            echo "<li><small class='text-secondary'>$asset_history_created_at</small><br>$asset_history_description</li>";
+                        while ($row = mysqli_fetch_assoc($sql_asset_history)) {
+                            $asset_history_status = nullable_htmlentities($row['asset_history_status']);
+                            $asset_history_description = nullable_htmlentities($row['asset_history_description']);
+                            $asset_history_created_at = nullable_htmlentities($row['asset_history_created_at']);
+                            echo "<li>$asset_history_created_at - $asset_history_status <br/>$asset_history_description</li><br/>";
                         }
                         ?>
                     </ul>

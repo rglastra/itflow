@@ -5,7 +5,7 @@ require_once '../../../includes/modal_header.php';
 $service_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM services WHERE service_id = $service_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $service_name = nullable_htmlentities($row['service_name']);
 $service_description = nullable_htmlentities($row['service_description']);
 $service_category = nullable_htmlentities($row['service_category']);
@@ -116,7 +116,7 @@ ob_start();
                 if (mysqli_num_rows($sql_assets) > 0) {
                     echo "<h5><i class='fas fa-fw fa-desktop mr-2'></i>Assets</h5><ul>";
                     mysqli_data_seek($sql_assets, 0);
-                    while ($row = mysqli_fetch_array($sql_assets)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets)) {
                         $asset_id = intval($row['asset_id']);
                         $asset_name = nullable_htmlentities($row['asset_name']);
                         $ip = !empty($row['interface_ip']) ? '(' . nullable_htmlentities($row['interface_ip']) . ')' : '';
@@ -131,7 +131,7 @@ ob_start();
                 $networks = [];
                 if ($sql_assets) {
                     mysqli_data_seek($sql_assets, 0);
-                    while ($row = mysqli_fetch_array($sql_assets)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets)) {
                         if (!empty($row['network_name'])) {
                             $network_data = nullable_htmlentities($row["network_name"]) . ':' . nullable_htmlentities($row["network_vlan"]);
                             $networks[] = $network_data;
@@ -156,7 +156,7 @@ ob_start();
                 $location_names = [];
                 if ($sql_assets) {
                     mysqli_data_seek($sql_assets, 0);
-                    while ($row = mysqli_fetch_array($sql_assets)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets)) {
                         if (!empty($row['location_name'])) {
                             $location_names[] = nullable_htmlentities($row['location_name']);
                         }
@@ -177,7 +177,7 @@ ob_start();
                 if (mysqli_num_rows($sql_domains) > 0) {
                     echo "<h5><i class='fas fa-fw fa-globe mr-2'></i>Domains</h5><ul>";
                     mysqli_data_seek($sql_domains, 0);
-                    while ($row = mysqli_fetch_array($sql_domains)) {
+                    while ($row = mysqli_fetch_assoc($sql_domains)) {
                         if (!empty($row['domain_name'])) {
                             $domain_name = nullable_htmlentities($row['domain_name']);
                             echo "<li><a href='domains.php?client_id=$client_id&q=$domain_name'>$domain_name</a></li>";
@@ -192,7 +192,7 @@ ob_start();
                 if (mysqli_num_rows($sql_certificates) > 0) {
                     echo "<h5><i class='fas fa-fw fa-lock mr-2'></i>Certificates</h5><ul>";
                     mysqli_data_seek($sql_certificates, 0);
-                    while ($row = mysqli_fetch_array($sql_certificates)) {
+                    while ($row = mysqli_fetch_assoc($sql_certificates)) {
                         if (!empty($row['certificate_name'])) {
                             $certificate_name = nullable_htmlentities($row['certificate_name']);
                             $certificate_domain = nullable_htmlentities($row['certificate_domain']);
@@ -217,7 +217,7 @@ ob_start();
                 if (mysqli_num_rows($sql_vendors) > 0) {
                     echo "<h5><i class='fas fa-fw fa-building mr-2'></i>Vendors</h5><ul>";
                     mysqli_data_seek($sql_vendors, 0);
-                    while ($row = mysqli_fetch_array($sql_vendors)) {
+                    while ($row = mysqli_fetch_assoc($sql_vendors)) {
                         $vendor_id = intval($row['vendor_id']);
                         $vendor_name = nullable_htmlentities($row['vendor_name']);
                         echo "<li><a class='ajax-modal' href='#' data-modal-size='lg' data-modal-url='modals/vendor/vendor_details.php?id=$vendor_id'>$vendor_name</a></li>";
@@ -231,7 +231,7 @@ ob_start();
                 if (mysqli_num_rows($sql_contacts) > 0) {
                     echo "<h5><i class='fas fa-fw fa-users mr-2'></i>Contacts</h5><ul>";
                     mysqli_data_seek($sql_contacts, 0);
-                    while ($row = mysqli_fetch_array($sql_contacts)) {
+                    while ($row = mysqli_fetch_assoc($sql_contacts)) {
                         $contact_id = intval($row['contact_id']);
                         $contact_name = nullable_htmlentities($row['contact_name']);
                         echo "<li><a href='#' class='ajax-modal' data-modal-size='lg' data-modal-url='modals/contact/contact_details.php?id=$contact_id'>$contact_name</a></li>";
@@ -246,7 +246,7 @@ ob_start();
                     echo "<h5><i class='fas fa-fw fa-key mr-2'></i>Credentials</h5><ul>";
                     // Credentials linked to assets
                     mysqli_data_seek($sql_assets, 0);
-                    while ($row = mysqli_fetch_array($sql_assets)) {
+                    while ($row = mysqli_fetch_assoc($sql_assets)) {
                         $credential_name = nullable_htmlentities($row['credential_name']);
                         if (!empty($credential_name)) {
                             echo "<li><a href='credentials.php?client_id=$client_id&q=$credential_name'>$credential_name</a></li>";
@@ -254,7 +254,7 @@ ob_start();
                     }
                     // Explicitly linked credentials
                     mysqli_data_seek($sql_credentials, 0);
-                    while ($row = mysqli_fetch_array($sql_credentials)) {
+                    while ($row = mysqli_fetch_assoc($sql_credentials)) {
                         $credential_name = nullable_htmlentities($row['credential_name']);
                         if (!empty($credential_name)) {
                             echo "<li><a href='credentials.php?client_id=$client_id&q=$credential_name'>$credential_name</a></li>";
@@ -268,13 +268,13 @@ ob_start();
                 <?php
                 $urls = [];
                 mysqli_data_seek($sql_credentials, 0);
-                while ($row = mysqli_fetch_array($sql_credentials)) {
+                while ($row = mysqli_fetch_assoc($sql_credentials)) {
                     if (!empty($row['credential_uri'])) {
                         $urls[] = sanitize_url($row['credential_uri']);
                     }
                 }
                 mysqli_data_seek($sql_assets, 0);
-                while ($row = mysqli_fetch_array($sql_assets)) {
+                while ($row = mysqli_fetch_assoc($sql_assets)) {
                     if (!empty($row['asset_uri'])) {
                         $urls[] = sanitize_url($row['asset_uri']);
                     }
@@ -295,7 +295,7 @@ ob_start();
                 if (mysqli_num_rows($sql_docs) > 0) {
                     echo "<h5><i class='fas fa-fw fa-file-alt mr-2'></i>Documents</h5><ul>";
                     mysqli_data_seek($sql_docs, 0);
-                    while ($row = mysqli_fetch_array($sql_docs)) {
+                    while ($row = mysqli_fetch_assoc($sql_docs)) {
                         $document_id = intval($row['document_id']);
                         $document_name = nullable_htmlentities($row['document_name']);
                         echo "<li><a class='ajax-modal' href='#' data-modal-size='lg' data-modal-url='modals/document/document_view.php?id=$document_id'>$document_name</a></li>";
@@ -311,4 +311,3 @@ ob_start();
 
 <?php
 require_once '../../../includes/modal_footer.php';
-

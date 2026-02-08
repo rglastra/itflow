@@ -2,6 +2,55 @@
 
 This file documents all notable changes made to ITFlow.
 
+## [26.02] Stable Release
+### Bug Fixes
+- Mail Parser - Do not automatically send new ticket notifications to noreply/donotreply addresses.
+- Ticket: removed newline \n on Parsed emails.
+- Show Trips for everyone if accounting module is enabled.
+- Fix Invoice Exporting.
+- Fix Billable Column not sorting correctly in tickets.
+- Fix Login flow where user agent and client user exists and agent has MFA but will not let them continue.
+- Fix passing missing user_id var in client portal.
+- Fix Ticket Templates not auto filling when selected.
+- Fix Invoices not being sent to all billings contacts when manaully sent.
+- Fix Documents and Files not able to be bulk deleted.
+- Fix Role Archiving, can be archived as long as no users are assigned to the role.
+- Fix showing Powered By ITFlow visibility on the login screen when Whitelabel is enabled.
+- Missing username in audit log on successful login due to missing passed user_id to logging.
+- API: Fix updating all documents instead of the intended document.
+- Documents: Fix Document created at not showing the correct creation date of the master document.
+- Ticket: Fixed Using edit ticket modal agent was not able to be set.
+- Always check if a user is archived and or disabled instead of just during login.
+- Report: Fix Collected tax report not totalling all tax categories.
+
+### New Features & Updates 
+- Task Approval System for ticket tasks: Once an approval is requested, the task cannot be marked as complete until approved. Internal Approvals Any other technician, or Specific technician, Client Approvals Anyone (usually the requestor) Tech contacts Billing contacts.
+- Printable Invoice Packing Slips now available.
+- Drastic Performance Bump: Up to 50% faster queries accross the board and reduced server memory usage by 40% by switching Database Query method from mysqli_fetch_array to mysqli_fetch_assoc.
+- Added Connect to Microsoft 365 Button to mail settings.
+- OAUTH2 support for Microsoft 365 and Google Workspaces is now considered stable and working.
+- Favorites: Assets and Credentials now can be favorited singly or by Bulk action. Favorited items appear in the client overview now.
+- Files/Documents: Collapsable folders feature, collapsed by default with a button to expand all.
+- URL Keys and such are now set to a more manageable 32 Characters by default.
+- Various UI/UX Updates throughout the app, with focus oin ticket details, contact details modal etc.
+- Added Show Archived files and documents to the files section.
+- Added Bulk Archive and restore options to files and documents.
+- Rewrite of the Kanban Ticket view to match our procedural style of coding.
+- All options are available in TinyMCE now in Mobile mode.
+- Agent names appear now in Invoice History section.
+- Mail Parser: Support flowed text.
+- Assets: Keep Purchase reference when copying.
+- Assets: Add basic tracking history: Archiving, restoring, name changes, transferimg to new clients.
+- Mail Parser: NDR Parsing.
+- Allow SVG files in mail attachments.
+- Tickets: Use a more friendly time worked instead of 02:41:00 translates to 2h 41m.
+- Update wording on ticket to invoice item details.
+- Merge Tickets: Now wth a ticket merge dropdown list of tickets instead of a text field.
+- Role Permissions can now be set during role creation, update Permission UI to use radio buttons instead of select boxes.
+- Bump TinyMCE 8.2.2 to 8.3.2.
+- Bump PHPMailer from 7.0.1 to 7.0.2.
+- Bump Datatables from 2.3.4 to 2.3.7.
+
 ## [25.12.1] Maint Release
 
 ### Major Changes

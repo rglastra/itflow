@@ -87,7 +87,7 @@ if (isset($_POST['edit_contact'])) {
 
     // Get Exisiting Contact Photo and contact_user_id
     $sql = mysqli_query($mysqli,"SELECT contact_photo, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $existing_file_name = sanitizeInput($row['contact_photo']);
     $contact_user_id = intval($row['contact_user_id']);
 
@@ -172,7 +172,7 @@ if (isset($_POST['edit_contact'])) {
 
         // Get Company Phone Number
         $sql = mysqli_query($mysqli,"SELECT company_name, company_phone FROM companies WHERE company_id = 1");
-        $row = mysqli_fetch_array($sql);
+        $row = mysqli_fetch_assoc($sql);
         $company_name = sanitizeInput($row['company_name']);
         $company_phone = sanitizeInput(formatPhoneNumber($row['company_phone']));
 
@@ -226,7 +226,7 @@ if (isset($_POST['add_contact_note'])) {
 
     // Get Contact details for logging and alerting
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
 
@@ -251,7 +251,7 @@ if (isset($_GET['archive_contact_note'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_note_type, contact_id, contact_name, contact_client_id FROM contact_notes LEFT JOIN contacts ON contact_id = contact_note_contact_id WHERE contact_note_id = $contact_note_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_note_type = sanitizeInput($row['contact_note_type']);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
@@ -275,7 +275,7 @@ if (isset($_GET['unarchive_contact_note'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_note_type, contact_id, contact_name, contact_client_id FROM contact_notes LEFT JOIN contacts ON contact_id = contact_note_contact_id WHERE contact_note_id = $contact_note_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_note_type = sanitizeInput($row['contact_note_type']);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
@@ -299,7 +299,7 @@ if (isset($_GET['delete_contact_note'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_note_type, contact_id, contact_name, contact_client_id FROM contact_notes LEFT JOIN contacts ON contact_id = contact_note_contact_id WHERE contact_note_id = $contact_note_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_note_type = sanitizeInput($row['contact_note_type']);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
@@ -323,7 +323,7 @@ if (isset($_POST['bulk_assign_contact_location'])) {
 
     // Get Location name for logging and Notification
     $sql = mysqli_query($mysqli,"SELECT location_name, location_client_id FROM locations WHERE location_id = $location_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $location_name = sanitizeInput($row['location_name']);
     $client_id = intval($row['location_client_id']);
 
@@ -338,7 +338,7 @@ if (isset($_POST['bulk_assign_contact_location'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT contact_name FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
 
             mysqli_query($mysqli,"UPDATE contacts SET contact_location_id = $location_id WHERE contact_id = $contact_id");
@@ -373,7 +373,7 @@ if (isset($_POST['bulk_edit_contact_phone'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
 
@@ -409,7 +409,7 @@ if (isset($_POST['bulk_edit_contact_department'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
 
@@ -447,7 +447,7 @@ if (isset($_POST['bulk_edit_contact_role'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
 
@@ -483,7 +483,7 @@ if (isset($_POST['bulk_assign_contact_tags'])) {
 
             // Get Contact Details for Logging
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
 
@@ -534,7 +534,7 @@ if (isset($_POST['send_bulk_mail_now'])) {
             $contact_id = intval($contact_id);
 
             $sql = mysqli_query($mysqli,"SELECT * FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $contact_email = sanitizeInput($row['contact_email']);
             $client_id = intval($row['contact_client_id']);
@@ -579,7 +579,7 @@ if (isset($_POST['bulk_archive_contacts'])) {
 
             // Get Contact Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_primary, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $contact_primary = intval($row['contact_primary']);
             $client_id = intval($row['contact_client_id']);
@@ -628,7 +628,7 @@ if (isset($_POST['bulk_unarchive_contacts'])) {
 
             // Get Contact Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
             $contact_user_id = intval($row['contact_user_id']);
@@ -671,7 +671,7 @@ if (isset($_POST['bulk_delete_contacts'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
             $contact_user_id = intval($row['contact_user_id']);
@@ -705,7 +705,7 @@ if (isset($_GET['anonymize_contact'])) {
 
     // Get contact & client info
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_email, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $contact_name = sanitizeInput($row['contact_name']);
     $contact_first_name = explode(" ", $contact_name)[0];
@@ -745,7 +745,7 @@ if (isset($_GET['anonymize_contact'])) {
 
     // Redact audit logs
     $log_sql = mysqli_query($mysqli, "SELECT * FROM logs WHERE log_client_id =  $client_id");
-    while ($log = mysqli_fetch_array($log_sql)) {
+    while ($log = mysqli_fetch_assoc($log_sql)) {
         $log_id = intval($log['log_id']);
         $description = $log['log_description'];
         $description = str_ireplace($info_to_redact, "*****", $description);
@@ -757,7 +757,7 @@ if (isset($_GET['anonymize_contact'])) {
 
     // Get all tickets this contact raised
     $contact_tickets_sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_client_id = $client_id AND ticket_contact_id =  $contact_id");
-    while ($ticket = mysqli_fetch_array($contact_tickets_sql)) {
+    while ($ticket = mysqli_fetch_assoc($contact_tickets_sql)) {
 
         $ticket_id = intval($ticket['ticket_id']);
 
@@ -777,7 +777,7 @@ if (isset($_GET['anonymize_contact'])) {
         // Redact contact name or email in the replies of all tickets they raised
         $ticket_replies_sql = mysqli_query($mysqli, "SELECT * FROM ticket_replies WHERE ticket_reply_ticket_id = $ticket_id");
 
-        while($ticket_reply = mysqli_fetch_array($ticket_replies_sql)) {
+        while($ticket_reply = mysqli_fetch_assoc($ticket_replies_sql)) {
             $ticket_reply_id = intval($ticket_reply['ticket_reply_id']);
             $ticket_reply_details = $ticket_reply['ticket_reply'];
             $ticket_reply_details = str_ireplace($info_to_redact, "*****", $ticket_reply_details);
@@ -809,7 +809,7 @@ if (isset($_GET['archive_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -837,7 +837,7 @@ if (isset($_GET['unarchive_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -865,7 +865,7 @@ if (isset($_GET['delete_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -894,7 +894,7 @@ if (isset($_POST['link_contact_to_asset'])) {
 
     // Get Asset Name and Client ID for logging
     $sql_asset = mysqli_query($mysqli,"SELECT asset_name, asset_client_id FROM assets WHERE asset_id = $asset_id");
-    $row = mysqli_fetch_array($sql_asset);
+    $row = mysqli_fetch_assoc($sql_asset);
     $asset_name = sanitizeInput($row['asset_name']);
     $client_id = intval($row['asset_client_id']);
 
@@ -920,7 +920,7 @@ if (isset($_GET['unlink_asset_from_contact'])) {
 
     // Get asset Name and Client ID for logging
     $sql_asset = mysqli_query($mysqli,"SELECT asset_name, asset_client_id FROM assets WHERE asset_id = $asset_id");
-    $row = mysqli_fetch_array($sql_asset);
+    $row = mysqli_fetch_assoc($sql_asset);
     $asset_name = sanitizeInput($row['asset_name']);
     $client_id = intval($row['asset_client_id']);
 
@@ -946,7 +946,7 @@ if (isset($_POST['link_software_to_contact'])) {
 
     // Get software Name and Client ID for logging
     $sql_software = mysqli_query($mysqli,"SELECT software_name, software_client_id FROM software WHERE software_id = $software_id");
-    $row = mysqli_fetch_array($sql_software);
+    $row = mysqli_fetch_assoc($sql_software);
     $software_name = sanitizeInput($row['software_name']);
     $client_id = intval($row['software_client_id']);
 
@@ -972,7 +972,7 @@ if (isset($_GET['unlink_software_from_contact'])) {
 
     // Get software Name and Client ID for logging
     $sql_software = mysqli_query($mysqli,"SELECT software_name, software_client_id FROM software WHERE software_id = $software_id");
-    $row = mysqli_fetch_array($sql_software);
+    $row = mysqli_fetch_assoc($sql_software);
     $software_name = sanitizeInput($row['software_name']);
     $client_id = intval($row['software_client_id']);
 
@@ -998,7 +998,7 @@ if (isset($_POST['link_contact_to_credential'])) {
 
     // Get credential Name and Client ID for logging
     $sql_credential = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql_credential);
+    $row = mysqli_fetch_assoc($sql_credential);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -1024,7 +1024,7 @@ if (isset($_GET['unlink_credential_from_contact'])) {
 
     // Get credential Name and Client ID for logging
     $sql_credential = mysqli_query($mysqli,"SELECT credential_name, credential_client_id FROM credentials WHERE credential_id = $credential_id");
-    $row = mysqli_fetch_array($sql_credential);
+    $row = mysqli_fetch_assoc($sql_credential);
     $credential_name = sanitizeInput($row['credential_name']);
     $client_id = intval($row['credential_client_id']);
 
@@ -1050,7 +1050,7 @@ if (isset($_POST['link_service_to_contact'])) {
 
     // Get service Name and Client ID for logging
     $sql_service = mysqli_query($mysqli,"SELECT service_name, service_client_id FROM services WHERE service_id = $service_id");
-    $row = mysqli_fetch_array($sql_service);
+    $row = mysqli_fetch_assoc($sql_service);
     $service_name = sanitizeInput($row['service_name']);
     $client_id = intval($row['service_client_id']);
 
@@ -1076,7 +1076,7 @@ if (isset($_GET['unlink_service_from_contact'])) {
 
     // Get service Name and Client ID for logging
     $sql_service = mysqli_query($mysqli,"SELECT service_name, service_client_id FROM services WHERE service_id = $service_id");
-    $row = mysqli_fetch_array($sql_service);
+    $row = mysqli_fetch_assoc($sql_service);
     $service_name = sanitizeInput($row['service_name']);
     $client_id = intval($row['service_client_id']);
 
@@ -1102,7 +1102,7 @@ if (isset($_POST['link_contact_to_file'])) {
 
     // Get file Name and Client ID for logging
     $sql_file = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql_file);
+    $row = mysqli_fetch_assoc($sql_file);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -1129,7 +1129,7 @@ if (isset($_GET['unlink_contact_from_file'])) {
 
     // Get file Name and Client ID for logging
     $sql_file = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql_file);
+    $row = mysqli_fetch_assoc($sql_file);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
