@@ -71,6 +71,12 @@
                             <p>Unbilled Tickets</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/agent/reports/client_ticket_time_detail.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "client_ticket_time_detail.php") { echo "active"; } ?>">
+                            <i class="nav-icon fas fa-life-ring"></i>
+                            <p>Client Time Detail Audit</p>
+                        </a>
+                    </li>
 
                 <?php } // End financial reports IF statement ?>
 
