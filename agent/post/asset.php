@@ -376,8 +376,8 @@ if (isset($_POST['bulk_transfer_client_asset'])) {
 
             // Create new asset
             mysqli_query($mysqli, "
-                INSERT INTO assets (asset_type, asset_name, asset_description, asset_make, asset_model, asset_serial, asset_os, asset_status, asset_purchase_date, asset_warranty_expire, asset_install_date, asset_notes, asset_important)
-                SELECT asset_type, asset_name, asset_description, asset_make, asset_model, asset_serial, asset_os, asset_status, asset_purchase_date, asset_warranty_expire, asset_install_date, asset_notes, asset_important
+                INSERT INTO assets (asset_type, asset_name, asset_description, asset_make, asset_model, asset_serial, asset_os, asset_status, asset_purchase_date, asset_warranty_expire, asset_install_date, asset_notes, asset_favorite)
+                SELECT asset_type, asset_name, asset_description, asset_make, asset_model, asset_serial, asset_os, asset_status, asset_purchase_date, asset_warranty_expire, asset_install_date, asset_notes, asset_favorite
                 FROM assets
                 WHERE asset_id = $current_asset_id
             ");
