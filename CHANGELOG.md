@@ -9,6 +9,7 @@ This file documents all notable changes made to ITFlow.
 - Ticket Merge: Fix.
 - Asset Transfer: Fix.
 - Ticket Listing: Restrict Tickets presented in ticket list view from client restricted agents.
+- Ticket Details: Deny access to client restricted agents to view tickets without client_id in uri.
 
 ### New Features & Updates 
 - Report: Added Client Detail Auditing.
