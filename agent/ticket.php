@@ -9,6 +9,12 @@ if (isset($_GET['client_id'])) {
     $client_url = '';
 }
 
+// Ticket client access overide
+$access_permission_query_overide = '';
+if (!empty($client_access_string)) {
+    $access_permission_query_overide = "AND ticket_client_id IN (0,$client_access_string)";
+}
+
 // Perms
 enforceUserPermission('module_support');
 
@@ -39,7 +45,7 @@ if (isset($_GET['ticket_id'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         LEFT JOIN categories ON ticket_category = category_id
         WHERE ticket_id = $ticket_id
-        $access_permission_query
+        $access_permission_query_overide
         LIMIT 1"
     );
 

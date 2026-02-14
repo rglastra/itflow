@@ -64,7 +64,7 @@ $sql = mysqli_query(
         ticket_vendor_ticket_number LIKE '%$q%'
     )
     $ticket_project_snippet
-    $ticket_permission_snippet
+    $access_permission_query_overide
     $ordering_snippet"
 );
 
