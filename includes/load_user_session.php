@@ -61,5 +61,5 @@ while ($row = mysqli_fetch_assoc($user_client_access_result)) {
 $client_access_string = implode(',', $client_access_array);
 $access_permission_query = "";
 if ($client_access_string && !$session_is_admin) {
-    $access_permission_query = "AND clients.client_id IN (0,$client_access_string)";
+    $access_permission_query = "AND clients.client_id IN ($client_access_string)";
 }
