@@ -319,7 +319,7 @@ if (isset($_GET['get_client_assets'])) {
         LEFT JOIN contacts ON contact_id = asset_contact_id
         WHERE assets.asset_archived_at IS NULL AND asset_client_id = $client_id
         $access_permission_query
-        ORDER BY asset_important DESC, asset_name"
+        ORDER BY asset_favorite DESC, asset_name"
     );
 
     while ($row = mysqli_fetch_assoc($asset_sql)) {

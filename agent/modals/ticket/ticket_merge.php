@@ -34,7 +34,7 @@ ob_start();
     </button>
 </div>
 <form action="post.php" method="post" autocomplete="off">
-    <input type="hidden" id="current_ticket_id" name="ticket_id" value="<?php echo $ticket_id; ?>">
+    <input type="hidden" id="current_ticket_id" name="ticket_id" value="<?= $ticket_id ?>">
     <div class="modal-body">
 
         <div class="alert alert-dark">
@@ -47,7 +47,7 @@ ob_start();
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
-                <select class="form-control select2" name="merge_into_ticket_number" required>
+                <select class="form-control select2" name="merge_into_ticket_id" required>
                     <option value=''>- Select a Ticket -</option>
                     <?php
                     while ($row = mysqli_fetch_assoc($sql_merge)) {

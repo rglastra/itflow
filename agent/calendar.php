@@ -178,8 +178,8 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 echo "{ id: $event_id, title: $event_title, start: $event_start, end: $event_end, color: $calendar_color },";
             }
 
-            //Invoices Created
-            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN invoices ON client_id = invoice_client_id $client_query");
+            // Invoices Created
+            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN invoices ON client_id = invoice_client_id $client_query $access_permission_query");
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['invoice_id']);
                 $scope = strval($row['invoice_scope']);
@@ -193,8 +193,8 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 echo "{ id: $event_id, title: $event_title, start: $event_start, display: 'list-item', color: 'blue', url: 'invoice.php?invoice_id=$event_id$client_url' },";
             }
 
-            //Quotes Created
-            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN quotes ON client_id = quote_client_id $client_query");
+            // Quotes Created
+            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN quotes ON client_id = quote_client_id $client_query $access_permission_query");
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['quote_id']);
                 $event_title = json_encode($row['quote_prefix'] . $row['quote_number'] . " " . $row['quote_scope']);
@@ -203,12 +203,12 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 echo "{ id: $event_id, title: $event_title, start: $event_start, display: 'list-item', color: 'purple', url: 'quote.php?quote_id=$event_id$client_url' },";
             }
 
-            //Tickets Created
+            // Tickets Created
             $sql = mysqli_query($mysqli, "SELECT * FROM clients
                 LEFT JOIN tickets ON client_id = ticket_client_id
                 LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
                 LEFT JOIN users ON ticket_assigned_to = user_id
-                $client_query"
+                $client_query $access_permission_query"
             );
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['ticket_id']);
@@ -242,7 +242,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
             $sql = mysqli_query($mysqli, "SELECT * FROM clients
                 LEFT JOIN recurring_tickets ON client_id = recurring_ticket_client_id
                 LEFT JOIN users ON recurring_ticket_assigned_to = user_id
-                $client_query"
+                $client_query $access_permission_query"
             );
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['recurring_ticket_id']);
@@ -262,12 +262,12 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 echo "{ id: $event_id, title: $event_title, start: $event_start, color: '$event_color', url: 'recurring_tickets.php?client_id=$client_id$client_url' },";
             }
 
-            //Tickets Scheduled
+            // Tickets Scheduled
             $sql = mysqli_query($mysqli, "SELECT * FROM clients
                 LEFT JOIN tickets ON client_id = ticket_client_id
                 LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
                 LEFT JOIN users ON ticket_assigned_to = user_id
-                $client_query AND ticket_schedule IS NOT NULL"
+                $client_query $access_permission_query AND ticket_schedule IS NOT NULL"
             );
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['ticket_id']);
@@ -297,8 +297,8 @@ while ($row = mysqli_fetch_assoc($sql)) {
                 echo "{ id: $event_id, title: $event_title, start: $event_start, color: '$event_color', url: 'ticket.php?ticket_id=$event_id$client_url' },";
             }
 
-            //Vendors Added Created
-            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN vendors ON client_id = vendor_client_id $client_query");
+            // Vendors Added Created
+            $sql = mysqli_query($mysqli, "SELECT * FROM clients LEFT JOIN vendors ON client_id = vendor_client_id $client_query $access_permission_query");
             while ($row = mysqli_fetch_assoc($sql)) {
                 $event_id = intval($row['vendor_id']);
                 $client_id = intval($row['client_id']);

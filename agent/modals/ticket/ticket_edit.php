@@ -2,9 +2,15 @@
 
 require_once '../../../includes/modal_header.php';
 
+// Ticket client access overide - This is the only way to show tickets without a client to agents with restricted client access
+$access_permission_query_overide = '';
+if ($client_access_string) {
+    $access_permission_query_overide = "AND ticket_client_id IN (0,$client_access_string)";
+}
+
 $ticket_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients ON client_id = ticket_client_id WHERE ticket_id = $ticket_id LIMIT 1");
+$sql = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients ON client_id = ticket_client_id WHERE ticket_id = $ticket_id $access_permission_query_overide LIMIT 1");
 
 $row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['client_id']);

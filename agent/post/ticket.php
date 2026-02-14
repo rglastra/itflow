@@ -1052,19 +1052,19 @@ if (isset($_POST['bulk_merge_tickets'])) {
 
     enforceUserPermission('module_support', 2);
 
-    $merge_into_ticket_number = intval($_POST['merge_into_ticket_number']); // Parent ticket *number*
+    $merge_into_ticket_id = intval($_POST['merge_into_ticket_id']); // Parent ticket id
     $merge_comment = sanitizeInput($_POST['merge_comment']); // Merge comment
     $ticket_reply_type = 'Internal'; // Default all replies to internal
 
     // NEW PARENT ticket details
     // Get merge into ticket id (as it may differ from the number)
-    $sql = mysqli_query($mysqli, "SELECT ticket_id FROM tickets WHERE ticket_number = $merge_into_ticket_number");
+    $sql = mysqli_query($mysqli, "SELECT ticket_id, ticket_number FROM tickets WHERE ticket_id = $merge_into_ticket_id");
     if (mysqli_num_rows($sql) == 0) {
         flash_alert("Cannot merge into that ticket.", 'error');
         redirect();
     }
     $merge_row = mysqli_fetch_assoc($sql);
-    $merge_into_ticket_id = intval($merge_row['ticket_id']); // Parent ticket ID
+    $merge_into_ticket_number = intval($merge_row['ticket_number']); // Parent ticket Number
 
     // Update & Close the selected tickets
     if (isset($_POST['ticket_ids'])) {
@@ -1815,7 +1815,7 @@ if (isset($_POST['merge_ticket'])) {
     enforceUserPermission('module_support', 2);
 
     $ticket_id = intval($_POST['ticket_id']); // Child ticket ID to be closed
-    $merge_into_ticket_number = intval($_POST['merge_into_ticket_number']); // Parent ticket *number*
+    $merge_into_ticket_id = intval($_POST['merge_into_ticket_id']); // Parent ticket id
     $merge_comment = sanitizeInput($_POST['merge_comment']); // Merge comment
     $move_replies = intval($_POST['merge_move_replies']); // Whether to move replies to the new parent ticket
     $ticket_reply_type = 'Internal'; // Default all replies to internal
@@ -1836,21 +1836,21 @@ if (isset($_POST['merge_ticket'])) {
 
     // NEW PARENT ticket details
     // Get merge into ticket id (as it may differ from the number)
-    $sql = mysqli_query($mysqli, "SELECT ticket_id, ticket_client_id FROM tickets WHERE ticket_number = $merge_into_ticket_number");
+    $sql = mysqli_query($mysqli, "SELECT ticket_id, ticket_number, ticket_client_id FROM tickets WHERE ticket_id = $merge_into_ticket_id");
     if (mysqli_num_rows($sql) == 0) {
         flash_alert("Cannot merge into that ticket.", 'error');
         redirect();
     }
     $merge_row = mysqli_fetch_assoc($sql);
-    $merge_into_ticket_id = intval($merge_row['ticket_id']);
     $client_id = intval($merge_row['ticket_client_id']);
+    $merge_into_ticket_number = intval($merge_row['ticket_number']);
     if ($client_id) {
         $has_client = "&client_id=$client_id";
     } else {
         $has_client = "";
     }
     // Sanity check
-    if ($ticket_number == $merge_into_ticket_number) {
+    if ($ticket_id == $merge_into_ticket_id) {
         flash_alert("Cannot merge into the same ticket.", 'error');
         redirect();
     }

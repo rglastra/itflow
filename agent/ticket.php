@@ -9,6 +9,12 @@ if (isset($_GET['client_id'])) {
     $client_url = '';
 }
 
+// Ticket client access overide - This is the only way to show tickets without a client to agents with restricted client access
+$access_permission_query_overide = '';
+if ($client_access_string) {
+    $access_permission_query_overide = "AND ticket_client_id IN (0,$client_access_string)";
+}
+
 // Perms
 enforceUserPermission('module_support');
 
@@ -39,6 +45,7 @@ if (isset($_GET['ticket_id'])) {
         LEFT JOIN ticket_statuses ON ticket_status = ticket_status_id
         LEFT JOIN categories ON ticket_category = category_id
         WHERE ticket_id = $ticket_id
+        $access_permission_query_overide
         LIMIT 1"
     );
 
@@ -349,11 +356,10 @@ if (isset($_GET['ticket_id'])) {
                         <i class="fa fa-fw fa-2x fa-life-ring mr-2"></i>
                         <div class="media-body">
                             <div class="text-bold">Ticket <?= "$ticket_prefix$ticket_number" ?>
-                                <span class='badge badge-pill text-light ml-1' style="background-color: <?= $ticket_status_color ?>">
+                                <span class='badge badge-pill text-light ml-1 p-2' style="background-color: <?= $ticket_status_color ?>">
                                     <?= $ticket_status_name ?>
                                 </span>
                             </div>
-                            <span class="text-secondary"><?= $ticket_subject ?></span>
                         </div>
                     </div>
                 </div>
@@ -439,10 +445,11 @@ if (isset($_GET['ticket_id'])) {
 
             <div class="card card-body">
 
-                <div title="<?php echo $ticket_updated_at; ?>">
+                <?php if ($ticket_updated_at) { ?>
+                <div title="<?= $ticket_updated_at ?>">
                     <i class="fa fa-fw fa-history text-secondary mr-2"></i>Updated: <strong><?= date('M d, Y • g:i A', strtotime($ticket_updated_at)) . "</strong> <span class='text-muted small'>($ticket_updated_at_ago)</span>" ?>
                 </div>
-
+                <?php } ?>
                 <!-- Ticket assign (disable if closed -->
                 <?php if (empty($ticket_closed_at)) { ?>
                     <div class="mt-1">
@@ -535,9 +542,7 @@ if (isset($_GET['ticket_id'])) {
                 <div class="card card-dark mb-3">
 
                     <div class="card-header px-3 py-2">
-                        <h5 class="card-title mt-1">
-                            Description / Comments
-                        </h5>
+                        <h5 class="card-title mt-1"><?= $ticket_subject ?></h5>
                         <?php if (empty($ticket_closed_at)) { ?>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool ajax-modal" data-modal-url="modals/ticket/ticket_edit.php?id=<?= $ticket_id ?>" data-modal-size="lg"><i class="fas fa-edit"></i></button>

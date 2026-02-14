@@ -4,7 +4,7 @@ require_once '../../../includes/modal_header.php';
 
 $client_id = intval($_GET['id']);
 
-$sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $client_id LIMIT 1");
+$sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_id = $client_id $access_permission_query LIMIT 1");
 
 $row = mysqli_fetch_assoc($sql);
 $client_name = nullable_htmlentities($row['client_name']);

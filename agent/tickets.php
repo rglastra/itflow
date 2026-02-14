@@ -88,15 +88,14 @@ if (isset($_GET['project']) & !empty($_GET['project']) && $_GET['project'] > '0'
     $ticket_project_filter_id = intval($_GET['project']);
 }
 
-// Ticket client access snippet
-$ticket_permission_snippet = '';
-if (!empty($client_access_string)) {
-    $ticket_permission_snippet = "AND ticket_client_id IN ($client_access_string)";
+// Ticket client access overide - This is the only way to show tickets without a client to agents with restricted client access
+$access_permission_query_overide = '';
+if ($client_access_string) {
+    $access_permission_query_overide = "AND ticket_client_id IN (0,$client_access_string)";
 }
 
 // Main ticket query:
-$sql = mysqli_query(
-    $mysqli,
+$query =
     "SELECT SQL_CALC_FOUND_ROWS * FROM tickets
     LEFT JOIN clients ON ticket_client_id = client_id
     LEFT JOIN contacts ON ticket_contact_id = contact_id
@@ -112,7 +111,7 @@ $sql = mysqli_query(
     AND (CONCAT(ticket_prefix,ticket_number) LIKE '%$q%' OR client_name LIKE '%$q%' OR ticket_subject LIKE '%$q%' OR ticket_status_name LIKE '%$q%' OR ticket_priority LIKE '%$q%' OR user_name LIKE '%$q%' OR contact_name LIKE '%$q%' OR asset_name LIKE '%$q%' OR vendor_name LIKE '%$q%' OR ticket_vendor_ticket_number LIKE '%q%')
     $ticket_billable_snippet
     $ticket_project_snippet
-    $ticket_permission_snippet
+    $access_permission_query_overide
     $client_query
     ORDER BY
         CASE
@@ -126,28 +125,29 @@ $sql = mysqli_query(
             ELSE NULL
         END $order,
         $sort $order  -- Apply normal sorting by $sort and $order
-    LIMIT $record_from, $record_to"
-);
+    LIMIT $record_from, $record_to";
+
+$sql = mysqli_query($mysqli,$query);
 
 $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 //Get Total tickets open
-$sql_total_tickets_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_open FROM tickets WHERE ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
+$sql_total_tickets_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_open FROM tickets WHERE ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
 $row = mysqli_fetch_assoc($sql_total_tickets_open);
 $total_tickets_open = intval($row['total_tickets_open']);
 
 //Get Total tickets closed
-$sql_total_tickets_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_closed FROM tickets WHERE ticket_resolved_at IS NOT NULL $client_query $ticket_permission_snippet");
+$sql_total_tickets_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_closed FROM tickets WHERE ticket_resolved_at IS NOT NULL $client_query $access_permission_query_overide");
 $row = mysqli_fetch_assoc($sql_total_tickets_closed);
 $total_tickets_closed = intval($row['total_tickets_closed']);
 
 //Get Unassigned tickets
-$sql_total_tickets_unassigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_unassigned FROM tickets WHERE ticket_assigned_to = '0' AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
+$sql_total_tickets_unassigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_unassigned FROM tickets WHERE ticket_assigned_to = '0' AND ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
 $row = mysqli_fetch_assoc($sql_total_tickets_unassigned);
 $total_tickets_unassigned = intval($row['total_tickets_unassigned']);
 
 //Get Total tickets assigned to me
-$sql_total_tickets_assigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_assigned FROM tickets WHERE ticket_assigned_to = $session_user_id AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
+$sql_total_tickets_assigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_assigned FROM tickets WHERE ticket_assigned_to = $session_user_id AND ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
 $row = mysqli_fetch_assoc($sql_total_tickets_assigned);
 $user_active_assigned_tickets = intval($row['total_tickets_assigned']);
 
@@ -158,8 +158,6 @@ $sql_categories_filter = mysqli_query(
     AND category_archived_at IS NULL
     ORDER BY category_name"
 );
-
-
 
 ?>
     <style>

@@ -260,6 +260,8 @@ ob_start();
     </div>
 </form>
 
+<script src="/agent/js/generate_password.js"></script>
+
 <?php
 
 require_once '../../../includes/modal_footer.php';

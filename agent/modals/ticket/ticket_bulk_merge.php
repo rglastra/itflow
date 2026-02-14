@@ -47,7 +47,7 @@ ob_start();
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
-                <select class="form-control select2" name="merge_into_ticket_number" required>
+                <select class="form-control select2" name="merge_into_ticket_id" required>
                     <option value=''>- Select a Ticket -</option>
                     <?php
                     while ($row = mysqli_fetch_assoc($sql_merge)) {
