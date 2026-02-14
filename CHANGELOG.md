@@ -2,6 +2,18 @@
 
 This file documents all notable changes made to ITFlow.
 
+## [26.02.1] Maint Release
+### Bug Fixes
+- Credentials: Fix Password Generator.
+- Calendar: Restrict Events for client restricted agents. 
+- Ticket Merge: Fix.
+- Asset Transfer: Fix.
+
+### New Features & Updates 
+- Report: Added Client Detail Auditing.
+- API: Added Endpoint to retrieve time worked by agent.
+- ajax-modal: Revert to previous JS implementation before 26.02 release.
+
 ## [26.02] Stable Release
 ### Bug Fixes
 - Mail Parser - Do not automatically send new ticket notifications to noreply/donotreply addresses.
