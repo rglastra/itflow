@@ -314,4 +314,4 @@ $lang['this month'] = 'Deze Maand';
 $lang['last month'] = 'Vorige Maand';
 $lang['this year'] = 'Dit Jaar';
 $lang['last year'] = 'Vorig Jaar';
-$lang['all time'] = 'Alle Tijd';
+$lang['all time'] = 'Alles';
