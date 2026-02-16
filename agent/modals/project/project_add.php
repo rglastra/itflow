@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-project-diagram mr-2"></i>New Project</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-project-diagram mr-2"></i><?php echo __('New Project'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -21,13 +21,13 @@ ob_start();
             <input type="hidden" name="client_id" value="<?= $client_id ?>">
         <?php } else { ?>
             <div class="form-group">
-                <label>Client</label>
+                <label><?php echo __('Client'); ?></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
                     </div>
                     <select class="form-control select2" name="client_id">
-                        <option value="0">- No Client -</option>
+                        <option value="0"><?php echo __('- No Client -'); ?></option>
                         <?php
                         $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
                         while ($row = mysqli_fetch_assoc($sql)) {
@@ -42,23 +42,23 @@ ob_start();
         <?php } ?>
 
         <div class="form-group">
-            <label>Project Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Project Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-project-diagram"></i></span>
                 </div>
-                <input type="text" class="form-control" name="name" placeholder="Project Name" maxlength="255" required autofocus>
+                <input type="text" class="form-control" name="name" placeholder="<?php echo __('Project Name'); ?>" maxlength="255" required autofocus>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Template</label>
+            <label><?php echo __('Template'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                 </div>
                 <select class="form-control select2" name="project_template_id">
-                    <option value="">- Template -</option>
+                    <option value=""><?php echo __('- Template -'); ?></option>
                     <?php
                     $sql = mysqli_query($mysqli, "SELECT * FROM project_templates WHERE project_template_archived_at IS NULL ORDER BY project_template_name ASC");
                     while ($row = mysqli_fetch_assoc($sql)) {
@@ -72,18 +72,18 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Description</label>
+            <label><?php echo __('Description'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                 </div>
-                <input type="text" class="form-control" name="description" placeholder="Description">
+                <input type="text" class="form-control" name="description" placeholder="<?php echo __('Description'); ?>">
             </div>
         </div>
 
 
         <div class="form-group">
-            <label>Date Due <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Date Due'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -93,13 +93,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Project Manager</label>
+            <label><?php echo __('Project Manager'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user-tie"></i></span>
                 </div>
                 <select class="form-control select2" name="project_manager">
-                    <option value="0">No Manager</option>
+                    <option value="0"><?php echo __('No Manager'); ?></option>
                     <?php
 
                     $sql = mysqli_query(
@@ -118,8 +118,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

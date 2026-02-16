@@ -22,7 +22,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-redo-alt mr-2"></i>Editing Recur Invoice: <strong><?php echo "$recurring_invoice_prefix$recurring_invoice_number"; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-redo-alt mr-2"></i><?php echo sprintf(__('Editing Recurring Invoice: %s'), "$recurring_invoice_prefix$recurring_invoice_number"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -33,12 +33,12 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Scope</label>
+            <label><?php echo __('Scope'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-comment"></i></span>
                 </div>
-                <input type="text" class="form-control" name="scope" placeholder="Quick description" maxlength="255" value="<?php echo $recurring_invoice_scope; ?>">
+                <input type="text" class="form-control" name="scope" placeholder="<?php echo __('Quick description'); ?>" maxlength="255" value="<?php echo $recurring_invoice_scope; ?>">
             </div>
         </div>
 

@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fa fa-fw fa-calendar-plus mr-2"></i>New Event</h5>
+                <h5 class="modal-title"><i class="fa fa-fw fa-calendar-plus mr-2"></i><?php echo __('New Event'); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -12,13 +12,13 @@
 
                     <ul class="nav nav-pills nav-justified mb-3">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#pills-event"><i class="fa fa-fw fa-calendar mr-2"></i>Event</a>
+                            <a class="nav-link active" data-toggle="pill" href="#pills-event"><i class="fa fa-fw fa-calendar mr-2"></i><?php echo __('Event'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#pills-details"><i class="fa fa-fw fa-info-circle mr-2"></i>Details</a>
+                            <a class="nav-link" data-toggle="pill" href="#pills-details"><i class="fa fa-fw fa-info-circle mr-2"></i><?php echo __('Details'); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#pills-attendees"><i class="fa fa-fw fa-users mr-2"></i>Attendees</a>
+                            <a class="nav-link" data-toggle="pill" href="#pills-attendees"><i class="fa fa-fw fa-users mr-2"></i><?php echo __('Attendees'); ?></a>
                         </li>
                     </ul>
 
@@ -29,23 +29,23 @@
                         <div class="tab-pane fade show active" id="pills-event">
 
                             <div class="form-group">
-                                <label>Title <strong class="text-danger">*</strong></label>
+                                <label><?php echo __('Title'); ?> <strong class="text-danger">*</strong></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-fw fa-calendar-day"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="title" placeholder="Title of the event" maxlength="200" required autofocus>
+                                    <input type="text" class="form-control" name="title" placeholder="<?php echo __('Title of the event'); ?>" maxlength="200" required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Calendar <strong class="text-danger">*</strong></label>
+                                <label><?php echo __('Calendar'); ?> <strong class="text-danger">*</strong></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
                                     </div>
                                     <select class="form-control select2" name="calendar" required>
-                                        <option value="">- Calendar -</option>
+                                        <option value=""><?php echo __('- Calendar -'); ?></option>
                                         <?php
 
                                         $sql = mysqli_query($mysqli, "SELECT * FROM calendars ORDER BY calendar_name ASC");
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Start / End <strong class="text-danger">*</strong></label>
+                                <label><?php echo __('Start / End'); ?> <strong class="text-danger">*</strong></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-fw fa-calendar-check"></i></span>

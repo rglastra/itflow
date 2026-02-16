@@ -21,7 +21,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i>Link open ticket(s) to project: <strong><?php echo $project_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo sprintf(__('Link open ticket(s) to project: %s'), $project_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -31,12 +31,12 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Tickets <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Tickets'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-life-ring"></i></span>
                 </div>
-                <select class="form-control select2" data-placeholder="- Select Tickets- " multiple name="tickets[]" required>
+                <select class="form-control select2" data-placeholder="<?php echo __('- Select Tickets -'); ?>" multiple name="tickets[]" required>
                     <?php
 
                     $sql_tickets_select = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients on ticket_client_id = client_id WHERE ticket_project_id = 0 AND ticket_closed_at IS NULL $client_ticket_select_query");
@@ -59,8 +59,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="link_ticket_to_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Link Ticket(s)</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_ticket_to_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Link Ticket(s)'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

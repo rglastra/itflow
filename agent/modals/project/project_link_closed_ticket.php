@@ -20,7 +20,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i>Link closed ticket to project: <strong><?php echo $project_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo sprintf(__('Link closed ticket to project: %s'), $project_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -30,7 +30,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Ticket number <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Ticket number'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <?php
@@ -44,15 +44,15 @@ ob_start();
                     }
                     ?>
                 </div>
-                <input type="text" class="form-control" name="ticket_number" inputmode="numeric" pattern="[0-9]*\.?[0-9]{0,2}" placeholder="Closed ticket number to link with project" required>
+                <input type="text" class="form-control" name="ticket_number" inputmode="numeric" pattern="[0-9]*\.?[0-9]{0,2}" placeholder="<?php echo __('Closed ticket number to link with project'); ?>" required>
             </div>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="link_closed_ticket_to_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Link Ticket</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_closed_ticket_to_project" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Link Ticket'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

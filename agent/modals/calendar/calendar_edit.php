@@ -25,17 +25,17 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Name</label>
+            <label><?php echo __('Name'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
                 </div>
-                <input type="text" class="form-control" name="name" placeholder="Name your calendar" maxlength="200" value="<?php echo $calendar_name; ?>" required>
+                <input type="text" class="form-control" name="name" placeholder="<?php echo __('Name your calendar'); ?>" maxlength="200" value="<?php echo $calendar_name; ?>" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Color <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Color'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-paint-brush"></i></span>
@@ -46,8 +46,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_calendar" class="btn btn-primary"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_calendar" class="btn btn-primary"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

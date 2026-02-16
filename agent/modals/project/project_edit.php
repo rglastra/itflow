@@ -27,7 +27,7 @@ ob_start();
 
 <div class="modal-header bg-dark">
     <h5 class="modal-title">
-        <i class="fas fa-fw fa-project-diagram mr-2"></i>Editing Project: <strong><?php echo $project_name; ?></strong>
+        <i class="fas fa-fw fa-project-diagram mr-2"></i><?php echo sprintf(__('Editing Project: %s'), $project_name); ?>
     </h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
@@ -37,12 +37,12 @@ ob_start();
     <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
     <div class="modal-body">
         <div class="form-group">
-            <label>Project Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Project Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-project-diagram"></i></span>
                 </div>
-                <input type="text" class="form-control" name="name" placeholder="Project Name" maxlength="255" value="<?php echo $project_name; ?>" required autofocus>
+                <input type="text" class="form-control" name="name" placeholder="<?php echo __('Project Name'); ?>" maxlength="255" value="<?php echo $project_name; ?>" required autofocus>
             </div>
         </div>
         <div class="form-group">

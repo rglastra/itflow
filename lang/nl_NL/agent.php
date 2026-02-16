@@ -1550,4 +1550,60 @@ $lang['New License from Template'] = 'Nieuwe Licentie uit Sjabloon';
 $lang['Template'] = 'Sjabloon';
 $lang['- Select Template -'] = '- Selecteer Sjabloon -';
 $lang['Export Licenses to CSV'] = 'Licenties naar CSV Exporteren';
+
+// Project modals
+$lang['New Project'] = 'Nieuw Project';
+$lang['Editing Project: %s'] = 'Project Bewerken: %s';
+$lang['Project Name'] = 'Projectnaam';
+$lang['Project name'] = 'Projectnaam';
+$lang['- No Client -'] = '- Geen Client -';
+$lang['Date Due'] = 'Vervaldatum';
+$lang['Project Manager'] = 'Projectmanager';
+$lang['- Template -'] = '- Sjabloon -';
+$lang['No Manager'] = 'Geen Manager';
+
+// Recurring Invoice modals  
+$lang['Editing Recur Invoice: %s'] = 'Terugkerende Factuur Bewerken: %s';
+$lang['Quick description'] = 'Korte beschrijving';
+$lang['quick description'] = 'korte beschrijving';
+$lang['- client -'] = '- client -';
+$lang['Start Date'] = 'Startdatum';
+$lang['frequency'] = 'frequentie';
+$lang['- frequency -'] = '- frequentie -';
+$lang['Monthly'] = 'Maandelijks';
+$lang['Yearly'] = 'Jaarlijks';
+$lang['- category -'] = '- categorie -';
+$lang['Scope'] = 'Reikwijdte';
+
+// Calendar modals
+$lang['New Calendar'] = 'Nieuwe Kalender';
+$lang['Name your calendar'] = 'Geef uw kalender een naam';
+$lang['Color'] = 'Kleur';
+$lang['Calendar Event'] = 'Kalender Evenement';
+$lang['New Event'] = 'Nieuw Evenement';
+$lang['Editing Event'] = 'Evenement Bewerken';
+$lang['Event Name'] = 'Nombreevenement';
+$lang['Event name'] = 'Nomevenement';
+$lang['Event name placeholder'] = 'Vul in wat er op het evenement staat';
+$lang['Start'] = 'Start';
+$lang['End'] = 'Einde';
+
+// Additional translations for Project, Recurring Invoice, Calendar
+$lang['Link open ticket(s) to project: %s'] = 'Open ticket(s) aan project koppelen: %s';
+$lang['Link Ticket(s)'] = 'Ticket(s) Koppelen';
+$lang['- Select Tickets -'] = '- Selecteer Tickets -';
+$lang['Tickets'] = 'Tickets';
+$lang['Link closed ticket to project: %s'] = 'Gesloten ticket aan project koppelen: %s';
+$lang['Ticket number'] = 'Ticketnummer';
+$lang['Closed ticket number to link with project'] = 'Gesloten ticketnummer om met project te koppelen';
+$lang['Link Ticket'] = 'Ticket Koppelen';
+$lang['Editing Recurring Invoice: %s'] = 'Terugkerende Factuur Bewerken: %s';
+$lang['Export Recurring Invoices to CSV'] = 'Terugkerende Facturen naar CSV Exporteren';
+$lang['Title'] = 'Titel';
+$lang['Title of the event'] = 'Titel van het evenement';
+$lang['- Calendar -'] = '- Kalender -';
+$lang['Start / End'] = 'Begin / Einde';
+$lang['Event'] = 'Evenement';
+$lang['Attendees'] = 'Aanwezigen';
+$lang['Title'] = 'Titel';
 ?>            

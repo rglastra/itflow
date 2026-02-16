@@ -35,13 +35,13 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-event<?php echo $event_id; ?>"><i class="fa fa-fw fa-calendar mr-2"></i>Event</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-event<?php echo $event_id; ?>"><i class="fa fa-fw fa-calendar mr-2"></i><?php echo __('Event'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-details<?php echo $event_id; ?>"><i class="fa fa-fw fa-info-circle mr-2"></i>Details</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-details<?php echo $event_id; ?>"><i class="fa fa-fw fa-info-circle mr-2"></i><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-attendees<?php echo $event_id; ?>"><i class="fa fa-fw fa-users mr-2"></i>Attendees</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-attendees<?php echo $event_id; ?>"><i class="fa fa-fw fa-users mr-2"></i><?php echo __('Attendees'); ?></a>
             </li>
         </ul>
 
@@ -52,17 +52,17 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-event<?php echo $event_id; ?>">
 
                 <div class="form-group">
-                    <label>Title <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Title'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-day"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="title" maxlength="200" value="<?php echo $event_title; ?>" placeholder="Title of the event" required>
+                        <input type="text" class="form-control" name="title" maxlength="200" value="<?php echo $event_title; ?>" placeholder="<?php echo __('Title of the event'); ?>" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Calendar <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Calendar'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
