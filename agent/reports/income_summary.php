@@ -29,7 +29,7 @@ $largest_income_month = 0;
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-coins mr-2"></i>Income Summary</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-coins mr-2"></i><?php echo __('income_summary'); ?></h3>
         <div class="card-tools">
             <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
         </div>
@@ -55,19 +55,19 @@ $largest_income_month = 0;
                 <thead>
                 <tr>
                     <th>Category</th>
-                    <th class="text-right">January</th>
-                    <th class="text-right">February</th>
-                    <th class="text-right">March</th>
-                    <th class="text-right">April</th>
-                    <th class="text-right">May</th>
-                    <th class="text-right">June</th>
-                    <th class="text-right">July</th>
-                    <th class="text-right">August</th>
-                    <th class="text-right">September</th>
-                    <th class="text-right">October</th>
-                    <th class="text-right">November</th>
-                    <th class="text-right">December</th>
-                    <th class="text-right">Total</th>
+                    <th class="text-right"><?php echo __('january'); ?></th>
+                    <th class="text-right"><?php echo __('february'); ?></th>
+                    <th class="text-right"><?php echo __('march'); ?></th>
+                    <th class="text-right"><?php echo __('april'); ?></th>
+                    <th class="text-right"><?php echo __('may'); ?></th>
+                    <th class="text-right"><?php echo __('june'); ?></th>
+                    <th class="text-right"><?php echo __('july'); ?></th>
+                    <th class="text-right"><?php echo __('august'); ?></th>
+                    <th class="text-right"><?php echo __('september'); ?></th>
+                    <th class="text-right"><?php echo __('october'); ?></th>
+                    <th class="text-right"><?php echo __('november'); ?></th>
+                    <th class="text-right"><?php echo __('december'); ?></th>
+                    <th class="text-right"><?php echo __('total'); ?></th>
                 </tr>
                 </thead>
                 <tbody>

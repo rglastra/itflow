@@ -8,7 +8,7 @@ enforceUserPermission('module_financial');
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-exclamation-triangle mr-2"></i>Clients with a Balance</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-exclamation-triangle mr-2"></i><?php echo __('clients_with_balance'); ?></h3>
         <div class="card-tools">
             <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
         </div>
@@ -53,8 +53,8 @@ enforceUserPermission('module_financial');
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Client</th>
-                    <th class="text-right">Balance</th>
+                    <th><?php echo __('client'); ?></th>
+                    <th class="text-right"><?php echo __('balance'); ?></th>
                 </tr>
                 </thead>
                 <tbody>
