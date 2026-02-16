@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a href="/agent/dashboard.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "dashboard.php") { echo "active"; } ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
+                        <p><?php echo __('dashboard'); ?></p>
                     </a>
                 </li>
                 <?php if (lookupUserPermission("module_client") >= 1) { ?>
@@ -23,9 +23,9 @@
                         <a href="/agent/clients.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "clients.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
-                                Clients
+                                <?php echo __('clients'); ?>
                                 <?php if ($num_active_clients) { ?>
-                                    <span class="right badge text-light" data-toggle="tooltip" title="Active Clients"><?php echo $num_active_clients; ?></span>
+                                    <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('active_clients'); ?>"><?php echo $num_active_clients; ?></span>
                                 <?php } ?>
                             </p>
                         </a>
@@ -34,14 +34,14 @@
 
                 <?php if (lookupUserPermission("module_support") >= 1) { ?>
                     <?php if ($config_module_enable_ticketing == 1) { ?>
-                        <li class="nav-header mt-3">SUPPORT</li>
+                        <li class="nav-header mt-3"><?php echo __('nav_support'); ?></li>
                         <li class="nav-item">
                             <a href="/agent/tickets.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "tickets.php" || basename($_SERVER["PHP_SELF"]) == "ticket.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-life-ring"></i>
                                 <p>
-                                    Tickets
+                                    <?php echo __('tickets'); ?>
                                     <?php if ($num_active_tickets) { ?>
-                                        <span class="right badge text-light" data-toggle="tooltip" title="Open Tickets"><?php echo $num_active_tickets; ?></span>
+                                        <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('open_tickets'); ?>"><?php echo $num_active_tickets; ?></span>
                                     <?php } ?>
                                 </p>
                             </a>
@@ -50,9 +50,9 @@
                             <a href="/agent/recurring_tickets.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "recurring_tickets.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-redo-alt"></i>
                                 <p>
-                                    Recurring Tickets
+                                    <?php echo __('recurring_tickets'); ?>
                                     <?php if ($num_recurring_tickets) { ?>
-                                        <span class="right badge text-light" data-toggle="tooltip" title="Active Recurring Tickets"><?php echo $num_recurring_tickets; ?></span>
+                                        <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('active_recurring_tickets'); ?>"><?php echo $num_recurring_tickets; ?></span>
                                     <?php } ?>
                                 </p>
                             </a>
@@ -61,9 +61,9 @@
                             <a href="/agent/projects.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "projects.php" || basename($_SERVER["PHP_SELF"]) == "project_details.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-project-diagram"></i>
                                 <p>
-                                    Projects
+                                    <?php echo __('projects'); ?>
                                     <?php if ($num_active_projects) { ?>
-                                        <span class="right badge text-light" data-toggle="tooltip" title="Open Projects"><?php echo $num_active_projects; ?></span>
+                                        <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('open_projects'); ?>"><?php echo $num_active_projects; ?></span>
                                     <?php } ?>
                                 </p>
                             </a>
@@ -74,18 +74,18 @@
                 <li class="nav-item">
                     <a href="/agent/calendar.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "calendar.php") { echo "active"; } ?>">
                         <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>Calendar</p>
+                        <p><?php echo __('calendar'); ?></p>
                     </a>
                 </li>
                 <?php if ($config_module_enable_accounting == 1 && lookupUserPermission("module_sales") >= 1) { ?>
-                    <li class="nav-header mt-3">BILLING</li>
+                    <li class="nav-header mt-3"><?php echo __('nav_billing'); ?></li>
                     <li class="nav-item">
                         <a href="/agent/quotes.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "quotes.php" || basename($_SERVER["PHP_SELF"]) == "quote.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-comment-dollar"></i>
                             <p>
-                                Quotes
+                                <?php echo __('quotes'); ?>
                                 <?php if ($num_open_quotes) { ?>
-                                    <span class="right badge text-light" data-toggle="tooltip" title="Active Quotes"><?php echo $num_open_quotes; ?></span>
+                                    <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('active_quotes'); ?>"><?php echo $num_open_quotes; ?></span>
                                 <?php } ?>
                             </p>
                         </a>
@@ -94,9 +94,9 @@
                         <a href="/agent/invoices.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "invoices.php" || basename($_SERVER["PHP_SELF"]) == "invoice.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-file-invoice"></i>
                             <p>
-                                Invoices
+                                <?php echo __('invoices'); ?>
                                 <?php if ($num_open_invoices) { ?>
-                                    <span class="right badge text-light" data-toggle="tooltip" title="Open Invoices"><?php echo $num_open_invoices; ?></span>
+                                    <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('open_invoices'); ?>"><?php echo $num_open_invoices; ?></span>
                                 <?php } ?>
                             </p>
                         </a>
@@ -105,9 +105,9 @@
                         <a href="/agent/recurring_invoices.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "recurring_invoices.php" || basename($_SERVER["PHP_SELF"]) == "recurring_invoice.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-redo-alt"></i>
                             <p>
-                                Recurring Invoices
+                                <?php echo __('recurring_invoices'); ?>
                                 <?php if ($num_recurring_invoices) { ?>
-                                    <span class="right badge text-light" data-toggle="tooltip" title="Active Recurring Invoices"><?php echo $num_recurring_invoices; ?></span>
+                                    <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('active_recurring_invoices'); ?>"><?php echo $num_recurring_invoices; ?></span>
                                 <?php } ?>
                             </p>
                         </a>
@@ -115,45 +115,45 @@
                     <li class="nav-item">
                         <a href="/agent/revenues.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "revenues.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-hand-holding-usd"></i>
-                            <p>Revenues</p>
+                            <p><?php echo __('revenues'); ?></p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/agent/products.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "products.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-box-open"></i>
-                            <p>Products</p>
+                            <p><?php echo __('products'); ?></p>
                         </a>
                     </li>
                 <?php } ?>
 
                 <?php if ($config_module_enable_accounting == 1) { ?>
-                    <li class="nav-header mt-3">FINANCE</li>
+                    <li class="nav-header mt-3"><?php echo __('nav_finance'); ?></li>
                     <?php if (lookupUserPermission("module_financial") >= 1) { ?>
                         <li class="nav-item">
                             <a href="/agent/payments.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "payments.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-credit-card"></i>
-                                <p>Payments</p>
+                                <p><?php echo __('payments'); ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/agent/vendors.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "vendors.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-building"></i>
-                                <p>Vendors</p>
+                                <p><?php echo __('vendors'); ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/agent/expenses.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "expenses.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
-                                <p>Expenses</p>
+                                <p><?php echo __('expenses'); ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/agent/recurring_expenses.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "recurring_expenses.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-redo-alt"></i>
                                 <p>
-                                    Recurring Expenses
+                                    <?php echo __('recurring_expenses'); ?>
                                     <?php if ($num_recurring_expenses) { ?>
-                                        <span class="right badge text-light" data-toggle="tooltip" title="Recurring Expenses"><?php echo $num_recurring_expenses; ?></span>
+                                        <span class="right badge text-light" data-toggle="tooltip" title="<?php echo __('recurring_expenses_count'); ?>"><?php echo $num_recurring_expenses; ?></span>
                                     <?php } ?>
                                 </p>
                             </a>
@@ -161,20 +161,20 @@
                         <li class="nav-item">
                             <a href="/agent/accounts.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "accounts.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-piggy-bank"></i>
-                                <p>Accounts</p>
+                                <p><?php echo __('accounts'); ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/agent/transfers.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "transfers.php") { echo "active"; } ?>">
                                 <i class="nav-icon fas fa-exchange-alt"></i>
-                                <p>Transfers</p>
+                                <p><?php echo __('transfers'); ?></p>
                             </a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
                         <a href="/agent/trips.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "trips.php") { echo "active"; } ?>">
                             <i class="nav-icon fas fa-route"></i>
-                            <p>Trips</p>
+                            <p><?php echo __('trips'); ?></p>
                         </a>
                     </li>
                 <?php } ?>
@@ -183,7 +183,7 @@
                 <li class="nav-item mt-3">
                     <a href="/agent/contacts.php" class="nav-link">
                         <i class="fas fa-users nav-icon"></i>
-                        <p>Client Overview</p>
+                        <p><?php echo __('client_overview'); ?></p>
                         <i class="fas fa-angle-right nav-icon float-right"></i>
                     </a>
                 </li>
@@ -193,7 +193,7 @@
                     <li class="nav-item mt-3">
                         <a href="/agent/reports/" class="nav-link">
                             <i class="fas fa-chart-line nav-icon"></i>
-                            <p>Reports</p>
+                            <p><?php echo __('reports'); ?></p>
                             <i class="fas fa-angle-right nav-icon float-right"></i>
                         </a>
                     </li>

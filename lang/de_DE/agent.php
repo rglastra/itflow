@@ -174,4 +174,68 @@ $lang['system_calendars'] = 'Systemkalender';
 $lang['notifications'] = 'Benachrichtigungen';
 $lang['dismissed_notifications'] = 'Abgelehnte Benachrichtigungen';
 
+// Navigation
+$lang['dashboard'] = 'Dashboard';
+$lang['clients'] = 'Kunden';
+$lang['contacts'] = 'Kontakte';
+$lang['calendar'] = 'Kalender';
+$lang['tickets'] = 'Tickets';
+$lang['recurring_tickets'] = 'Wiederkehrende Tickets';
+$lang['projects'] = 'Projekte';
+$lang['quotes'] = 'Angebote';
+$lang['invoices'] = 'Rechnungen';
+$lang['recurring_invoices'] = 'Wiederkehrende Rechnungen';
+$lang['revenues'] = 'Einnahmen';
+$lang['products'] = 'Produkte';
+$lang['payments'] = 'Zahlungen';
+$lang['vendors'] = 'Lieferanten';
+$lang['expenses'] = 'Ausgaben';
+$lang['recurring_expenses'] = 'Wiederkehrende Ausgaben';
+$lang['accounts'] = 'Konten';
+$lang['transfers'] = 'Überweisungen';
+$lang['trips'] = 'Reisen';
+$lang['client_overview'] = 'Kundenübersicht';
+$lang['reports'] = 'Berichte';
+
+// Navigation Headers
+$lang['nav_support'] = 'SUPPORT';
+$lang['nav_billing'] = 'ABRECHNUNG';
+$lang['nav_finance'] = 'FINANZEN';
+
+// Top Navigation
+$lang['search_everywhere'] = 'Überall suchen';
+$lang['administration'] = 'Administration';
+$lang['account'] = 'Konto';
+$lang['logout'] = 'Abmelden';
+
+// User Preferences
+$lang['preferences'] = 'Einstellungen';
+$lang['dark_mode'] = 'Dunkler Modus';
+$lang['light'] = 'Hell';
+$lang['dark'] = 'Dunkel';
+$lang['language'] = 'Sprache';
+$lang['auto_detect_language'] = 'Automatisch aus Browser erkennen';
+$lang['calendar_starts_on'] = 'Kalender beginnt am';
+$lang['sunday'] = 'Sonntag';
+$lang['monday'] = 'Montag';
+$lang['save'] = 'Speichern';
+
+// Dashboard
+$lang['select_year'] = 'Jahr auswählen';
+$lang['financial'] = 'Finanziell';
+$lang['technical'] = 'Technisch';
+$lang['income'] = 'Einkommen';
+$lang['profit'] = 'Gewinn';
+$lang['margin'] = 'Marge';
+
+// Badge/Tooltip Labels
+$lang['active_clients'] = 'Aktive Kunden';
+$lang['open_tickets'] = 'Offene Tickets';
+$lang['active_recurring_tickets'] = 'Aktive Wiederkehrende Tickets';
+$lang['open_projects'] = 'Offene Projekte';
+$lang['active_quotes'] = 'Aktive Angebote';
+$lang['open_invoices'] = 'Offene Rechnungen';
+$lang['active_recurring_invoices'] = 'Aktive Wiederkehrende Rechnungen';
+$lang['recurring_expenses_count'] = 'Wiederkehrende Ausgaben';
+
 ?>

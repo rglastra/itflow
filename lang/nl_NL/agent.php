@@ -173,5 +173,67 @@ $lang['calendars'] = 'Agenda\'s';
 $lang['system_calendars'] = 'Systeemagenda\'s';
 $lang['notifications'] = 'Notificaties';
 $lang['dismissed_notifications'] = 'Afgewezen Notificaties';
+// Navigation
+$lang['dashboard'] = 'Dashboard';
+$lang['clients'] = 'Klanten';
+$lang['contacts'] = 'Contacten';
+$lang['calendar'] = 'Kalender';
+$lang['tickets'] = 'Tickets';
+$lang['recurring_tickets'] = 'Terugkerende Tickets';
+$lang['projects'] = 'Projecten';
+$lang['quotes'] = 'Offertes';
+$lang['invoices'] = 'Facturen';
+$lang['recurring_invoices'] = 'Terugkerende Facturen';
+$lang['revenues'] = 'Inkomsten';
+$lang['products'] = 'Producten';
+$lang['payments'] = 'Betalingen';
+$lang['vendors'] = 'Leveranciers';
+$lang['expenses'] = 'Uitgaven';
+$lang['recurring_expenses'] = 'Terugkerende Uitgaven';
+$lang['accounts'] = 'Rekeningen';
+$lang['transfers'] = 'Overboekingen';
+$lang['trips'] = 'Reizen';
+$lang['client_overview'] = 'Klantenover zicht';
+$lang['reports'] = 'Rapporten';
 
+// Navigation Headers
+$lang['nav_support'] = 'ONDERSTEUNING';
+$lang['nav_billing'] = 'FACTURERING';
+$lang['nav_finance'] = 'FINANCIËN';
+
+// Top Navigation
+$lang['search_everywhere'] = 'Overal zoeken';
+$lang['administration'] = 'Administratie';
+$lang['account'] = 'Account';
+$lang['logout'] = 'Uitloggen';
+
+// User Preferences
+$lang['preferences'] = 'Voorkeuren';
+$lang['dark_mode'] = 'Donkere Modus';
+$lang['light'] = 'Licht';
+$lang['dark'] = 'Donker';
+$lang['language'] = 'Taal';
+$lang['auto_detect_language'] = 'Automatisch detecteren vanuit browser';
+$lang['calendar_starts_on'] = 'Kalender begint op';
+$lang['sunday'] = 'Zondag';
+$lang['monday'] = 'Maandag';
+$lang['save'] = 'Opslaan';
+
+// Dashboard
+$lang['select_year'] = 'Selecteer Jaar';
+$lang['financial'] = 'Financieel';
+$lang['technical'] = 'Technisch';
+$lang['income'] = 'Inkomsten';
+$lang['profit'] = 'Winst';
+$lang['margin'] = 'Marge';
+
+// Badge/Tooltip Labels
+$lang['active_clients'] = 'Actieve Klanten';
+$lang['open_tickets'] = 'Open Tickets';
+$lang['active_recurring_tickets'] = 'Actieve Terugkerende Tickets';
+$lang['open_projects'] = 'Open Projecten';
+$lang['active_quotes'] = 'Actieve Offertes';
+$lang['open_invoices'] = 'Open Facturen';
+$lang['active_recurring_invoices'] = 'Actieve Terugkerende Facturen';
+$lang['recurring_expenses_count'] = 'Terugkerende Uitgaven';
 ?>

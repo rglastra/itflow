@@ -50,7 +50,7 @@ $sql_years_select = mysqli_query($mysqli, "
         <input type="hidden" name="enable_financial" value="0">
         <input type="hidden" name="enable_technical" value="0">
 
-        <label for="year" class="mr-sm-2">Select Year:</label>
+        <label for="year" class="mr-sm-2"><?php echo __('select_year'); ?>:</label>
         <select id="year" onchange="this.form.submit()" class="form-control mr-sm-3 col-sm-2 mb-3 mb-sm-0" name="year">
             <?php while ($row = mysqli_fetch_assoc($sql_years_select)) {
                 $year_select = $row['all_years'];
@@ -67,14 +67,14 @@ $sql_years_select = mysqli_query($mysqli, "
         <?php if ($session_user_role == 1 || ($session_user_role == 3 && $config_module_enable_accounting == 1)) { ?>
             <div class="custom-control custom-switch mr-3">
                 <input type="checkbox" onchange="this.form.submit()" class="custom-control-input" id="customSwitch1" name="enable_financial" value="1" <?php if ($user_config_dashboard_financial_enable == 1) { echo "checked"; } ?>>
-                <label class="custom-control-label" for="customSwitch1">Financial</label>
+                <label class="custom-control-label" for="customSwitch1"><?php echo __('financial'); ?></label>
             </div>
         <?php } ?>
 
         <?php if ($session_user_role >= 2 && $config_module_enable_ticketing == 1) { ?>
             <div class="custom-control custom-switch">
                 <input type="checkbox" onchange="this.form.submit()" class="custom-control-input" id="customSwitch2" name="enable_technical" value="1" <?php if ($user_config_dashboard_technical_enable == 1) { echo "checked"; } ?>>
-                <label class="custom-control-label" for="customSwitch2">Technical</label>
+                <label class="custom-control-label" for="customSwitch2"><?php echo __('technical'); ?></label>
             </div>
         <?php } ?>
     </form>
