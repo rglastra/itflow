@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title text-white"><i class="fa fa-fw fa-stream mr-2"></i>New Service</h5>
+    <h5 class="modal-title text-white"><i class="fa fa-fw fa-stream mr-2"></i><?php echo __('New Service'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -20,14 +20,14 @@ ob_start();
         <?php if ($client_id) { ?>
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-overview">Overview</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-overview"><?php echo __('Overview'); ?></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-general">General</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-general"><?php echo __('General'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-assets">Assets</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-assets"><?php echo __('Assets'); ?></a>
             </li>
 
         </ul>
@@ -47,13 +47,13 @@ ob_start();
                 <?php } else { ?>
 
                     <div class="form-group">
-                        <label>Client <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                             </div>
                             <select class="form-control select2" name="client_id" required>
-                                <option value="">- Select Client -</option>
+                                <option value=""><?php echo __('- Select Client -'); ?></option>
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
@@ -70,22 +70,22 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-stream"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name of Service" maxlength="200" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Name of Service'); ?>" maxlength="200" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Description'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-info-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Description of Service" maxlength="200" required>
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('Description of Service'); ?>" maxlength="200" required>
                     </div>
                 </div>
 

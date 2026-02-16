@@ -1606,4 +1606,74 @@ $lang['Start / End'] = 'Begin / Einde';
 $lang['Event'] = 'Evenement';
 $lang['Attendees'] = 'Aanwezigen';
 $lang['Title'] = 'Titel';
+
+// Service modals (3)
+$lang['New Service'] = 'Nieuwe Dienst';
+$lang['Name of Service'] = 'Naam van Dienst';
+$lang['Description of Service'] = 'Beschrijving van Dienst';
+$lang['Overview'] = 'Overzicht';
+$lang['General'] = 'Algemeen';
+
+// Domain modals (3)
+$lang['New Domain'] = 'Nieuw Domein';
+$lang['Editing Domain: %s'] = 'Domein Bewerken: %s';
+$lang['Domain Name'] = 'Domeinnaam';
+$lang['example.com'] = 'voorbeeld.com';
+$lang['Short Description'] = 'Korte beschrijving';
+$lang['Registrar'] = 'Registrar';
+$lang['- Vendor -'] = '- Leverancier -';
+$lang['Export Domains to CSV'] = 'Domeinen naar CSV Exporteren';
+
+// Network modals (3)
+$lang['New Network'] = 'Nieuw Netwerk';
+$lang['Editing Network: %s'] = 'Netwerk Bewerken: %s';
+$lang['Network Name'] = 'Netwerknaam';
+$lang['IP Address'] = 'IP-adres';
+$lang['Subnet'] = 'Subnet';
+$lang['Gateway'] = 'Gateway';
+$lang['Export Networks to CSV'] = 'Netwerken naar CSV Exporteren';
+
+// Certificate modals (3)
+$lang['New Certificate'] = 'Nieuw Certificaat';
+$lang['Editing Certificate: %s'] = 'Certificaat Bewerken: %s';
+$lang['Certificate Name'] = 'Certificaatnaam';
+$lang['Serial Number'] = 'Serienummer';
+$lang['Expires'] = 'Vervalt';
+$lang['Export Certificates to CSV'] = 'Certificaten naar CSV Exporteren';
+
+// Rack modals (3)
+$lang['New Rack'] = 'Nieuw Rek';
+$lang['Editing Rack: %s'] = 'Rek Bewerken: %s';
+$lang['Rack Name'] = 'Reknaam';
+$lang['Rack Location'] = 'Reklocatie';
+$lang['Export Racks to CSV'] = 'Rekken naar CSV Exporteren';
+
+// Transfer modals (2)
+$lang['transfering_funds'] = 'Geldoverboeking';
+$lang['- account from -'] = '- rekening van -';
+$lang['- account to -'] = '- rekening naar -';
+
+// Revenue modals (2)
+$lang['New Revenue'] = 'Nieuwe Inkomst';
+$lang['Editing Revenue: %s'] = 'Inkomst Bewerken: %s';
+$lang['Revenue Date'] = 'Inkomstdatum';
+$lang['Revenue Amount'] = 'Inkomstbedrag';
+$lang['Export Revenues to CSV'] = 'Inkomsten naar CSV Exporteren';
+
+// Recurring Expense modals (2)
+$lang['New Recurring Expense'] = 'Nieuwe Terugkerende Uitgave';
+$lang['Editing Recurring Expense: %s'] = 'Terugkerende Uitgave Bewerken: %s';
+$lang['Export Recurring Expenses to CSV'] = 'Terugkerende Uitgaven naar CSV Exporteren';
+
+// Folder modals (2)
+$lang['New Folder'] = 'Nieuwe Map';
+$lang['Editing Folder: %s'] = 'Map Bewerken: %s';
+$lang['Folder Name'] = 'Mapnaam';
+
+// Account modals (2)
+$lang['New Account'] = 'Nieuwe Rekening';
+$lang['Editing Account: %s'] = 'Rekening Bewerken: %s';
+$lang['Account Name'] = 'Rekeningnaam';
+$lang['Account Number'] = 'Rekeningnummer';
+$lang['Export Accounts to CSV'] = 'Rekeningen naar CSV Exporteren';
 ?>            
