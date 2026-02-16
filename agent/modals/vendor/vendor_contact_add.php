@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fa fa-fw fa-user-plus mr-2"></i>New Vendor Contact</h5>
+                <h5 class="modal-title"><i class="fa fa-fw fa-user-plus mr-2"></i><?php echo __('New Vendor Contact'); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -12,7 +12,7 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label>Name <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
+                        <label><?php echo __('Title'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Department</label>
+                        <label><?php echo __('Department'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <label>Phone</label>
+                    <label><?php echo __('Phone'); ?></label>
                     <div class="form-row">
                         <div class="col-8">
                             <div class="form-group">
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Mobile</label>
+                        <label><?php echo __('Mobile'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-mobile-alt"></i></span>
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Email</label>
+                        <label><?php echo __('Email'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
@@ -81,12 +81,12 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea class="form-control" rows="8" name="notes" placeholder="Enter some notes"></textarea>
+                    <textarea class="form-control" rows="8" name="notes" placeholder="<?php echo __('Enter some notes'); ?>"></textarea>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" name="add_vendor_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+                    <button type="submit" name="add_vendor_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create'); ?></button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
                 </div>
             </form>
         </div>

@@ -9,7 +9,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-building mr-2"></i>New Vendor from Template</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-building mr-2"></i><?php echo __('New Vendor from Template'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -20,14 +20,14 @@ ob_start();
 
     <div class="modal-body">
 
-        <label>Template</label>
+        <label><?php echo __('Template'); ?></label>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-puzzle-piece"></i></span>
                 </div>
                 <select class="form-control" name="vendor_template_id" required>
-                    <option value="">- Select Template -</option>
+                    <option value=""><?php echo __('- Select Template -'); ?></option>
                     <?php
                     $sql_vendor_templates = mysqli_query($mysqli, "SELECT * FROM vendor_templates WHERE vendor_template_archived_at IS NULL ORDER BY vendor_template_name ASC");
                     while ($row = mysqli_fetch_assoc($sql_vendor_templates)) {
@@ -45,8 +45,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="add_vendor_from_template" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create Vendor</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_vendor_from_template" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create Vendor'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

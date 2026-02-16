@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fa fa-fw fa-user-edit mr-2"></i>Editing vendor contact: <strong><?php echo $contact_name; ?></strong></h5>
+                <h5 class="modal-title"><i class="fa fa-fw fa-user-edit mr-2"></i><?php echo sprintf(__('Editing vendor contact: %s'), $contact_name); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -13,7 +13,7 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label>Name <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
+                        <label><?php echo __('Title'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Department</label>
+                        <label><?php echo __('Department'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <label>Phone</label>
+                    <label><?php echo __('Phone'); ?></label>
                     <div class="form-row">
                         <div class="col-8">
                             <div class="form-group">
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Mobile</label>
+                        <label><?php echo __('Mobile'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-mobile-alt"></i></span>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Email</label>
+                        <label><?php echo __('Email'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>

@@ -1432,6 +1432,26 @@ $lang['Delete'] = 'Verwijderen';
 $lang['Client'] = 'Klant';
 $lang['Date To'] = 'Datum Tot';
 $lang['Download CSV'] = 'CSV Downloaden';
+
+// Vendor modals
+$lang['Editing vendor: %s'] = 'Leverancier Bewerken: %s';
+$lang['New Vendor Contact'] = 'Nieuw Leverancier Contact';
+$lang['Editing vendor contact: %s'] = 'Leverancier Contact Bewerken: %s';
+$lang['Department'] = 'Afdeling';
+$lang['Mobile Phone Number'] = 'Mobiel Telefoonnummer';
+$lang['Email Address'] = 'E-mail Adres';
+$lang['Enter some notes'] = 'Voer notities in';
+$lang['New Vendor from Template'] = 'Nieuwe Leverancier van Sjabloon';
+$lang['- Select Template -'] = '- Selecteer Sjabloon -';
+$lang['Create Vendor'] = 'Leverancier Aanmaken';
+$lang['Export Vendors to CSV'] = 'Leveranciers naar CSV Exporteren';
+$lang['Vendor Details'] = 'Leverancier Details';
+$lang['Contact Information'] = 'Contactinformatie';
+$lang['Account Number'] = 'Rekeningnummer';
+$lang['Support Hours'] = 'Ondersteuningsuren';
+$lang['SLA'] = 'SLA';
+$lang['Code'] = 'Code';
+$lang['Not Available'] = 'Niet Beschikbaar';
 ?>
 
 

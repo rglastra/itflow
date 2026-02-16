@@ -42,16 +42,16 @@ ob_start();
     <!-- Vendor Info Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-info-circle mr-2"></i>Vendor Details</h6>
+            <h6 class="text-secondary"><i class="fas fa-info-circle mr-2"></i><?php echo __('Vendor Details'); ?></h6>
             <div class="row">
                 <div class="col-sm-6">
-                    <div><strong>Account Number:</strong> <?php echo getFallback($account_number); ?></div>
-                    <div><strong>Hours:</strong> <?php echo getFallback($hours); ?></div>
-                    <div><strong>SLA:</strong> <?php echo getFallback($sla); ?></div>
+                    <div><strong><?php echo __('Account Number:'); ?></strong> <?php echo getFallback($account_number); ?></div>
+                    <div><strong><?php echo __('Support Hours:'); ?></strong> <?php echo getFallback($hours); ?></div>
+                    <div><strong><?php echo __('SLA:'); ?></strong> <?php echo getFallback($sla); ?></div>
                 </div>
                 <div class="col-sm-6">
-                    <div><strong>Code:</strong> <?php echo getFallback($code); ?></div>
-                    <div><strong>Website:</strong> <?php echo !empty($website) ? '<a href="https://' . $website . '" target="_blank" class="text-primary">' . $website . '</a>' : '<span class="text-muted">Not Available</span>'; ?></div>
+                    <div><strong><?php echo __('Code:'); ?></strong> <?php echo getFallback($code); ?></div>
+                    <div><strong><?php echo __('Website:'); ?></strong> <?php echo !empty($website) ? '<a href="https://' . $website . '" target="_blank" class="text-primary">' . $website . '</a>' : '<span class="text-muted"><?php echo __('Not Available'); ?></span>'; ?></div>
                 </div>
             </div>
         </div>
@@ -60,14 +60,14 @@ ob_start();
     <!-- Contact Info Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-user mr-2"></i>Contact Information</h6>
+            <h6 class="text-secondary"><i class="fas fa-user mr-2"></i><?php echo __('Contact Information'); ?></h6>
             <div class="row">
                 <div class="col-sm-6">
-                    <div><strong>Contact Name:</strong> <?php echo getFallback($contact_name); ?></div>
-                    <div><strong>Phone:</strong> <?php echo getFallback($phone); ?></div>
+                    <div><strong><?php echo __('Contact Name:'); ?></strong> <?php echo getFallback($contact_name); ?></div>
+                    <div><strong><?php echo __('Phone:'); ?></strong> <?php echo getFallback($phone); ?></div>
                 </div>
                 <div class="col-sm-6">
-                    <div><strong>Email:</strong> <?php echo !empty($email) ? '<a href="mailto:' . $email . '" class="text-primary">' . $email . '</a>' : '<span class="text-muted">Not Available</span>'; ?></div>
+                    <div><strong><?php echo __('Email:'); ?></strong> <?php echo !empty($email) ? '<a href="mailto:' . $email . '" class="text-primary">' . $email . '</a>' : '<span class="text-muted"><?php echo __('Not Available'); ?></span>'; ?></div>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@ ob_start();
     <!-- Notes Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-sticky-note mr-2"></i>Notes</h6>
+            <h6 class="text-secondary"><i class="fas fa-sticky-note mr-2"></i><?php echo __('Notes'); ?></h6>
             <div>
                 <?php echo getFallback($notes); ?>
             </div>

@@ -27,7 +27,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-building mr-2"></i>Editing vendor: <strong><?php echo $vendor_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-building mr-2"></i><?php echo sprintf(__('Editing vendor: %s'), $vendor_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -38,13 +38,13 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $vendor_id; ?>">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $vendor_id; ?>"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-support<?php echo $vendor_id; ?>">Support</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-support<?php echo $vendor_id; ?>"><?php echo __('Support'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $vendor_id; ?>">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $vendor_id; ?>"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -55,7 +55,7 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-details<?php echo $vendor_id; ?>">
 
                 <div class="form-group">
-                    <label>Vendor Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Vendor Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
@@ -65,7 +65,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
@@ -75,7 +75,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Account Number</label>
+                    <label><?php echo __('Account Number'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-fingerprint"></i></span>
@@ -85,7 +85,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Account Manager</label>
+                    <label><?php echo __('Account Manager'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
