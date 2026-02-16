@@ -123,7 +123,7 @@ ob_start();
         <?php } ?>
 
         <div class="form-group">
-            <label>Description</label>
+            <label><?php echo __('Description'); ?></label>
             <textarea class="form-control" rows="4" name="description"><?php echo $product_description; ?></textarea>
         </div>
 

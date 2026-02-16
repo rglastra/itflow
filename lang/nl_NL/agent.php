@@ -1753,4 +1753,5 @@ $lang['Primary Contacts'] = 'Primaire contacten';
 // Additional final translation keys
 $lang['Webhost'] = 'Webhost';
 $lang['Import'] = 'Importeren';
+$lang['Expiration'] = 'Vervaldatum';
 ?>

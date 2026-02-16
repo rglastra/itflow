@@ -42,7 +42,7 @@
                             </div>
                         </div>
 
-                        <label>Expiration</label>
+                        <label><?php echo __('Expiration'); ?></label>
                         <div class="form-group">
                             <div class="btn-group btn-block btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-dark active">
