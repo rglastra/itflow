@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-layer-group mr-2"></i>Set Category for <strong><?= $count ?></strong> Tickets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-layer-group mr-2"></i><?php echo sprintf(__('Set Category for %s Tickets'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -24,13 +24,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Category</label>
+            <label><?php echo __('Category'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-layer-group"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_category">
-                    <option value="0">- Uncategorized -</option>
+                    <option value="0"><?php echo __('- Uncategorized -'); ?></option>
                     <?php
                     $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
                     while ($row = mysqli_fetch_assoc($sql_categories)) {
@@ -47,8 +47,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_recurring_ticket_category" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Set Category</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_recurring_ticket_category" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Set Category'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

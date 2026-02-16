@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-dollar-sign mr-2"></i>Mark <strong><?= $count ?></strong> Tickets Billable</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-dollar-sign mr-2"></i><?php echo sprintf(__('Mark %s Tickets Billable'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -26,15 +26,15 @@ ob_start();
         <div class="form-group">
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" name="billable" value="1" id="billable">
-                <label class="custom-control-label" for="billable">Mark Billable</label>
+                <label class="custom-control-label" for="billable"><?php echo __('Mark Billable'); ?></label>
             </div>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_recurring_ticket_billable" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Set</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_recurring_ticket_billable" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Set'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

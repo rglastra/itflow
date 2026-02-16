@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-calendar-day mr-2"></i>Set Next Run Date for <strong><?= $count ?></strong> Tickets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-calendar-day mr-2"></i><?php echo sprintf(__('Set Next Run Date for %s Tickets'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -24,7 +24,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Next Run Date <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Next Run Date'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar-day"></i></span>
@@ -36,8 +36,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_recurring_ticket_next_run_date" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Set Run Date</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_recurring_ticket_next_run_date" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Set Run Date'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

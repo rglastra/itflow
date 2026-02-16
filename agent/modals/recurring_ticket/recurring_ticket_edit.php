@@ -32,7 +32,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-calendar-check mr-2"></i>Editing Recurring Ticket: <strong><?php echo $recurring_ticket_subject; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-calendar-check mr-2"></i><?php echo sprintf(__('Editing Recurring Ticket: %s'), $recurring_ticket_subject); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -45,16 +45,16 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-edit-details<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-life-ring mr-2"></i>Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-edit-details<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-life-ring mr-2"></i><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-edit-contacts<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-users mr-2"></i>Contact</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-edit-contacts<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-users mr-2"></i><?php echo __('Contact'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-edit-schedule<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-building mr-2"></i>Schedule</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-edit-schedule<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-building mr-2"></i><?php echo __('Schedule'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-edit-assets<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-desktop mr-2"></i>Assets</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-edit-assets<?php echo $recurring_ticket_id; ?>"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo __('Assets'); ?></a>
             </li>
         </ul>
 

@@ -1470,6 +1470,8 @@ $lang['Assign Agent'] = 'Agent Toewijzen';
 $lang['Mark %s Tickets Billable'] = '%s Tickets als Factureerbaar Markeren';
 $lang['Mark Billable'] = 'Als Factureerbaar Markeren';
 $lang['Set Next Run Date for %s Tickets'] = 'Volgende Uitvoeringsdatum Instellen voor %s Tickets';
+$lang['Next Run Date'] = 'Volgende Uitvoeringsdatum';
+$lang['Set Run Date'] = 'Uitvoeringsdatum Instellen';
 ?>
 
 
