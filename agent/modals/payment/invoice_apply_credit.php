@@ -34,7 +34,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Credit Amount <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Credit Amount'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-wallet"></i></span>

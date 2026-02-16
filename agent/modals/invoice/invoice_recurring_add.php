@@ -23,7 +23,7 @@ ob_start();
     <input type="hidden" name="invoice_id" value="<?= $invoice_id ?>">
     <div class="modal-body">
         <div class="form-group">
-            <label>Frequency <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Frequency'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>

@@ -43,7 +43,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Frequency <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Frequency'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>
@@ -57,7 +57,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Next Date <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Next Date'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -67,7 +67,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Income Category <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Income Category'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
@@ -107,7 +107,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Status <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Status'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>

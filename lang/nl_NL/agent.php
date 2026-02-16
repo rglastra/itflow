@@ -1730,4 +1730,10 @@ $lang['Number of seats'] = 'Aantal plaatsen';
 $lang['License key'] = 'Licentiesleutel';
 $lang['Enter some notes'] = 'Voer enkele notities in';
 $lang['Enter a purpose'] = 'Voer een doel in';
+$lang['Frequency'] = 'Frequentie';
+$lang['Next Date'] = 'Volgende Datum';
+$lang['Income Category'] = 'Inkomsatencategorie';
+$lang['Status'] = 'Status';
+$lang['Credit Amount'] = 'Kredietbedrag';
+$lang['Select related Contacts'] = 'Selecteer gerelateerde contacten';
 ?>            

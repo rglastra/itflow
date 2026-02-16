@@ -137,7 +137,7 @@ ob_start();
 
                 <!--   //TODO: Integrate with company wide categories: /categories.php  -->
                 <div class="form-group">
-                    <label>Category</label>
+                    <label><?php echo __('Category'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-info"></i></span>
@@ -147,7 +147,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Importance</label>
+                    <label><?php echo __('Importance'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-thermometer-half"></i></span>
@@ -161,7 +161,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Backup</label>
+                    <label><?php echo __('Backup'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-hdd"></i></span>
@@ -179,7 +179,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-general<?php echo $service_id ?>">
 
                 <div class="form-group">
-                    <label for="contacts">Contacts</label>
+                    <label for="contacts"><?php echo __('Contacts'); ?></label>
                     <select multiple class="form-control select2" name="contacts[]">
                         <?php
                         // Get just the currently selected contact IDs
@@ -206,7 +206,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label for="vendors">Vendors</label>
+                    <label for="vendors"><?php echo __('Vendors'); ?></label>
                     <select multiple class="form-control select2" name="vendors[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_vendors, MYSQLI_ASSOC), "vendor_id");
@@ -228,7 +228,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label for="documents">Documents</label>
+                    <label for="documents"><?php echo __('Documents'); ?></label>
                     <select multiple class="form-control select2" name="documents[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_docs, MYSQLI_ASSOC), "document_id");
@@ -258,7 +258,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-assets<?php echo $service_id ?>">
 
                 <div class="form-group">
-                    <label for="assets">Assets</label>
+                    <label for="assets"><?php echo __('Assets'); ?></label>
                     <select multiple class="form-control select2" name="assets[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_assets, MYSQLI_ASSOC), "asset_id");
@@ -280,7 +280,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label for="credentials">Credentials</label>
+                    <label for="credentials"><?php echo __('Credentials'); ?></label>
                     <select multiple class="form-control select2" name="credentials[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_credentials, MYSQLI_ASSOC), "credential_id");
@@ -302,7 +302,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label for="domains">Domains</label>
+                    <label for="domains"><?php echo __('Domains'); ?></label>
                     <select multiple class="form-control select2" name="domains[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_domains, MYSQLI_ASSOC), "domain_id");
@@ -324,7 +324,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label for="certificates">Certificates</label>
+                    <label for="certificates"><?php echo __('Certificates'); ?></label>
                     <select multiple class="form-control select2" name="certificates[]">
                         <?php
                         $selected_ids = array_column(mysqli_fetch_all($sql_certificates, MYSQLI_ASSOC), "certificate_id");

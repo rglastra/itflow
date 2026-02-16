@@ -91,7 +91,7 @@ ob_start();
 
                 <!--   //TODO: Integrate with company wide categories: /categories.php  -->
                 <div class="form-group">
-                    <label>Category</label>
+                    <label><?php echo __('Category'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-info"></i></span>
@@ -101,21 +101,21 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Importance</label>
+                    <label><?php echo __('Importance'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-thermometer-half"></i></span>
                         </div>
                         <select class="form-control select2" name="importance" required>
-                            <option>Low</option>
-                            <option>Medium</option>
-                            <option>High</option>
+                            <option><?php echo __('Low'); ?></option>
+                            <option><?php echo __('Medium'); ?></option>
+                            <option><?php echo __('High'); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Backup</label>
+                    <label><?php echo __('Backup'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-hdd"></i></span>
@@ -134,7 +134,7 @@ ob_start();
 
             <div class="tab-pane fade" id="pills-general">
                 <div class="form-group">
-                    <label for="contacts">Select related Contacts</label>
+                    <label for="contacts"><?php echo __('Select related Contacts'); ?></label>
                     <select class="form-control select2" id="contacts" name="contacts[]" multiple>
                         <?php
                         $sql = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id");
