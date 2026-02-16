@@ -29,10 +29,10 @@ ob_start();
 
 <div class="modal-header bg-dark text-white">
     <div class="d-flex align-items-center">
-        <i class="fas fa-fw fa-building fa-2x mr-3"></i>
+        <i class="fas fa-fw fa-key fa-2x mr-3"></i>
         <div>
-            <h5 class="modal-title mb-0"><?php echo $name; ?></h5>
-            <div class="text-muted"><?php echo getFallback($description); ?></div>
+            <h5 class="modal-title mb-0"><?php echo $credential_name; ?></h5>
+            <div class="text-muted"><?php echo $credential_description ?: '-'; ?></div>
         </div>
     </div>
     <button type="button" class="close text-white" data-dismiss="modal">
@@ -42,36 +42,37 @@ ob_start();
 
 <div class="modal-body bg-light">
 
-    <!-- Vendor Info Card -->
+    <!-- Credential Details Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-info-circle mr-2"></i>Vendor Details</h6>
+            <h6 class="text-secondary"><i class="fas fa-info-circle mr-2"></i><?php echo __('Details'); ?></h6>
             <div class="row">
                 <div class="col-sm-6">
-                    <div><strong>Account Number:</strong> <?php echo getFallback($account_number); ?></div>
-                    <div><strong>Hours:</strong> <?php echo getFallback($hours); ?></div>
-                    <div><strong>SLA:</strong> <?php echo getFallback($sla); ?></div>
+                    <div><strong><?php echo __('Username / ID'); ?>:</strong> <?php echo !empty($credential_username) ? htmlspecialchars($credential_username) : '<span class="text-muted">' . __('Not Available') . '</span>'; ?></div>
+                    <div><strong><?php echo __('Password / Key'); ?>:</strong> <?php echo !empty($credential_password) ? '••••••••' : '<span class="text-muted">' . __('Not Available') . '</span>'; ?></div>
                 </div>
                 <div class="col-sm-6">
-                    <div><strong>Code:</strong> <?php echo getFallback($code); ?></div>
-                    <div><strong>Website:</strong> <?php echo !empty($website) ? '<a href="' . $website . '" target="_blank" class="text-primary">' . $website . '</a>' : '<span class="text-muted">Not Available</span>'; ?></div>
+                    <div><strong><?php echo __('OTP'); ?>:</strong> <?php echo $otp_display; ?></div>
+                    <div><strong><?php echo __('Created'); ?>:</strong> <?php echo $credential_created_at ?: '<span class="text-muted">' . __('Not Available') . '</span>'; ?></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Contact Info Card -->
+    <!-- Links Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-user mr-2"></i>Contact Information</h6>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div><strong>Contact Name:</strong> <?php echo getFallback($contact_name); ?></div>
-                    <div><strong>Phone:</strong> <?php echo getFallback($phone); ?></div>
-                </div>
-                <div class="col-sm-6">
-                    <div><strong>Email:</strong> <?php echo !empty($email) ? '<a href="mailto:' . $email . '" class="text-primary">' . $email . '</a>' : '<span class="text-muted">Not Available</span>'; ?></div>
-                </div>
+            <h6 class="text-secondary"><i class="fas fa-link mr-2"></i><?php echo __('URIs'); ?></h6>
+            <div>
+                <?php if(!empty($credential_uri)) { ?>
+                    <div><strong><?php echo __('URI'); ?>:</strong> <a href="<?php echo sanitize_url($credential_uri); ?>" target="_blank" class="text-primary"><?php echo htmlspecialchars($credential_uri); ?></a></div>
+                <?php } ?>
+                <?php if(!empty($credential_uri_2)) { ?>
+                    <div><strong><?php echo __('URI 2'); ?>:</strong> <a href="<?php echo sanitize_url($credential_uri_2); ?>" target="_blank" class="text-primary"><?php echo htmlspecialchars($credential_uri_2); ?></a></div>
+                <?php } ?>
+                <?php if(empty($credential_uri) && empty($credential_uri_2)) { ?>
+                    <span class="text-muted"><?php echo __('No URIs provided'); ?></span>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -79,9 +80,9 @@ ob_start();
     <!-- Notes Card -->
     <div class="card mb-3 shadow-sm rounded">
         <div class="card-body">
-            <h6 class="text-secondary"><i class="fas fa-sticky-note mr-2"></i>Notes</h6>
+            <h6 class="text-secondary"><i class="fas fa-sticky-note mr-2"></i><?php echo __('Notes'); ?></h6>
             <div>
-                <?php echo getFallback($notes); ?>
+                <?php echo !empty($credential_note) ? nl2br(htmlspecialchars($credential_note)) : '<span class="text-muted">' . __('No notes') . '</span>'; ?>
             </div>
         </div>
     </div>

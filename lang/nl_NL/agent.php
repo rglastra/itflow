@@ -1472,11 +1472,52 @@ $lang['Mark Billable'] = 'Als Factureerbaar Markeren';
 $lang['Set Next Run Date for %s Tickets'] = 'Volgende Uitvoeringsdatum Instellen voor %s Tickets';
 $lang['Next Run Date'] = 'Volgende Uitvoeringsdatum';
 $lang['Set Run Date'] = 'Uitvoeringsdatum Instellen';
-?>
 
-
-
-
-
-
-
+// Credential modals
+$lang['New Credential'] = 'Nieuwe Getuigschrift';
+$lang['Editing credential: %s'] = 'Getuigschrift Bewerken: %s';
+$lang['Name of Login'] = 'Aanmeldingsnaam';
+$lang['Username / ID'] = 'Gebruikersnaam / ID';
+$lang['Password / Key'] = 'Wachtwoord / Sleutel';
+$lang['TOTP Seed'] = 'TOTP-Zaadje';
+$lang['Insert secret key'] = 'Voeg Geheime Sleutel In';
+$lang['OTP'] = 'OTP';
+$lang['URI'] = 'URI';
+$lang['URI 2'] = 'URI 2';
+$lang['http://192.168.1.1'] = 'http://192.168.1.1';
+$lang['ex. http://192.168.1.1'] = 'bijv. http://192.168.1.1';
+$lang['ex. https://server.company.com:5001'] = 'bijv. https://server.company.com:5001';
+$lang['https://server.company.com:5001'] = 'https://server.company.com:5001';
+$lang['Relation'] = 'Relatie';
+$lang['Notes'] = 'Notities';
+$lang['Contact'] = 'Contact';
+$lang['Asset'] = 'Apparaat';
+$lang['Enter some notes'] = 'Voeg Notities In';
+$lang['Tags'] = 'Labels';
+$lang['Add some tags'] = 'Voeg Labels Toe';
+$lang['- Select Contact -'] = '- Selecteer Contact -';
+$lang['- Select Asset -'] = '- Selecteer Apparaat -';
+$lang['Assign Tags to %s Credentials'] = 'Labels Toewijzen aan %s Getuigschriften';
+$lang['Remove Existing Tags'] = 'Bestaande Labels Verwijderen';
+$lang['Assign Tags'] = 'Labels Toewijzen';
+$lang['Export Credentials to CSV'] = 'Getuigschriften naar CSV Exporteren';
+$lang['Download CSV'] = 'CSV Downloaden';
+$lang['Import Credentials'] = 'Getuigschriften Importeren';
+$lang['Format csv file with headings & data:'] = 'Formaat CSV-bestand met koppen en gegevens:';
+$lang['Name, Description, Username, Password, TOTP, URI'] = 'Naam, Beschrijving, Gebruikersnaam, Wachtwoord, TOTP, URI';
+$lang['sample csv template'] = 'voorbeeld CSV-sjabloon';
+$lang['Vendor Details'] = 'Leveranciersgegevens';
+$lang['Contact Information'] = 'Contactgegevens';
+$lang['Account Number'] = 'Rekeningnummer';
+$lang['Hours'] = 'Uren';
+$lang['Contact Name'] = 'Contactnaam';
+$lang['Phone'] = 'Telefoon';
+$lang['Email'] = 'E-mail';
+$lang['Website'] = 'Website';
+$lang['Not Available'] = 'Niet Beschikbaar';
+$lang['Created'] = 'Gemaakt';
+$lang['URIs'] = 'URIs';
+$lang['No URIs provided'] = 'Geen URIs verstrekt';
+$lang['No notes'] = 'Geen notities';
+$lang['Import'] = 'Importeren';
+?>            

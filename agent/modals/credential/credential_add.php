@@ -10,7 +10,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-key mr-2"></i>New Credential</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-key mr-2"></i><?php echo __('New Credential'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -21,15 +21,15 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-credential-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-credential-details"><?php echo __('Details'); ?></a>
             </li>
             <?php if ($client_id) { ?>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-credential-relation">Relation</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-credential-relation"><?php echo __('Relation'); ?></a>
             </li>
             <?php } ?>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-credential-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-credential-notes"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -44,13 +44,13 @@ ob_start();
                 <?php } else { ?>
 
                     <div class="form-group">
-                        <label>Client <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                             </div>
                             <select class="form-control select2" name="client_id" required>
-                                <option value="">- Select Client -</option>
+                                <option value=""><?php echo __('- Select Client -'); ?></option>
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
@@ -67,12 +67,12 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong> / <span class="text-secondary">Important?</span></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong> / <span class="text-secondary"><?php echo __('Important?'); ?></span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name of Login" maxlength="200" required autofocus>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Name of Login'); ?>" maxlength="200" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <label class="star-toggle mb-0" title="Favorite">
@@ -84,32 +84,32 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Description" maxlength="500">
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('Description'); ?>" maxlength="500">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Username / ID</label>
+                    <label><?php echo __('Username / ID'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="username" placeholder="Username or ID" maxlength="350"> <!-- DB field is 500, 350 un-encrypted chars -->
+                        <input type="text" class="form-control" name="username" placeholder="<?php echo __('Username or ID'); ?>" maxlength="350"> <!-- DB field is 500, 350 un-encrypted chars -->
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Password / Key <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Password / Key'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
                         </div>
-                        <input type="password" class="form-control" data-toggle="password" id="password" name="password" placeholder="Password or Key" required maxlength="350" autocomplete="new-password">
+                        <input type="password" class="form-control" data-toggle="password" id="password" name="password" placeholder="<?php echo __('Password or Key'); ?>" required maxlength="350" autocomplete="new-password">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                         </div>
@@ -120,12 +120,12 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>TOTP Seed</label>
+                    <label><?php echo __('TOTP Seed'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" data-toggle="password" name="otp_secret" placeholder="Insert secret key" maxlength="200">
+                        <input type="password" class="form-control" data-toggle="password" name="otp_secret" placeholder="<?php echo __('Insert secret key'); ?>" maxlength="200">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                         </div>
@@ -133,22 +133,22 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>URI</label>
+                    <label><?php echo __('URI'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="uri" placeholder="http://192.168.1.1" maxlength="500">
+                        <input type="text" class="form-control" name="uri" placeholder="<?php echo __('http://192.168.1.1'); ?>" maxlength="500">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>URI 2</label>
+                    <label><?php echo __('URI 2'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="uri_2" placeholder="https://server.company.com:5001" maxlength="500">
+                        <input type="text" class="form-control" name="uri_2" placeholder="<?php echo __('https://server.company.com:5001'); ?>" maxlength="500">
                     </div>
                 </div>
 
@@ -157,7 +157,7 @@ ob_start();
             <?php if ($client_id) { ?>
             <div class="tab-pane fade" id="pills-credential-relation">
                 <div class="form-group">
-                    <label>Contact</label>
+                    <label><?php echo __('Contact'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
@@ -184,13 +184,13 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Asset</label>
+                    <label><?php echo __('Asset'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                         </div>
                         <select class="form-control select2" name="asset">
-                            <option value="">- Select Asset -</option>
+                            <option value=""><?php echo __('- Select Asset -'); ?></option>
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM assets LEFT JOIN locations on asset_location_id = location_id WHERE asset_client_id = $client_id AND asset_archived_at IS NULL ORDER BY asset_name ASC");
@@ -220,16 +220,16 @@ ob_start();
             <div class="tab-pane fade" id="pills-credential-notes">
 
                 <div class="form-group">
-                    <textarea class="form-control" rows="12" placeholder="Enter some notes" name="note"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="<?php echo __('Enter some notes'); ?>" name="note"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Tags</label>
+                    <label><?php echo __('Tags'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
                         </div>
-                        <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
+                        <select class="form-control select2" name="tags[]" data-placeholder="<?php echo __('Add some tags'); ?>" multiple>
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 4 ORDER BY tag_name ASC");
@@ -255,8 +255,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_credential" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_credential" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 
