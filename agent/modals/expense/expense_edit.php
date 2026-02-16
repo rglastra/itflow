@@ -30,7 +30,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fas fa-fw fa-shopping-cart mr-2'></i>Editing expense</h5>
+    <h5 class="modal-title"><i class='fas fa-fw fa-shopping-cart mr-2'></i><?php echo __('Editing expense'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -44,7 +44,7 @@ ob_start();
         <div class="form-row">
 
             <div class="form-group col-md">
-                <label>Date <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Date'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -54,7 +54,7 @@ ob_start();
             </div>
 
             <div class="form-group col-md">
-                <label>Amount <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Amount'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -67,7 +67,7 @@ ob_start();
 
         <div class="form-row">
             <div class="form-group col-md">
-                <label>Account <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Account'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
@@ -112,7 +112,7 @@ ob_start();
             </div>
 
             <div class="form-group col-md">
-                <label>Vendor <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Vendor'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>

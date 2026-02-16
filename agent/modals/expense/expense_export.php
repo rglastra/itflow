@@ -7,7 +7,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-download mr-2"></i>Exporting Expenses to CSV</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-download mr-2"></i><?php echo __('Exporting Expenses to CSV'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -17,13 +17,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Account</label>
+            <label><?php echo __('Account'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
                 </div>
                 <select class="form-control select2" name="account">
-                    <option value="">- All Accounts -</option>
+                    <option value=""><?php echo __('- All Accounts -'); ?></option>
 
                     <?php
                     $sql_accounts_filter = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
@@ -41,13 +41,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Vendor</label>
+            <label><?php echo __('Vendor'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                 </div>
                 <select class="form-control select2" name="vendor">
-                    <option value="">- All Vendors -</option>
+                    <option value=""><?php echo __('- All Vendors -'); ?></option>
 
                     <?php
                     $sql_vendors_filter = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_client_id = 0 ORDER BY vendor_name ASC");
@@ -65,13 +65,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Category</label>
+            <label><?php echo __('Category'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-list"></i></span>
                 </div>
                 <select class="form-control select2" name="category">
-                    <option value="">- All Categories -</option>
+                    <option value=""><?php echo __('- All Categories -'); ?></option>
 
                     <?php
                     $sql_categories_filter = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Expense' ORDER BY category_name ASC");
@@ -89,7 +89,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Date From</label>
+            <label><?php echo __('Date From'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -99,7 +99,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Date To</label>
+            <label><?php echo __('Date To'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -110,8 +110,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="export_expenses_csv" class="btn btn-primary text-bold"><i class="fas fa-fw fa-download mr-2"></i>Download CSV</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="export_expenses_csv" class="btn btn-primary text-bold"><i class="fas fa-fw fa-download mr-2"></i><?php echo __('Download CSV'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

@@ -24,7 +24,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fas fa-fw fa-undo mr-2'></i>Refunding expense</h5>
+    <h5 class="modal-title"><i class='fas fa-fw fa-undo mr-2'></i><?php echo __('Refunding expense'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -39,7 +39,7 @@ ob_start();
         <div class="form-row">
 
             <div class="form-group col-md">
-                <label>Refund Date</label>
+                <label><?php echo __('Refund Date'); ?></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -49,7 +49,7 @@ ob_start();
             </div>
 
             <div class="form-group col-md">
-                <label>Refund Amount</label>
+                <label><?php echo __('Refund Amount'); ?></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -60,29 +60,29 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Description</label>
-            <textarea class="form-control" rows="6" name="description" placeholder="Enter a description" required>Refund: <?php echo $expense_description; ?></textarea>
+            <label><?php echo __('Description'); ?></label>
+            <textarea class="form-control" rows="6" name="description" placeholder="<?php echo __('Enter a description'); ?>" required>Refund: <?php echo $expense_description; ?></textarea>
         </div>
 
         <div class="form-group">
-            <label>Reference</label>
+            <label><?php echo __('Reference'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-file-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" name="reference" placeholder="Enter a reference" maxlength="200" value="<?php echo $expense_reference; ?>">
+                <input type="text" class="form-control" name="reference" placeholder="<?php echo __('Enter a reference'); ?>" maxlength="200" value="<?php echo $expense_reference; ?>">
             </div>
         </div>
 
         <div class="form-group">
-            <label>Receipt</label>
+            <label><?php echo __('Receipt'); ?></label>
             <input type="file" class="form-control-file" name="file">
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_expense" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Refund</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_expense" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Refund'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

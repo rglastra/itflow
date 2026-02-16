@@ -12,7 +12,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-user mr-2"></i>Set Client: <strong><?= $count ?></strong> Expense<?= $count == 1 ? '' : 's' ?></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-user mr-2"></i><?php echo sprintf(__('Set Client: %s Expense(s)'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -27,13 +27,13 @@ ob_start();
 
 
         <div class="form-group">
-            <label>Client</label>
+            <label><?php echo __('Client'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_client_id">
-                    <option value="0">- No Client -</option>
+                    <option value="0"><?php echo __('- No Client -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL ORDER BY client_name ASC");
@@ -52,8 +52,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_expense_client" class="btn btn-primary text-bold"><i class="fa fa-fw fa-check mr-2"></i>Set</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_expense_client" class="btn btn-primary text-bold"><i class="fa fa-fw fa-check mr-2"></i><?php echo __('Set'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

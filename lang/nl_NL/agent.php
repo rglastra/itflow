@@ -1401,6 +1401,37 @@ $lang['Moving File: %s'] = 'Bestand Verplaatsen: %s';
 $lang['Move File to'] = 'Bestand Verplaatsen naar';
 $lang['Yes, Delete!'] = 'Ja, Verwijderen!';
 $lang['Move Files'] = 'Bestanden Verplaatsen';
+
+// Expense modals
+$lang['Editing expense'] = 'Uitgave Bewerken';
+$lang['Set Account for %s Expense(s)'] = 'Account Instellen voor %s Uitgave(n)';
+$lang['Set Category: %s Expense(s)'] = 'Categorie Instellen: %s Uitgave(n)';
+$lang['Set Client: %s Expense(s)'] = 'Klant Instellen: %s Uitgave(n)';
+$lang['- No Client -'] = '- Geen Klant -';
+$lang['Are you really, really, really sure?'] = 'Bent u echt, echt, echt zeker?';
+$lang['This will permanently delete the selected expense%s. and ALL associated data'] = 'Dit zal de geselecteerde uitgave%s permanent verwijderen. en ALLE bijbehorende gegevens';
+$lang['This action cannot be undone.'] = 'Deze actie kan niet ongedaan worden gemaakt.';
+$lang['Copying expense'] = 'Uitgave Kopiëren';
+$lang['Exporting Expenses to CSV'] = 'Uitgaven naar CSV Exporteren';
+$lang['- All Accounts -'] = '- Alle Accounts -';
+$lang['- All Vendors -'] = '- Alle Leveranciers -';
+$lang['- All Categories -'] = '- Alle Categorieën -';
+$lang['Date From'] = 'Datum Van';
+$lang['Refunding expense'] = 'Uitgave Terugbetalen';
+$lang['Refund Date'] = 'Terugbetalingsdatum';
+$lang['Refund Amount'] = 'Terugbetalingsbedrag';
+$lang['Reference'] = 'Referentie';
+$lang['Receipt'] = 'Bon';
+$lang['Refund'] = 'Terugbetaling';
+
+// Additional translations for forms
+$lang['Enter a description'] = 'Voer een beschrijving in';
+$lang['Enter a reference'] = 'Voer een referentie in';
+$lang['Set'] = 'Instellen';
+$lang['Delete'] = 'Verwijderen';
+$lang['Client'] = 'Klant';
+$lang['Date To'] = 'Datum Tot';
+$lang['Download CSV'] = 'CSV Downloaden';
 ?>
 
 
