@@ -55,7 +55,7 @@ function i18n_get_browser_language() {
  * @return bool Success status
  */
 function i18n_init($locale = null) {
-    global $lang, $session_user_id, $mysqli;
+    global $lang, $session_user_id, $mysqli, $session_locale;
     
     // Priority 1: Check for language cookie (user manually selected)
     if (isset($_COOKIE['itflow_language']) && !empty($_COOKIE['itflow_language'])) {
@@ -88,6 +88,9 @@ function i18n_init($locale = null) {
     if (!in_array($locale, $allowed_locales, true)) {
         $locale = 'en_US'; // Fallback to safe default
     }
+    
+    // Store the determined locale in global variable for use in templates
+    $session_locale = $locale;
     
     // Load all language module files from locale directory
     // Using whitelisted locale, not directly from user input
