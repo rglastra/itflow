@@ -118,7 +118,7 @@ ob_start();
                             } ?> value="1">Active</option>
                     <option <?php if ($recurring_invoice_status == 0) {
                                 echo "selected";
-                            } ?> value="0">InActive</option>
+                            } ?> value="0"><?php echo __('InActive'); ?></option>
                 </select>
             </div>
         </div>

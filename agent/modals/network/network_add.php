@@ -76,7 +76,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
@@ -87,7 +87,7 @@ ob_start();
 
                 <?php if ($client_id) { ?>
                 <div class="form-group">
-                    <label>Location</label>
+                    <label><?php echo __('Location'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>

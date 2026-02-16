@@ -208,7 +208,7 @@ ob_start();
                 </div>
 
 
-                <label>Location Phone / <span class="text-secondary">Extension</span></label>
+                <label><?php echo __('Location Phone'); ?> / <span class="text-secondary"><?php echo __('Extension'); ?></span></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">

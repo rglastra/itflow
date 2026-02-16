@@ -1754,4 +1754,8 @@ $lang['Primary Contacts'] = 'Primaire contacten';
 $lang['Webhost'] = 'Webhost';
 $lang['Import'] = 'Importeren';
 $lang['Expiration'] = 'Vervaldatum';
+$lang['Location'] = 'Locatie';
+$lang['Location Phone'] = 'Locatie Telefoon';
+$lang['Extension'] = 'Extensie';
+$lang['InActive'] = 'Inactief';
 ?>
