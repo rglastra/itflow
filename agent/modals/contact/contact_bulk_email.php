@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-envelope-open mr-2"></i>Send Email to <strong><?= $count ?></strong> Contacts</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-envelope-open mr-2"></i><?php echo __('Send Email to'); ?> <strong><?= $count ?></strong> <?php echo __('Contacts'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -21,7 +21,7 @@ ob_start();
     <?php foreach ($contact_ids as $contact_id) { ?><input type="hidden" name="contact_ids[]" value="<?= $contact_id ?>"><?php } ?>
     <div class="modal-body">
 
-        <label>From Email / Display Name</label>
+        <label><?php echo __('From Email / Display Name'); ?></label>
         <div class="form-row">
 
             <div class="form-group col-sm-6">
@@ -38,18 +38,18 @@ ob_start();
             </div>
 
             <div class="form-group col-sm-6">
-                <input type="text" class="form-control" name="mail_from_name" placeholder="From Name" maxlength="255"
+                <input type="text" class="form-control" name="mail_from_name" placeholder="<?php echo __('From Name'); ?>" maxlength="255"
                     value="<?php echo nullable_htmlentities($config_mail_from_name); ?>">
             </div>
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" name="subject" placeholder="Subject" maxlength="255">
+            <input type="text" class="form-control" name="subject" placeholder="<?php echo __('Subject'); ?>" maxlength="255">
         </div>
 
         <div class="form-group">
             <textarea class="form-control tinymce" name="body"
-                placeholder="Type an email in here"></textarea>
+                placeholder="<?php echo __('type an email in here'); ?>"></textarea>
         </div>
 
         <div class="form-group">
@@ -64,8 +64,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="send_bulk_mail_now" class="btn btn-primary text-bold"><i class="fas fa-paper-plane mr-2"></i>Send Emails</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="send_bulk_mail_now" class="btn btn-primary text-bold"><i class="fas fa-paper-plane mr-2"></i><?php echo __('Send Emails'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

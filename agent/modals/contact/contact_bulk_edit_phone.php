@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-phone-alt mr-2"></i>Set Phone Number for <strong><?= $count ?></strong> Contacts</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-phone-alt mr-2"></i><?php echo __('Set Phone Number for'); ?> <strong><?= $count ?></strong> <?php echo __('Contacts'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -21,21 +21,21 @@ ob_start();
     <?php foreach ($contact_ids as $contact_id) { ?><input type="hidden" name="contact_ids[]" value="<?= $contact_id ?>"><?php } ?>
     <div class="modal-body">
 
-        <label>Phone</label>
+        <label><?php echo __('Phone'); ?></label>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-phone"></i></span>
                 </div>
-                <input type="text" class="form-control" name="bulk_phone" placeholder="Phone Number" maxlength="200">
+                <input type="text" class="form-control" name="bulk_phone" placeholder="<?php echo __('Phone Number'); ?>" maxlength="200">
             </div>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_contact_phone" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Set Phone Number</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_contact_phone" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Set Phone Number'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
