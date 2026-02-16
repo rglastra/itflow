@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-folder mr-2"></i>Link Document to <strong><?php echo $contact_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-folder mr-2"></i><?php echo __('Link Document to'); ?> <strong><?php echo $contact_name; ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
                 <select class="form-control select2" name="document_id">
-                    <option value="">- Select a Document -</option>
+                    <option value=""><?php echo __('- Select a Document -'); ?></option>
                     <?php
                     $sql_documents_select = mysqli_query($mysqli, "
                         SELECT documents.document_id, documents.document_name

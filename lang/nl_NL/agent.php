@@ -630,6 +630,35 @@ $lang['Send Emails'] = 'E-mails verzenden';
 // Locations
 $lang['export locations to csv'] = 'exporteer locaties naar csv';
 $lang['Export Locations to CSV'] = 'Exporteer locaties naar CSV';
+
+// Contact Link Modals
+$lang['link asset to'] = 'activa koppelen aan';
+$lang['Link Asset to'] = 'Activa koppelen aan';
+$lang['- select an asset -'] = '- selecteer een activa -';
+$lang['- Select an Asset -'] = '- Selecteer een activa -';
+$lang['link document to'] = 'document koppelen aan';
+$lang['Link Document to'] = 'Document koppelen aan';
+$lang['- select a document -'] = '- selecteer een document -';
+$lang['- Select a Document -'] = '- Selecteer een document -';
+$lang['license software to'] = 'software licentie toewijzen aan';
+$lang['License Software to'] = 'Software licentie toewijzen aan';
+$lang['- select a user software license -'] = '- selecteer een gebruikerslicentie -';
+$lang['- Select a User Software License -'] = '- Selecteer een gebruikerslicentie -';
+$lang['link credential to'] = 'inloggegevens koppelen aan';
+$lang['Link Credential to'] = 'Inloggegevens koppelen aan';
+$lang['- select a credential -'] = '- selecteer inloggegevens -';
+$lang['- Select a Credential -'] = '- Selecteer inloggegevens -';
+$lang['link service to'] = 'service koppelen aan';
+$lang['Link Service to'] = 'Service koppelen aan';
+$lang['- select a service -'] = '- selecteer een service -';
+$lang['- Select a Service -'] = '- Selecteer een service -';
+$lang['link file to'] = 'bestand koppelen aan';
+$lang['Link File to'] = 'Bestand koppelen aan';
+$lang['- select a file -'] = '- selecteer een bestand -';
+$lang['- Select a File -'] = '- Selecteer een bestand -';
+$lang['link'] = 'koppelen';
+$lang['Link'] = 'Koppelen';
 ?>
+
 
 

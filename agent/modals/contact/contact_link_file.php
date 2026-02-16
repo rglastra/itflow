@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-paperclip mr-2"></i>Link File to <strong><?php echo $contact_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-paperclip mr-2"></i><?php echo __('Link File to'); ?> <strong><?php echo $contact_name; ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-paperclip"></i></span>
                 </div>
                 <select class="form-control select2" name="file_id">
-                    <option value="">- Select a File -</option>
+                    <option value=""><?php echo __('- Select a File -'); ?></option>
                     <?php
                     $sql_files_select = mysqli_query($mysqli, "
                         SELECT files.file_id, files.file_name, folders.folder_name

@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-stream mr-2"></i>Link Service to <strong><?php echo $contact_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-stream mr-2"></i><?php echo __('Link Service to'); ?> <strong><?php echo $contact_name; ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-stream"></i></span>
                 </div>
                 <select class="form-control select2" name="service_id">
-                    <option value="">- Select a Service -</option>
+                    <option value=""><?php echo __('- Select a Service -'); ?></option>
                     <?php
                     $sql_services_select = mysqli_query($mysqli, "
                         SELECT services.service_id, services.service_name
