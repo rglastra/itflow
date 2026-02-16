@@ -113,7 +113,7 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
         mysqli_query($mysqli, "ALTER TABLE `contacts` ADD `contact_token_expire` DATETIME NULL DEFAULT NULL AFTER `contact_password_reset_token`");
 
         // Update config.php var with new version var for use with docker
-        file_put_contents("config.php", "\$repo_branch = 'master';" . PHP_EOL, FILE_APPEND);
+        file_put_contents("config.php", "\$repo_branch = 'main';" . PHP_EOL, FILE_APPEND);
 
 
         // Then, update the database to the next sequential version

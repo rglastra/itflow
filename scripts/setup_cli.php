@@ -230,7 +230,7 @@ $new_config .= "\$mysqli = mysqli_connect(\$dbhost, \$dbusername, \$dbpassword, 
 $new_config .= "\$config_app_name = 'ITFlow';\n";
 $new_config .= "\$config_base_url = '" . addslashes($base_url) . "';\n";
 $new_config .= "\$config_https_only = TRUE;\n";
-$new_config .= "\$repo_branch = 'master';\n";
+$new_config .= "\$repo_branch = 'main';\n";
 $new_config .= "\$installation_id = '$installation_id';\n";
 
 if (file_put_contents("../config.php", $new_config) === false) {
