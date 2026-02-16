@@ -61,12 +61,12 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Additional Assets</label>
+            <label><?php echo __('Additional Assets'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>
                 </div>
-                <select class="form-control select2" name="additional_assets[]" data-tags="true" data-placeholder="- Select Additional Assets -" multiple>
+                <select class="form-control select2" name="additional_assets[]" data-tags="true" data-placeholder="<?php echo __('- Select Additional Assets -'); ?>" multiple>
                     <option value=""></option>
                     <?php
 
@@ -88,8 +88,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_ticket_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_ticket_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 
 </form>

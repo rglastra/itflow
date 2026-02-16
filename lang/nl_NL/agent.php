@@ -1133,6 +1133,12 @@ $lang['Close'] = 'Sluiten';
 $lang['Editing Interface:'] = 'Interface Bewerken:';
 $lang['IPv4 or DHCP'] = 'IPv4 of DHCP';
 $lang['Save'] = 'Opslaan';
+
+// Ticket modals - remaining small ones
+$lang['Assign'] = 'Toewijzen';
+$lang['Send email notification'] = 'Stuur e-mailnotificatie';
+$lang['Additional Assets'] = 'Extra Assets';
+$lang['- Select Additional Assets -'] = '- Selecteer Extra Assets -';
 ?>
 
 

@@ -81,7 +81,7 @@ ob_start();
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="contact_notify" value="1" id="checkNotifyContact" <?php if ($config_ticket_client_general_notifications) { echo "checked"; } ?>>
                     <label class="form-check-label" for="checkNotifyContact">
-                        Send email notification
+                        <?php echo __('Send email notification'); ?>
                     </label>
                 </div>
             </div>
@@ -90,8 +90,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_ticket_contact" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_ticket_contact" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 
 </form>
