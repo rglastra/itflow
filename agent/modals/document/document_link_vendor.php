@@ -18,7 +18,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-building mr-2"></i>Link Vendor to <strong><?= $document_name ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-building mr-2"></i><?php echo sprintf(__('Link Vendor to %s'), $document_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -33,7 +33,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                 </div>
                 <select class="form-control select2" name="vendor_id">
-                    <option value="">- Select a Vendor -</option>
+                    <option value=""><?php echo __('- Select a Vendor -'); ?></option>
                     <?php
                     $sql_vendors_select = mysqli_query($mysqli, "
                         SELECT vendors.vendor_id, vendor_name
@@ -61,8 +61,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="link_vendor_to_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link Vendor</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_vendor_to_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link Vendor'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

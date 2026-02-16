@@ -18,7 +18,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-user mr-2"></i>Link Contact to <strong><?= $document_name ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-user mr-2"></i><?php echo sprintf(__('Link Contact to %s'), $document_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -33,7 +33,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                 </div>
                 <select class="form-control select2" name="contact_id">
-                    <option value="">- Select a Contact -</option>
+                    <option value=""><?php echo __('- Select a Contact -'); ?></option>
                     <?php
                     $sql_contacts_select = mysqli_query($mysqli, "
                         SELECT contacts.contact_id, contact_name
@@ -61,8 +61,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="link_contact_to_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link Contact</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_contact_to_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link Contact'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

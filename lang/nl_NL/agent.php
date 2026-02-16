@@ -1338,6 +1338,51 @@ $lang['Payments'] = 'Betalingen';
 $lang['Trips'] = 'Reizen';
 $lang['Audit Log'] = 'Auditlog';
 $lang['Export'] = 'Exporteren';
+
+// Document modals
+$lang['New Document'] = 'Nieuw Document';
+$lang['Name'] = 'Naam';
+$lang['Select Folder'] = 'Map Selecteren';
+$lang['/'] = '/';
+$lang['Description'] = 'Beschrijving';
+$lang['Short summary of the document'] = 'Korte samenvatting van het document';
+$lang['Create'] = 'Aanmaken';
+$lang['Editing document: %s'] = 'Document Bewerken: %s';
+$lang['Short summary of changes'] = 'Korte samenvatting van wijzigingen';
+$lang['Renaming document: %s'] = 'Document Hernoemen: %s';
+$lang['Document Name'] = 'Documentnaam';
+$lang['Rename'] = 'Hernoemen';
+$lang['Move %s Documents'] = '%s Documenten Verplaatsen';
+$lang['Target Folder'] = 'Doelmap';
+$lang['Move'] = 'Verplaatsen';
+$lang['Move Document to'] = 'Document Verplaatsen naar';
+$lang['Associate File to %s'] = 'Bestand aan %s Koppelen';
+$lang['- Select a File -'] = '- Selecteer een Bestand -';
+$lang['Associate'] = 'Koppelen';
+$lang['New Document from Template'] = 'Nieuw Document van Sjabloon';
+$lang['Template'] = 'Sjabloon';
+$lang['- Select Template -'] = '- Selecteer Sjabloon -';
+$lang['Document name'] = 'Documentnaam';
+$lang['Edit Visibility Status for %s'] = 'Zichtbaarheidsstatus voor %s Bewerken';
+$lang['Visibility'] = 'Zichtbaarheid';
+$lang['Should this document be visible in the portal to client contacts with the \'Technical\' role?'] = 'Moet dit document zichtbaar zijn in het portaal voor klantcontacten met de rol \'Technisch\'?';
+$lang['Yes'] = 'Ja';
+$lang['No'] = 'Nee';
+$lang['Save changes'] = 'Wijzigingen Opslaan';
+$lang['Link Asset to %s'] = 'Apparaat aan %s Koppelen';
+$lang['- Select an Asset -'] = '- Selecteer een Apparaat -';
+$lang['Link'] = 'Koppelen';
+$lang['Link Contact to %s'] = 'Contact aan %s Koppelen';
+$lang['- Select a Contact -'] = '- Selecteer een Contact -';
+$lang['Link Contact'] = 'Contact Koppelen';
+$lang['Link File to %s'] = 'Bestand aan %s Koppelen';
+$lang['Link File'] = 'Bestand Koppelen';
+$lang['Link Software to %s'] = 'Software aan %s Koppelen';
+$lang['- Select a License -'] = '- Selecteer een Licentie -';
+$lang['Link License'] = 'Licentie Koppelen';
+$lang['Link Vendor to %s'] = 'Leverancier aan %s Koppelen';
+$lang['- Select a Vendor -'] = '- Selecteer een Leverancier -';
+$lang['Link Vendor'] = 'Leverancier Koppelen';
 ?>
 
 

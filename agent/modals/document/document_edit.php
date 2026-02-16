@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i>Editing document: <strong><?php echo $document_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i><?php echo sprintf(__('Editing document: %s'), $document_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -30,7 +30,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <input type="text" class="form-control" name="name" maxlength="200" value="<?php echo $document_name; ?>" placeholder="Name" required>
+            <input type="text" class="form-control" name="name" maxlength="200" value="<?php echo $document_name; ?>" placeholder="<?php echo __('Name'); ?>" required>
         </div>
 
         <div class="form-group">
@@ -38,13 +38,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" name="description" value="<?php echo $document_description; ?>" placeholder="Short summary of changes">
+            <input type="text" class="form-control" name="description" value="<?php echo $document_description; ?>" placeholder="<?php echo __('Short summary of changes'); ?>">
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

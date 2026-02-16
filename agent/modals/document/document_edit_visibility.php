@@ -20,7 +20,7 @@ ob_start();
 <div class="modal-header bg-dark">
     <h5 class="modal-title">
         <i class="fa fa-fw fa-handshake mr-2"></i>
-        Edit Visibility Status for <strong><?= $document_name ?></strong>
+        <?php echo sprintf(__('Edit Visibility Status for %s'), $document_name); ?>
     </h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
@@ -30,15 +30,15 @@ ob_start();
     <div class="modal-body">
         <input type="hidden" name="document_id" value="<?= $document_id ?>">
         <div class="form-group">
-            <label>Visibility</label>
-            <p>Should this document be visible in the portal to client contacts with the 'Technical' role?</p>
+            <label><?php echo __('Visibility'); ?></label>
+            <p><?php echo __('Should this document be visible in the portal to client contacts with the \'Technical\' role?'); ?></p>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                 </div>
                 <select class="form-control" name="document_visible">
-                    <option <?php if ($document_client_visible == 1) { echo "selected"; } ?> value="1">Yes</option>
-                    <option <?php if ($document_client_visible == 0) { echo "selected"; } ?> value="0">No</option>
+                    <option <?php if ($document_client_visible == 1) { echo "selected"; } ?> value="1"><?php echo __('Yes'); ?></option>
+                    <option <?php if ($document_client_visible == 0) { echo "selected"; } ?> value="0"><?php echo __('No'); ?></option>
                 </select>
             </div>
 
@@ -47,8 +47,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="toggle_document_visibility" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save changes</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="toggle_document_visibility" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save changes'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 
 </form>

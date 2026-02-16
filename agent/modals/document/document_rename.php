@@ -15,7 +15,7 @@ $document_name = nullable_htmlentities($row['document_name']);
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i>Renaming document: <strong><?php echo $document_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i><?php echo sprintf(__('Renaming document: %s'), $document_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -26,7 +26,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Document Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Document Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-file-alt"></i></span>
@@ -37,8 +37,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="rename_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Rename</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="rename_document" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Rename'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

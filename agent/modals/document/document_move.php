@@ -16,7 +16,7 @@ $document_name = nullable_htmlentities($row['document_name']);
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i>Moving document: <strong><?php echo $document_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-file-alt mr-2"></i><?php echo sprintf(__('Moving document: %s'), $document_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -26,13 +26,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Move Document to</label>
+            <label><?php echo __('Move Document to'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
                 <select class="form-control select2" name="folder">
-                    <option value="0">/</option>
+                    <option value="0"><?php echo __('/'); ?></option>
                     <?php
                     // Fetch all folders for the client
                     $sql_all_folders = mysqli_query($mysqli, "SELECT folder_id, folder_name, parent_folder FROM folders WHERE folder_client_id = $client_id ORDER BY folder_name ASC");
