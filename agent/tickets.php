@@ -430,6 +430,21 @@ if (isset($_GET["view"])) {
 
 ?>
 
+<script>
+// Date range translations
+window.dateRangeTranslations = {
+    'Today': '<?php echo __('today'); ?>',
+    'Yesterday': '<?php echo __('yesterday'); ?>',
+    'This Week': '<?php echo __('this week'); ?>',
+    'Last Week': '<?php echo __('last week'); ?>',
+    'This Month': '<?php echo __('this month'); ?>',
+    'Last Month': '<?php echo __('last month'); ?>',
+    'This Year': '<?php echo __('this year'); ?>',
+    'Last Year': '<?php echo __('last year'); ?>',
+    'All Time': '<?php echo __('all time'); ?>'
+};
+</script>
+
 <script src="../js/bulk_actions.js"></script>
 
 <?php

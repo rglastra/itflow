@@ -9,6 +9,19 @@
     var $dtf = $('#dtf');
     var $dtt = $('#dtt');
 
+    // Get translations or use English defaults
+    var translations = window.dateRangeTranslations || {
+      'Today': 'Today',
+      'Yesterday': 'Yesterday',
+      'This Week': 'This Week',
+      'Last Week': 'Last Week',
+      'This Month': 'This Month',
+      'Last Month': 'Last Month',
+      'This Year': 'This Year',
+      'Last Year': 'Last Year',
+      'All Time': 'All Time'
+    };
+
     // Default to "All Time" if nothing provided
     var hasValues =
       ($dtf.val() && $dtt.val()) ||
@@ -26,27 +39,51 @@
     function setDisplay(start, end, label) {
       // Special display for All Time
       if (
-        label === 'All Time' ||
+        label === translations['All Time'] || label === 'All Time' ||
         (start.format('YYYY-MM-DD') === '1970-01-01' &&
          end.format('YYYY-MM-DD') === '2099-12-31')
       ) {
-        $input.val('All Time');
+        $input.val(translations['All Time']);
       } else {
         $input.val(start.format('YYYY-MM-DD') + " — " + end.format('YYYY-MM-DD'));
       }
     }
 
-    var cannedMap = {
-      "Today": "today",
-      "Yesterday": "yesterday",
-      "This Week": "thisweek",
-      "Last Week": "lastweek",
-      "This Month": "thismonth",
-      "Last Month": "lastmonth",
-      "This Year": "thisyear",
-      "Last Year": "lastyear",
-      "All Time": "alltime"
-    };
+    // Map translated labels to canned date values
+    var cannedMap = {};
+    cannedMap[translations['Today']] = "today";
+    cannedMap[translations['Yesterday']] = "yesterday";
+    cannedMap[translations['This Week']] = "thisweek";
+    cannedMap[translations['Last Week']] = "lastweek";
+    cannedMap[translations['This Month']] = "thismonth";
+    cannedMap[translations['Last Month']] = "lastmonth";
+    cannedMap[translations['This Year']] = "thisyear";
+    cannedMap[translations['Last Year']] = "lastyear";
+    cannedMap[translations['All Time']] = "alltime";
+
+    // Build ranges object with translated labels
+    var ranges = {};
+    ranges[translations['Today']] = [moment(), moment()];
+    ranges[translations['Yesterday']] = [moment().subtract(1, 'day'), moment().subtract(1, 'day')];
+    ranges[translations['This Week']] = [moment().startOf('isoWeek'), moment()];
+    ranges[translations['Last Week']] = [
+      moment().subtract(1, 'week').startOf('isoWeek'),
+      moment().subtract(1, 'week').endOf('isoWeek')
+    ];
+    ranges[translations['This Month']] = [moment().startOf('month'), moment()];
+    ranges[translations['Last Month']] = [
+      moment().subtract(1, 'month').startOf('month'),
+      moment().subtract(1, 'month').endOf('month')
+    ];
+    ranges[translations['This Year']] = [moment().startOf('year'), moment()];
+    ranges[translations['Last Year']] = [
+      moment().subtract(1, 'year').startOf('year'),
+      moment().subtract(1, 'year').endOf('year')
+    ];
+    ranges[translations['All Time']] = [
+      moment('1970-01-01', 'YYYY-MM-DD'),
+      moment('2099-12-31', 'YYYY-MM-DD')
+    ];
 
     $input.daterangepicker({
       startDate: initialStart,
@@ -57,29 +94,7 @@
         format: 'YYYY-MM-DD',
         firstDay: 1
       },
-      ranges: {
-        'Today': [moment(), moment()],
-        'Yesterday': [moment().subtract(1, 'day'), moment().subtract(1, 'day')],
-        'This Week': [moment().startOf('isoWeek'), moment()],
-        'Last Week': [
-          moment().subtract(1, 'week').startOf('isoWeek'),
-          moment().subtract(1, 'week').endOf('isoWeek')
-        ],
-        'This Month': [moment().startOf('month'), moment()],
-        'Last Month': [
-          moment().subtract(1, 'month').startOf('month'),
-          moment().subtract(1, 'month').endOf('month')
-        ],
-        'This Year': [moment().startOf('year'), moment()],
-        'Last Year': [
-          moment().subtract(1, 'year').startOf('year'),
-          moment().subtract(1, 'year').endOf('year')
-        ],
-        'All Time': [
-          moment('1970-01-01', 'YYYY-MM-DD'),
-          moment('2099-12-31', 'YYYY-MM-DD')
-        ]
-      }
+      ranges: ranges
     }, setDisplay);
 
     // Show initial label

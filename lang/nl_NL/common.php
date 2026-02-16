@@ -304,3 +304,14 @@ $lang['recurring_income_by_client'] = 'Terugkerende Inkomsten per Klant';
 $lang['total_monthly_income'] = 'Totale Maandelijkse Inkomsten';
 $lang['collected_tax_summary'] = 'Overzicht Geïnde Belasting';
 $lang['all_years'] = 'Alle Jaren';
+
+// Date range labels
+$lang['today'] = 'Vandaag';
+$lang['yesterday'] = 'Gisteren';
+$lang['this week'] = 'Deze Week';
+$lang['last week'] = 'Vorige Week';
+$lang['this month'] = 'Deze Maand';
+$lang['last month'] = 'Vorige Maand';
+$lang['this year'] = 'Dit Jaar';
+$lang['last year'] = 'Vorig Jaar';
+$lang['all time'] = 'Alle Tijd';
