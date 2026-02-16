@@ -17,7 +17,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-user-plus mr-2"></i>New Contact</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-user-plus mr-2"></i><?php echo __('New Contact'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -27,16 +27,16 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details"><i class="fas fa-fw fa-user mr-2"></i>Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details"><i class="fas fa-fw fa-user mr-2"></i><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-photo"><i class="fas fa-fw fa-image mr-2"></i>Photo</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-photo"><i class="fas fa-fw fa-image mr-2"></i><?php echo __('Photo'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-access"><i class="fas fa-fw fa-lock mr-2"></i>Access</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-access"><i class="fas fa-fw fa-lock mr-2"></i><?php echo __('Access'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes"><i class="fas fa-fw fa-edit mr-2"></i>Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes"><i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -51,13 +51,13 @@ ob_start();
                 <?php } else { ?>
 
                     <div class="form-group">
-                        <label>Client <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                             </div>
                             <select class="form-control select2" name="client_id" required>
-                                <option value="">- Select Client -</option>
+                                <option value=""><?php echo __('- select client -'); ?></option>
                                 <?php
 
                                 while ($row = mysqli_fetch_assoc($sql_client_select)) {
@@ -73,12 +73,12 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong> / <span class="text-secondary">Primary Contact</span></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong> / <span class="text-secondary"><?php echo __('Primary Contact'); ?></span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Full Name" maxlength="200" required autofocus>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Full Name'); ?>" maxlength="200" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <input type="checkbox" name="contact_primary" value="1">
@@ -88,26 +88,26 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Title</label>
+                    <label><?php echo __('Title'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="title" placeholder="Job Title" maxlength="200">
+                        <input type="text" class="form-control" name="title" placeholder="<?php echo __('Job Title'); ?>" maxlength="200">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Department / Group</label>
+                    <label><?php echo __('Department / Group'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="department" placeholder="Department or group" maxlength="200">
+                        <input type="text" class="form-control" name="department" placeholder="<?php echo __('department or group'); ?>" maxlength="200">
                     </div>
                 </div>
 
-                <label>Phone / <span class="text-secondary">Extension</span></label>
+                <label><?php echo __('Phone'); ?> / <span class="text-secondary"><?php echo __('Extension'); ?></span></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -116,18 +116,18 @@ ob_start();
                                     <span class="input-group-text"><i class="fa fa-fw fa-phone"></i></span>
                                 </div>
                                 <input type="tel" class="form-control col-2" name="phone_country_code" placeholder="+" maxlength="4">
-                                <input type="tel" class="form-control" name="phone" placeholder="Phone Number" maxlength="200">
+                                <input type="tel" class="form-control" name="phone" placeholder="<?php echo __('Phone Number'); ?>" maxlength="200">
                             </div>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="extension" placeholder="ext." maxlength="200">
+                            <input type="text" class="form-control" name="extension" placeholder="<?php echo __('ext.'); ?>" maxlength="200">
                         </div>
                     </div>
                 </div>
 
-                <label>Mobile</label>
+                <label><?php echo __('Mobile'); ?></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -136,19 +136,19 @@ ob_start();
                                     <span class="input-group-text"><i class="fa fa-fw fa-mobile-alt"></i></span>
                                 </div>
                                 <input type="tel" class="form-control col-2" name="mobile_country_code" placeholder="+" maxlength="4">
-                                <input type="tel" class="form-control" name="mobile" placeholder="Mobile Phone Number">
+                                <input type="tel" class="form-control" name="mobile" placeholder="<?php echo __('Mobile Phone Number'); ?>">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
+                    <label><?php echo __('Email'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
                         </div>
-                        <input type="email" class="form-control" name="email" id="contact_email" placeholder="Email Address" maxlength="200" onfocusout="contact_email_check()">
+                        <input type="email" class="form-control" name="email" id="contact_email" placeholder="<?php echo __('Email Address'); ?>" maxlength="200" onfocusout="contact_email_check()">
                     </div>
                     <div class="mt-2">
                         <span class="text-info" id="contact_check_info"></span>
@@ -157,13 +157,13 @@ ob_start();
 
                 <?php if($client_id) { ?>
                 <div class="form-group">
-                    <label>Location</label>
+                    <label><?php echo __('Location'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                         </div>
                         <select class="form-control select2" name="location">
-                            <option value="">- Select Location -</option>
+                            <option value=""><?php echo __('- Select Location -'); ?></option>
                             <?php
 
                             while ($row = mysqli_fetch_assoc($sql_location_select)) {
@@ -183,7 +183,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-photo">
 
                 <div class="form-group">
-                    <label>Upload Photo</label>
+                    <label><?php echo __('Upload Photo'); ?></label>
                     <input type="file" class="form-control-file" name="file" accept="image/*">
                 </div>
 
@@ -192,12 +192,12 @@ ob_start();
             <div class="tab-pane fade" id="pills-access">
 
                 <div class="form-group">
-                    <label>Pin</label>
+                    <label><?php echo __('Pin'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="pin" placeholder="Security code or pin" maxlength="255">
+                        <input type="text" class="form-control" name="pin" placeholder="<?php echo __('security code or pin'); ?>" maxlength="255">
                     </div>
                 </div>
                 <?php if ($config_client_portal_enable == 1) { ?>

@@ -671,7 +671,97 @@ $lang['Download:'] = 'Download:';
 $lang['sample csv template'] = 'voorbeeld csv sjabloon';
 $lang['import'] = 'importeren';
 $lang['Import'] = 'Importeren';
+
+// Contact Add/Edit
+$lang['new contact'] = 'nieuwe contactpersoon';
+$lang['New Contact'] = 'Nieuwe contactpersoon';
+$lang['details'] = 'details';
+$lang['Details'] = 'Details';
+$lang['photo'] = 'foto';
+$lang['Photo'] = 'Foto';
+$lang['access'] = 'toegang';
+$lang['Access'] = 'Toegang';
+$lang['notes'] = 'notities';
+$lang['Notes'] = 'Notities';
+$lang['name'] = 'naam';
+$lang['Name'] = 'Naam';
+$lang['primary contact'] = 'primaire contactpersoon';
+$lang['Primary Contact'] = 'Primaire contactpersoon';
+$lang['full name'] = 'volledige naam';
+$lang['Full Name'] = 'Volledige naam';
+$lang['title'] = 'titel';
+$lang['Title'] = 'Titel';
+$lang['job title'] = 'functietitel';
+$lang['Job Title'] = 'Functietitel';
+$lang['extension'] = 'toestel';
+$lang['Extension'] = 'Toestel';
+$lang['ext.'] = 'toest.';
+$lang['mobile'] = 'mobiel';
+$lang['Mobile'] = 'Mobiel';
+$lang['mobile phone number'] = 'mobiel telefoonnummer';
+$lang['Mobile Phone Number'] = 'Mobiel telefoonnummer';
+$lang['upload photo'] = 'foto uploaden';
+$lang['Upload Photo'] = 'Foto uploaden';
+$lang['pin'] = 'pincode';
+$lang['Pin'] = 'Pincode';
+$lang['security code or pin'] = 'beveiligingscode of pincode';
+$lang['import contacts'] = 'contactpersonen importeren';
+$lang['Import Contacts'] = 'Contactpersonen importeren';
+
+// Tickets
+$lang['new ticket (v1)'] = 'nieuw ticket (v1)';
+$lang['New Ticket (v1)'] = 'Nieuw ticket (v1)';
+$lang['contact'] = 'contactpersoon';
+$lang['Contact'] = 'Contactpersoon';
+$lang['assignment'] = 'toewijzing';
+$lang['Assignment'] = 'Toewijzing';
+$lang['use primary contact'] = 'gebruik primaire contactpersoon';
+$lang['assigning ticket:'] = 'ticket toewijzen:';
+$lang['Assigning Ticket:'] = 'Ticket toewijzen:';
+$lang['assign to'] = 'toewijzen aan';
+$lang['Assign to'] = 'Toewijzen aan';
+$lang['unassigned'] = 'niet toegewezen';
+$lang['Unassigned'] = 'Niet toegewezen';
+$lang['editing priority:'] = 'prioriteit bewerken:';
+$lang['Editing priority:'] = 'Prioriteit bewerken:';
+$lang['priority'] = 'prioriteit';
+$lang['Priority'] = 'Prioriteit';
+$lang['low'] = 'laag';
+$lang['Low'] = 'Laag';
+$lang['medium'] = 'normaal';
+$lang['Medium'] = 'Normaal';
+$lang['high'] = 'hoog';
+$lang['High'] = 'Hoog';
+$lang['export tickets to csv'] = 'exporteer tickets naar csv';
+$lang['Export Tickets to CSV'] = 'Exporteer Tickets naar CSV';
+$lang['changing contact:'] = 'contactpersoon wijzigen:';
+$lang['Changing contact:'] = 'Contactpersoon wijzigen:';
+$lang['no one'] = 'niemand';
+$lang['No One'] = 'Niemand';
+$lang['(primary)'] = '(primair)';
+$lang['(Primary)'] = '(Primair)';
+$lang['(technical)'] = '(technisch)';
+$lang['(Technical)'] = '(Technisch)';
+$lang['merge & close %s into another ticket'] = 'samenvoegen & sluit %s met ander ticket';
+$lang['Merge & Close %s into another ticket'] = 'Samenvoegen & sluit %s met ander ticket';
+$lang['the current ticket %s will be closed once merging is complete.'] = 'het huidige ticket %s wordt gesloten zodra het samenvoegen is voltooid.';
+$lang['The current ticket %s will be closed once merging is complete.'] = 'Het huidige ticket %s wordt gesloten zodra het samenvoegen is voltooid.';
+$lang['ticket number to merge this ticket into'] = 'ticketnummer om dit ticket in samen te voegen';
+$lang['Ticket number to merge this ticket into'] = 'Ticketnummer om dit ticket in samen te voegen';
+$lang['- select a ticket -'] = '- selecteer een ticket -';
+$lang['- Select a Ticket -'] = '- Selecteer een ticket -';
+$lang['editing billable status:'] = 'factureerbare status bewerken:';
+$lang['Editing Billable Status:'] = 'Factureerbare status bewerken:';
+$lang['billable?'] = 'factureerbaar?';
+$lang['Billable?'] = 'Factureerbaar?';
+$lang['yes'] = 'ja';
+$lang['Yes'] = 'Ja';
+$lang['no'] = 'nee';
+$lang['No'] = 'Nee';
+$lang['save'] = 'opslaan';
+$lang['Save'] = 'Opslaan';
 ?>
+
 
 
 

@@ -24,7 +24,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fa fa-fw fa-user-check mr-2'></i>Assigning Ticket: <strong><?php echo "$ticket_prefix$ticket_number"; ?></strong> - <?php echo $client_name; ?></h5>
+    <h5 class="modal-title"><i class='fa fa-fw fa-user-check mr-2'></i><?php echo __('Assigning Ticket:'); ?> <strong><?php echo "$ticket_prefix$ticket_number"; ?></strong> - <?php echo $client_name; ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -36,13 +36,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Assign to</label>
+            <label><?php echo __('Assign to'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user-check"></i></span>
                 </div>
                 <select class="form-control select2" name="assigned_to">
-                    <option value="0">Unassigned</option>
+                    <option value="0"><?php echo __('Unassigned'); ?></option>
                     <?php
                     $sql_users_select = mysqli_query($mysqli, "SELECT user_id, user_name FROM users
                         WHERE user_type = 1
