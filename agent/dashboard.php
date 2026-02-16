@@ -182,9 +182,9 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-primary" href="payments.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo numfmt_format_currency($currency_format, $total_income, "$session_company_currency"); ?></h3>
-                    <p>Income</p>
+                    <p><?php echo __('income'); ?></p>
                     <hr>
-                    <small>Receivables: <?php echo numfmt_format_currency($currency_format, $receivables, "$session_company_currency"); ?></small>
+                    <small><?php echo __('receivables'); ?>: <?php echo numfmt_format_currency($currency_format, $receivables, "$session_company_currency"); ?></small>
                 </div>
                 <div class="icon">
                     <i class="fa fa-hand-holding-usd"></i>
@@ -198,7 +198,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-danger" href="expenses.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo numfmt_format_currency($currency_format, $total_expenses, "$session_company_currency"); ?></h3>
-                    <p>Expenses</p>
+                    <p><?php echo __('expenses'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
@@ -212,7 +212,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-success" href="reports/profit_loss.php">
                 <div class="inner">
                     <h3><?php echo numfmt_format_currency($currency_format, $profit, "$session_company_currency"); ?></h3>
-                    <p>Profit</p>
+                    <p><?php echo __('profit'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-balance-scale"></i>
@@ -226,7 +226,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-info" href="reports/recurring_by_client.php">
                 <div class="inner">
                     <h3><?php echo numfmt_format_currency($currency_format, $recurring_monthly_total, "$session_company_currency"); ?></h3>
-                    <p>Monthly Recurring Income</p>
+                    <p><?php echo __('monthly_recurring_income'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-sync-alt"></i>
@@ -240,7 +240,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-pink" href="recurring_expenses.php">
                 <div class="inner">
                     <h3><?php echo numfmt_format_currency($currency_format, $recurring_expense_monthly_total, "$session_company_currency"); ?></h3>
-                    <p>Monthly Recurring Expense</p>
+                    <p><?php echo __('monthly_recurring_expense'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-clock"></i>
@@ -255,7 +255,7 @@ if ($user_config_dashboard_financial_enable == 1) {
                 <a class="small-box bg-secondary" href="reports/tickets_unbilled.php">
                     <div class="inner">
                         <h3><?php echo $unbilled_tickets; ?></h3>
-                        <p>Unbilled Ticket<?php if ($unbilled_tickets > 1 || $unbilled_tickets == 0) { echo "s"; } ?></p>
+                        <p><?php echo __('unbilled_ticket'); if ($unbilled_tickets > 1 || $unbilled_tickets == 0) { echo "s"; } ?></p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-ticket-alt"></i>
@@ -268,7 +268,7 @@ if ($user_config_dashboard_financial_enable == 1) {
                 <a class="small-box bg-secondary" href="recurring_invoices.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                     <div class="inner">
                         <h3><?php echo $recurring_invoices_added; ?></h3>
-                        <p>Recurring Invoices Added</p>
+                        <p><?php echo __('recurring_invoices_added'); ?></p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-file-invoice"></i>
@@ -282,7 +282,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-secondary" href="clients.php?leads=1&dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo $leads_added; ?></h3>
-                    <p>New Leads</p>
+                    <p><?php echo __('new_leads'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-users"></i>
@@ -296,7 +296,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-secondary" href="clients.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo $clients_added; ?></h3>
-                    <p>New Clients</p>
+                    <p><?php echo __('new_clients'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-users"></i>
@@ -310,7 +310,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-secondary" href="vendors.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo $vendors_added; ?></h3>
-                    <p>New Vendors</p>
+                    <p><?php echo __('new_vendors'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-building"></i>
@@ -324,7 +324,7 @@ if ($user_config_dashboard_financial_enable == 1) {
             <a class="small-box bg-secondary" href="trips.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo number_format($total_miles, 2); ?></h3>
-                    <p>Miles Traveled</p>
+                    <p><?php echo __('miles_traveled'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-route"></i>
@@ -608,7 +608,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-secondary" href="clients.php?dtf=<?php echo $year; ?>-01-01&dtt=<?php echo $year; ?>-12-31">
                 <div class="inner">
                     <h3><?php echo $clients_added; ?></h3>
-                    <p>New Clients</p>
+                    <p><?php echo __('new_clients'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-users"></i>
@@ -621,7 +621,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-success" href="contacts.php">
                 <div class="inner">
                     <h3><?php echo $contacts_added; ?></h3>
-                    <p>New Contacts</p>
+                    <p><?php echo __('new_contacts'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-user"></i>
@@ -634,7 +634,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-info" href="assets.php">
                 <div class="inner">
                     <h3><?php echo $assets_added; ?></h3>
-                    <p>New Assets</p>
+                    <p><?php echo __('new_assets'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-desktop"></i>
@@ -647,7 +647,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-danger" href="tickets.php">
                 <div class="inner">
                     <h3><?php echo $active_tickets; ?></h3>
-                    <p>Active Tickets</p>
+                    <p><?php echo __('active_tickets'); ?></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-ticket-alt"></i>
@@ -660,7 +660,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-warning" href="domains.php?sort=domain_expire&order=ASC">
                 <div class="inner">
                     <h3><?php echo $expiring_domains; ?></h3>
-                    <p>Expiring Domains <small>30 Day</small></p>
+                    <p><?php echo __('expiring_domains'); ?> <small>30 <?php echo __('day'); ?></small></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-globe"></i>
@@ -673,7 +673,7 @@ if ($user_config_dashboard_technical_enable == 1) {
             <a class="small-box bg-primary" href="certificates.php?sort=certificate_expire&order=ASC">
                 <div class="inner">
                     <h3><?php echo $expiring_certificates; ?></h3>
-                    <p>Expiring Certificates<small>30 Day</small></p>
+                    <p><?php echo __('expiring_certificates'); ?><small>30 <?php echo __('day'); ?></small></p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-lock"></i>
@@ -747,8 +747,8 @@ if ($user_config_dashboard_technical_enable == 1) {
                                         <td><a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= $ticket_subject ?></a></td>
                                         <td><a href="tickets.php?client_id=<?php echo $client_id; ?>"><strong><?php echo $client_name; ?></strong></a></td>
                                         <td><?php echo $contact_display; ?></td>
-                                        <td><span class='p-2 badge badge-pill badge-<?php echo $ticket_priority_color; ?>'><?php echo $ticket_priority; ?></span></td>
-                                        <td><span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo $ticket_status_name; ?></span></td>
+                                        <td><span class='p-2 badge badge-pill badge-<?php echo $ticket_priority_color; ?>'><?php echo __(strtolower($ticket_priority)); ?></span></td>
+                                        <td><span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo __(str_replace(' ', '_', strtolower($ticket_status_name))); ?></span></td>
                                         <td><?php echo $ticket_updated_at_display; ?></td>
                                     </tr>
                                 <?php } ?>

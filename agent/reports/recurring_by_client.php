@@ -20,7 +20,7 @@ $sql = mysqli_query($mysqli, "
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-sync mr-2"></i>Recurring Income By Client</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-sync mr-2"></i><?php echo __('recurring_income_by_client'); ?></h3>
         <div class="card-tools">
             <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
         </div>
@@ -30,8 +30,8 @@ $sql = mysqli_query($mysqli, "
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Client</th>
-                    <th class="text-right">Monthly Recurring</th>
+                    <th><?php echo __('client'); ?></th>
+                    <th class="text-right"><?php echo __('monthly_recurring'); ?></th>
                 </tr>
                 </thead>
                 <tbody>

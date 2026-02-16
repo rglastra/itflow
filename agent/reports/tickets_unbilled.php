@@ -59,7 +59,7 @@ $rows = 0;
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-life-ring mr-2"></i>Unbilled Tickets By Client</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo __('unbilled_tickets_by_client'); ?></h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
             </div>
@@ -79,10 +79,10 @@ $rows = 0;
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Client</th>
-                        <th class="text-right">Tickets Raised</th>
-                        <th class="text-right">Billable Tickets</th>
-                        <th class="text-right">Unbilled Tickets</th>
+                        <th><?php echo __('client'); ?></th>
+                        <th class="text-right"><?php echo __('tickets_raised'); ?></th>
+                        <th class="text-right"><?php echo __('billable_tickets'); ?></th>
+                        <th class="text-right"><?php echo __('unbilled_tickets'); ?></th>
                     </tr>
                     </thead>
                     <tbody>

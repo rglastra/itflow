@@ -204,7 +204,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         <td><?php echo $category_name; ?></td>
                         <td>
                             <span class="p-2 badge badge-<?php echo $quote_badge_color; ?>">
-                                <?php echo $quote_status; ?>
+                                <?php echo __(strtolower($quote_status)); ?>
                             </span>
                         </td>
                         <td>

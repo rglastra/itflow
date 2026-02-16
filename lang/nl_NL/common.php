@@ -84,6 +84,7 @@ $lang['finance'] = 'Financiën';
 $lang['recurring_tickets'] = 'Terugkerende Tickets';
 $lang['recurring_invoices'] = 'Terugkerende Facturen';
 $lang['recurring_expenses'] = 'Terugkerende Uitgaven';
+$lang['tax'] = 'Belasting';
 $lang['vendors'] = 'Leveranciers';
 $lang['accounts'] = 'Rekeningen';
 $lang['transfers'] = 'Overboekingen';
@@ -170,3 +171,126 @@ $lang['timezone'] = 'Tijdzone';
 $lang['currency'] = 'Valuta';
 $lang['date_format'] = 'Datumnotatie';
 $lang['time_format'] = 'Tijdnotatie';
+// Financieel
+$lang['balance'] = 'Saldo';
+$lang['paid'] = 'Betaald';
+$lang['credit'] = 'Krediet';
+$lang['monthly'] = 'Maandelijks';
+$lang['hourly_rate'] = 'Uurtarief';
+$lang['total'] = 'Totaal';
+$lang['income'] = 'Inkomsten';
+$lang['expenses'] = 'Uitgaven';
+$lang['profit_loss'] = 'Winst & Verlies';
+$lang['gross_revenue'] = 'Bruto-omzet';
+$lang['net_profit'] = 'Netto Winst';
+$lang['raised'] = 'Aangemaakt';
+
+// Tijd/Datum
+$lang['january'] = 'Januari';
+$lang['february'] = 'Februari';
+$lang['march'] = 'Maart';
+$lang['april'] = 'April';
+$lang['may'] = 'Mei';
+$lang['june'] = 'Juni';
+$lang['july'] = 'Juli';
+$lang['august'] = 'Augustus';
+$lang['september'] = 'September';
+$lang['october'] = 'Oktober';
+$lang['november'] = 'November';
+$lang['december'] = 'December';
+$lang['jan'] = 'Jan';
+$lang['feb'] = 'Feb';
+$lang['mar'] = 'Mrt';
+$lang['apr'] = 'Apr';
+$lang['jun'] = 'Jun';
+$lang['jul'] = 'Jul';
+$lang['aug'] = 'Aug';
+$lang['sep'] = 'Sep';
+$lang['oct'] = 'Okt';
+$lang['nov'] = 'Nov';
+$lang['dec'] = 'Dec';
+$lang['jan_mar'] = 'Jan-Mrt';
+$lang['apr_jun'] = 'Apr-Jun';
+$lang['jul_sep'] = 'Jul-Sep';
+$lang['oct_dec'] = 'Okt-Dec';
+$lang['from'] = 'Van';
+$lang['to'] = 'Tot';
+$lang['yearly'] = 'Jaarlijks';
+$lang['quarterly'] = 'Kwartaal';
+
+// UI Elementen
+$lang['apply'] = 'Toepassen';
+$lang['restore'] = 'Herstellen';
+$lang['archive'] = 'Archiveren';
+$lang['abbreviation'] = 'Afkorting';
+$lang['created'] = 'Aangemaakt';
+$lang['any'] = 'Alle';
+$lang['resolved'] = 'Opgelost';
+
+// Rapporten
+$lang['annual_budget'] = 'Jaarlijks Budget';
+$lang['clients_with_balance'] = 'Klanten met Openstaand Saldo';
+$lang['credentials_not_rotated_90_days'] = 'Inloggegevens niet gewijzigd in de afgelopen 90 dagen';
+$lang['credential_name'] = 'Inloggegevens Naam';
+$lang['credential_description'] = 'Inloggegevens Beschrijving';
+$lang['credential_password_last_changed'] = 'Inloggegevens Wachtwoord Laatst Gewijzigd';
+$lang['expense_by_vendor'] = 'Uitgaven per Leverancier';
+$lang['expense_summary'] = 'Uitgaveoverzicht';
+$lang['income_by_client'] = 'Inkomsten per Klant';
+$lang['income_summary'] = 'Inkomstenoverzicht';
+$lang['vendor'] = 'Leverancier';
+$lang['monthly_recurring'] = 'Maandelijks Terugkerend';
+$lang['tickets_raised'] = 'Tickets Aangemaakt';
+$lang['billable_tickets'] = 'Factureerbare Tickets';
+$lang['unbilled_tickets'] = 'Niet Gefactureerde Tickets';
+$lang['unbilled_tickets_by_client'] = 'Niet Gefactureerde Tickets per Klant';
+$lang['time_logged_by_technician'] = 'Gelogde Tijd per Technicus';
+$lang['tickets_by_client'] = 'Tickets per Klant';
+$lang['client_time_detail_audit_report'] = 'Klant Tijd Detail Audit Rapport';
+$lang['billable_only'] = 'Alleen Factureerbaar';
+$lang['yearly'] = 'Jaarlijks';
+$lang['monthly'] = 'Maandelijks';
+$lang['priority_low'] = 'Prioriteit: Laag';
+$lang['priority_med'] = 'Prioriteit: Gemiddeld';
+$lang['priority_high'] = 'Prioriteit: Hoog';
+$lang['total_time_worked'] = 'Totale Gewerkte Tijd';
+$lang['avg_time_to_respond'] = 'Gem. reactietijd';
+$lang['avg_time_to_resolve'] = 'Gem. oplostijd';
+$lang['to'] = 'tot';
+$lang['with_expense_amounts_600_or_more'] = '(Met uitgaven van 600 of meer)';
+$lang['with_payments_600_or_more'] = '(Met betalingen van 600 of meer)';
+
+// Priority values
+$lang['high'] = 'Hoog';
+$lang['medium'] = 'Gemiddeld';
+$lang['low'] = 'Laag';
+
+// Frequency values
+$lang['daily'] = 'Dagelijks';
+$lang['weekly'] = 'Wekelijks';
+$lang['quarterly'] = 'Kwartaallijks';
+$lang['biannually'] = 'Halfjaarlijks';
+
+// Status values
+$lang['draft'] = 'Concept';
+$lang['sent'] = 'Verzonden';
+$lang['viewed'] = 'Bekeken';
+$lang['accepted'] = 'Geaccepteerd';
+$lang['declined'] = 'Afgewezen';
+$lang['invoiced'] = 'Gefactureerd';
+$lang['paid'] = 'Betaald';
+$lang['partial'] = 'Gedeeltelijk';
+$lang['cancelled'] = 'Geannuleerd';
+$lang['non-billable'] = 'Niet Factureerbaar';
+$lang['open'] = 'Open';
+$lang['new'] = 'Nieuw';
+$lang['in_progress'] = 'In Behandeling';
+$lang['on_hold'] = 'In de Wacht';
+$lang['resolved'] = 'Opgelost';
+$lang['closed'] = 'Gesloten';
+$lang['unassigned'] = 'Niet Toegewezen';
+
+$lang['recurring_income_by_client'] = 'Terugkerende Inkomsten per Klant';
+$lang['total_monthly_income'] = 'Totale Maandelijkse Inkomsten';
+$lang['collected_tax_summary'] = 'Overzicht Geïnde Belasting';
+$lang['all_years'] = 'Alle Jaren';

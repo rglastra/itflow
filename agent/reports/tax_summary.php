@@ -20,7 +20,7 @@ $sql_tax = mysqli_query($mysqli, "SELECT `tax_name` FROM `taxes`");
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-balance-scale mr-2"></i>Collected Tax Summary</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-balance-scale mr-2"></i><?php echo __('collected_tax_summary'); ?></h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
             </div>
@@ -52,20 +52,21 @@ $sql_tax = mysqli_query($mysqli, "SELECT `tax_name` FROM `taxes`");
                 <table class="table table-sm">
                     <thead class="text-dark">
                     <tr>
-                        <th>Tax</th>
+                        <th><?php echo __('tax'); ?></th>
                         <?php
                         if ($view == 'monthly') {
-                            for ($i = 1; $i <= 12; $i++) {
-                                echo "<th class='text-right'>" . date('M', mktime(0, 0, 0, $i, 10)) . "</th>";
+                            $months_abbr = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+                            for ($i = 0; $i < 12; $i++) {
+                                echo "<th class='text-right'>" . __($months_abbr[$i]) . "</th>";
                             }
                         } else {
-                            echo "<th class='text-right'>Jan-Mar</th>";
-                            echo "<th class='text-right'>Apr-Jun</th>";
-                            echo "<th class='text-right'>Jul-Sep</th>";
-                            echo "<th class='text-right'>Oct-Dec</th>";
+                            echo "<th class='text-right'>" . __('jan_mar') . "</th>";
+                            echo "<th class='text-right'>" . __('apr_jun') . "</th>";
+                            echo "<th class='text-right'>" . __('jul_sep') . "</th>";
+                            echo "<th class='text-right'>" . __('oct_dec') . "</th>";
                         }
                         ?>
-                        <th class="text-right">Total</th>
+                        <th class="text-right"><?php echo __('total'); ?></th>
                     </tr>
                     </thead>
                     <tbody>

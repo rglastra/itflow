@@ -53,19 +53,19 @@ $largest_ticket_month = 0;
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th class="text-right">January</th>
-                    <th class="text-right">February</th>
-                    <th class="text-right">March</th>
-                    <th class="text-right">April</th>
-                    <th class="text-right">May</th>
-                    <th class="text-right">June</th>
-                    <th class="text-right">July</th>
-                    <th class="text-right">August</th>
-                    <th class="text-right">September</th>
-                    <th class="text-right">October</th>
-                    <th class="text-right">November</th>
-                    <th class="text-right">December</th>
-                    <th class="text-right">Total</th>
+                    <th class="text-right"><?php echo __('january'); ?></th>
+                    <th class="text-right"><?php echo __('february'); ?></th>
+                    <th class="text-right"><?php echo __('march'); ?></th>
+                    <th class="text-right"><?php echo __('april'); ?></th>
+                    <th class="text-right"><?php echo __('may'); ?></th>
+                    <th class="text-right"><?php echo __('june'); ?></th>
+                    <th class="text-right"><?php echo __('july'); ?></th>
+                    <th class="text-right"><?php echo __('august'); ?></th>
+                    <th class="text-right"><?php echo __('september'); ?></th>
+                    <th class="text-right"><?php echo __('october'); ?></th>
+                    <th class="text-right"><?php echo __('november'); ?></th>
+                    <th class="text-right"><?php echo __('december'); ?></th>
+                    <th class="text-right"><?php echo __('total'); ?></th>
                 </tr>
                 </thead>
                 <tbody>

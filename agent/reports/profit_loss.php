@@ -26,7 +26,7 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-balance-scale mr-2"></i>Profit & Loss</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-balance-scale mr-2"></i><?php echo __('profit_loss'); ?></h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
             </div>
@@ -52,14 +52,14 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
                     <thead class="text-dark">
                     <tr>
                         <th></th>
-                        <th class="text-right">Jan-Mar</th>
-                        <th class="text-right">Apr-Jun</th>
-                        <th class="text-right">Jul-Sep</th>
-                        <th class="text-right">Oct-Dec</th>
-                        <th class="text-right">Total</th>
+                        <th class="text-right"><?php echo __('jan_mar'); ?></th>
+                        <th class="text-right"><?php echo __('apr_jun'); ?></th>
+                        <th class="text-right"><?php echo __('jul_sep'); ?></th>
+                        <th class="text-right"><?php echo __('oct_dec'); ?></th>
+                        <th class="text-right"><?php echo __('total'); ?></th>
                     </tr>
                     <tr>
-                        <th><br><br>Income</th>
+                        <th><br><br><?php echo __('income'); ?></th>
                         <th colspan="5"></th>
                     </tr>
                     </thead>
@@ -173,7 +173,7 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
                     ?>
 
                     <tr>
-                        <th>Gross Revenue</th>
+                        <th><?php echo __('gross_revenue'); ?></th>
                         <?php
 
                         $payment_total_amount_for_quarter_one = 0;
@@ -268,7 +268,7 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
                     </tr>
 
                     <tr>
-                        <th><br><br>Expenses</th>
+                        <th><br><br><?php echo __('expenses'); ?></th>
                         <th colspan="5"></th>
                     </tr>
                     <?php
@@ -420,7 +420,7 @@ $sql_categories_expense = mysqli_query($mysqli, "SELECT * FROM categories WHERE 
                         $net_profit_year = $total_payments_for_all_four_quarters - $total_expenses_for_all_four_quarters;
                         ?>
 
-                        <th>Net Profit</th>
+                        <th><?php echo __('net_profit'); ?></th>
                         <th class="text-right"><?php echo numfmt_format_currency($currency_format, $net_profit_quarter_one, $session_company_currency); ?></th>
                         <th class="text-right"><?php echo numfmt_format_currency($currency_format, $net_profit_quarter_two, $session_company_currency); ?></th>
                         <th class="text-right"><?php echo numfmt_format_currency($currency_format, $net_profit_quarter_three, $session_company_currency); ?></th>

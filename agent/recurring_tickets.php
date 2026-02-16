@@ -311,8 +311,8 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     </a>
                                 </td>
                                 <td><?= $recurring_ticket_category ?></td>
-                                <td><?= $recurring_ticket_priority ?></td>
-                                <td><?= $recurring_ticket_frequency ?></td>
+                                <td><?php echo __(strtolower($recurring_ticket_priority)); ?></td>
+                                <td><?php echo __(strtolower($recurring_ticket_frequency)); ?></td>
                                 <td class="text-center"><?= $recurring_ticket_billable_display ?></td>
                                 <td><?= $assigned_to ?></td>
                                 <?php if (!$client_url) { ?>
