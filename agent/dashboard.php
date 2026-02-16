@@ -336,7 +336,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-md-12">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i>Cash Flow</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i><?php echo __('Cash Flow'); ?></h3>
                     <div class="card-tools">
                         <a href="reports/income_summary.php" class="btn btn-tool">
                             <i class="fas fa-eye"></i>
@@ -357,7 +357,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-lg-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-chart-pie mr-2"></i>Income by Category <small>(Top 5)</small></h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-chart-pie mr-2"></i><?php echo __('Income by Category (Top 5)'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -375,7 +375,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-lg-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-fw fa-shopping-cart mr-2"></i>Expenses by Category <small>(Top 5)</small></h3>
+                    <h3 class="card-title"><i class="fa fa-fw fa-shopping-cart mr-2"></i><?php echo __('Expenses by Category (Top 5)'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -393,7 +393,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-lg-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-fw fa-building mr-2"></i>Expenses by Vendor <small>(Top 5)</small></h3>
+                    <h3 class="card-title"><i class="fa fa-fw fa-building mr-2"></i><?php echo __('Expenses by Vendor (Top 5)'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -411,7 +411,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-md-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-fw fa-piggy-bank mr-2"></i>Account Balances</h3>
+                    <h3 class="card-title"><i class="fa fa-fw fa-piggy-bank mr-2"></i><?php echo __('Account Balances'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -459,7 +459,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-md-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-credit-card mr-2"></i>Latest Income</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-credit-card mr-2"></i><?php echo __('Latest Income'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -500,7 +500,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-md-4">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-shopping-cart mr-2"></i>Latest Expenses</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-shopping-cart mr-2"></i><?php echo __('Latest Expenses'); ?></h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="remove">
                             <i class="fas fa-times"></i>
@@ -540,7 +540,7 @@ if ($user_config_dashboard_financial_enable == 1) {
         <div class="col-md-12">
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-route mr-2"></i>Trip Flow</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-route mr-2"></i><?php echo __('Trip Flow'); ?></h3>
                     <div class="card-tools">
                         <a href="trips.php" class="btn btn-tool">
                             <i class="fas fa-eye"></i>
@@ -780,7 +780,7 @@ if ($user_config_dashboard_technical_enable == 1) {
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: [<?php echo "'" . __('Jan') . "', '" . __('Feb') . "', '" . __('Mar') . "', '" . __('Apr') . "', '" . __('May') . "', '" . __('Jun') . "', '" . __('Jul') . "', '" . __('Aug') . "', '" . __('Sep') . "', '" . __('Oct') . "', '" . __('Nov') . "', '" . __('Dec') . "'"; ?>],
                 datasets: [
                     {
                         label: "Income",
@@ -926,9 +926,7 @@ if ($user_config_dashboard_technical_enable == 1) {
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Trip",
+                labels: [<?php echo "'" . __('Jan') . "', '" . __('Feb') . "', '" . __('Mar') . "', '" . __('Apr') . "', '" . __('May') . "', '" . __('Jun') . "', '" . __('Jul') . "', '" . __('Aug') . "', '" . __('Sep') . "', '" . __('Oct') . "', '" . __('Nov') . "', '" . __('Dec') . "'"; ?>],
                     tension: 0.3,
                     fill: false,
                     backgroundColor: "red",

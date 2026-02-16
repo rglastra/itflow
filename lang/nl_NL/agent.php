@@ -1758,4 +1758,28 @@ $lang['Location'] = 'Locatie';
 $lang['Location Phone'] = 'Locatie Telefoon';
 $lang['Extension'] = 'Extensie';
 $lang['InActive'] = 'Inactief';
+
+// Dashboard financial stats
+$lang['Cash Flow'] = 'Cashflow';
+$lang['Income by Category (Top 5)'] = 'Inkomsten per categorie (Top 5)';
+$lang['Expenses by Category (Top 5)'] = 'Uitgaven per categorie (Top 5)';
+$lang['Expenses by Vendor (Top 5)'] = 'Uitgaven per leverancier (Top 5)';
+$lang['Account Balances'] = 'Accountsaldi';
+$lang['Latest Income'] = 'Laatst inkomsten';
+$lang['Latest Expenses'] = 'Laatst uitgaven';
+$lang['Trip Flow'] = 'Reisschema';
+
+// Month abbreviations for charts
+$lang['Jan'] = 'Jan';
+$lang['Feb'] = 'Feb';
+$lang['Mar'] = 'Mrt';
+$lang['Apr'] = 'Apr';
+$lang['May'] = 'Mei';
+$lang['Jun'] = 'Jun';
+$lang['Jul'] = 'Jul';
+$lang['Aug'] = 'Aug';
+$lang['Sep'] = 'Sep';
+$lang['Oct'] = 'Okt';
+$lang['Nov'] = 'Nov';
+$lang['Dec'] = 'Dec';
 ?>
