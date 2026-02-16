@@ -1573,7 +1573,7 @@ $lang['- frequency -'] = '- frequentie -';
 $lang['Monthly'] = 'Maandelijks';
 $lang['Yearly'] = 'Jaarlijks';
 $lang['- category -'] = '- categorie -';
-$lang['Scope'] = 'Reikwijdte';
+$lang['Scope'] = 'Onderwerp';
 
 // Calendar modals
 $lang['New Calendar'] = 'Nieuwe Kalender';
