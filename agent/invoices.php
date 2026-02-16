@@ -118,7 +118,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
         <a href="?<?php echo $url_query_strings_sort; ?>&status=Draft" class="small-box bg-secondary">
             <div class="inner">
                 <h3><?php echo numfmt_format_currency($currency_format, $total_draft_amount, $session_company_currency); ?></h3>
-                <p><?php echo $draft_count; ?> Draft</p>
+                <p><?php echo $draft_count; ?> <?php echo __('draft'); ?></p>
             </div>
             <div class="icon">
                 <i class="fa fa-pencil-ruler"></i>
@@ -132,7 +132,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
         <a href="?<?php echo $url_query_strings_sort; ?>&status=Unpaid" class="small-box bg-info">
             <div class="inner text-white">
                 <h3><?php echo numfmt_format_currency($currency_format, $total_unpaid_amount, $session_company_currency); ?></h3>
-                <p><?php echo $unpaid_count; ?> Unpaid</p>
+                <p><?php echo $unpaid_count; ?> <?php echo __('unpaid'); ?></p>
             </div>
             <div class="icon">
                 <i class="fa fa-hand-holding-usd"></i>
@@ -146,7 +146,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
         <a href="?<?php echo $url_query_strings_sort; ?>&status=Overdue" class="small-box bg-danger">
             <div class="inner">
                 <h3><?php echo numfmt_format_currency($currency_format, $real_overdue_amount, $session_company_currency); ?></h3>
-                <p><?php echo $overdue_count; ?> Overdue</p>
+                <p><?php echo $overdue_count; ?> <?php echo __('overdue'); ?></p>
             </div>
             <div class="icon">
                 <i class="fa fa-exclamation-triangle"></i>
@@ -159,18 +159,18 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-fw fa-file-invoice mr-2"></i>Invoices</h3>
+        <h3 class="card-title mt-2"><i class="fa fa-fw fa-file-invoice mr-2"></i><?php echo __('invoices'); ?></h3>
         <div class="card-tools">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary ajax-modal"
                     data-modal-url="modals/invoice/invoice_add.php?<?= $client_url ?>">
-                    <i class="fas fa-plus mr-2"></i>New Invoice
+                    <i class="fas fa-plus mr-2"></i><?php echo __('new_invoice'); ?>
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                          data-modal-url="modals/invoice/invoice_export.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-download mr-2"></i>Export
+                        <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                     </a>
                 </div>
             </div>
@@ -187,7 +187,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-4">
                     <div class="form-group mb-md-0">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="Search Invoices">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="<?php echo __('search_invoices'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -198,7 +198,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-3">
                     <div class="form-group mb-md-0">
                         <select class="form-control select2" name="category" onchange="this.form.submit()">
-                            <option value="">- All Categories -</option>
+                            <option value=""><?php echo __('all_categories'); ?></option>
 
                             <?php
                             $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Income' AND EXISTS (SELECT 1 FROM invoices WHERE invoice_category_id = category_id) ORDER BY category_name ASC");
@@ -218,7 +218,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <?php if ($client_url && $balance > 0) { ?>
@@ -231,7 +231,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/invoice/invoice_bulk_edit_category.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-list-ul mr-2"></i>Set Category
+                                    <i class="fas fa-fw fa-list-ul mr-2"></i><?php echo __('set_category'); ?>
                                 </a>
                             </div>
                         </div>
@@ -242,7 +242,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Date range</label>
+                            <label><?php echo __('date_range'); ?></label>
                             <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                             <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                             <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -266,48 +266,48 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </td>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_number&order=<?php echo $disp ?>">
-                                    Number <?php if ($sort == 'invoice_number') { echo $order_icon; } ?>
+                                    <?php echo __('number'); ?> <?php if ($sort == 'invoice_number') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_scope&order=<?php echo $disp; ?>">
-                                    Scope <?php if ($sort == 'invoice_scope') { echo $order_icon; } ?>
+                                    <?php echo __('scope', 'Scope'); ?> <?php if ($sort == 'invoice_scope') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php if (!$client_url) { ?>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                    Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                    <?php echo __('client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php } ?>
                             <th class="text-right">
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_amount&order=<?php echo $disp; ?>">
-                                    Amount <?php if ($sort == 'invoice_amount') { echo $order_icon; } ?>
+                                    <?php echo __('amount'); ?> <?php if ($sort == 'invoice_amount') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_date&order=<?php echo $disp; ?>">
-                                    Date <?php if ($sort == 'invoice_date') { echo $order_icon; } ?>
+                                    <?php echo __('date'); ?> <?php if ($sort == 'invoice_date') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_due&order=<?php echo $disp; ?>">
-                                    Due <?php if ($sort == 'invoice_due') { echo $order_icon; } ?>
+                                    <?php echo __('due'); ?> <?php if ($sort == 'invoice_due') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=category_name&order=<?php echo $disp; ?>">
-                                    Category <?php if ($sort == 'category_name') { echo $order_icon; } ?>
+                                    <?php echo __('category'); ?> <?php if ($sort == 'category_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_status&order=<?php echo $disp; ?>">
-                                    Status <?php if ($sort == 'invoice_status') { echo $order_icon; } ?>
+                                    <?php echo __('status'); ?> <?php if ($sort == 'invoice_status') { echo $order_icon; } ?>
                                 </a>
                             </th>
-                            <th>Recurring</th>
-                            <th class="text-center">Action</th>
+                            <th><?php echo __('recurring', 'Recurring'); ?></th>
+                            <th class="text-center"><?php echo __('action'); ?></th>
                         </tr>
                     </thead>
                     <tbody>

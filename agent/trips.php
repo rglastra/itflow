@@ -33,16 +33,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fa fa-route mr-2"></i>Trips</h3>
+            <h3 class="card-title mt-2"><i class="fa fa-route mr-2"></i><?php echo __('Trips'); ?></h3>
             <div class="card-tools">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/trip/trip_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i>New Trip</button>
+                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/trip/trip_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i><?php echo __('New Trip'); ?></button>
                     <?php if ($num_rows[0] > 0) { ?>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/trip/trip_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('Export'); ?>
                         </a>
                     </div>
                     <?php } ?>
@@ -58,7 +58,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Trips">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Trips'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -74,7 +74,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Date range</label>
+                                <label><?php echo __('Date range'); ?></label>
                                 <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                                 <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                                 <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -91,42 +91,42 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=trip_date&order=<?php echo $disp; ?>">
-                                Date <?php if ($sort == 'trip_date') { echo $order_icon; } ?>
+                                <?php echo __('Date'); ?> <?php if ($sort == 'trip_date') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=user_name&order=<?php echo $disp; ?>">
-                                Driver <?php if ($sort == 'user_name') { echo $order_icon; } ?>
+                                <?php echo __('Driver'); ?> <?php if ($sort == 'user_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=trip_purpose&order=<?php echo $disp; ?>">
-                                Purpose <?php if ($sort == 'trip_purpose') { echo $order_icon; } ?>
+                                <?php echo __('Purpose'); ?> <?php if ($sort == 'trip_purpose') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=trip_source&order=<?php echo $disp; ?>">
-                                Source <?php if ($sort == 'trip_source') { echo $order_icon; } ?>
+                                <?php echo __('Source'); ?> <?php if ($sort == 'trip_source') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=trip_destination&order=<?php echo $disp; ?>">
-                                Destination <?php if ($sort == 'trip_destination') { echo $order_icon; } ?>
+                                <?php echo __('Destination'); ?> <?php if ($sort == 'trip_destination') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=trip_miles&order=<?php echo $disp; ?>">
-                                Miles <?php if ($sort == 'trip_miles') { echo $order_icon; } ?>
+                                <?php echo __('Miles'); ?> <?php if ($sort == 'trip_miles') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php if (!$client_url) { ?>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                <?php echo __('Client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -185,20 +185,20 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="//maps.google.com?q=<?php echo $trip_source; ?> to <?php echo $trip_destination; ?>" target="_blank">
-                                            <i class="fa fa-fw fa-map-marker-alt mr-2"></i>Map it<i class="fa fa-fw fa-external-link-alt ml-2"></i>
+                                            <i class="fa fa-fw fa-map-marker-alt mr-2"></i><?php echo __('Map it'); ?><i class="fa fa-fw fa-external-link-alt ml-2"></i>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/trip/trip_edit.php?<?= $client_url ?>&id=<?= $trip_id ?>">
-                                            <i class="fa fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fa fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                         </a>
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/trip/trip_copy.php?<?= $client_url ?>&id=<?= $trip_id ?>">
-                                            <i class="fa fa-fw fa-copy mr-2"></i>Copy
+                                            <i class="fa fa-fw fa-copy mr-2"></i><?php echo __('Copy'); ?>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_trip=<?php echo $trip_id; ?>">
-                                            <i class="fa fa-fw fa-trash mr-2"></i>Delete
+                                            <i class="fa fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                         </a>
                                     </div>
                                 </div>

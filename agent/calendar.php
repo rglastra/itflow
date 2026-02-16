@@ -31,7 +31,7 @@ if (isset($_GET['calendar_id'])) {
     <div class="col-md-3">
         <div class="card">
             <div class="card-header py-2">
-                <h3 class="card-title mt-1">Calendars</h3>
+                <h3 class="card-title mt-1"><?php echo __('Calendars'); ?></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-dark btn-sm ajax-modal" data-modal-url="modals/calendar/calendar_add.php"><i class="fas fa-plus"></i></button>
                 </div>
@@ -61,7 +61,7 @@ if (isset($_GET['calendar_id'])) {
         </div>
         <div class="card">
             <div class="card-header py-2">
-                <h3 class="card-title mt-1">System Calendars</h3>
+                <h3 class="card-title mt-1"><?php echo __('System Calendars'); ?></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-dark btn-sm"><i class="fas fa-eye"></i></button>
                 </div>
@@ -115,7 +115,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
             defaultView: 'dayGridMonth',
             customButtons: {
                 newEvent: {
-                    text: 'New Event',
+                    text: '<?php echo __('New Event'); ?>',
                     bootstrapFontAwesome: 'fas fa-plus',
                     click: function() {
                         $("#addCalendarEventModal").modal();

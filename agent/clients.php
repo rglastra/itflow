@@ -82,24 +82,23 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card">
     <div class="card-header bg-dark py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-fw fa-user-friends mr-2"></i><?php if($leads_filter == 0){ echo "Clients"; } else { echo "Leads"; } ?></h3>
+        <h3 class="card-title mt-2"><i class="fa fa-fw fa-user-friends mr-2"></i><?php if($leads_filter == 0){ echo __('clients'); } else { echo __('leads'); } ?></h3>
         <div class="card-tools">
             <?php if (lookupUserPermission("module_client") >= 2) { ?>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/client/client_add.php<?php if ($leads_filter) { echo "?lead=1"; } ?>">
-                        <i class="fas fa-plus mr-2"></i>New
-                        <?php if ($leads_filter == 0) { echo "Client"; } else { echo "Lead"; } ?>
+                        <i class="fas fa-plus mr-2"></i><?php if ($leads_filter == 0) { echo __('new_client'); } else { echo __('new_lead'); } ?>
                     </button>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/client/client_import.php">
-                            <i class="fa fa-fw fa-upload mr-2"></i>Import
+                            <i class="fa fa-fw fa-upload mr-2"></i><?php echo __('import'); ?>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/client/client_export.php">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     </div>
                 </div>
@@ -114,7 +113,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search <?php if($leads_filter == 0){ echo "clients"; } else { echo "leads"; } ?>" autofocus>
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php if($leads_filter == 0){ echo __('search_clients'); } else { echo __('search_leads'); } ?>" autofocus>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -125,68 +124,68 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-7">
                     <div class="btn-toolbar form-group float-right">
                         <div class="btn-group mr-2">
-                            <a href="?leads=0" class="btn btn-<?php if ($leads_filter == 0){ echo "primary"; } else { echo "default"; } ?>" title="Clients"><i class="fa fa-fw fa-user-friends"></i><span class="d-none d-sm-inline ml-2">Clients</span></a>
-                            <a href="?leads=1" class="btn btn-<?php if ($leads_filter == 1){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-bullhorn"></i><span class="d-none d-sm-inline ml-2">Leads</span></a>
+                            <a href="?leads=0" class="btn btn-<?php if ($leads_filter == 0){ echo "primary"; } else { echo "default"; } ?>" title="<?php echo __('clients'); ?>"><i class="fa fa-fw fa-user-friends"></i><span class="d-none d-sm-inline ml-2"><?php echo __('clients'); ?></span></a>
+                            <a href="?leads=1" class="btn btn-<?php if ($leads_filter == 1){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-bullhorn"></i><span class="d-none d-sm-inline ml-2"><?php echo __('leads'); ?></span></a>
                         </div>
 
                         <div class="btn-group">
                             <a href="?<?php echo $url_query_strings_sort ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                                 class="btn btn-<?php if ($archived == 1) { echo "primary"; } else { echo "default"; } ?>">
-                                <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                                <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                             </a>
                             <div class="dropdown ml-2" id="bulkActionButton" hidden>
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <i class="fas fa-fw fa-layer-group"></i><span class="d-none d-sm-inline ml-2">Action</span> (<span id="selectedCount">0</span>)
+                                    <i class="fas fa-fw fa-layer-group"></i><span class="d-none d-sm-inline ml-2"><?php echo __('action'); ?></span> (<span id="selectedCount">0</span>)
                                 </button>
                                 <div class="dropdown-menu">
                                    <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_add_ticket.php"
                                         data-modal-size="lg"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-life-ring mr-2"></i>Open Tickets
+                                        <i class="fas fa-fw fa-life-ring mr-2"></i><?php echo __('open_tickets'); ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_edit_hourly_rate.php"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-clock mr-2"></i>Set Hourly Rate
+                                        <i class="fas fa-fw fa-clock mr-2"></i><?php echo __('set_hourly_rate'); ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_edit_industry.php"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-briefcase mr-2"></i>Set Industry
+                                        <i class="fas fa-fw fa-briefcase mr-2"></i><?php echo __('set_industry'); ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_edit_referral.php"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-link mr-2"></i>Set Referral
+                                        <i class="fas fa-fw fa-link mr-2"></i><?php echo __('set_referral'); ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_assign_tags.php"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-tags mr-2"></i>Assign Tags
+                                        <i class="fas fa-fw fa-tags mr-2"></i><?php echo __('assign_tags'); ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/client/client_bulk_email.php"
                                         data-modal-size="lg"
                                         data-bulk="true">
-                                        <i class="fas fa-fw fa-paper-plane mr-2"></i>Send Email
+                                        <i class="fas fa-fw fa-paper-plane mr-2"></i><?php echo __('send_email'); ?>
                                     </a>
                                     <?php if ($archived) { ?>
                                     <div class="dropdown-divider"></div>
                                     <button class="dropdown-item text-info"
                                         type="submit" form="bulkActions" name="bulk_unarchive_clients">
-                                        <i class="fas fa-fw fa-redo mr-2"></i>Restore
+                                        <i class="fas fa-fw fa-redo mr-2"></i><?php echo __('restore'); ?>
                                     </button>
                                     <?php } else { ?>
                                     <div class="dropdown-divider"></div>
                                     <button class="dropdown-item text-danger confirm-link"
                                         type="submit" form="bulkActions" name="bulk_archive_clients">
-                                        <i class="fas fa-fw fa-archive mr-2"></i>Archive
+                                        <i class="fas fa-fw fa-archive mr-2"></i><?php echo __('archive'); ?>
                                     </button>
                                     <?php } ?>
                                 </div>
@@ -211,7 +210,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Date range</label>
+                            <label><?php echo __('date_range'); ?></label>
                             <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                             <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                             <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -220,8 +219,8 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Tag</label>
-                            <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="- Select Tags -" multiple>
+                            <label><?php echo __('tags'); ?></label>
+                            <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="<?php echo __('select_tags'); ?>" multiple>
                                 <?php
                                 $sql_tags_filter = mysqli_query($mysqli, "
                                     SELECT tags.tag_id, tags.tag_name
@@ -243,9 +242,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Industry</label>
+                            <label><?php echo __('industry'); ?></label>
                             <select class="form-control select2" name="industry" onchange="this.form.submit()">
-                                <option value="">- All Industries -</option>
+                                <option value=""><?php echo __('all_industries'); ?></option>
 
                                 <?php
                                 $sql_industries_filter = mysqli_query($mysqli, "SELECT DISTINCT client_type FROM clients WHERE 1 = 1 AND client_$archive_query AND client_type != '' $leads_query ORDER BY client_type ASC");
@@ -262,9 +261,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>Referral</label>
+                            <label><?php echo __('referral'); ?></label>
                             <select class="form-control select2" name="referral" onchange="this.form.submit()">
-                                <option value="">- All Referrals -</option>
+                                <option value=""><?php echo __('all_referrals'); ?></option>
 
                                 <?php
                                 $sql_referrals_filter = mysqli_query($mysqli, "SELECT DISTINCT client_referral FROM clients WHERE 1 = 1 AND client_$archive_query AND client_referral != '' $leads_query ORDER BY client_referral ASC");
@@ -297,26 +296,26 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     </td>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                            Client Name <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                            <?php echo __('name'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=location_city&order=<?php echo $disp; ?>">
-                            Primary Location <?php if ($sort == 'location_city') { echo $order_icon; } ?>
+                            <?php echo __('client_primary_location'); ?> <?php if ($sort == 'location_city') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=contact_name&order=<?php echo $disp; ?>">
-                            Primary Contact
+                            <?php echo __('client_primary_contact'); ?>
                             <?php if ($sort == 'contact_name') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th></th>
                     <?php if ((lookupUserPermission("module_financial") >= 1) && $config_module_enable_accounting == 1) { ?>
-                    <th>Billing</th>
+                    <th><?php echo __('billing'); ?></th>
                     <?php } ?>
                     <?php if (lookupUserPermission("module_client") >= 2) { ?>
-                    <th class="text-center">Action</th>
+                    <th class="text-center"><?php echo __('action'); ?></th>
                     <?php } ?>
                 </tr>
                 </thead>

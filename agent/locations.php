@@ -76,23 +76,23 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-fw fa-map-marker-alt mr-2"></i>Locations</h3>
+        <h3 class="card-title mt-2"><i class="fa fa-fw fa-map-marker-alt mr-2"></i><?php echo __('locations'); ?></h3>
         <div class="card-tools">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/location/location_add.php?<?= $client_url ?>">
-                    <i class="fas fa-plus mr-2"></i>New Location
+                    <i class="fas fa-plus mr-2"></i><?php echo __('new_location'); ?>
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                         data-modal-url="modals/location/location_import.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-upload mr-2"></i>Import
+                        <i class="fa fa-fw fa-upload mr-2"></i><?php echo __('import'); ?>
                     </a>
                     <?php if ($num_rows[0] > 0) { ?>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/location/location_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     <?php } ?>
                 </div>
@@ -109,7 +109,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-4">
                     <div class="input-group mb-3 mb-md-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Locations">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('search_locations'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                         </div>
@@ -118,7 +118,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-3">
                     <div class="input-group mb-3 mb-md-0">
-                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="- Select Tags -" multiple>
+                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="<?php echo __('select_tags'); ?>" multiple>
                             <?php
                             $sql_tags_filter = mysqli_query($mysqli, "
                                 SELECT tags.tag_id, tags.tag_name, tag_type
@@ -146,7 +146,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="client" onchange="this.form.submit()">
-                            <option value="" <?php if ($client == "") { echo "selected"; } ?>>- All Clients -</option>
+                            <option value="" <?php if ($client == "") { echo "selected"; } ?>><?php echo __('all_clients'); ?></option>
 
                             <?php
                             $sql_clients_filter = mysqli_query($mysqli, "
@@ -175,11 +175,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <a href="?<?php echo $client_url; ?>archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                            <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                            <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                         </a>
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item ajax-modal" href="#"
@@ -252,7 +252,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -365,7 +365,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/location/location_edit.php?id=<?= $location_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                         </a>
                                         <?php if ($session_user_role == 3 && $location_primary == 0) { ?>
                                             <?php if ($location_archived_at) { ?>

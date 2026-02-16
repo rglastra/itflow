@@ -58,12 +58,12 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-credit-card mr-2"></i>Payments</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-credit-card mr-2"></i><?php echo __('payments'); ?></h3>
             <?php if ($num_rows[0] > 0) { ?>
             <div class="card-tools">
                 <button type="button" class="btn btn-default ajax-modal"
                     data-modal-url="modals/payment/payment_export.php?<?= $client_url ?>">
-                    <i class="fa fa-fw fa-download mr-2"></i>Export
+                    <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                 </button>
             </div>
             <?php } ?>
@@ -77,7 +77,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="Search Payments">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="<?php echo __('search_payments'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -87,11 +87,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="col-md-2">
                         <div class="input-group mb-3 mb-sm-0">
                             <select class="form-control select2" name="account" onchange="this.form.submit()">
-                                <option value="">- All Accounts -</option>
+                                <option value=""><?php echo __('all_accounts'); ?></option>
 
                                 <?php
                                 $sql_accounts_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM payments WHERE payment_account_id = account_id) ORDER BY account_name ASC");
-                                while ($row = mysqli_fetch_assoc($sql_accounts_filter)) {
+                                while ($row = mysqli_fetch_array($sql_accounts_filter)) {
                                     $account_id = intval($row['account_id']);
                                     $account_name = nullable_htmlentities($row['account_name']);
                                 ?>
@@ -107,11 +107,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="col-sm-2">
                         <div class="input-group">
                             <select class="form-control select2" name="method" onchange="this.form.submit()">
-                                <option value="">- All Payment Methods -</option>
+                                <option value=""><?php echo __('all_payment_methods'); ?></option>
 
                                 <?php
                                 $sql_payment_methods_filter = mysqli_query($mysqli, "SELECT DISTINCT payment_method FROM payments WHERE payment_method != '' ORDER BY payment_method ASC");
-                                while ($row = mysqli_fetch_assoc($sql_payment_methods_filter)) {
+                                while ($row = mysqli_fetch_array($sql_payment_methods_filter)) {
                                     $payment_method = nullable_htmlentities($row['payment_method']);
                                 ?>
                                     <option <?php if ($method_filter == $payment_method) { echo "selected"; } ?>><?php echo $payment_method; ?></option>
@@ -127,7 +127,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Date range</label>
+                                <label><?php echo __('date_range'); ?></label>
                                 <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                                 <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                                 <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -144,49 +144,49 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=payment_date&order=<?php echo $disp; ?>">
-                                Payment Date <?php if ($sort == 'payment_date') { echo $order_icon; } ?>
+                                <?php echo __('payment_date'); ?> <?php if ($sort == 'payment_date') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_date&order=<?php echo $disp; ?>">
-                                Invoice Date <?php if ($sort == 'invoice_date') { echo $order_icon; } ?>
+                                <?php echo __('invoice_date'); ?> <?php if ($sort == 'invoice_date') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_number&order=<?php echo $disp; ?>">
-                                Invoice <?php if ($sort == 'invoice_number') { echo $order_icon; } ?>
+                                <?php echo __('invoice'); ?> <?php if ($sort == 'invoice_number') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php if (!$client_url) { ?>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                <?php echo __('client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php } ?>
                         <th class="text-right">
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=invoice_amount&order=<?php echo $disp; ?>">
-                                Invoice Amount <?php if ($sort == 'invoice_amount') { echo $order_icon; } ?>
+                                <?php echo __('invoice'); ?> <?php echo __('amount'); ?> <?php if ($sort == 'invoice_amount') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th class="text-right">
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=payment_amount&order=<?php echo $disp; ?>">
-                                Payment Amount <?php if ($sort == 'payment_amount') { echo $order_icon; } ?>
+                                <?php echo __('payment'); ?> <?php echo __('amount'); ?> <?php if ($sort == 'payment_amount') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=payment_method&order=<?php echo $disp; ?>">
-                                Payment Method <?php if ($sort == 'payment_method') { echo $order_icon; } ?>
+                                <?php echo __('method'); ?> <?php if ($sort == 'payment_method') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=payment_reference&order=<?php echo $disp; ?>">
-                                Reference <?php if ($sort == 'payment_reference') { echo $order_icon; } ?>
+                                <?php echo __('reference'); ?> <?php if ($sort == 'payment_reference') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=account_name&order=<?php echo $disp; ?>">
-                                Account <?php if ($sort == 'account_name') { echo $order_icon; } ?>
+                                <?php echo __('account'); ?> <?php if ($sort == 'account_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th></th>
@@ -195,7 +195,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_assoc($sql)) {
+                    while ($row = mysqli_fetch_array($sql)) {
                         $invoice_id = intval($row['invoice_id']);
                         $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                         $invoice_number = intval($row['invoice_number']);
@@ -221,7 +221,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         if (empty($account_archived_at)) {
                             $account_archived_display = "";
                         } else {
-                            $account_archived_display = "Archived - ";
+                            $account_archived_display = __('archived') . " - ";
                         }
 
                         ?>
@@ -243,23 +243,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             <td><?php echo $payment_reference_display; ?></td>
                             <td><?php echo "$account_archived_display$account_name"; ?></td>
                             <td>
-                                <?php if (lookupUserPermission("module_sales") >= 3) { ?>
-                                    <div class="dropdown dropleft text-center">
-                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item ajax-modal"
-                                                data-modal-url="modals/payment/payment_edit.php?id=<?= $payment_id ?>">
-                                                <i class="fas fa-fw fa-edit mr-2"></i>Edit
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_payment=<?= $payment_id ?>">
-                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
-                                            </a>
-                                        </div>
+                                <div class="dropdown dropleft text-center">
+                                    <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_payment=<?php echo $payment_id; ?>">
+                                            <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('delete'); ?>
+                                        </a>
                                     </div>
-                                <?php } ?>
+                                </div>
                             </td>
                         </tr>
 

@@ -46,9 +46,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-exchange-alt mr-2"></i>Transfers</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-exchange-alt mr-2"></i><?php echo __('Transfers'); ?></h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/transfer/transfer_add.php"><i class="fas fa-plus mr-2"></i>New Transfer</button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/transfer/transfer_add.php"><i class="fas fa-plus mr-2"></i><?php echo __('New Transfer'); ?></button>
             </div>
         </div>
 
@@ -57,7 +57,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Transfers">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Transfers'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -69,7 +69,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Date range</label>
+                                <label><?php echo __('Date range'); ?></label>
                                 <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                                 <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                                 <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -78,9 +78,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Account From</label>
+                                <label><?php echo __('Account From'); ?></label>
                                 <select class="form-control select2" name="account_from" onchange="this.form.submit()">
-                                    <option value="">- All Accounts -</option>
+                                    <option value="">- <?php echo __('All Accounts'); ?> -</option>
 
                                     <?php
                                     $sql_accounts_from_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM expenses WHERE expense_account_id = account_id) ORDER BY account_name ASC");
@@ -98,9 +98,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Account To</label>
+                                <label><?php echo __('Account To'); ?></label>
                                 <select class="form-control select2" name="account_to" onchange="this.form.submit()">
-                                    <option value="">- All Accounts -</option>
+                                    <option value="">- <?php echo __('All Accounts'); ?> -</option>
 
                                     <?php
                                     $sql_accounts_to_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM revenues WHERE revenue_account_id = account_id) ORDER BY account_name ASC");
@@ -126,35 +126,35 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_date&order=<?php echo $disp; ?>">
-                                Date <?php if ($sort == 'transfer_date') { echo $order_icon; } ?>
+                                <?php echo __('Date'); ?> <?php if ($sort == 'transfer_date') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_account_from&order=<?php echo $disp; ?>">
-                                From Account <?php if ($sort == 'transfer_account_from') { echo $order_icon; } ?>
+                                <?php echo __('From Account'); ?> <?php if ($sort == 'transfer_account_from') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_account_to&order=<?php echo $disp; ?>">
-                                To Account <?php if ($sort == 'transfer_account_to') { echo $order_icon; } ?>
+                                <?php echo __('To Account'); ?> <?php if ($sort == 'transfer_account_to') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_method&order=<?php echo $disp; ?>">
-                                Method <?php if ($sort == 'transfer_method') { echo $order_icon; } ?>
+                                <?php echo __('Method'); ?> <?php if ($sort == 'transfer_method') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_notes&order=<?php echo $disp; ?>">
-                                Notes <?php if ($sort == 'transfer_notes') { echo $order_icon; } ?>
+                                <?php echo __('Notes'); ?> <?php if ($sort == 'transfer_notes') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th class="text-right">
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=transfer_amount&order=<?php echo $disp; ?>">
-                                Amount <?php if ($sort == 'transfer_amount') { echo $order_icon; } ?>
+                                <?php echo __('Amount'); ?> <?php if ($sort == 'transfer_amount') { echo $order_icon; } ?>
                             </a>
                         </th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -223,11 +223,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url = "modals/transfer/transfer_edit.php?id=<?= $transfer_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_transfer=<?= $transfer_id ?>">
-                                            <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                            <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                         </a>
                                     </div>
                                 </div>

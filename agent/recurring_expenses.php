@@ -27,9 +27,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-redo-alt mr-2"></i>Recurring Expenses</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-redo-alt mr-2"></i><?php echo __('Recurring Expenses'); ?></h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/recurring_expense/recurring_expense_add.php" data-modal-size="lg"><i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2">New Recurring Expense</span></button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/recurring_expense/recurring_expense_add.php" data-modal-size="lg"><i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2"><?php echo __('New Recurring Expense'); ?></span></button>
             </div>
         </div>
 
@@ -38,7 +38,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Recurring Expenses">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Recurring Expenses'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -52,7 +52,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Date range</label>
+                                <label><?php echo __('Date range'); ?></label>
                                 <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                                 <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                                 <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -69,49 +69,49 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_expense_next_date&order=<?php echo $disp; ?>">
-                                Next Date <?php if ($sort == 'recurring_expense_next_date') { echo $order_icon; } ?>
+                                <?php echo __('Next Date'); ?> <?php if ($sort == 'recurring_expense_next_date') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=category_name&order=<?php echo $disp; ?>">
-                                Category <?php if ($sort == 'category_name') { echo $order_icon; } ?>
+                                <?php echo __('Category'); ?> <?php if ($sort == 'category_name') { echo $order_icon; } ?>
                             </a>
                             /
                             <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_expense_description&order=<?php echo $disp; ?>">
-                                Description <?php if ($sort == 'recurring_expense_description') { echo $order_icon; } ?>
+                                <?php echo __('Description'); ?> <?php if ($sort == 'recurring_expense_description') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=vendor_name&order=<?php echo $disp; ?>">
-                                Vendor <?php if ($sort == 'vendor_name') { echo $order_icon; } ?>
+                                <?php echo __('Vendor'); ?> <?php if ($sort == 'vendor_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th class="text-right">
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_expense_amount&order=<?php echo $disp; ?>">
-                                Amount <?php if ($sort == 'recurring_expense_amount') { echo $order_icon; } ?>
+                                <?php echo __('Amount'); ?> <?php if ($sort == 'recurring_expense_amount') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_expense_frequency&order=<?php echo $disp; ?>">
-                                Frequency <?php if ($sort == 'recurring_expense_frequency') { echo $order_icon; } ?>
+                                <?php echo __('Frequency'); ?> <?php if ($sort == 'recurring_expense_frequency') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_expense_last_sent&order=<?php echo $disp; ?>">
-                                Last Billed <?php if ($sort == 'recurring_expense_last_sent') { echo $order_icon; } ?>
+                                <?php echo __('Last Billed'); ?> <?php if ($sort == 'recurring_expense_last_sent') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=account_name&order=<?php echo $disp; ?>">
-                                Account  <?php if ($sort == 'account_name') { echo $order_icon; } ?>
+                                <?php echo __('Account'); ?>  <?php if ($sort == 'account_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                Client  <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                <?php echo __('Client'); ?>  <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                             </a>
                         </th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -185,11 +185,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-size="lg"
                                             data-modal-url="modals/recurring_expense/recurring_expense_edit.php?id=<?= $recurring_expense_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_recurring_expense=<?php echo $recurring_expense_id; ?>">
-                                            <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                            <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                         </a>
                                     </div>
                                 </div>
