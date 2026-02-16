@@ -235,7 +235,7 @@
                                 <?php if ($config_module_enable_accounting && lookupUserPermission("module_sales") >= 2) { ?>
                                     <td class="text-center">
                                         <?php if ($ticket_invoice_id) { ?>
-                                        <a href="invoice.php?client_id=<?php echo $client_id; ?>&invoice_id=<?php echo $ticket_invoice_id; ?>"><span class='badge badge-pill badge-success p-2'>Invoiced</span></a>
+                                        <a href="invoice.php?client_id=<?php echo $client_id; ?>&invoice_id=<?php echo $ticket_invoice_id; ?>"><span class='badge badge-pill badge-success p-2'><?php echo __('invoiced'); ?></span></a>
                                         <?php } else { ?>
                                         <a href="#"
                                             class="ajax-modal"
@@ -261,14 +261,14 @@
                                         <?php } ?>
                                         >
                                         <span class='p-2 badge badge-pill badge-<?php echo $ticket_priority_color; ?>'>
-                                            <?php echo $ticket_priority; ?>
+                                            <?php echo __(strtolower($ticket_priority)); ?>
                                         </span>
                                     </a>
                                 </td>
 
                                 <!-- Ticket Status -->
                                 <td>
-                                    <span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo $ticket_status_name; ?></span>
+                                    <span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo __(str_replace(' ', '_', strtolower($ticket_status_name))); ?></span>
                                     <?php if (isset ($ticket_scheduled_for)) { echo "<div class='mt-1'> <small class='text-secondary'> $ticket_scheduled_for </small></div>"; } ?>
                                 </td>
 

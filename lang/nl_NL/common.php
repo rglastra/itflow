@@ -259,6 +259,33 @@ $lang['avg_time_to_resolve'] = 'Gem. oplostijd';
 $lang['to'] = 'tot';
 $lang['with_expense_amounts_600_or_more'] = '(Met uitgaven van 600 of meer)';
 $lang['with_payments_600_or_more'] = '(Met betalingen van 600 of meer)';
+
+// Priority values
+$lang['high'] = 'Hoog';
+$lang['medium'] = 'Gemiddeld';
+$lang['low'] = 'Laag';
+
+// Frequency values
+$lang['daily'] = 'Dagelijks';
+$lang['weekly'] = 'Wekelijks';
+$lang['quarterly'] = 'Kwartaallijks';
+$lang['biannually'] = 'Halfjaarlijks';
+
+// Status values
+$lang['draft'] = 'Concept';
+$lang['sent'] = 'Verzonden';
+$lang['viewed'] = 'Bekeken';
+$lang['accepted'] = 'Geaccepteerd';
+$lang['declined'] = 'Afgewezen';
+$lang['invoiced'] = 'Gefactureerd';
+$lang['open'] = 'Open';
+$lang['new'] = 'Nieuw';
+$lang['in_progress'] = 'In Behandeling';
+$lang['on_hold'] = 'In de Wacht';
+$lang['resolved'] = 'Opgelost';
+$lang['closed'] = 'Gesloten';
+$lang['unassigned'] = 'Niet Toegewezen';
+
 $lang['recurring_income_by_client'] = 'Terugkerende Inkomsten per Klant';
 $lang['total_monthly_income'] = 'Totale Maandelijkse Inkomsten';
 $lang['collected_tax_summary'] = 'Overzicht Geïnde Belasting';

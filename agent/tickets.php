@@ -169,8 +169,8 @@ $sql_categories_filter = mysqli_query(
         <div class="card-header py-2">
             <h3 class="card-title mt-2"><i class="fa fa-fw fa-life-ring mr-2"></i>Tickets
                 <small class="ml-3">
-                    <a href="?<?= $client_url ?>status=Open" class="badge badge-pill text-light p-1 <?php if($status == 'Open') { echo "badge-light text-dark"; } ?>"><strong><?= $total_tickets_open ?></strong> Open</a> |
-                    <a href="?<?= $client_url ?>status=Closed" class="badge badge-pill text-light p-1 <?php if($status == 'Closed') { echo "badge-light text-dark"; } ?>"><strong><?= $total_tickets_closed ?></strong> Closed</a>
+                    <a href="?<?= $client_url ?>status=Open" class="badge badge-pill text-light p-1 <?php if($status == 'Open') { echo "badge-light text-dark"; } ?>"><strong><?= $total_tickets_open ?></strong> <?php echo __('open'); ?></a> |
+                    <a href="?<?= $client_url ?>status=Closed" class="badge badge-pill text-light p-1 <?php if($status == 'Closed') { echo "badge-light text-dark"; } ?>"><strong><?= $total_tickets_closed ?></strong> <?php echo __('closed'); ?></a>
                 </small>
             </h3>
             <?php if (lookupUserPermission("module_support") >= 2) { ?>
@@ -354,7 +354,7 @@ $sql_categories_filter = mysqli_query(
                                             $ticket_status_id = intval($row['ticket_status_id']);
                                             $ticket_status_name = nullable_htmlentities($row['ticket_status_name']); ?>
 
-                                            <option value="<?php echo $ticket_status_id ?>" <?php if (isset($_GET['status']) && is_array($_GET['status']) && in_array($ticket_status_id, $_GET['status'])) { echo 'selected'; } ?>> <?php echo $ticket_status_name ?> </option>
+                                            <option value="<?php echo $ticket_status_id ?>" <?php if (isset($_GET['status']) && is_array($_GET['status']) && in_array($ticket_status_id, $_GET['status'])) { echo 'selected'; } ?>> <?php echo __(str_replace(' ', '_', strtolower($ticket_status_name))); ?> </option>
 
                                         <?php } ?>
                                 </select>

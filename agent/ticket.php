@@ -87,11 +87,11 @@ if (isset($_GET['ticket_id'])) {
 
         //Set Ticket Badge Color based of priority
         if ($ticket_priority == "High") {
-            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-danger'>$ticket_priority</span>";
+            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-danger'>" . __('high') . "</span>";
         } elseif ($ticket_priority == "Medium") {
-            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-warning'>$ticket_priority</span>";
+            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-warning'>" . __('medium') . "</span>";
         } elseif ($ticket_priority == "Low") {
-            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-info'>$ticket_priority</span>";
+            $ticket_priority_display = "<span class='p-2 badge badge-pill badge-info'>" . __('low') . "</span>";
         } else {
             $ticket_priority_display = "";
         }
@@ -120,7 +120,7 @@ if (isset($_GET['ticket_id'])) {
 
         $ticket_assigned_to = intval($row['ticket_assigned_to']);
         if (empty($ticket_assigned_to)) {
-            $ticket_assigned_to_display = "<span class='badge badge-pill badge-light'>Unassigned</span>";
+            $ticket_assigned_to_display = "<span class='badge badge-pill badge-light'>" . __('unassigned') . "</span>";
         } else {
             $ticket_assigned_to_display = nullable_htmlentities($row['user_name']);
         }

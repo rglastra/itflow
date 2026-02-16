@@ -747,8 +747,8 @@ if ($user_config_dashboard_technical_enable == 1) {
                                         <td><a href="ticket.php?ticket_id=<?= "$ticket_id$has_client" ?>"><?= $ticket_subject ?></a></td>
                                         <td><a href="tickets.php?client_id=<?php echo $client_id; ?>"><strong><?php echo $client_name; ?></strong></a></td>
                                         <td><?php echo $contact_display; ?></td>
-                                        <td><span class='p-2 badge badge-pill badge-<?php echo $ticket_priority_color; ?>'><?php echo $ticket_priority; ?></span></td>
-                                        <td><span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo $ticket_status_name; ?></span></td>
+                                        <td><span class='p-2 badge badge-pill badge-<?php echo $ticket_priority_color; ?>'><?php echo __(strtolower($ticket_priority)); ?></span></td>
+                                        <td><span class='badge badge-pill text-light p-2' style="background-color: <?php echo $ticket_status_color; ?>"><?php echo __(str_replace(' ', '_', strtolower($ticket_status_name))); ?></span></td>
                                         <td><?php echo $ticket_updated_at_display; ?></td>
                                     </tr>
                                 <?php } ?>

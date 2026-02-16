@@ -113,7 +113,7 @@ $kanban = array_values($statuses);
                          ondblclick="window.location.href='ticket.php?ticket_id=<?php echo $item['ticket_id']; ?>'">
 
                 <span class="badge badge-<?php echo $ticket_priority_color; ?>">
-                    <?php echo $item['ticket_priority']; ?>
+                    <?php echo __(strtolower($item['ticket_priority'])); ?>
                 </span>
 
                         <span class="badge badge-secondary">
