@@ -86,7 +86,7 @@ ob_start();
             <label>Discount Amount</label>
             <div class='input-group'>
                 <div class='input-group-prepend'>
-                    <span class='input-group-text'><i class='fa fa-fw fa-dollar-sign'></i></span>
+                    <span class='input-group-text'><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
                 </div>
                 <input type='text' class='form-control' inputmode="decimal" pattern="-?[0-9]*\.?[0-9]{0,2}" name='quote_discount' placeholder='0.00' value="<?php echo number_format($quote_discount, 2, '.', ''); ?>">
             </div>

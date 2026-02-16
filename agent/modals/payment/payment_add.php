@@ -69,7 +69,7 @@ ob_start();
                     <label>Amount <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-fw fa-dollar-sign"></i></span>
+                            <span class="input-group-text"><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
                         </div>
                         <input type="text" class="form-control" inputmode="decimal" pattern="[0-9]*\.?[0-9]{0,2}" name="amount" value="<?php echo number_format($balance, 2, '.', ''); ?>" placeholder="0.00" required>
                     </div>
