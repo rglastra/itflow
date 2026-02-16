@@ -390,7 +390,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             <td><?php echo $category_name; ?></td>
                             <td>
                               <span class="p-2 badge badge-<?php echo $invoice_badge_color; ?>">
-                                  <?php echo $invoice_status; ?>
+                                  <?php echo __(str_replace(' ', '-', strtolower($invoice_status))); ?>
                               </span>
                             </td>
                             <td><?= $recurring_invoice_display ?></td>

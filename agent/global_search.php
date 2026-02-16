@@ -723,7 +723,7 @@ if (isset($_GET['query'])) {
                                 ?>
                                 <tr>
                                     <td><a href="invoice.php?client_id=<?= $client_id ?>&invoice_id=<?php echo $invoice_id; ?>"><?php echo "$invoice_prefix$invoice_number"; ?></a></td>
-                                    <td><?php echo $invoice_status; ?></td>
+                                    <td><?php echo __(str_replace(' ', '-', strtolower($invoice_status))); ?></td>
                                     <td><?php echo numfmt_format_currency($currency_format, $invoice_amount, $invoice_currency_code); ?></td>
                                     <td><a href="client_overview.php?client_id=<?php echo $client_id; ?>"><?php echo $client_name; ?></a></td>
                                 </tr>
