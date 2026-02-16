@@ -1520,4 +1520,34 @@ $lang['URIs'] = 'URIs';
 $lang['No URIs provided'] = 'Geen URIs verstrekt';
 $lang['No notes'] = 'Geen notities';
 $lang['Import'] = 'Importeren';
+
+// Software modals
+$lang['New License'] = 'Nieuwe Licentie';
+$lang['Editing license: %s'] = 'Licentie Bewerken: %s';
+$lang['Licensing'] = 'Licenties';
+$lang['Devices'] = 'Apparaten';
+$lang['Users'] = 'Gebruikers';
+$lang['Software Name'] = 'Softwarenaam';
+$lang['Software name'] = 'Softwarenaam';
+$lang['Software version'] = 'Softwareversie';
+$lang['Version'] = 'Versie';
+$lang['Vendor'] = 'Leverancier';
+$lang['Type'] = 'Type';
+$lang['- Select Type -'] = '- Selecteer Type -';
+$lang['- Select Vendor -'] = '- Selecteer Leverancier -';
+$lang['License Type'] = 'Licentie Type';
+$lang['- Select a License Type -'] = '- Selecteer Licentie Type -';
+$lang['Seats'] = 'Zitplaatsen';
+$lang['Number of seats'] = 'Aantal zitplaatsen';
+$lang['License Key'] = 'Licentiesleutel';
+$lang['License key'] = 'Licentiesleutel';
+$lang['Purchase Reference'] = 'Inkoopverwijzing';
+$lang['eg. Invoice, PO Number'] = 'bijv. Factuur, Inkoopordernummer';
+$lang['Purchase Date'] = 'Aankoopdatum';
+$lang['Expire'] = 'Vervalt';
+$lang['License'] = 'Licentie';
+$lang['New License from Template'] = 'Nieuwe Licentie uit Sjabloon';
+$lang['Template'] = 'Sjabloon';
+$lang['- Select Template -'] = '- Selecteer Sjabloon -';
+$lang['Export Licenses to CSV'] = 'Licenties naar CSV Exporteren';
 ?>            

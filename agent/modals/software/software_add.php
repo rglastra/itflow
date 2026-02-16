@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i>New License</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i><?php echo __('New License'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -18,21 +18,21 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-licensing">Licensing</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-licensing"><?php echo __('Licensing'); ?></a>
             </li>
             <?php if ($client_id) { // Dont show these when in global mode ?>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-device-licenses">Devices</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-device-licenses"><?php echo __('Devices'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-user-licenses">Users</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-user-licenses"><?php echo __('Users'); ?></a>
             </li>
             <?php } ?>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -47,13 +47,13 @@ ob_start();
                 <?php } else { ?>
 
                     <div class="form-group">
-                        <label>Client <strong class="text-danger">*</strong></label>
+                        <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                             </div>
                             <select class="form-control select2" name="client_id" required>
-                                <option value="">- Select Client -</option>
+                                <option value=""><?php echo __('- Select Client -'); ?></option>
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
@@ -70,44 +70,44 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Software Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Software Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Software name" maxlength="200" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Software name'); ?>" maxlength="200" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Version</label>
+                    <label><?php echo __('Version'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="version" placeholder="Software version" maxlength="200">
+                        <input type="text" class="form-control" name="version" placeholder="<?php echo __('Software version'); ?>" maxlength="200">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Short description">
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('Short description'); ?>">
                     </div>
                 </div>
 
                 <?php if ($client_id) { ?>
                 <div class="form-group">
-                    <label>Vendor</label>
+                    <label><?php echo __('Vendor'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                         </div>
                         <select class="form-control select2" name="vendor">
-                            <option value="">- Select Vendor -</option>
+                            <option value=""><?php echo __('- Select Vendor -'); ?></option>
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT vendor_name, vendor_id FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
@@ -123,13 +123,13 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Type <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Type'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                         </div>
                         <select class="form-control select2" name="type" required>
-                            <option value="">- Select Type -</option>
+                            <option value=""><?php echo __('- Select Type -'); ?></option>
                             <?php foreach ($software_types_array as $software_type) { ?>
                                 <option><?php echo $software_type; ?></option>
                             <?php } ?>
@@ -142,13 +142,13 @@ ob_start();
             <div class="tab-pane fade" id="pills-licensing">
 
                 <div class="form-group">
-                    <label>License Type</label>
+                    <label><?php echo __('License Type'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
                         <select class="form-control select2" name="license_type">
-                            <option value="">- Select a License Type -</option>
+                            <option value=""><?php echo __('- Select a License Type -'); ?></option>
                             <?php foreach ($license_types_array as $license_type) { ?>
                                 <option><?php echo $license_type; ?></option>
                             <?php } ?>
@@ -157,37 +157,37 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Seats</label>
+                    <label><?php echo __('Seats'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-chair"></i></span>
                         </div>
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control" name="seats" placeholder="Number of seats">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control" name="seats" placeholder="<?php echo __('Number of seats'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>License Key</label>
+                    <label><?php echo __('License Key'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="key" placeholder="License key" maxlength="200">
+                        <input type="text" class="form-control" name="key" placeholder="<?php echo __('License key'); ?>" maxlength="200">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Purchase Reference</label>
+                    <label><?php echo __('Purchase Reference'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-shopping-cart"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="purchase_reference" placeholder="eg. Invoice, PO Number">
+                        <input type="text" class="form-control" name="purchase_reference" placeholder="<?php echo __('eg. Invoice, PO Number'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Purchase Date</label>
+                    <label><?php echo __('Purchase Date'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-check"></i></span>
@@ -197,7 +197,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Expire</label>
+                    <label><?php echo __('Expire'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-times"></i></span>

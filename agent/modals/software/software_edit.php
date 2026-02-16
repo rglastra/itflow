@@ -45,7 +45,7 @@ $contact_licenses = implode(',', $contact_licenses_array);
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i>Editing license: <strong><?php echo $software_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i><?php echo sprintf(__('Editing license: %s'), $software_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -57,19 +57,19 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $software_id; ?>">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $software_id; ?>"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-license<?php echo $software_id; ?>">License</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-license<?php echo $software_id; ?>"><?php echo __('License'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-device-licenses<?php echo $software_id; ?>">Devices</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-device-licenses<?php echo $software_id; ?>"><?php echo __('Devices'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-user-licenses<?php echo $software_id; ?>">Users</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-user-licenses<?php echo $software_id; ?>"><?php echo __('Users'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $software_id; ?>">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $software_id; ?>"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -80,22 +80,22 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-details<?php echo $software_id; ?>">
 
                 <div class="form-group">
-                    <label>Software Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Software Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Software name" maxlength="200" value="<?php echo $software_name; ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Software name'); ?>" maxlength="200" value="<?php echo $software_name; ?>" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Version</label>
+                    <label><?php echo __('Version'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="version" placeholder="Software version" maxlength="200" value="<?php echo $software_version; ?>">
+                        <input type="text" class="form-control" name="version" placeholder="<?php echo __('Software version'); ?>" maxlength="200" value="<?php echo $software_version; ?>">
                     </div>
                 </div>
 
