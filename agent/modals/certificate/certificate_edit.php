@@ -25,7 +25,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-lock mr-2"></i>Editing certificate: <span class="text-bold"><?php echo $certificate_name; ?></span></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-lock mr-2"></i><?php echo sprintf(__('Editing Certificate: %s'), $certificate_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -37,16 +37,16 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pillsEditDetails<?php echo $certificate_id; ?>">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pillsEditDetails<?php echo $certificate_id; ?>"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsEditCertificate<?php echo $certificate_id; ?>">Certificate</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsEditCertificate<?php echo $certificate_id; ?>"><?php echo __('Certificate'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsEditNotes<?php echo $certificate_id; ?>">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsEditNotes<?php echo $certificate_id; ?>"><?php echo __('Notes'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsEditHistory<?php echo $certificate_id; ?>">History</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsEditHistory<?php echo $certificate_id; ?>"><?php echo __('History'); ?></a>
             </li>
         </ul>
 

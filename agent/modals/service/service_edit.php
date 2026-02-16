@@ -85,7 +85,7 @@ $sql_docs = mysqli_query(
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title text-white"><i class="fa fa-fw fa-stream mr-2"></i>Editing service: <strong><?php echo $service_name; ?></strong></h5>
+    <h5 class="modal-title text-white"><i class="fa fa-fw fa-stream mr-2"></i><?php echo sprintf(__('Editing Service: %s'), $service_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -99,13 +99,13 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-overview<?php echo $service_id ?>">Overview</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-overview<?php echo $service_id ?>"><?php echo __('Overview'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-general<?php echo $service_id ?>">General</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-general<?php echo $service_id ?>"><?php echo __('General'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-assets<?php echo $service_id ?>">Assets</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-assets<?php echo $service_id ?>"><?php echo __('Assets'); ?></a>
             </li>
         </ul>
 
@@ -116,17 +116,17 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-overview<?php echo $service_id ?>">
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-stream"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name of Service" maxlength="200" value="<?php echo $service_name ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Name of Service'); ?>" maxlength="200" value="<?php echo $service_name ?>" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Description'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-info-circle"></i></span>

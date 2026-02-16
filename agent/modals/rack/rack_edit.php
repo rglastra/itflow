@@ -24,7 +24,7 @@ $client_id = intval($row['rack_client_id']);
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-server mr-2"></i>Editing rack: <strong><?php echo $rack_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-server mr-2"></i><?php echo sprintf(__('Editing Rack: %s'), $rack_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>

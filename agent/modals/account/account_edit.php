@@ -15,7 +15,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-piggy-bank mr-2"></i>Editing account: <strong><?php echo $account_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-piggy-bank mr-2"></i><?php echo sprintf(__('Editing Account: %s'), $account_name); ?></h5>
     <button type="button" class="close text-light" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -25,7 +25,7 @@ ob_start();
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
     <div class="modal-body">
         <div class="form-group">
-            <label>Account Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Account Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
@@ -35,14 +35,14 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Notes</label>
-            <textarea class="form-control" rows="5" placeholder="Enter some notes" name="notes"><?php echo $account_notes; ?></textarea>
+            <label><?php echo __('Notes'); ?></label>
+            <textarea class="form-control" rows="5" placeholder="<?php echo __('Enter some notes'); ?>" name="notes"><?php echo $account_notes; ?></textarea>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_account" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_account" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

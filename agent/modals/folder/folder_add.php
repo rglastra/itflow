@@ -10,7 +10,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-folder-plus mr-2"></i>Creating folder in <strong><?= $folder_name ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-folder-plus mr-2"></i><?php echo sprintf(__('Creating folder in %s'), $folder_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -21,19 +21,19 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Folder Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Folder Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
-                <input type="text" class="form-control" name="folder_name" placeholder="Folder Name" maxlength="200" required>
+                <input type="text" class="form-control" name="folder_name" placeholder="<?php echo __('Folder Name'); ?>" maxlength="200" required>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="create_folder" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="create_folder" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-server mr-2"></i>New Rack</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-server mr-2"></i><?php echo __('New Rack'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -22,10 +22,10 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -36,22 +36,22 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-details">
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-server"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Rack name" maxlength="200" required autofocus>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('Rack name'); ?>" maxlength="200" required autofocus>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Description of the rack">
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('Description of the rack'); ?>">
                     </div>
                 </div>
 

@@ -9,7 +9,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-download mr-2"></i>Export Networks to CSV</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-download mr-2"></i><?php echo __('Exporting Networks to CSV'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>

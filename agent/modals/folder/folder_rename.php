@@ -14,7 +14,7 @@ $folder_name = nullable_htmlentities($row['folder_name']);
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-folder mr-2"></i>Renaming folder: <strong><?php echo $folder_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-folder mr-2"></i><?php echo sprintf(__('Renaming folder: %s'), $folder_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
