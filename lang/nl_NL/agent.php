@@ -484,4 +484,37 @@ $lang['save changes'] = 'wijzigingen opslaan';
 $lang['Save Changes'] = 'Wijzigingen Opslaan';
 $lang['export payments to csv'] = 'exporteer betalingen naar CSV';
 $lang['Export Payments to CSV'] = 'Exporteer Betalingen naar CSV';
+
+// Client modals  
+$lang['export clients to csv'] = 'exporteer klanten naar CSV';
+$lang['Export Clients to CSV'] = 'Exporteer Klanten naar CSV';
+$lang['are you really, really, really sure?'] = 'weet je het echt, echt, echt zeker?';
+$lang['Are you really, really, really sure?'] = 'Weet je het Echt, Echt, Echt Zeker?';
+$lang['do you really want to'] = 'wil je echt';
+$lang['delete'] = 'verwijderen';
+$lang['Delete'] = 'Verwijderen';
+$lang['and all associated data'] = 'en alle bijbehorende gegevens';
+$lang['this process cannot be undone.'] = 'Deze actie kan niet ongedaan gemaakt worden.';
+$lang['This process cannot be undone.'] = 'Deze Actie kan Niet Ongedaan gemaakt Worden.';
+$lang['yes, delete!'] = 'Ja, verwijder!';
+$lang['Yes, Delete!'] = 'Ja, Verwijder!';
+$lang['type'] = 'type';
+$lang['Type'] = 'Type';
+$lang['to confirm data deletion'] = 'om verwijdering te bevestigen';
+$lang['adding credit'] = 'krediet toevoegen';
+$lang['Adding Credit'] = 'Krediet Toevoegen';
+$lang['credit balance'] = 'kredietsaldo';
+$lang['Credit Balance'] = 'Kredietsaldo';
+$lang['- select credit type -'] = '- selecteer krediettype -';
+$lang['manual'] = 'handmatig';
+$lang['Manual'] = 'Handmatig';
+$lang['prepaid'] = 'prepaid';
+$lang['Prepaid'] = 'Prepaid';
+$lang['promotion'] = 'promotie';
+$lang['Promotion'] = 'Promotie';
+$lang['note'] = 'notitie';
+$lang['Note'] = 'Notitie';
+$lang['enter a note'] = 'voer een notitie in';
+$lang['add'] = 'toevoegen';
+$lang['Add'] = 'Toevoegen';
 ?>
