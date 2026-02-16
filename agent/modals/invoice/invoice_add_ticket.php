@@ -3,7 +3,7 @@
 <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fas fa-fw fa-file-invoice mr-2"></i>Add Unbilled Ticket to Invoice</h5>
+                <h5 class="modal-title"><i class="fas fa-fw fa-file-invoice mr-2"></i><?php echo __('Add Unbilled Ticket to Invoice'); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -13,9 +13,9 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Ticket Number</th>
-                                <th>Scope</th>
-                                <th>Add to Invoice</th>
+                                <th><?php echo __('Ticket Number'); ?></th>
+                                <th><?php echo __('Scope'); ?></th>
+                                <th><?php echo __('Add to Invoice'); ?></th>
                             </tr>
                         </thead>
                         <?php while ($row = mysqli_fetch_assoc($sql_tickets_billable)) {

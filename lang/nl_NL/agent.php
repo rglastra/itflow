@@ -430,4 +430,26 @@ $lang['tax'] = 'belasting';
 $lang['Tax'] = 'Belasting';
 $lang['no tax'] = 'geen belasting';
 $lang['No Tax'] = 'Geen Belasting';
+
+// More invoice modals
+$lang['Invoice Notes'] = 'Factuur Notities';
+$lang['invoice notes'] = 'factuur notities';
+$lang['export invoices to csv'] = 'exporteer facturen naar CSV';
+$lang['Export Invoices to CSV'] = 'Exporteer Facturen naar CSV';
+$lang['date from'] = 'datum vanaf';
+$lang['Date From'] = 'Datum Vanaf';
+$lang['date to'] = 'datum t/m';
+$lang['Date To'] = 'Datum T/m';
+$lang['download csv'] = 'download CSV';
+$lang['Download CSV'] = 'Download CSV';
+$lang['set category for'] = 'categorie instellen voor';
+$lang['invoices'] => 'facturen',
+$lang['Invoices'] => 'Facturen',
+$lang['Set Category'] = 'Categorie Instellen';
+$lang['add unbilled ticket to invoice'] = 'ongeadministreerd ticket toevoegen aan factuur';
+$lang['Add Unbilled Ticket to Invoice'] = 'Ongeadministreerd Ticket Toevoegen aan Factuur';
+$lang['ticket number'] = 'ticketnummer';
+$lang['Ticket Number'] = 'Ticketnummer';
+$lang['add to invoice'] = 'toevoegen aan factuur';
+$lang['Add to Invoice'] = 'Toevoegen aan Factuur';
 ?>
