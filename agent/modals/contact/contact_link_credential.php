@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM contacts
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $contact_name = nullable_htmlentities($row['contact_name']);
 $client_id = intval($row['contact_client_id']);
 
@@ -44,7 +44,7 @@ ob_start();
                         AND credential_archived_at IS NULL
                         ORDER BY credential_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_credentials_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_credentials_select)) {
                         $credential_id = intval($row['credential_id']);
                         $credential_name = nullable_htmlentities($row['credential_name']);
                         ?>

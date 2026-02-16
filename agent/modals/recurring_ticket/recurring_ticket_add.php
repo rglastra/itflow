@@ -87,7 +87,7 @@ ob_start();
                                     <option value="0">- Not Categorized -</option>
                                     <?php
                                     $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_categories)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
 
@@ -123,7 +123,7 @@ ob_start();
                                 "SELECT user_id, user_name FROM users
                                 WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                             );
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $user_id = intval($row['user_id']);
                                 $user_name = nullable_htmlentities($row['user_name']); ?>
                                 <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
@@ -160,7 +160,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $client_id_select = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']); ?>
 
@@ -187,7 +187,7 @@ ob_start();
 
                 </div>
             </div>
-            
+
             <?php } ?>
 
             <div class="tab-pane fade" id="pills-add-schedule">
@@ -242,24 +242,24 @@ ob_start();
                                 <?php
                                 // Query assets ordered by type, then name
                                 $sql_assets = mysqli_query($mysqli, "
-                                    SELECT asset_id, asset_name, asset_type, asset_make, asset_model, contact_name 
-                                    FROM assets 
-                                    LEFT JOIN contacts ON contact_id = asset_contact_id 
-                                    WHERE asset_client_id = $client_id 
-                                      AND asset_archived_at IS NULL 
+                                    SELECT asset_id, asset_name, asset_type, asset_make, asset_model, contact_name
+                                    FROM assets
+                                    LEFT JOIN contacts ON contact_id = asset_contact_id
+                                    WHERE asset_client_id = $client_id
+                                      AND asset_archived_at IS NULL
                                     ORDER BY asset_type ASC, asset_name ASC
                                 ");
 
                                 $current_type = null; // Track which optgroup we're in
 
-                                while ($row = mysqli_fetch_array($sql_assets)) {
+                                while ($row = mysqli_fetch_assoc($sql_assets)) {
                                     $asset_id_select = intval($row['asset_id']);
                                     $asset_name_select = nullable_htmlentities($row['asset_name']);
                                     $asset_type_select = nullable_htmlentities($row['asset_type']);
                                     $asset_make_select = nullable_htmlentities($row['asset_make']);
                                     $asset_model_select = nullable_htmlentities($row['asset_model']);
                                     $contact_name_select = nullable_htmlentities($row['contact_name']);
-                                    
+
                                     // Start new optgroup if type changes
                                     if ($asset_type_select !== $current_type) {
                                         if ($current_type !== null) echo "</optgroup>";
@@ -268,15 +268,15 @@ ob_start();
                                     }
 
                                     // Build full display
-                                    $full_name = $asset_name_select . ($asset_make_select ? " - $asset_make_select" . ($asset_model_select ? " $asset_model_select" : '') : '') 
+                                    $full_name = $asset_name_select . ($asset_make_select ? " - $asset_make_select" . ($asset_model_select ? " $asset_model_select" : '') : '')
                                                  . ($contact_name_select ? " - ($contact_name_select)" : '');
                                     ?>
 
                                     <option <?php if ($asset_id == $asset_id_select) { echo "selected"; } ?> value="<?= $asset_id_select ?>"><?= $full_name ?></option>
 
-                                <?php } 
+                                <?php }
 
-                                if ($current_type_select !== null) echo "</optgroup>"; 
+                                if ($current_type_select !== null) echo "</optgroup>";
                                 ?>
                             </select>
                         </div>
@@ -294,17 +294,17 @@ ob_start();
                                 <?php
                                 // Query assets ordered by type then name
                                 $sql_assets = mysqli_query($mysqli, "
-                                    SELECT asset_id, asset_name, asset_type, asset_make, asset_model, contact_name 
-                                    FROM assets 
-                                    LEFT JOIN contacts ON contact_id = asset_contact_id 
-                                    WHERE asset_client_id = $client_id 
-                                      AND asset_archived_at IS NULL 
+                                    SELECT asset_id, asset_name, asset_type, asset_make, asset_model, contact_name
+                                    FROM assets
+                                    LEFT JOIN contacts ON contact_id = asset_contact_id
+                                    WHERE asset_client_id = $client_id
+                                      AND asset_archived_at IS NULL
                                     ORDER BY asset_type ASC, asset_name ASC
                                 ");
 
                                 $current_type = null;
 
-                                while ($row = mysqli_fetch_array($sql_assets)) {
+                                while ($row = mysqli_fetch_assoc($sql_assets)) {
                                     $asset_id_select = intval($row['asset_id']);
                                     $asset_name_select = nullable_htmlentities($row['asset_name']);
                                     $asset_type_select = nullable_htmlentities($row['asset_type']);
@@ -320,15 +320,15 @@ ob_start();
                                     }
 
                                     // Build full display
-                                    $full_name = $asset_name_select . ($asset_make_select ? " - $asset_make_select" . ($asset_model_select ? " $asset_model_select" : '') : '') 
+                                    $full_name = $asset_name_select . ($asset_make_select ? " - $asset_make_select" . ($asset_model_select ? " $asset_model_select" : '') : '')
                                                  . ($contact_name_select ? " - ($contact_name_select)" : '');
                                     ?>
 
                                     <option value="<?= $asset_id_select ?>"><?= $full_name ?></option>
 
-                                <?php } 
+                                <?php }
 
-                                if ($current_type !== null) echo "</optgroup>"; 
+                                if ($current_type !== null) echo "</optgroup>";
                                 ?>
                             </select>
                         </div>

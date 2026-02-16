@@ -66,7 +66,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_types_filter = mysqli_query($mysqli, "SELECT DISTINCT app_log_type FROM app_logs ORDER BY app_log_type ASC");
-                                while ($row = mysqli_fetch_array($sql_types_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_types_filter)) {
                                     $log_type = nullable_htmlentities($row['app_log_type']);
                                 ?>
                                     <option <?php if ($type_filter == $log_type) { echo "selected"; } ?>><?php echo $log_type; ?></option>
@@ -85,7 +85,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_categories_filter = mysqli_query($mysqli, "SELECT DISTINCT app_log_category FROM app_logs ORDER BY app_log_category ASC");
-                                while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                     $log_category = nullable_htmlentities($row['app_log_category']);
                                 ?>
                                     <option <?php if ($category_filter == $log_category) { echo "selected"; } ?>><?php echo $log_category; ?></option>
@@ -141,7 +141,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $log_id = intval($row['app_log_id']);
                         $log_type = nullable_htmlentities($row['app_log_type']);
                         $log_category = nullable_htmlentities($row['app_log_category']);

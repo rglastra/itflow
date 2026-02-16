@@ -37,7 +37,7 @@ ob_start();
                         AND project_completed_at IS NULL
                         ORDER BY project_name DESC"
                     );
-                    while ($row = mysqli_fetch_array($sql_projects_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_projects_select)) {
                         $project_id_select = intval($row['project_id']);
                         $project_prefix_select = nullable_htmlentities($row['project_prefix']);
                         $project_number_select = intval($row['project_number']);

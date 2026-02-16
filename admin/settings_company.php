@@ -4,7 +4,7 @@ require_once "includes/inc_all_admin.php";
 
 $sql = mysqli_query($mysqli,"SELECT * FROM companies, settings WHERE companies.company_id = settings.company_id AND companies.company_id = 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $company_id = intval($row['company_id']);
 $company_name = nullable_htmlentities($row['company_name']);
 $company_country = nullable_htmlentities($row['company_country']);

@@ -88,7 +88,7 @@ if (isset($_POST['edit_your_user_details'])) {
 }
 
 if (isset($_GET['clear_your_user_avatar'])) {
-    
+
     validateCSRFToken($_GET['csrf_token']);
 
     mysqli_query($mysqli,"UPDATE users SET user_avatar = NULL WHERE user_id = $session_user_id");
@@ -96,7 +96,7 @@ if (isset($_GET['clear_your_user_avatar'])) {
     logAction("User Account", "Edit", "$session_name cleared their avatar");
 
     flash_alert("Avatar cleared", 'error');
-    
+
     redirect();
 
 }
@@ -189,7 +189,7 @@ if (isset($_POST['edit_your_user_preferences'])) {
     // Enable extension access, only if it isn't already setup (user doesn't have cookie)
     if (isset($_POST['extension']) && $_POST['extension'] == 'Yes') {
         if (!isset($_COOKIE['user_extension_key'])) {
-            $extension_key = randomString(156);
+            $extension_key = randomString(32);
             mysqli_query($mysqli, "UPDATE users SET user_extension_key = '$extension_key' WHERE user_id = $session_user_id");
 
             $extended_log_description .= "enabled browser extension access";
@@ -218,7 +218,7 @@ if (isset($_POST['enable_mfa'])) {
     require_once "../../plugins/totp/totp.php";
 
     // Grab the code from the user
-    $verify_code = trim($_POST['verify_code']); 
+    $verify_code = trim($_POST['verify_code']);
     // Ensure it's numeric
     if (!ctype_digit($verify_code)) {
         $verify_code = '';
@@ -249,9 +249,9 @@ if (isset($_POST['enable_mfa'])) {
             if ($previousPage === 'mfa_enforcement.php') {
                 // Redirect back to mfa_enforcement.php
                 redirect("../$config_start_page");
-                
+
             }
-        }    
+        }
 
     } else {
         // FAILURE
@@ -267,7 +267,7 @@ if (isset($_POST['enable_mfa'])) {
                 // Redirect back to mfa_enforcement.php
                 redirect();
             }
-        }    
+        }
     }
 
     redirect("user_security.php");

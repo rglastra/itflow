@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM assets
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $asset_name = nullable_htmlentities($row['asset_name']);
 $client_id = intval($row['asset_client_id']);
 
@@ -47,7 +47,7 @@ ob_start();
                         AND asset_documents.asset_id IS NULL
                         ORDER BY document_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_documents_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_documents_select)) {
                         $document_id = intval($row['document_id']);
                         $document_name = nullable_htmlentities($row['document_name']);
                         ?>

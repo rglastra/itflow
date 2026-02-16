@@ -44,7 +44,7 @@ $passwords_not_rotated_sql = mysqli_query($mysqli,
 
                     <?php
 
-                    while ($row = mysqli_fetch_array($passwords_not_rotated_sql)) {
+                    while ($row = mysqli_fetch_assoc($passwords_not_rotated_sql)) {
 
                         $credential_id = intval($row['credential_id']);
                         $credential_name = nullable_htmlentities($row['credential_name']);
@@ -72,4 +72,3 @@ $passwords_not_rotated_sql = mysqli_query($mysqli,
 
 <?php
 require_once "../../includes/footer.php";
-

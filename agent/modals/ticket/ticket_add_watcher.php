@@ -29,7 +29,7 @@ ob_start();
                     <?php
 
                     $sql_client_contacts_select = mysqli_query($mysqli, "SELECT contact_id, contact_name, contact_email FROM contacts WHERE contact_client_id = $client_id AND contact_email <> '' ORDER BY contact_name ASC");
-                    while ($row = mysqli_fetch_array($sql_client_contacts_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_client_contacts_select)) {
                         $contact_id_select = intval($row['contact_id']);
                         $contact_name_select = nullable_htmlentities($row['contact_name']);
                         $contact_email_select = nullable_htmlentities($row['contact_email']);

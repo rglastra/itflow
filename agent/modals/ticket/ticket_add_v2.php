@@ -18,7 +18,7 @@ ob_start();
 <form action="post.php" method="post" autocomplete="off">
     <!-- Hidden/System fields -->
     <?php if ($client_id) { ?>
-        <input type="hidden" name="client" value="<?php echo $client_id; ?>>">
+        <input type="hidden" name="client" value="<?php echo $client_id; ?>">
     <?php } ?>
     <?php if ($project_id) { ?>
         <input type="hidden" name="project" value="<?php echo $project_id; ?>">
@@ -58,20 +58,20 @@ ob_start();
                             <option value="0">- Choose a Template -</option>
                             <?php
                             $sql_ticket_templates = mysqli_query($mysqli, "
-                                    SELECT tt.ticket_template_id, 
+                                    SELECT tt.ticket_template_id,
                                            tt.ticket_template_name,
-                                           tt.ticket_template_subject, 
+                                           tt.ticket_template_subject,
                                            tt.ticket_template_details,
                                            COUNT(ttt.task_template_id) as task_count
                                     FROM ticket_templates tt
-                                    LEFT JOIN task_templates ttt 
+                                    LEFT JOIN task_templates ttt
                                         ON tt.ticket_template_id = ttt.task_template_ticket_template_id
                                     WHERE tt.ticket_template_archived_at IS NULL
                                     GROUP BY tt.ticket_template_id
                                     ORDER BY tt.ticket_template_name ASC
                                 ");
 
-                            while ($row = mysqli_fetch_array($sql_ticket_templates)) {
+                            while ($row = mysqli_fetch_assoc($sql_ticket_templates)) {
                                 $ticket_template_id_select = intval($row['ticket_template_id']);
                                 $ticket_template_name_select = nullable_htmlentities($row['ticket_template_name']);
                                 $ticket_template_subject_select = nullable_htmlentities($row['ticket_template_subject']);
@@ -131,7 +131,7 @@ ob_start();
                                     <option value="0">- Not Categorized -</option>
                                     <?php
                                     $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_categories)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                         ?>
@@ -158,7 +158,7 @@ ob_start();
                             <span class="input-group-text"><i class="fa fa-fw fa-user-check"></i></span>
                         </div>
                         <select class="form-control select2" name="assigned_to">
-                            <option value="0">- Not Assigned -</option>
+                            <option value="0">- Unassigned -</option>
                             <?php
 
                             $sql = mysqli_query(
@@ -166,7 +166,7 @@ ob_start();
                                 "SELECT user_id, user_name FROM users
                                 WHERE user_type = 1 AND user_status = 1 AND user_archived_at IS NULL ORDER BY user_name ASC"
                             );
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $user_id = intval($row['user_id']);
                                 $user_name = nullable_htmlentities($row['user_name']); ?>
                                 <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
@@ -189,7 +189,7 @@ ob_start();
             <!-- Ticket client/contact -->
             <?php if ($contact_id) { ?>
                 <input type="hidden" name="contact" value="<?php echo $contact_id; ?>">
-            <?php } else { ?>    
+            <?php } else { ?>
                 <div class="tab-pane fade" id="pills-add-contacts">
 
                     <div class="form-group">
@@ -203,7 +203,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_lead = 0 AND client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
 
@@ -297,32 +297,24 @@ ob_start();
 
 <!-- Ticket Templates -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var templateSelect = $('#ticket_template_select');
-        var subjectInput = document.getElementById('subjectInput');
-        var detailsInput = document.getElementById('detailsInput');
+$(document).on('change', '#ticket_template_select', function () {
+    const $opt = $(this).find(':selected');
+    const templateSubject = $opt.data('subject') || '';
+    const templateDetails = $opt.data('details') || '';
 
-        templateSelect.on('select2:select', function(e) {
-            var selectedOption = e.params.data.element;
-            var templateSubject = selectedOption.getAttribute('data-subject');
-            var templateDetails = selectedOption.getAttribute('data-details');
+    $('#subjectInput').val(templateSubject);
 
-            // Update Subject
-            subjectInput.value = templateSubject || '';
-
-            // Update Details
-            if (typeof tinymce !== 'undefined') {
-                var editor = tinymce.get('detailsInput');
-                if (editor) {
-                    editor.setContent(templateDetails || '');
-                } else {
-                    detailsInput.value = templateDetails || '';
-                }
-            } else {
-                detailsInput.value = templateDetails || '';
-            }
-        });
-    });
+    if (window.tinymce) {
+        const editor = tinymce.get('detailsInput');
+        if (editor) {
+            editor.setContent(templateDetails);
+        } else {
+            $('#detailsInput').val(templateDetails);
+        }
+    } else {
+        $('#detailsInput').val(templateDetails);
+    }
+});
 </script>
 
 <!-- Ticket Client/Contact JS -->

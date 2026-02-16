@@ -97,7 +97,7 @@ ob_start();
                             <option value="">- Select Referral -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($referral_sql)) {
+                            while ($row = mysqli_fetch_assoc($referral_sql)) {
                                 $referral = nullable_htmlentities($row['category_name']); ?>
                                 <option><?php echo $referral; ?></option>
                             <?php } ?>
@@ -131,7 +131,7 @@ ob_start();
                         <select class="form-control select2" name="tags[]" data-placeholder="- Select Tags -"multiple>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>

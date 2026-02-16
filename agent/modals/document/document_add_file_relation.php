@@ -20,10 +20,10 @@
                             <select class="form-control select2" name="file_id">
                                 <option value="">- Select a File -</option>
                                 <?php
-                                $sql_files_select = mysqli_query($mysqli, "SELECT * FROM files 
+                                $sql_files_select = mysqli_query($mysqli, "SELECT * FROM files
                                     LEFT JOIN folders ON folder_id = file_folder_id
                                     WHERE file_client_id = $client_id ORDER BY folder_name ASC, file_name ASC");
-                                while ($row = mysqli_fetch_array($sql_files_select)) {
+                                while ($row = mysqli_fetch_assoc($sql_files_select)) {
                                     $file_id = intval($row['file_id']);
                                     $file_name = nullable_htmlentities($row['file_name']);
                                     $folder_name = nullable_htmlentities($row['folder_name']);

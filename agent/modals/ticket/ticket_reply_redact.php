@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM ticket_replies
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_reply = nullable_htmlentities($row['ticket_reply']);
 $client_id = intval($row['ticket_client_id']);
 

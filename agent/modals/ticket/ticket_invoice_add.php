@@ -19,7 +19,7 @@ $ticket_sql = mysqli_query(
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($ticket_sql);
+$row = mysqli_fetch_assoc($ticket_sql);
 $client_id = intval($row['client_id']);
 $client_rate = floatval($row['client_rate']);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
@@ -33,16 +33,16 @@ $ticket_onsite = intval($row['ticket_onsite']);
 
 $ticket_created_at = nullable_htmlentities($row['ticket_created_at']);
 $ticket_created_by = intval($row['ticket_created_by']);
-$ticket_date = date('Y-m-d', strtotime($ticket_created_at));
+$ticket_date = date('Y-m-d g:i A', strtotime($ticket_created_at));
 $ticket_first_response_at = nullable_htmlentities($row['ticket_first_response_at']);
 if ($ticket_first_response_at) {
-    $ticket_first_response_date_time = date('Y-m-d H:i', strtotime($ticket_first_response_at));
+    $ticket_first_response_date_time = date('Y-m-d g:i A', strtotime($ticket_first_response_at));
 } else {
     $ticket_first_response_date_time = '';
 }
 $ticket_resolved_at = nullable_htmlentities($row['ticket_resolved_at']);
 if ($ticket_resolved_at) {
-    $ticket_resolved_date = date('Y-m-d', strtotime($ticket_resolved_at));
+    $ticket_resolved_date = date('Y-m-d g:i A', strtotime($ticket_resolved_at));
 } else {
     $ticket_resolved_date = '';
 }
@@ -71,8 +71,9 @@ $location_phone = formatPhoneNumber($row['location_phone']);
 
 //Get Total Ticket Time
 $ticket_total_reply_time = mysqli_query($mysqli, "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(ticket_reply_time_worked))) AS ticket_total_reply_time FROM ticket_replies WHERE ticket_reply_archived_at IS NULL AND ticket_reply_ticket_id = $ticket_id");
-$row = mysqli_fetch_array($ticket_total_reply_time);
+$row = mysqli_fetch_assoc($ticket_total_reply_time);
 $ticket_total_reply_time = nullable_htmlentities($row['ticket_total_reply_time']);
+$ticket_total_reply_time_display = formatDuration($ticket_total_reply_time);
 
 $sql_invoices = mysqli_query($mysqli, "SELECT * FROM invoices WHERE invoice_status LIKE 'Draft' AND invoice_client_id = $client_id ORDER BY invoice_number ASC");
 
@@ -122,7 +123,7 @@ ob_start();
                                 <option value="0">- Select an Existing Invoice -</option>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_invoices)) {
+                                while ($row = mysqli_fetch_assoc($sql_invoices)) {
                                     $invoice_id = intval($row['invoice_id']);
                                     $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
                                     $invoice_number = intval($row['invoice_number']);
@@ -170,7 +171,7 @@ ob_start();
                                     <?php
 
                                     $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql)) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
                                         ?>
@@ -221,15 +222,17 @@ ob_start();
             <div class="input-group">
                 <textarea class="form-control" rows="10" name="item_description"><?php
                     // Build description text cleanly in PHP, not mixed with HTML
-                    $description = "#Ticket: {$ticket_prefix}{$ticket_number} - $ticket_subject\n";
-                    $description .= "Priority: {$ticket_priority}\n";
-                    $description .= "Opened at: {$ticket_date}\n";
+                    $description = "Ticket: {$ticket_prefix}{$ticket_number} - $ticket_subject\n";
+                    $description .= "Work Performed: Support (see ticket notes)\n";
+                    $description .= "\n";
+                    $description .= "Opened: {$ticket_date}\n";
                     if ($ticket_first_response_date_time) {
                         $description .= "Initial Response: {$ticket_first_response_date_time}\n";
                     }
                     if ($ticket_resolved_date) {
-                        $description .= "Resolved at: {$ticket_resolved_date}\n";
+                        $description .= "Resolved: {$ticket_resolved_date}\n";
                     }
+                    $description .= "\n";
                     if ($ticket_assigned_agent) {
                         $description .= "Agent: {$ticket_assigned_agent}\n";
                     }
@@ -243,7 +246,7 @@ ob_start();
                         $description .= "Asset: {$asset_name}\n";
                     }
                     if ($ticket_total_reply_time) {
-                        $description .= "Agent Time Spent: {$ticket_total_reply_time}";
+                        $description .= "Time Spent: {$ticket_total_reply_time_display}";
                     }
 
                     echo trim($description); // Trim any leading/trailing spaces/newlines
@@ -299,7 +302,7 @@ ob_start();
                     <?php
 
                     $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE tax_archived_at IS NULL ORDER BY tax_name ASC");
-                    while ($row = mysqli_fetch_array($taxes_sql)) {
+                    while ($row = mysqli_fetch_assoc($taxes_sql)) {
                         $tax_id_select = intval($row['tax_id']);
                         $tax_name = nullable_htmlentities($row['tax_name']);
                         $tax_percent = floatval($row['tax_percent']);

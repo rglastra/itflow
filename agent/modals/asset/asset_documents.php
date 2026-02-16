@@ -10,7 +10,7 @@
 
             <div class="modal-body">
                 <?php
-                while ($row = mysqli_fetch_array($sql_related_documents)) {
+                while ($row = mysqli_fetch_assoc($sql_related_documents)) {
                     $related_document_id = intval($row['document_id']);
                     $related_document_name = nullable_htmlentities($row['document_name']);
                     ?>

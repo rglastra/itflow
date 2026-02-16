@@ -4,7 +4,7 @@ require_once '../../../includes/modal_header.php';
 
 $client_id = intval($_GET['client_id'] ?? 0);
 $contact_id = intval($_GET['contact_id'] ?? 0);
-$type = nullable_htmlentities($_GET['type'] ?? '');
+$type = nullable_htmlentities(ucwords($_GET['type']) ?? '');
 
 if ($client_id) {
     $sql_network_select = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_archived_at IS NULL AND network_client_id = $client_id ORDER BY network_name ASC");
@@ -13,7 +13,7 @@ if ($client_id) {
     $sql_contact_select = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
 } else {
     $sql_client_select = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-}   
+}
 
 // OS typeahead suggestions
 $os_sql = mysqli_query($mysqli, "SELECT DISTINCT asset_os AS label FROM assets WHERE asset_archived_at IS NULL");
@@ -33,7 +33,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>New <?php if ($type) { echo ucwords($type); } else { echo "Asset"; } ?></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>New <?php if ($type) { echo $type; } ?> Asset</h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -85,7 +85,7 @@ ob_start();
                                 <option value="">- Select Client -</option>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_client_select)) {
+                                while ($row = mysqli_fetch_assoc($sql_client_select)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?= $client_id_select ?>"><?= $client_name ?></option>
@@ -98,12 +98,19 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label>Name <strong class="text-danger">*</strong> / <span class="text-secondary" title="Pin to Overview">Favorite</span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
+                            <span class="input-group-text"><i class="fas fa-fw fa-tag"></i></span>
                         </div>
                         <input type="text" class="form-control" name="name" placeholder="Asset name or asset tag" maxlength="200" required autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox" name="favorite" value="1"><i class="far fa-star"></i>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -133,7 +140,7 @@ ob_start();
                 </div>
 
                 <?php //Do not display Make Model or Serial if Virtual is selected
-                if ($type !== 'virtual') { ?>
+                if ($type !== 'Virtual') { ?>
                     <div class="form-group">
                         <label>Make</label>
                         <div class="input-group">
@@ -165,7 +172,7 @@ ob_start();
                     </div>
                 <?php } ?>
 
-                <?php if ($type !== 'network' && $type !== 'other') { ?>
+                <?php if ($type !== 'Network' && $type !== 'Other') { ?>
                     <div class="form-group">
                         <label>Operating System</label>
                         <div class="input-group">
@@ -191,7 +198,7 @@ ob_start();
                             <option value="">- Select Network -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_network_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_network_select)) {
                                 $network_id = intval($row['network_id']);
                                 $network_name = nullable_htmlentities($row['network_name']);
                                 $network = nullable_htmlentities($row['network']);
@@ -305,7 +312,7 @@ ob_start();
                             <option value="">- Select Location -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_location_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_location_select)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                                 ?>
@@ -326,12 +333,12 @@ ob_start();
                             <option value="">- Select Contact -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_contact_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_contact_select)) {
                                 $contact_id_select = intval($row['contact_id']);
                                 $contact_name = nullable_htmlentities($row['contact_name']);
                                 ?>
-                                <option 
-                                    <?php if ($contact_id == $contact_id_select) { 
+                                <option
+                                    <?php if ($contact_id == $contact_id_select) {
                                     echo "selected"; }
                                     ?>
                                     value="<?= $contact_id_select ?>"><?= $contact_name ?>
@@ -374,7 +381,7 @@ ob_start();
                             <option value="">- Select Vendor -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_vendor_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_vendor_select)) {
                                 $vendor_id = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -386,7 +393,7 @@ ob_start();
                 </div>
                 <?php } ?>
 
-                <?php if ($type !== 'virtual') { ?>
+                <?php if ($type !== 'Virtual') { ?>
                     <div class="form-group">
                         <label>Purchase Reference</label>
                         <div class="input-group">
@@ -418,7 +425,7 @@ ob_start();
                     </div>
                 </div>
 
-                <?php if ($type !== 'virtual') { ?>
+                <?php if ($type !== 'Virtual') { ?>
                     <div class="form-group">
                         <label>Warranty Expire</label>
                         <div class="input-group">
@@ -476,7 +483,7 @@ ob_start();
                         <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']);
                                 ?>

@@ -104,7 +104,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $user_id = intval($row['user_id']);
                     $user_name = nullable_htmlentities($row['user_name']);
                     $user_email = nullable_htmlentities($row['user_email']);
@@ -139,7 +139,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     if (mysqli_num_rows($sql_last_login) == 0) {
                         $last_login = "<span class='text-bold'>Never logged in</span>";
                     } else {
-                        $row = mysqli_fetch_array($sql_last_login);
+                        $row = mysqli_fetch_assoc($sql_last_login);
                         $log_created_at = nullable_htmlentities($row['log_created_at']);
                         $log_ip = nullable_htmlentities($row['log_ip']);
                         $log_user_agent = nullable_htmlentities($row['log_user_agent']);

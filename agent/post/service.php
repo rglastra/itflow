@@ -22,12 +22,12 @@ if (isset($_POST['add_service'])) {
     mysqli_query($mysqli, "INSERT INTO services SET service_name = '$service_name', service_description = '$service_description', service_category = '$service_category', service_importance = '$service_importance', service_backup = '$service_backup', service_notes = '$service_notes', service_client_id = $client_id");
 
     // Create links to assets
-   
+
     $service_id = mysqli_insert_id($mysqli);
 
     if (isset($_POST['contacts'])) {
         foreach($_POST['contacts'] as $contact_id) {
-            $contact_id = intval($contact_id); 
+            $contact_id = intval($contact_id);
             mysqli_query($mysqli, "INSERT INTO service_contacts SET service_id = $service_id, contact_id = $contact_id");
         }
     }
@@ -77,7 +77,7 @@ if (isset($_POST['add_service'])) {
     logAction("Service", "Create", "$session_name created service $service_name", $client_id, $service_id);
 
     flash_alert("Service <strong>$service_name</strong> created");
-    
+
     redirect();
 
 }
@@ -160,7 +160,7 @@ if (isset($_POST['edit_service'])) {
     logAction("Service", "Edit", "$session_name edited service $service_name", $client_id, $service_id);
 
     flash_alert("Service <strong>$service_name</strong> edited");
-    
+
     redirect();
 
 }
@@ -170,12 +170,12 @@ if (isset($_GET['delete_service'])) {
     validateCSRFToken($_GET['csrf_token']);
 
     enforceUserPermission('module_support', 3);
-    
+
     $service_id = intval($_GET['delete_service']);
 
     // Get Service Details
     $sql = mysqli_query($mysqli,"SELECT service_name, service_client_id FROM services WHERE service_id = $service_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $service_name = sanitizeInput($row['service_name']);
     $client_id = intval($row['service_client_id']);
 
@@ -183,9 +183,9 @@ if (isset($_GET['delete_service'])) {
     mysqli_query($mysqli, "DELETE FROM services WHERE service_id = $service_id");
 
     logAction("Service", "Delete", "$session_name deleted service $service_name", $client_id);
-    
+
     flash_alert("Service <strong>$service_name</strong> deleted", 'error');
-    
+
     redirect();
 
 }

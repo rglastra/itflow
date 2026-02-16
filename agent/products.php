@@ -93,7 +93,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Income' AND EXISTS (SELECT 1 FROM products WHERE product_category_id = category_id AND product_$archive_query $type_query) ORDER BY category_name ASC");
-                                while ($row = mysqli_fetch_array($sql_categories_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
                                     $category_id = intval($row['category_id']);
                                     $category_name = nullable_htmlentities($row['category_name']);
                                 ?>
@@ -220,7 +220,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $product_id = intval($row['product_id']);
                             $product_name = nullable_htmlentities($row['product_name']);
                             $product_description = nullable_htmlentities($row['product_description']);

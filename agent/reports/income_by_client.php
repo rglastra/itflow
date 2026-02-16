@@ -14,7 +14,7 @@ if (isset($_GET['year'])) {
     $year = date('Y');
 }
 
-$sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) AS payment_year FROM payments 
+$sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) AS payment_year FROM payments
     UNION SELECT DISTINCT YEAR(revenue_date) AS payment_year FROM revenues
     ORDER BY payment_year DESC"
 );
@@ -34,7 +34,7 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
                 <option value="all" <?php if ($year == 'all') { ?> selected <?php } ?> >All Years</option>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql_payment_years)) {
+                while ($row = mysqli_fetch_assoc($sql_payment_years)) {
                     $payment_year = intval($row['payment_year']);
                     ?>
                     <option <?php if ($year == $payment_year) { ?> selected <?php } ?> > <?php echo $payment_year; ?></option>
@@ -58,7 +58,7 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
 
         $sql_clients = mysqli_query($mysqli, $sql_clients);
         ?>
-        
+
         <div class="table-responsive-sm">
             <table class="table table-striped">
                 <thead>
@@ -69,7 +69,7 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
                 </thead>
                 <tbody>
                 <?php
-                while ($row = mysqli_fetch_array($sql_clients)) {
+                while ($row = mysqli_fetch_assoc($sql_clients)) {
                     $client_id = intval($row['client_id']);
                     $client_name = nullable_htmlentities($row['client_name']);
                     $amount_paid = floatval($row['amount_paid']);
@@ -82,7 +82,7 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
                     </tr>
                     <?php
                 }
-                
+
                 ?>
                 </tbody>
             </table>
@@ -92,4 +92,3 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
 
 <?php
 require_once "../../includes/footer.php";
-

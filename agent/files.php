@@ -23,6 +23,13 @@ if (!empty($_GET['view'])) {
     $view = 0;
 }
 
+// Folder tree expanded state: 1 = expand all, 0 = collapsed (default)
+if (isset($_GET['folders_expanded'])) {
+    $folders_expanded = intval($_GET['folders_expanded']);
+} else {
+    $folders_expanded = 0;
+}
+
 if (!isset($q)) {
     $q = '';
 }
@@ -72,38 +79,83 @@ function is_ancestor_folder($folder_id, $current_folder_id, $client_id) {
     }
 }
 
-function display_folders($parent_folder_id, $client_id, $indent = 0) {
-    global $mysqli, $get_folder_id, $session_user_role;
+function display_folders($parent_folder_id, $client_id, $indent = 0, $render_root = false) {
+    global $mysqli, $get_folder_id, $session_user_role, $archive_query, $archived, $num_root_items, $folders_expanded;
 
-    $sql_folders = mysqli_query($mysqli, "SELECT * FROM folders WHERE parent_folder = $parent_folder_id AND folder_client_id = $client_id ORDER BY folder_name ASC");
-    while ($row = mysqli_fetch_array($sql_folders)) {
+    // Always render root (only once)
+    if ($parent_folder_id == 0 && $indent == 0) {
+        echo '<li class="nav-item">';
+        echo '<a class="nav-link ' . ($get_folder_id == 0 ? 'active' : '') . '"';
+        echo ' href="?client_id=' . $client_id . '&folder_id=0&archived=' . $archived . '&folders_expanded=' . $folders_expanded . '">';
+        echo '/';
+
+        if ($num_root_items > 0) {
+            echo "<span class='badge badge-pill badge-dark float-right mt-1'>$num_root_items</span>";
+        }
+
+        echo '</a>';
+        echo '</li>';
+    }
+
+    $sql_folders = mysqli_query(
+        $mysqli,
+        "SELECT * FROM folders
+         WHERE parent_folder = $parent_folder_id
+         AND folder_client_id = $client_id
+         ORDER BY folder_name ASC"
+    );
+
+    while ($row = mysqli_fetch_assoc($sql_folders)) {
         $folder_id   = intval($row['folder_id']);
         $folder_name = nullable_htmlentities($row['folder_name']);
 
-        // Count files in folder
-        $row_files = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('file_id') AS num FROM files WHERE file_folder_id = $folder_id AND file_client_id = $client_id AND file_archived_at IS NULL"));
+        $row_files = mysqli_fetch_assoc(mysqli_query(
+            $mysqli,
+            "SELECT COUNT('file_id') AS num
+             FROM files
+             WHERE file_folder_id = $folder_id
+             AND file_client_id = $client_id
+             AND file_$archive_query"
+        ));
         $num_files = intval($row_files['num']);
 
-        // Count documents in folder
-        $row_docs = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('document_id') AS num FROM documents WHERE document_folder_id = $folder_id AND document_client_id = $client_id AND document_archived_at IS NULL"));
+        $row_docs = mysqli_fetch_assoc(mysqli_query(
+            $mysqli,
+            "SELECT COUNT('document_id') AS num
+             FROM documents
+             WHERE document_folder_id = $folder_id
+             AND document_client_id = $client_id
+             AND document_$archive_query"
+        ));
         $num_docs = intval($row_docs['num']);
 
         $num_total = $num_files + $num_docs;
 
-        // Count subfolders
-        $subfolder_result = mysqli_query($mysqli, "SELECT COUNT(*) AS count FROM folders WHERE parent_folder = $folder_id AND folder_client_id = $client_id");
+        $subfolder_result = mysqli_query(
+            $mysqli,
+            "SELECT COUNT(*) AS count
+             FROM folders
+             WHERE parent_folder = $folder_id
+             AND folder_client_id = $client_id"
+        );
         $subfolder_count  = intval(mysqli_fetch_assoc($subfolder_result)['count']);
+
+        // Active or ancestor of active folder = on active path
+        $on_active_path = ($get_folder_id == $folder_id) || is_ancestor_folder($folder_id, $get_folder_id, $client_id);
+
+        // Option C: indent with padding (no AdminLTE sidebar CSS required)
+        // Tune these numbers if you want tighter/looser indent
+        $indent_px = 12 * $indent; // 12px per level
 
         echo '<li class="nav-item">';
         echo '<div class="row">';
         echo '<div class="col-10">';
-        echo '<a class="nav-link ';
-        if ($get_folder_id == $folder_id) { echo "active"; }
-        echo '" href="?client_id=' . $client_id . '&folder_id=' . $folder_id . '">';
 
-        echo str_repeat('&nbsp;', $indent * 4);
+        echo '<a class="nav-link ' . ($get_folder_id == $folder_id ? 'active' : '') . '"';
+        echo ' style="padding-left: ' . (12 + $indent_px) . 'px;"';
+        echo ' href="?client_id=' . $client_id . '&folder_id=' . $folder_id . '&archived=' . $archived . '&folders_expanded=' . $folders_expanded . '">';
 
-        if ($get_folder_id == $folder_id || is_ancestor_folder($folder_id, $get_folder_id, $client_id)) {
+        if ($on_active_path) {
             echo '<i class="fas fa-fw fa-folder-open"></i>';
         } else {
             echo '<i class="fas fa-fw fa-folder"></i>';
@@ -111,12 +163,19 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
 
         echo ' ' . $folder_name;
 
+        if ($subfolder_count > 0) {
+            $is_expanded = $folders_expanded || $on_active_path;
+
+            echo '<i class="fas fa-chevron-' . ($is_expanded ? 'down' : 'right') . ' text-muted ml-2"></i>';
+        }
+
         if ($num_total > 0) {
             echo "<span class='badge badge-pill badge-dark float-right mt-1'>$num_total</span>";
         }
 
         echo '</a>';
-        echo '</div>';
+        echo '</div>'; // col-10
+
         echo '<div class="col-2">';
         ?>
         <div class="dropdown">
@@ -125,12 +184,10 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item ajax-modal" href="#"
-                    data-modal-url="modals/folder/folder_rename.php?id=<?= $folder_id ?>">
+                   data-modal-url="modals/folder/folder_rename.php?id=<?= $folder_id ?>">
                     <i class="fas fa-fw fa-edit mr-2"></i>Rename
                 </a>
-                <?php
-                // Only show delete if admin and no contents and no subfolders
-                if ($session_user_role == 3 && $num_total == 0 && $subfolder_count == 0) { ?>
+                <?php if ($session_user_role == 3 && $num_total == 0 && $subfolder_count == 0) { ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_folder=<?php echo $folder_id; ?>">
                         <i class="fas fa-fw fa-trash mr-2"></i>Delete
@@ -139,10 +196,11 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
             </div>
         </div>
         <?php
-        echo '</div>';
-        echo '</div>';
+        echo '</div>'; // col-2
+        echo '</div>'; // row
 
-        if ($subfolder_count > 0) {
+        // Collapsed by default: ONLY render children if folder is on active path
+        if ($subfolder_count > 0 && ($folders_expanded || $on_active_path)) {
             echo '<ul class="nav nav-pills flex-column bg-light">';
             display_folders($folder_id, $client_id, $indent + 1);
             echo '</ul>';
@@ -151,6 +209,7 @@ function display_folders($parent_folder_id, $client_id, $indent = 0) {
         echo '</li>';
     }
 }
+
 
 // ---------------------------------------------
 // DATA LOAD
@@ -172,7 +231,7 @@ if ($view == 1) {
             "SELECT SQL_CALC_FOUND_ROWS * FROM files
              LEFT JOIN users ON file_created_by = user_id
              WHERE file_client_id = $client_id
-             AND file_archived_at IS NULL
+             AND file_$archive_query
              AND (file_name LIKE '%$q%' OR file_ext LIKE '%$q%' OR file_description LIKE '%$q%')
              $query_images
              ORDER BY file_name ASC
@@ -185,7 +244,7 @@ if ($view == 1) {
              LEFT JOIN users ON file_created_by = user_id
              WHERE file_client_id = $client_id
              AND file_folder_id = $folder_id
-             AND file_archived_at IS NULL
+             AND file_$archive_query
              AND (file_name LIKE '%$q%' OR file_ext LIKE '%$q%' OR file_description LIKE '%$q%')
              $query_images
              ORDER BY file_name ASC
@@ -228,7 +287,7 @@ if ($view == 1) {
          FROM files
          LEFT JOIN users ON file_created_by = user_id
          WHERE file_client_id = $client_id
-         AND file_archived_at IS NULL
+         AND file_$archive_query
          $file_folder_snippet
          $file_search_snippet"
     );
@@ -240,7 +299,7 @@ if ($view == 1) {
          FROM documents
          LEFT JOIN users ON document_created_by = user_id
          WHERE document_client_id = $client_id
-         AND document_archived_at IS NULL
+         AND document_$archive_query
          $doc_folder_snippet
          $doc_search_snippet"
     );
@@ -256,6 +315,7 @@ if ($view == 1) {
         $file_mime_type     = nullable_htmlentities($row['file_mime_type']);
         $file_uploaded_by   = nullable_htmlentities($row['user_name']);
         $file_created_at    = nullable_htmlentities($row['file_created_at']);
+        $file_archived_at     = $row['file_archived_at'];
 
         // determine icon
         if ($file_ext == 'pdf') {
@@ -293,6 +353,7 @@ if ($view == 1) {
             'size'              => $file_size,
             'created_at'        => $file_created_at,
             'created_by'        => $file_uploaded_by,
+            'archived_at'       => $file_archived_at,
         ];
     }
 
@@ -303,6 +364,8 @@ if ($view == 1) {
         $document_description     = nullable_htmlentities($row['document_description']);
         $document_created_by_name = nullable_htmlentities($row['user_name']);
         $document_created_at      = $row['document_created_at'];
+        $document_updated_at      = $row['document_updated_at'];
+        $document_archived_at     = $row['document_archived_at'];
 
         $items[] = [
             'kind'              => 'document',
@@ -311,8 +374,9 @@ if ($view == 1) {
             'description'       => $document_description,
             'mime'              => 'Document',
             'size'              => null,
-            'created_at'        => $document_created_at,
+            'updated_at'        => $document_updated_at,
             'created_by'        => $document_created_by_name,
+            'archived_at'       => $document_archived_at,
         ];
     }
 
@@ -356,8 +420,8 @@ if ($view == 1) {
 // ---------------------------------------------
 // Root folder count (for "/" badge)
 // ---------------------------------------------
-$row_root_files = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('file_id') AS num FROM files WHERE file_folder_id = 0 AND file_client_id = $client_id AND file_archived_at IS NULL"));
-$row_root_docs  = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('document_id') AS num FROM documents WHERE document_folder_id = 0 AND document_client_id = $client_id AND document_archived_at IS NULL"));
+$row_root_files = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('file_id') AS num FROM files WHERE file_folder_id = 0 AND file_client_id = $client_id AND file_$archive_query"));
+$row_root_docs  = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('document_id') AS num FROM documents WHERE document_folder_id = 0 AND document_client_id = $client_id AND document_$archive_query"));
 $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num']);
 
 ?>
@@ -403,15 +467,26 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
 
             <!-- Folders -->
             <div class="col-md-3 border-right mb-3">
-                <h4>Folders</h4>
+                <div class="d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0">Folders</h4>
+
+                    <?php
+                    $toggle_value = $folders_expanded ? 0 : 1;
+                    $toggle_title = $folders_expanded
+                        ? 'Collapse all folders'
+                        : 'Expand all folders';
+                    ?>
+
+                    <a href="?<?= http_build_query(array_merge($_GET, ['folders_expanded' => $toggle_value])) ?>"
+                       class="btn btn-tool"
+                       title="<?= $toggle_title ?>"
+                       aria-label="<?= $toggle_title ?>">
+                           <i class="fas <?= $folders_expanded ? 'fa-chevron-down' : 'fa-chevron-right' ?>"></i>
+                    </a>
+                </div>
                 <hr>
                 <ul class="nav nav-pills flex-column bg-light">
-                    <li class="nav-item">
-                        <a class="nav-link <?php if ($get_folder_id == 0) { echo "active"; } ?>"
-                           href="?client_id=<?php echo $client_id; ?>&folder_id=0">
-                            / <?php if ($num_root_items > 0) { echo "<span class='badge badge-pill badge-dark float-right mt-1'>$num_root_items</span>"; } ?>
-                        </a>
-                    </li>
+
                     <?php
                     // Start folder tree from root
                     display_folders(0, $client_id);
@@ -424,9 +499,11 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
 
                 <!-- Search + view toggle -->
                 <form autocomplete="off">
-                    <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
-                    <input type="hidden" name="view" value="<?php echo $view; ?>">
-                    <input type="hidden" name="folder_id" value="<?php echo $get_folder_id; ?>">
+                    <input type="hidden" name="client_id" value="<?= $client_id ?>">
+                    <input type="hidden" name="view" value="<?= $view ?>">
+                    <input type="hidden" name="folder_id" value="<?= $get_folder_id ?>">
+                    <input type="hidden" name="archived" value="<?= $archived ?>">
+                    <input type="hidden" name="folders_expanded" value="<?= $folders_expanded ?>">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="input-group mb-3 mb-md-0">
@@ -439,28 +516,49 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="btn-group float-right">
-                                <a href="?<?php echo $url_query_strings_sort; ?>&view=0&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 0){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>"><i class="fas fa-list-ul"></i></a>
-                                <a href="?<?php echo $url_query_strings_sort; ?>&view=1&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 1){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>"><i class="fas fa-th-large"></i></a>
-
-                                <div class="dropdown ml-2" id="bulkActionButton" hidden>
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item ajax-modal" href="#"
-                                           data-modal-url="modals/file/file_bulk_move.php?client_id=<?= $client_id ?>&current_folder_id=<?= $get_folder_id ?>"
-                                           data-bulk="true">
-                                            <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move Files
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <button class="dropdown-item text-danger text-bold"
-                                                type="submit" form="bulkActions" name="bulk_delete_files">
-                                            <i class="fas fa-fw fa-trash mr-2"></i>Delete Files
+                            <div class="float-right">
+                                <div class="btn-group">
+                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=0&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 0){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>" title="List View"><i class="fas fa-list-ul"></i></a>
+                                    <a href="?<?php echo $url_query_strings_sort; ?>&view=1&folder_id=<?php echo $get_folder_id; ?>" class="btn <?php if($view == 1){ echo "btn-primary"; } else { echo "btn-outline-secondary"; } ?>" title="Grid View"><i class="fas fa-th-large"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="?<?php echo $url_query_strings_sort; ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
+                                        class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
+                                        <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <div class="dropdown ml-2" id="bulkActionButton" hidden>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
                                         </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item ajax-modal" href="#"
+                                            data-modal-url="modals/file/file_bulk_move.php?client_id=<?= $client_id ?>&current_folder_id=<?= $get_folder_id ?>"
+                                            data-bulk="true">
+                                                <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move Files
+                                            </a>
+                                            <?php if ($archived) { ?>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-info"
+                                                type="submit" form="bulkActions" name="bulk_restore_files">
+                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore Files
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-danger text-bold"
+                                                type="submit" form="bulkActions" name="bulk_delete_files">
+                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete Files
+                                            </button>
+                                            <?php } else { ?>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-danger"
+                                                type="submit" form="bulkActions" name="bulk_archive_files">
+                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive Files
+                                            </button>
+                                            <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -470,7 +568,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                 <nav class="mt-3">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="?client_id=<?php echo $client_id; ?>&folder_id=0">
+                            <a href="?client_id=<?php echo $client_id; ?>&folder_id=0&archived=<?= $archived ?>">
                                 <i class="fas fa-fw fa-folder mr-2"></i>Root
                             </a>
                         </li>
@@ -478,7 +576,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                             $bread_crumb_folder_id   = $folder['folder_id'];
                             $bread_crumb_folder_name = $folder['folder_name']; ?>
                             <li class="breadcrumb-item">
-                                <a href="?client_id=<?php echo $client_id; ?>&folder_id=<?php echo $bread_crumb_folder_id; ?>">
+                                <a href="?client_id=<?= $client_id ?>&folder_id=<?= $bread_crumb_folder_id ?>&archived=<?= $archived ?>&folders_expanded=<?= $folders_expanded ?>">
                                     <i class="fas fa-fw fa-folder-open mr-2"></i><?php echo $bread_crumb_folder_name; ?>
                                 </a>
                             </li>
@@ -494,7 +592,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                     <div class="row">
                         <?php
                         $files = [];
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $file_id            = intval($row['file_id']);
                             $file_name          = nullable_htmlentities($row['file_name']);
                             $file_reference_name= nullable_htmlentities($row['file_reference_name']);
@@ -503,6 +601,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                             $file_size_KB       = number_format($file_size / 1024);
                             $file_mime_type     = nullable_htmlentities($row['file_mime_type']);
                             $file_uploaded_by   = nullable_htmlentities($row['user_name']);
+                            $file_archived_at   = nullable_htmlentities($row['file_archived_at']);
 
                             $files[] = [
                                 'id'      => $file_id,
@@ -538,16 +637,23 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                 <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                             </a>
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#linkAssetToFileModal<?php echo $file_id; ?>">
-                                                <i class="fas fa-fw fa-desktop mr-2"></i>Asset
+                                                <i class="fas fa-fw fa-desktop mr-2"></i>Link Asset
                                             </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?php echo $file_id; ?>">
-                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
-                                            </a>
-                                            <?php if ($session_user_role == 3) { ?>
+                                            <?php if ($file_archived_at) { ?>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
-                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                <a class="dropdown-item text-info" href="post.php?restore_file=<?= $file_id ?>">
+                                                    <i class="fas fa-fw fa-redo mr-2"></i>Restore
+                                                </a>
+                                                <?php if ($session_user_role == 3) { ?>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
+                                                        <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                    </a>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?= $file_id ?>">
+                                                    <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                 </a>
                                             <?php } ?>
                                         </div>
@@ -571,7 +677,6 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                     <!-- LIST VIEW: unified Files + Documents -->
                     <form id="bulkActions" action="post.php" method="post">
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
-
                         <div class="table-responsive-sm">
                             <table class="table border">
                                 <thead class="thead-light <?php if ($num_rows[0] == 0) { echo "d-none"; } ?>">
@@ -598,7 +703,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                     </th>
                                     <th>
                                         <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=created&order=<?php echo $disp; ?>">
-                                            Uploaded <?php if ($sort == 'created') { echo $order_icon; } ?>
+                                            Updated <?php if ($sort == 'created') { echo $order_icon; } ?>
                                         </a>
                                     </th>
                                     <th></th>
@@ -621,6 +726,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         $file_mime_type     = $item['mime'];
                                         $file_uploaded_by   = $item['created_by'];
                                         $file_created_at    = $item['created_at'];
+                                        $file_archived_at    = $item['archived_at'];
 
                                         // Shared?
                                         $sql_shared = mysqli_query(
@@ -636,7 +742,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         );
                                         $file_shared = (mysqli_num_rows($sql_shared) > 0);
                                         if ($file_shared) {
-                                            $row_shared = mysqli_fetch_array($sql_shared);
+                                            $row_shared = mysqli_fetch_assoc($sql_shared);
                                             $item_recipient       = nullable_htmlentities($row_shared['item_recipient']);
                                             $item_expire_at_human = timeAgo($row_shared['item_expire_at']);
                                         }
@@ -699,16 +805,23 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                             <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#linkAssetToFileModal<?php echo $file_id; ?>">
-                                                            <i class="fas fa-fw fa-desktop mr-2"></i>Asset
+                                                            <i class="fas fa-fw fa-desktop mr-2"></i>Link Asset
                                                         </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?php echo $file_id; ?>">
-                                                            <i class="fas fa-fw fa-archive mr-2"></i>Archive
-                                                        </a>
-                                                        <?php if ($session_user_role == 3) { ?>
+                                                        <?php if ($file_archived_at) { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
-                                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                            <a class="dropdown-item text-info" href="post.php?restore_file=<?= $file_id ?>">
+                                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore
+                                                            </a>
+                                                            <?php if ($session_user_role == 3) { ?>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item text-danger text-bold" href="#" data-toggle="modal" data-target="#deleteFileModal" onclick="populateFileDeleteModal(<?php echo "$file_id , '$file_name'" ?>)">
+                                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                                </a>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_file=<?= $file_id ?>">
+                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                             </a>
                                                         <?php } ?>
                                                     </div>
@@ -724,7 +837,9 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         $document_name            = $item['name'];
                                         $document_description     = $item['description'];
                                         $document_created_by_name = $item['created_by'];
-                                        $document_created_at      = date("m/d/Y", strtotime($item['created_at']));
+                                        $document_created_at      = date("m/d/Y", strtotime($item['updated_at']));
+                                        //$document_updated_at      = date("m/d/Y", strtotime($item['updated_at']));
+                                        $document_archived_at     = $item['archived_at'];
 
                                         $sql_shared = mysqli_query(
                                             $mysqli,
@@ -739,7 +854,7 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                         );
                                         $doc_shared = (mysqli_num_rows($sql_shared) > 0);
                                         if ($doc_shared) {
-                                            $row_shared = mysqli_fetch_array($sql_shared);
+                                            $row_shared = mysqli_fetch_assoc($sql_shared);
                                             $item_recipient       = nullable_htmlentities($row_shared['item_recipient']);
                                             $item_expire_at_human = timeAgo($row_shared['item_expire_at']);
                                         }
@@ -811,14 +926,21 @@ $num_root_items = intval($row_root_files['num']) + intval($row_root_docs['num'])
                                                            data-modal-url="modals/document/document_move.php?id=<?= $document_id ?>">
                                                             <i class="fas fa-fw fa-exchange-alt mr-2"></i>Move
                                                         </a>
-                                                        <?php if ($session_user_role == 3) { ?>
+                                                        <?php if ($document_archived_at) { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger confirm-link" href="post.php?archive_document=<?php echo $document_id; ?>">
-                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
+                                                            <a class="dropdown-item text-info" href="post.php?restore_document=<?= $document_id ?>">
+                                                                <i class="fas fa-fw fa-redo mr-2"></i>Restore
                                                             </a>
+                                                            <?php if ($session_user_role == 3) { ?>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item text-danger text-bold" href="post.php?delete_document=<?= $document_id ?>">
+                                                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                                </a>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_document=<?php echo $document_id; ?>">
-                                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                            <a class="dropdown-item text-danger" href="post.php?archive_document=<?= $document_id ?>">
+                                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
                                                             </a>
                                                         <?php } ?>
                                                     </div>

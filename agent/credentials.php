@@ -93,7 +93,7 @@ $sql = mysqli_query(
     $access_permission_query
     $client_query
     GROUP BY c.credential_id
-    ORDER BY c.credential_important DESC, $sort $order LIMIT $record_from, $record_to"
+    ORDER BY c.credential_favorite DESC, $sort $order LIMIT $record_from, $record_to"
 );
 
 $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
@@ -161,7 +161,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 GROUP BY tags.tag_id
                                 HAVING COUNT(credential_tags.credential_id) > 0 OR tags.tag_id IN ($tag_filter)
                             ");
-                            while ($row = mysqli_fetch_array($sql_tags_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_filter)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']); ?>
 
@@ -180,7 +180,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                             <?php
                             $sql_locations_filter = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_client_id = $client_id AND location_archived_at IS NULL ORDER BY location_name ASC");
-                            while ($row = mysqli_fetch_array($sql_locations_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_locations_filter)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -207,7 +207,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 $access_permission_query
                                 ORDER BY client_name ASC
                             ");
-                            while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                            while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                 $client_id = intval($row['client_id']);
                                 $client_name = nullable_htmlentities($row['client_name']);
                             ?>
@@ -232,7 +232,17 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_favorite_credentials">
+                                    <i class="fas fa-fw fa-star text-warning mr-2"></i>Favorite
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item"
+                                    type="submit" form="bulkActions" name="bulk_unfavorite_credentials">
+                                    <i class="far fa-fw fa-star mr-2"></i>Unfavorite
+                                </button>
                                 <?php if ($archived) { ?>
+                                <div class="dropdown-divider"></div>
                                 <button class="dropdown-item text-info"
                                     type="submit" form="bulkActions" name="bulk_unarchive_credentials">
                                     <i class="fas fa-fw fa-redo mr-2"></i>Unarchive
@@ -243,6 +253,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <i class="fas fa-fw fa-trash mr-2"></i>Delete
                                 </button>
                                 <?php } else { ?>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/credential/credential_bulk_assign_tags.php"
                                     data-bulk="true">
@@ -301,7 +312,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                         <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $client_id = intval($row['client_id']);
                             $client_name = nullable_htmlentities($row['client_name']);
                             $credential_id = intval($row['c_credential_id']);
@@ -331,7 +342,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             $credential_note = nullable_htmlentities($row['credential_note']);
                             $credential_created_at = nullable_htmlentities($row['credential_created_at']);
                             $credential_archived_at = nullable_htmlentities($row['credential_archived_at']);
-                            $credential_important = intval($row['credential_important']);
+                            $credential_favorite = intval($row['credential_favorite']);
                             $credential_contact_id = intval($row['credential_contact_id']);
                             $contact_name = nullable_htmlentities($row['contact_name']);
                             $credential_asset_id = intval($row['credential_asset_id']);
@@ -341,7 +352,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             $credential_tag_name_display_array = array();
                             $credential_tag_id_array = array();
                             $sql_credential_tags = mysqli_query($mysqli, "SELECT * FROM credential_tags LEFT JOIN tags ON credential_tags.tag_id = tags.tag_id WHERE credential_id = $credential_id ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_credential_tags)) {
+                            while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
 
                                 $credential_tag_id = intval($row['tag_id']);
                                 $credential_tag_name = nullable_htmlentities($row['tag_name']);
@@ -390,7 +401,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 LIMIT 1"
                             );
                             if (mysqli_num_rows($sql_shared) > 0) {
-                                $row = mysqli_fetch_array($sql_shared);
+                                $row = mysqli_fetch_assoc($sql_shared);
                                 $item_id = intval($row['item_id']);
                                 $item_active = nullable_htmlentities($row['item_active']);
                                 $item_key = nullable_htmlentities($row['item_key']);
@@ -407,7 +418,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 
                         ?>
-                            <tr class="<?php if (!empty($credential_important)) { echo "text-bold"; } ?>">
+                            <tr class="<?php if ($credential_favorite) { echo "text-bold"; } ?>">
                                 <td class="pr-0">
                                     <div class="form-check">
                                         <input class="form-check-input bulk-select" type="checkbox" name="credential_ids[]" value="<?php echo $credential_id ?>">
@@ -419,7 +430,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <div class="media">
                                             <i class="fa fa-fw fa-2x fa-key mr-3"></i>
                                             <div class="media-body">
-                                                <div><?php echo $credential_name; ?></div>
+                                                <div><?php echo $credential_name; ?> <?php if ($credential_favorite) { echo "<i class='fas fa-fw fa-star text-warning' title='Favorite'></i>"; } ?></div>
                                                 <div><small class="text-secondary"><?php echo $credential_description; ?></small></div>
                                                 <?php
                                                 if (!empty($credential_tags_display)) { ?>

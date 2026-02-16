@@ -11,7 +11,7 @@ $sql = mysqli_query(
     WHERE client_id = $client_id"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $client_name = nullable_htmlentities($row['client_name']);
 $client_currency_code = nullable_htmlentities($row['client_currency_code']);
 $contact_name = nullable_htmlentities($row['contact_name']);
@@ -19,12 +19,12 @@ $contact_email = nullable_htmlentities($row['contact_email']);
 
 //Add up all the payments for the invoice and get the total amount paid to the invoice
 $sql_invoice_amounts = mysqli_query($mysqli, "SELECT SUM(invoice_amount) AS invoice_amounts FROM invoices WHERE invoice_client_id = $client_id AND invoice_status != 'Draft' AND invoice_status != 'Cancelled' AND invoice_status != 'Non-Billable'");
-$row = mysqli_fetch_array($sql_invoice_amounts);
+$row = mysqli_fetch_assoc($sql_invoice_amounts);
 
 $invoice_amounts = floatval($row['invoice_amounts']);
 
 $sql_amount_paid = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS amount_paid FROM payments, invoices WHERE payment_invoice_id = invoice_id AND invoice_client_id = $client_id");
-$row = mysqli_fetch_array($sql_amount_paid);
+$row = mysqli_fetch_assoc($sql_amount_paid);
 
 $amount_paid = floatval($row['amount_paid']);
 
@@ -93,21 +93,21 @@ ob_start();
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $account_id = intval($row['account_id']);
                         $account_name = nullable_htmlentities($row['account_name']);
                         $opening_balance = floatval($row['opening_balance']);
 
                         $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_payments FROM payments WHERE payment_account_id = $account_id");
-                        $row = mysqli_fetch_array($sql_payments);
+                        $row = mysqli_fetch_assoc($sql_payments);
                         $total_payments = floatval($row['total_payments']);
 
                         $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS total_revenues FROM revenues WHERE revenue_account_id = $account_id");
-                        $row = mysqli_fetch_array($sql_revenues);
+                        $row = mysqli_fetch_assoc($sql_revenues);
                         $total_revenues = floatval($row['total_revenues']);
 
                         $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS total_expenses FROM expenses WHERE expense_account_id = $account_id");
-                        $row = mysqli_fetch_array($sql_expenses);
+                        $row = mysqli_fetch_assoc($sql_expenses);
                         $total_expenses = floatval($row['total_expenses']);
 
                         $account_balance = $opening_balance + $total_payments + $total_revenues - $total_expenses;
@@ -136,7 +136,7 @@ ob_start();
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM payment_methods ORDER BY payment_method_name ASC");
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $payment_method_name = nullable_htmlentities($row['payment_method_name']);
                     ?>
                         <option <?php if ($config_default_payment_method == $payment_method_name) { echo "selected"; } ?>><?php echo $payment_method_name; ?></option>

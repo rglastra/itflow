@@ -72,7 +72,7 @@ if (isset($_GET['delete_recurring_expense'])) {
 
     // Get Recurring Expense Details for Logging
     $sql = mysqli_query($mysqli,"SELECT recurring_expense_description, recurring_expense_client_id FROM recurring_expenses WHERE recurring_expense_id = $recurring_expense_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $recurring_expense_description = sanitizeInput($row['recurring_expense_description']);
     $client_id = intval($row['recurring_expense_client_id']);
 

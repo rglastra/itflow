@@ -50,7 +50,7 @@ if (isset($_POST['bulk_archive_vendor_contacts'])) {
 
     //validateCSRFToken($_POST['csrf_token']);
 
-    enforceUserPermission('module_client', 2); 
+    enforceUserPermission('module_client', 2);
 
     if (isset($_POST['vendor_contact_ids'])) {
 
@@ -63,7 +63,7 @@ if (isset($_POST['bulk_archive_vendor_contacts'])) {
 
             // Get Contact Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT vendor_contact_name, vendor_contact_client_id FROM vendor_contacts WHERE vendor_contact_id = $vendor_contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $vendor_contact_name = sanitizeInput($row['vendor_contact_name']);
             $client_id = intval($row['contact_client_id']);
 
@@ -84,7 +84,7 @@ if (isset($_POST['bulk_unarchive_vendor_contacts'])) {
     //validateCSRFToken($_POST['csrf_token']);
 
     enforceUserPermission('module_client', 2);
-    
+
     if (isset($_POST['contact_ids'])) {
 
         // Get Selected Contacts Count
@@ -97,7 +97,7 @@ if (isset($_POST['bulk_unarchive_vendor_contacts'])) {
 
             // Get Contact Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
             $contact_user_id = intval($row['contact_user_id']);
@@ -128,7 +128,7 @@ if (isset($_POST['bulk_delete_vendor_contacts'])) {
     validateCSRFToken($_POST['csrf_token']);
 
     enforceUserPermission('module_client', 3);
-    
+
     if (isset($_POST['contact_ids'])) {
 
         // Get Selected Contacts Count
@@ -141,7 +141,7 @@ if (isset($_POST['bulk_delete_vendor_contacts'])) {
 
             // Get Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $contact_name = sanitizeInput($row['contact_name']);
             $client_id = intval($row['contact_client_id']);
             $contact_user_id = intval($row['contact_user_id']);
@@ -184,7 +184,7 @@ if (isset($_GET['archive_vendor_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -195,7 +195,7 @@ if (isset($_GET['archive_vendor_contact'])) {
     }
 
     mysqli_query($mysqli,"UPDATE contacts SET contact_important = 0, contact_billing = 0, contact_technical = 0, contact_archived_at = NOW() WHERE contact_id = $contact_id");
-    
+
     logAction("Contact", "Archive", "$session_name archived contact $contact_name", $client_id, $contact_id);
 
     flash_alert("Contact <strong>$contact_name</strong> has been archived", 'alert');
@@ -212,7 +212,7 @@ if (isset($_GET['unarchive_vendor_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id, contact_user_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -240,7 +240,7 @@ if (isset($_GET['delete_vendor_contact'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT contact_name, contact_client_id FROM contacts WHERE contact_id = $contact_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $contact_name = sanitizeInput($row['contact_name']);
     $client_id = intval($row['contact_client_id']);
     $contact_user_id = intval($row['contact_user_id']);
@@ -276,7 +276,7 @@ if (isset($_POST['export_vendor_contacts_csv'])) {
 
     //get records from database
     $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $client_name = $row['client_name'];
 
@@ -409,7 +409,7 @@ if (isset($_POST["import_vendor_contacts_csv"])) {
         logAction("Contact", "Import", "$session_name imported $row_count contact(s) via CSV file", $client_id);
 
         flash_alert("$row_count Contact(s) added, $duplicate_count duplicate(s) detected", 'warning');
-        
+
         redirect();
     }
     //Check for any errors, if there are notify user and redirect
@@ -420,12 +420,12 @@ if (isset($_POST["import_vendor_contacts_csv"])) {
 }
 
 if (isset($_GET['download_vendor_contacts_csv_template'])) {
-    
+
     $client_id = intval($_GET['download_client_contacts_csv_template']);
 
     //get records from database
     $sql = mysqli_query($mysqli,"SELECT client_name FROM clients WHERE client_id = $client_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
 
     $client_name = $row['client_name'];
 

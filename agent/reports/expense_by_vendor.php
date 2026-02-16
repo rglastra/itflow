@@ -22,18 +22,18 @@ $sql_payment_years = mysqli_query($mysqli, "SELECT DISTINCT YEAR(payment_date) A
 $year_condition = ($year == 'all') ? "" : "AND YEAR(expense_date) = $year";
 
 $sql_vendor_expenses = mysqli_query($mysqli, "
-    SELECT 
-        vendors.*, 
-        SUM(expenses.expense_amount) AS amount_paid 
-    FROM 
-        vendors 
-    LEFT JOIN 
+    SELECT
+        vendors.*,
+        SUM(expenses.expense_amount) AS amount_paid
+    FROM
+        vendors
+    LEFT JOIN
         expenses ON vendors.vendor_id = expenses.expense_vendor_id $year_condition
-    GROUP BY 
+    GROUP BY
         vendors.vendor_id
     HAVING
         amount_paid > 599
-    ORDER BY 
+    ORDER BY
         amount_paid DESC
 ");
 
@@ -52,7 +52,7 @@ $sql_vendor_expenses = mysqli_query($mysqli, "
                 <option value="all" <?php if ($year == 'all') { ?> selected <?php } ?> >All Years</option>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql_payment_years)) {
+                while ($row = mysqli_fetch_assoc($sql_payment_years)) {
                     $payment_year = intval($row['payment_year']);
                     ?>
                     <option <?php if ($year == $payment_year) { ?> selected <?php } ?> > <?php echo $payment_year; ?></option>
@@ -74,7 +74,7 @@ $sql_vendor_expenses = mysqli_query($mysqli, "
                 </thead>
                 <tbody>
                 <?php
-                while ($row = mysqli_fetch_array($sql_vendor_expenses)) {
+                while ($row = mysqli_fetch_assoc($sql_vendor_expenses)) {
                     $vendor_id = intval($row['vendor_id']);
                     $vendor_name = nullable_htmlentities($row['vendor_name']);
                     $amount_paid = floatval($row['amount_paid']); ?>
@@ -85,7 +85,7 @@ $sql_vendor_expenses = mysqli_query($mysqli, "
                     </tr>
                     <?php
                 }
-                
+
                 ?>
                 </tbody>
             </table>

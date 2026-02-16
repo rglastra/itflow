@@ -72,7 +72,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $custom_link_id = intval($row['custom_link_id']);
                         $custom_link_name = nullable_htmlentities($row['custom_link_name']);
                         $custom_link_uri = nullable_htmlentities($row['custom_link_uri']);

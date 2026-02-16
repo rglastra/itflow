@@ -84,7 +84,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                     <?php
                                     $sql_accounts_from_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM expenses WHERE expense_account_id = account_id) ORDER BY account_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_accounts_from_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_accounts_from_filter)) {
                                         $account_id = intval($row['account_id']);
                                         $account_name = nullable_htmlentities($row['account_name']);
                                     ?>
@@ -104,7 +104,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                     <?php
                                     $sql_accounts_to_filter = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE EXISTS (SELECT 1 FROM revenues WHERE revenue_account_id = account_id) ORDER BY account_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_accounts_to_filter)) {
+                                    while ($row = mysqli_fetch_assoc($sql_accounts_to_filter)) {
                                         $account_id = intval($row['account_id']);
                                         $account_name = nullable_htmlentities($row['account_name']);
                                     ?>
@@ -160,7 +160,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $transfer_id = intval($row['transfer_id']);
                         $transfer_date = nullable_htmlentities($row['transfer_date']);
                         $transfer_account_from = intval($row['transfer_account_from']);
@@ -169,7 +169,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         $transfer_method = nullable_htmlentities($row['transfer_method']);
                         if($transfer_method) {
                             $transfer_method_display = $transfer_method;
-                        } else {  
+                        } else {
                             $transfer_method_display = "-";
                         }
                         $transfer_notes = nullable_htmlentities($row['transfer_notes']);
@@ -183,7 +183,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         $revenue_id = intval($row['transfer_revenue_id']);
 
                         $sql_from = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_id = $transfer_account_from");
-                        $row = mysqli_fetch_array($sql_from);
+                        $row = mysqli_fetch_assoc($sql_from);
                         $account_name_from = nullable_htmlentities($row['account_name']);
                         $account_from_archived_at = nullable_htmlentities($row['account_archived_at']);
                         if (empty($account_from_archived_at)) {
@@ -193,7 +193,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         }
 
                         $sql_to = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_id = $transfer_account_to");
-                        $row = mysqli_fetch_array($sql_to);
+                        $row = mysqli_fetch_assoc($sql_to);
                         $account_name_to = nullable_htmlentities($row['account_name']);
                         $account_to_archived_at = nullable_htmlentities($row['account_archived_at']);
                         if (empty($account_to_archived_at)) {

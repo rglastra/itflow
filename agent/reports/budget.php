@@ -29,7 +29,7 @@ $monthlyTotals = array_fill(1, 12, 0);  // Initialize monthly totals for each mo
             <select onchange="this.form.submit()" class="form-control" name="year">
                 <?php
 
-                while ($row = mysqli_fetch_array($sql_expense_years)) {
+                while ($row = mysqli_fetch_assoc($sql_expense_years)) {
                     $expense_year = $row['expense_year'];
                     ?>
                     <option <?php if ($year == $expense_year) { ?> selected <?php } ?> > <?php echo $expense_year; ?></option>
@@ -85,7 +85,7 @@ $monthlyTotals = array_fill(1, 12, 0);  // Initialize monthly totals for each mo
                         echo "<td class='text-right'>" . $categoryTotal . "</td>";
                         echo "</tr>";
                     }
-                    
+
                     // Displaying the monthly totals row
                     echo "<tr><td><strong>Total</strong></td>";
                     $grandTotal = 0;

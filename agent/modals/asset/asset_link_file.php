@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM assets
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $asset_name = nullable_htmlentities($row['asset_name']);
 $client_id = intval($row['asset_client_id']);
 
@@ -49,7 +49,7 @@ ob_start();
                         ORDER BY folders.folder_name ASC, files.file_name ASC
                     ");
 
-                    while ($row = mysqli_fetch_array($sql_files_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_files_select)) {
                         $file_id = intval($row['file_id']);
                         $file_name = nullable_htmlentities($row['file_name']);
                         $folder_name = nullable_htmlentities($row['folder_name']);

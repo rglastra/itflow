@@ -6,7 +6,7 @@ $user_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM users WHERE user_id = $user_id AND user_archived_at IS NOT NULL LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $user_name = str_replace(" (archived)", "", $row['user_name']); //Removed (archived) from user_name
 $user_name = nullable_htmlentities($user_name);
 $user_email = nullable_htmlentities($row['user_email']);
@@ -64,7 +64,7 @@ ob_start();
                 <select class="form-control select2" name="role" required>
                     <?php
                     $sql_user_roles = mysqli_query($mysqli, "SELECT * FROM user_roles WHERE role_archived_at IS NULL");
-                    while ($row = mysqli_fetch_array($sql_user_roles)) {
+                    while ($row = mysqli_fetch_assoc($sql_user_roles)) {
                         $role_id = intval($row['role_id']);
                         $role_name = nullable_htmlentities($row['role_name']);
 

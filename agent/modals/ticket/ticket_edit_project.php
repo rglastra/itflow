@@ -6,7 +6,7 @@ $ticket_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM tickets LEFT JOIN clients ON client_id = ticket_client_id WHERE ticket_id = $ticket_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['ticket_client_id']);
 $client_name = nullable_htmlentities($row['client_name']);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
@@ -40,10 +40,10 @@ ob_start();
                 <select class="form-control select2" name="project">
                     <option value="0">- None -</option>
                     <?php
-                    while ($row = mysqli_fetch_array($sql_projects)) {
+                    while ($row = mysqli_fetch_assoc($sql_projects)) {
                         $project_id = intval($row['project_id']);
                         $project_name = nullable_htmlentities($row['project_name']); ?>
-                        <option <?php if ($ticket_project_id == $project_id) { echo "selected"; } ?> 
+                        <option <?php if ($ticket_project_id == $project_id) { echo "selected"; } ?>
                             value="<?= $project_id ?>"><?= $project_name ?>
                         </option>
 

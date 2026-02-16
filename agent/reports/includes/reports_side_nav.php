@@ -71,6 +71,12 @@
                             <p>Unbilled Tickets</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/agent/reports/client_ticket_time_detail.php" class="nav-link <?php if (basename($_SERVER["PHP_SELF"]) == "client_ticket_time_detail.php") { echo "active"; } ?>">
+                            <i class="nav-icon fas fa-life-ring"></i>
+                            <p>Client Time Detail Audit</p>
+                        </a>
+                    </li>
 
                 <?php } // End financial reports IF statement ?>
 
@@ -108,12 +114,12 @@
                 <?php } ?>
 
                 <?php
-                $sql_custom_links = mysqli_query($mysqli, "SELECT * FROM custom_links 
+                $sql_custom_links = mysqli_query($mysqli, "SELECT * FROM custom_links
                     WHERE custom_link_location = 5 AND custom_link_archived_at IS NULL
                     ORDER BY custom_link_order ASC, custom_link_name ASC"
                 );
 
-                while ($row = mysqli_fetch_array($sql_custom_links)) {
+                while ($row = mysqli_fetch_assoc($sql_custom_links)) {
                     $custom_link_name = nullable_htmlentities($row['custom_link_name']);
                     $custom_link_uri = sanitize_url($row['custom_link_uri']);
                     $custom_link_icon = nullable_htmlentities($row['custom_link_icon']);

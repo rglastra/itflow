@@ -6,7 +6,7 @@ $expense_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM expenses WHERE expense_id = $expense_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $expense_date = nullable_htmlentities($row['expense_date']);
 $expense_amount = floatval($row['expense_amount']);
 $expense_currency_code = nullable_htmlentities($row['expense_currency_code']);

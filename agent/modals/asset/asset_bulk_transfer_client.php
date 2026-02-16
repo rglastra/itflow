@@ -40,7 +40,7 @@ ob_start();
                     <?php
                         $clients_sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $client_select_query");
 
-                        while ($row = mysqli_fetch_array($clients_sql)) {
+                        while ($row = mysqli_fetch_assoc($clients_sql)) {
                             $client_id_select = intval($row["client_id"]);
                             $client_name_select = nullable_htmlentities($row["client_name"]);
                         ?>

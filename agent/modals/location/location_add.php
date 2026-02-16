@@ -7,7 +7,7 @@ $client_id = intval($_GET['client_id'] ?? 0);
 ob_start();
 
 ?>
-            
+
 <div class="modal-header bg-dark">
     <h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i>Creating location</h5>
     <button type="button" class="close text-white" data-dismiss="modal">
@@ -15,7 +15,7 @@ ob_start();
     </button>
 </div>
 <form action="post.php" method="post" enctype="multipart/form-data" autocomplete="off">
-    
+
     <div class="modal-body">
 
         <ul class="nav nav-pills nav-justified mb-3">
@@ -31,7 +31,7 @@ ob_start();
             <li class="nav-item">
                 <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
             </li>
-            
+
         </ul>
 
         <hr>
@@ -39,7 +39,7 @@ ob_start();
         <div class="tab-content">
 
             <div class="tab-pane fade show active" id="pills-details">
-                
+
                 <?php if ($client_id) { ?>
                     <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
                 <?php } else { ?>
@@ -55,7 +55,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?= $client_id_select ?>"><?= $client_name ?></option>
@@ -171,7 +171,7 @@ ob_start();
                             <?php
 
                             $sql_contacts = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
-                            while ($row = mysqli_fetch_array($sql_contacts)) {
+                            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                                 $contact_id = $row['contact_id'];
                                 $contact_name = nullable_htmlentities($row['contact_name']);
                                 ?>
@@ -246,7 +246,7 @@ ob_start();
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 2 ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>

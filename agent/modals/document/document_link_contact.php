@@ -9,7 +9,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM documents
     LIMIT 1
 ");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $document_name = nullable_htmlentities($row['document_name']);
 $client_id = intval($row['document_client_id']);
 
@@ -46,7 +46,7 @@ ob_start();
                         AND contact_documents.contact_id IS NULL
                         ORDER BY contact_name ASC
                     ");
-                    while ($row = mysqli_fetch_array($sql_contacts_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_contacts_select)) {
                         $contact_id = intval($row['contact_id']);
                         $contact_name = nullable_htmlentities($row['contact_name']);
 

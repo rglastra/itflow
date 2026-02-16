@@ -13,7 +13,7 @@ if (isset($_GET['vendor_id'])) {
 
     $sql = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_id = $vendor_id");
 
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $vendor_id = intval($row['vendor_id']);
     $vendor_name = nullable_htmlentities($row['vendor_name']);
     $vendor_description = nullable_htmlentities($row['vendor_description']);
@@ -154,8 +154,8 @@ if (isset($_GET['vendor_id'])) {
                         <a class="dropdown-item text-dark" href="#" data-toggle="modal" data-target="#linkFileModal">
                             <i class="fa fa-fw fa-paperclip mr-2"></i>File (WIP)
                         </a>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ if (isset($_GET['vendor_id'])) {
                             <tbody>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_vendor_contacts)) {
+                            while ($row = mysqli_fetch_assoc($sql_vendor_contacts)) {
                                 $vendor_contact_id = intval($row['vendor_contact_id']);
                                 $vendor_contact_name = nullable_htmlentities($row['vendor_contact_name']);
                                 $vendor_contact_title = nullable_htmlentities($row['vendor_contact_title']);

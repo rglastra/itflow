@@ -60,7 +60,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option value="<?php echo $client_id_select; ?>"><?php echo $client_name; ?></option>
@@ -87,20 +87,20 @@ ob_start();
                             <option value="0">- Choose a Template -</option>
                             <?php
                                 $sql_ticket_templates = mysqli_query($mysqli, "
-                                    SELECT tt.ticket_template_id, 
+                                    SELECT tt.ticket_template_id,
                                            tt.ticket_template_name,
-                                           tt.ticket_template_subject, 
+                                           tt.ticket_template_subject,
                                            tt.ticket_template_details,
                                            COUNT(ttt.task_template_id) as task_count
                                     FROM ticket_templates tt
-                                    LEFT JOIN task_templates ttt 
+                                    LEFT JOIN task_templates ttt
                                         ON tt.ticket_template_id = ttt.task_template_ticket_template_id
                                     WHERE tt.ticket_template_archived_at IS NULL
                                     GROUP BY tt.ticket_template_id
                                     ORDER BY tt.ticket_template_name ASC
                                 ");
 
-                                while ($row = mysqli_fetch_array($sql_ticket_templates)) {
+                                while ($row = mysqli_fetch_assoc($sql_ticket_templates)) {
                                     $ticket_template_id_select = intval($row['ticket_template_id']);
                                     $ticket_template_name_select = nullable_htmlentities($row['ticket_template_name']);
                                     $ticket_template_subject_select = nullable_htmlentities($row['ticket_template_subject']);
@@ -160,7 +160,7 @@ ob_start();
                                     <option value="0">- Not Categorized -</option>
                                     <?php
                                     $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_categories)) {
+                                    while ($row = mysqli_fetch_assoc($sql_categories)) {
                                         $category_id = intval($row['category_id']);
                                         $category_name = nullable_htmlentities($row['category_name']);
 
@@ -201,7 +201,7 @@ ob_start();
                                         AND user_archived_at IS NULL
                                         ORDER BY user_name ASC"
                                     );
-                                    while ($row = mysqli_fetch_array($sql)) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
                                         $user_id = intval($row['user_id']);
                                         $user_name = nullable_htmlentities($row['user_name']); ?>
                                         <option <?php if ($session_user_id == $user_id) { echo "selected"; } ?> value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
@@ -250,7 +250,7 @@ ob_start();
                                 <option value="0">- No One -</option>
                                 <?php
                                 $sql = mysqli_query($mysqli, "SELECT contact_id, contact_name, contact_title, contact_primary, contact_technical FROM contacts WHERE contact_client_id = $client_id AND contact_archived_at IS NULL ORDER BY contact_primary DESC, contact_technical DESC, contact_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $contact_id_select = intval($row['contact_id']);
                                     $contact_name_select = nullable_htmlentities($row['contact_name']);
                                     $contact_primary_select = intval($row['contact_primary']);
@@ -300,7 +300,7 @@ ob_start();
                                 <option value=""></option>
                                 <?php
                                 $sql = mysqli_query($mysqli, "SELECT contact_email FROM contacts WHERE contact_client_id = $client_id AND contact_archived_at IS NULL AND contact_email IS NOT NULL ORDER BY contact_email ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $contact_email = nullable_htmlentities($row['contact_email']);
                                     ?>
                                     <option><?php echo $contact_email; ?></option>
@@ -325,7 +325,7 @@ ob_start();
                                 <?php
 
                                 $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, contact_name FROM assets LEFT JOIN contacts ON contact_id = asset_contact_id WHERE asset_client_id = $client_id AND asset_archived_at IS NULL ORDER BY asset_name ASC");
-                                while ($row = mysqli_fetch_array($sql_assets)) {
+                                while ($row = mysqli_fetch_assoc($sql_assets)) {
                                     $asset_id_select = intval($row['asset_id']);
                                     $asset_name_select = nullable_htmlentities($row['asset_name']);
                                     $asset_contact_name_select = nullable_htmlentities($row['contact_name']);
@@ -350,7 +350,7 @@ ob_start();
                                 <?php
 
                                 $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, contact_name FROM assets LEFT JOIN contacts ON contact_id = asset_contact_id WHERE asset_client_id = $client_id AND asset_archived_at IS NULL ORDER BY asset_name ASC");
-                                while ($row = mysqli_fetch_array($sql_assets)) {
+                                while ($row = mysqli_fetch_assoc($sql_assets)) {
                                     $asset_id_select = intval($row['asset_id']);
                                     $asset_name_select = nullable_htmlentities($row['asset_name']);
                                     $asset_contact_name_select = nullable_htmlentities($row['contact_name']);
@@ -375,7 +375,7 @@ ob_start();
                                 <?php
 
                                 $sql_locations = mysqli_query($mysqli, "SELECT location_id, location_name FROM locations WHERE location_client_id = $client_id AND location_archived_at IS NULL ORDER BY location_name ASC");
-                                while ($row = mysqli_fetch_array($sql_locations)) {
+                                while ($row = mysqli_fetch_assoc($sql_locations)) {
                                     $location_id_select = intval($row['location_id']);
                                     $location_name_select = nullable_htmlentities($row['location_name']);
                                 ?>
@@ -401,7 +401,7 @@ ob_start();
                                         <?php
 
                                         $sql_vendors = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = $client_id AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
-                                        while ($row = mysqli_fetch_array($sql_vendors)) {
+                                        while ($row = mysqli_fetch_assoc($sql_vendors)) {
                                             $vendor_id_select = intval($row['vendor_id']);
                                             $vendor_name_select = nullable_htmlentities($row['vendor_name']); ?>
                                             <option value="<?php echo $vendor_id_select; ?>"><?php echo $vendor_name_select; ?></option>
@@ -440,7 +440,7 @@ ob_start();
                                 <?php
 
                                 $sql_projects = mysqli_query($mysqli, "SELECT project_id, project_name FROM projects WHERE project_client_id = $client_id AND project_completed_at IS NULL AND project_archived_at IS NULL ORDER BY project_name ASC");
-                                while ($row = mysqli_fetch_array($sql_projects)) {
+                                while ($row = mysqli_fetch_assoc($sql_projects)) {
                                     $project_id_select = intval($row['project_id']);
                                     $project_name_select = nullable_htmlentities($row['project_name']); ?>
                                     <option <?php if ($project_id == $project_id_select) { echo "selected"; } ?> value="<?php echo $project_id_select; ?>"><?php echo $project_name_select; ?></option>
@@ -463,32 +463,25 @@ ob_start();
     </div>
 </form>
 
+<!-- Ticket Templates -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var templateSelect = $('#ticket_template_select');
-    var subjectInput = document.getElementById('subjectInput');
-    var detailsInput = document.getElementById('detailsInput');
+$(document).on('change', '#ticket_template_select', function () {
+    const $opt = $(this).find(':selected');
+    const templateSubject = $opt.data('subject') || '';
+    const templateDetails = $opt.data('details') || '';
 
-    templateSelect.on('select2:select', function(e) {
-        var selectedOption = e.params.data.element;
-        var templateSubject = selectedOption.getAttribute('data-subject');
-        var templateDetails = selectedOption.getAttribute('data-details');
+    $('#subjectInput').val(templateSubject);
 
-        // Update Subject
-        subjectInput.value = templateSubject || '';
-
-        // Update Details
-        if (typeof tinymce !== 'undefined') {
-            var editor = tinymce.get('detailsInput');
-            if (editor) {
-                editor.setContent(templateDetails || '');
-            } else {
-                detailsInput.value = templateDetails || '';
-            }
+    if (window.tinymce) {
+        const editor = tinymce.get('detailsInput');
+        if (editor) {
+            editor.setContent(templateDetails);
         } else {
-            detailsInput.value = templateDetails || '';
+            $('#detailsInput').val(templateDetails);
         }
-    });
+    } else {
+        $('#detailsInput').val(templateDetails);
+    }
 });
 </script>
 

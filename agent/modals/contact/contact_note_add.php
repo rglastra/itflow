@@ -5,7 +5,7 @@ require_once '../../../includes/modal_header.php';
 $contact_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT contact_name FROM contacts WHERE contact_id = $contact_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $contact_name = nullable_htmlentities($row['contact_name']);
 
 // Generate the HTML form content using output buffering.

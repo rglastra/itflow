@@ -6,7 +6,7 @@ $provider_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM payment_providers WHERE payment_provider_id = $provider_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $provider_name = nullable_htmlentities($row['payment_provider_name']);
 $public_key = nullable_htmlentities($row['payment_provider_public_key']);
 $private_key = nullable_htmlentities($row['payment_provider_private_key']);
@@ -78,7 +78,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT account_id, account_name FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $account_id_select = intval($row['account_id']);
                                 $account_name = nullable_htmlentities($row['account_name']);
                                 ?>
@@ -117,7 +117,7 @@ ob_start();
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = 0 AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
-                            while ($row = mysqli_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_assoc($sql)) {
                                 $vendor_id_select = intval($row['vendor_id']);
                                 $vendor_name = nullable_htmlentities($row['vendor_name']);
                                 ?>
@@ -143,7 +143,7 @@ ob_start();
                             <?php
 
                             $sql_category = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Expense' AND category_archived_at IS NULL ORDER BY category_name ASC");
-                            while ($row = mysqli_fetch_array($sql_category)) {
+                            while ($row = mysqli_fetch_assoc($sql_category)) {
                                 $category_id_select = intval($row['category_id']);
                                 $category_name = nullable_htmlentities($row['category_name']);
                                 ?>

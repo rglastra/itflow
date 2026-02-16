@@ -319,7 +319,7 @@ CREATE TABLE `assets` (
   `asset_photo` varchar(200) DEFAULT NULL,
   `asset_physical_location` varchar(200) DEFAULT NULL,
   `asset_notes` text DEFAULT NULL,
-  `asset_important` tinyint(1) NOT NULL DEFAULT 0,
+  `asset_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `asset_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `asset_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `asset_archived_at` datetime DEFAULT NULL,
@@ -496,6 +496,7 @@ CREATE TABLE `certificates` (
   `certificate_expire` date DEFAULT NULL,
   `certificate_public_key` mediumtext DEFAULT NULL,
   `certificate_notes` mediumtext DEFAULT NULL,
+  `certificate_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `certificate_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `certificate_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `certificate_archived_at` datetime DEFAULT NULL,
@@ -607,6 +608,7 @@ CREATE TABLE `clients` (
   `client_tax_id_number` varchar(255) DEFAULT NULL,
   `client_abbreviation` varchar(10) DEFAULT NULL,
   `client_notes` text DEFAULT NULL,
+  `client_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `client_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `client_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `client_archived_at` datetime DEFAULT NULL,
@@ -902,7 +904,7 @@ CREATE TABLE `credentials` (
   `credential_password` varbinary(200) DEFAULT NULL,
   `credential_otp_secret` varchar(200) DEFAULT NULL,
   `credential_note` text DEFAULT NULL,
-  `credential_important` tinyint(1) NOT NULL DEFAULT 0,
+  `credential_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `credential_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `credential_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `credential_archived_at` datetime DEFAULT NULL,
@@ -955,6 +957,132 @@ CREATE TABLE `custom_fields` (
   `custom_field_location` int(11) NOT NULL DEFAULT 0,
   `custom_field_order` int(11) NOT NULL DEFAULT 999,
   PRIMARY KEY (`custom_field_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_api_keys`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_api_keys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_api_keys` (
+  `api_key_id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_key_name` varchar(200) NOT NULL,
+  `api_key_url` varchar(250) NOT NULL,
+  `api_key_token_id` varchar(200) NOT NULL,
+  `api_key_token_secret` varchar(250) NOT NULL,
+  `api_key_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`api_key_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_networks`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_networks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_networks` (
+  `network_id` int(11) NOT NULL AUTO_INCREMENT,
+  `network_name` varchar(200) NOT NULL,
+  `network` varchar(100) NOT NULL,
+  `network_mask` varchar(100) NOT NULL,
+  `gateway` varchar(100) NOT NULL,
+  `network_start` varchar(100) NOT NULL,
+  `network_end` varchar(100) NOT NULL,
+  PRIMARY KEY (`network_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_plans`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_plans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_plans` (
+  `plan_id` int(11) NOT NULL AUTO_INCREMENT,
+  `plan_name` varchar(250) NOT NULL,
+  `plan_description` text NOT NULL,
+  `plan_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`plan_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_regions`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_regions` (
+  `region_id` int(11) NOT NULL AUTO_INCREMENT,
+  `region_name` varchar(200) NOT NULL,
+  `region_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`region_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_servers`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_servers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_servers` (
+  `server_id` int(11) NOT NULL AUTO_INCREMENT,
+  `server_node` varchar(200) NOT NULL,
+  `server_storage` varchar(200) NOT NULL,
+  `server_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `server_region_id` int(11) NOT NULL,
+  `server_api_key_id` varchar(200) NOT NULL,
+  PRIMARY KEY (`server_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_vm_templates`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_vm_templates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_vm_templates` (
+  `template_id` int(11) NOT NULL AUTO_INCREMENT,
+  `template_name` varchar(200) NOT NULL,
+  `vcpus` int(11) NOT NULL,
+  `memory` int(11) NOT NULL,
+  `disk` int(11) NOT NULL,
+  `template_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `template_plan_id` int(11) NOT NULL,
+  PRIMARY KEY (`template_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `custom_hosting_vms`
+--
+
+DROP TABLE IF EXISTS `custom_hosting_vms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `custom_hosting_vms` (
+  `vm_id` int(11) NOT NULL AUTO_INCREMENT,
+  `vm_hostname` varchar(200) NOT NULL,
+  `vm_ip` varchar(100) NOT NULL,
+  `vm_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `vm_network_id` int(11) NOT NULL,
+  `vm_server_id` int(11) NOT NULL,
+  `vm_template_id` int(11) NOT NULL,
+  `vm_recurring_invoice_id` int(11) DEFAULT NULL,
+  `vm_client_id` int(11) NOT NULL,
+  PRIMARY KEY (`vm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1087,8 +1215,8 @@ CREATE TABLE `documents` (
   `document_description` text DEFAULT NULL,
   `document_content` longtext NOT NULL,
   `document_content_raw` longtext NOT NULL,
-  `document_important` tinyint(1) NOT NULL DEFAULT 0,
   `document_client_visible` int(11) NOT NULL DEFAULT 1,
+  `document_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `document_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `document_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `document_archived_at` datetime DEFAULT NULL,
@@ -1140,6 +1268,7 @@ CREATE TABLE `domains` (
   `domain_txt` text DEFAULT NULL,
   `domain_raw_whois` text DEFAULT NULL,
   `domain_notes` text DEFAULT NULL,
+  `domain_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `domain_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `domain_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `domain_archived_at` datetime DEFAULT NULL,
@@ -1220,7 +1349,7 @@ CREATE TABLE `files` (
   `file_ext` varchar(10) DEFAULT NULL,
   `file_size` bigint(20) unsigned NOT NULL DEFAULT 0,
   `file_mime_type` varchar(100) DEFAULT NULL,
-  `file_important` tinyint(1) NOT NULL DEFAULT 0,
+  `file_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `file_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `file_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `file_archived_at` datetime DEFAULT NULL,
@@ -1370,6 +1499,7 @@ CREATE TABLE `locations` (
   `location_photo` varchar(200) DEFAULT NULL,
   `location_primary` tinyint(1) NOT NULL DEFAULT 0,
   `location_notes` text DEFAULT NULL,
+  `location_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `location_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `location_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `location_archived_at` datetime DEFAULT NULL,
@@ -1436,6 +1566,7 @@ CREATE TABLE `networks` (
   `network_secondary_dns` varchar(200) DEFAULT NULL,
   `network_dhcp_range` varchar(200) DEFAULT NULL,
   `network_notes` text DEFAULT NULL,
+  `network_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `network_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `network_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `network_archived_at` datetime DEFAULT NULL,
@@ -1722,6 +1853,7 @@ CREATE TABLE `racks` (
   `rack_photo` varchar(200) DEFAULT NULL,
   `rack_physical_location` varchar(200) DEFAULT NULL,
   `rack_notes` text DEFAULT NULL,
+  `rack_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `rack_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `rack_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `rack_archived_at` datetime DEFAULT NULL,
@@ -2055,6 +2187,7 @@ CREATE TABLE `services` (
   `service_importance` varchar(10) NOT NULL,
   `service_backup` varchar(200) DEFAULT NULL,
   `service_notes` mediumtext NOT NULL,
+  `service_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `service_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `service_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `service_accessed_at` datetime DEFAULT NULL,
@@ -2209,6 +2342,7 @@ CREATE TABLE `software` (
   `software_purchase` date DEFAULT NULL,
   `software_expire` date DEFAULT NULL,
   `software_notes` text DEFAULT NULL,
+  `software_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `software_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `software_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `software_archived_at` datetime DEFAULT NULL,
@@ -2396,6 +2530,27 @@ CREATE TABLE `tags` (
   `tag_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `tag_archived_at` datetime DEFAULT NULL,
   PRIMARY KEY (`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `task_approvals`
+--
+
+DROP TABLE IF EXISTS `task_approvals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `task_approvals` (
+  `approval_id` int(11) NOT NULL AUTO_INCREMENT,
+  `approval_scope` enum('client','internal') NOT NULL,
+  `approval_type` enum('any','technical','billing','specific') NOT NULL,
+  `approval_required_user_id` int(11) DEFAULT NULL,
+  `approval_status` enum('pending','approved','declined') NOT NULL,
+  `approval_created_by` int(11) NOT NULL,
+  `approval_approved_by` varchar(255) DEFAULT NULL,
+  `approval_url_key` varchar(200) NOT NULL,
+  `approval_task_id` int(11) NOT NULL,
+  PRIMARY KEY (`approval_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2895,6 +3050,7 @@ CREATE TABLE `vendors` (
   `vendor_code` varchar(200) DEFAULT NULL,
   `vendor_account_number` varchar(200) DEFAULT NULL,
   `vendor_notes` text DEFAULT NULL,
+  `vendor_favorite` tinyint(1) NOT NULL DEFAULT 0,
   `vendor_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `vendor_updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `vendor_archived_at` datetime DEFAULT NULL,
@@ -2914,4 +3070,4 @@ CREATE TABLE `vendors` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-11 19:57:21
+-- Dump completed on 2026-02-03 22:22:07

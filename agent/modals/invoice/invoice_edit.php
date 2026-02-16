@@ -6,7 +6,7 @@ $invoice_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM invoices LEFT JOIN clients ON invoice_client_id = client_id WHERE invoice_id = $invoice_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
 $invoice_number = intval($row['invoice_number']);
 $invoice_scope = nullable_htmlentities($row['invoice_scope']);
@@ -64,7 +64,7 @@ ob_start();
                     <?php
 
                     $sql_income_category = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND (category_archived_at > '$invoice_created_at' OR category_archived_at IS NULL) ORDER BY category_name ASC");
-                    while ($row = mysqli_fetch_array($sql_income_category)) {
+                    while ($row = mysqli_fetch_assoc($sql_income_category)) {
                         $category_id_select = intval($row['category_id']);
                         $category_name_select = nullable_htmlentities($row['category_name']);
                     ?>

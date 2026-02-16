@@ -117,7 +117,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $recurring_expense_id = intval($row['recurring_expense_id']);
                         $recurring_expense_frequency = intval($row['recurring_expense_frequency']);
                         if($recurring_expense_frequency == 1) {

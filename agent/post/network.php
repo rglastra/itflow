@@ -49,7 +49,7 @@ if (isset($_GET['archive_network'])) {
 
     // Get Network Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT network_name, network_client_id FROM networks WHERE network_id = $network_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $network_name = sanitizeInput($row['network_name']);
     $client_id = intval($row['network_client_id']);
 
@@ -71,7 +71,7 @@ if (isset($_GET['unarchive_network'])) {
 
     // Get Network Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT network_name, network_client_id FROM networks WHERE network_id = $network_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $network_name = sanitizeInput($row['network_name']);
     $client_id = intval($row['network_client_id']);
 
@@ -93,7 +93,7 @@ if (isset($_GET['delete_network'])) {
 
     // Get Network Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT network_name, network_client_id FROM networks WHERE network_id = $network_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $network_name = sanitizeInput($row['network_name']);
     $client_id = intval($row['network_client_id']);
 
@@ -125,7 +125,7 @@ if (isset($_POST['bulk_delete_networks'])) {
 
             // Get Network Name and Client ID for logging and alert message
             $sql = mysqli_query($mysqli,"SELECT network_name, network_client_id FROM networks WHERE network_id = $network_id");
-            $row = mysqli_fetch_array($sql);
+            $row = mysqli_fetch_assoc($sql);
             $network_name = sanitizeInput($row['network_name']);
             $client_id = intval($row['network_client_id']);
 

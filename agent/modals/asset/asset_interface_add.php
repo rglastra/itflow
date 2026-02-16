@@ -160,7 +160,7 @@ ob_start();
                             <option value="">- Select Network -</option>
                             <?php
                             $sql_network_select = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_archived_at IS NULL AND network_client_id = $client_id ORDER BY network_name ASC");
-                            while ($row = mysqli_fetch_array($sql_network_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_network_select)) {
                                 $network_id = $row['network_id'];
                                 $network_name = nullable_htmlentities($row['network_name']);
                                 $network = nullable_htmlentities($row['network']);
@@ -194,7 +194,7 @@ ob_start();
                                 ORDER BY asset_name ASC, interface_name ASC
                             ");
 
-                            while ($row = mysqli_fetch_array($sql_interfaces_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_interfaces_select)) {
                                 $interface_id_select = intval($row['interface_id']);
                                 $interface_name_select = nullable_htmlentities($row['interface_name']);
                                 $asset_name_select = nullable_htmlentities($row['asset_name']);

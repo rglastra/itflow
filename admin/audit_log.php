@@ -80,7 +80,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-2">
                         <div class="input-group mb-3 mb-md-0">
                             <select class="form-control select2" name="client" onchange="this.form.submit()">
@@ -88,7 +88,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_clients_filter = mysqli_query($mysqli, "SELECT * FROM clients ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql_clients_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_clients_filter)) {
                                     $client_id = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']);
                                 ?>
@@ -108,7 +108,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_users_filter = mysqli_query($mysqli, "SELECT * FROM users ORDER BY user_name ASC");
-                                while ($row = mysqli_fetch_array($sql_users_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_users_filter)) {
                                     $user_id = intval($row['user_id']);
                                     $user_name = nullable_htmlentities($row['user_name']);
                                 ?>
@@ -128,7 +128,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_types_filter = mysqli_query($mysqli, "SELECT DISTINCT log_type FROM logs ORDER BY log_type ASC");
-                                while ($row = mysqli_fetch_array($sql_types_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_types_filter)) {
                                     $log_type = nullable_htmlentities($row['log_type']);
                                 ?>
                                     <option <?php if ($type_filter == $log_type) { echo "selected"; } ?>><?php echo $log_type; ?></option>
@@ -147,7 +147,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                 <?php
                                 $sql_actions_filter = mysqli_query($mysqli, "SELECT DISTINCT log_action FROM logs ORDER BY log_action ASC");
-                                while ($row = mysqli_fetch_array($sql_actions_filter)) {
+                                while ($row = mysqli_fetch_assoc($sql_actions_filter)) {
                                     $log_action = nullable_htmlentities($row['log_action']);
                                 ?>
                                     <option <?php if ($action_filter == $log_action) { echo "selected"; } ?>><?php echo $log_action; ?></option>
@@ -225,7 +225,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tbody>
                     <?php
 
-                    while ($row = mysqli_fetch_array($sql)) {
+                    while ($row = mysqli_fetch_assoc($sql)) {
                         $log_id = intval($row['log_id']);
                         $log_type = nullable_htmlentities($row['log_type']);
                         $log_action = nullable_htmlentities($row['log_action']);
@@ -280,4 +280,3 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <?php
 require_once "../includes/footer.php";
-

@@ -48,12 +48,12 @@ if (isset($_POST['edit_custom_link'])) {
 }
 
 if (isset($_GET['delete_custom_link'])) {
-    
+
     $custom_link_id = intval($_GET['delete_custom_link']);
 
     // Get Custom Link name and uri for logging
     $sql = mysqli_query($mysqli,"SELECT custom_link_name, custom_link_uri FROM custom_links WHERE custom_link_id = $custom_link_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $custom_link_name = sanitizeInput($row['custom_link_name']);
     $custom_link_uri = sanitizeInput($row['custom_link_uri']);
 

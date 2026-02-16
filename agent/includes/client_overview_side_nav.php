@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Badge Counts
 
 $row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT COUNT('contact_id') AS num FROM contacts LEFT JOIN clients ON contact_client_id = client_id WHERE contact_archived_at IS NULL AND client_archived_at IS NULL"));
@@ -53,7 +53,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-address-book"></i>
                             <p>
                                 Contacts
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/contact/contact_add.php"></span>
                                 <?php
                                 if ($num_contacts > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_contacts; ?></span>
@@ -66,7 +65,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-map-marker-alt"></i>
                             <p>
                                 Locations
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/location/location_add.php"></span>
                                 <?php
                                 if ($num_locations > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_locations; ?></span>
@@ -79,7 +77,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-desktop"></i>
                             <p>
                                 Assets
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/asset/asset_add.php"></span>
                                 <?php
                                 if ($num_assets > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_assets; ?></span>
@@ -92,7 +89,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-cube"></i>
                             <p>
                                 Licenses
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/software/software_add.php"></span>
                                 <?php
                                 if ($num_software > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_software; ?></span>
@@ -105,7 +101,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-key"></i>
                             <p>
                                 Credentials
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/credential/credential_add.php"></span>
                                 <?php
                                 if ($num_credentials > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_credentials; ?></span>
@@ -118,7 +113,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-network-wired"></i>
                             <p>
                                 Networks
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/network/network_add.php"></span>
                                 <?php
                                 if ($num_networks > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_networks; ?></span>
@@ -131,7 +125,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-lock"></i>
                             <p>
                                 Certificates
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/certificate/certificate_add.php"></span>
                                 <?php
                                 if ($num_certificates > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_certificates; ?></span>
@@ -144,7 +137,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-globe"></i>
                             <p>
                                 Domains
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/domain/domain_add.php"></span>
                                 <?php
                                 if ($num_domains > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_domains; ?></span>
@@ -157,7 +149,6 @@ $num_software = $row['num'];
                             <i class="nav-icon fas fa-stream"></i>
                             <p>
                                 Services
-                                <span href="#" class="fas fa-plus-circle right ajax-modal" data-modal-url="/agent/modals/service/service_add.php"></span>
                                 <?php
                                 if ($num_services > 0) { ?>
                                     <span class="right badge text-light"><?php echo $num_services; ?></span>

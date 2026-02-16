@@ -5,7 +5,7 @@ require_once '../../../includes/modal_header.php';
 $custom_link_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM custom_links WHERE custom_link_id = $custom_link_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $custom_link_name = nullable_htmlentities($row['custom_link_name']);
 $custom_link_uri = nullable_htmlentities($row['custom_link_uri']);
 $custom_link_icon = nullable_htmlentities($row['custom_link_icon']);
@@ -24,9 +24,9 @@ ob_start();
     </button>
 </div>
 <form action="post.php" method="post" autocomplete="off">
-    
+
     <input type="hidden" name="custom_link_id" value="<?php echo $custom_link_id; ?>">
-    
+
     <div class="modal-body">
 
         <div class="form-group">

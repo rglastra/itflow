@@ -6,7 +6,7 @@ $revenue_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM revenues WHERE revenue_id = $revenue_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $revenue_description = nullable_htmlentities($row['revenue_description']);
 $revenue_reference = nullable_htmlentities($row['revenue_reference']);
 $revenue_date = nullable_htmlentities($row['revenue_date']);
@@ -68,7 +68,7 @@ ob_start();
                         <?php
 
                         $sql_accounts = mysqli_query($mysqli, "SELECT * FROM accounts WHERE (account_archived_at > '$revenue_created_at' OR account_archived_at IS NULL) ORDER BY account_archived_at ASC, account_name ASC");
-                        while ($row = mysqli_fetch_array($sql_accounts)) {
+                        while ($row = mysqli_fetch_assoc($sql_accounts)) {
                             $account_id_select = intval($row['account_id']);
                             $account_name_select = nullable_htmlentities($row['account_name']);
                             $account_currency_code_select = nullable_htmlentities($row['account_currency_code']);
@@ -80,15 +80,15 @@ ob_start();
                                 $account_archived_display = "Archived - ";
                             }
                             $sql_payments = mysqli_query($mysqli, "SELECT SUM(payment_amount) AS total_payments FROM payments WHERE payment_account_id = $account_id_select");
-                            $row = mysqli_fetch_array($sql_payments);
+                            $row = mysqli_fetch_assoc($sql_payments);
                             $total_payments = floatval($row['total_payments']);
 
                             $sql_revenues = mysqli_query($mysqli, "SELECT SUM(revenue_amount) AS total_revenues FROM revenues WHERE revenue_account_id = $account_id_select");
-                            $row = mysqli_fetch_array($sql_revenues);
+                            $row = mysqli_fetch_assoc($sql_revenues);
                             $total_revenues = floatval($row['total_revenues']);
 
                             $sql_expenses = mysqli_query($mysqli, "SELECT SUM(expense_amount) AS total_expenses FROM expenses WHERE expense_account_id = $account_id_select");
-                            $row = mysqli_fetch_array($sql_expenses);
+                            $row = mysqli_fetch_assoc($sql_expenses);
                             $total_expenses = floatval($row['total_expenses']);
 
                             $balance = $opening_balance + $total_payments + $total_revenues - $total_expenses;
@@ -114,7 +114,7 @@ ob_start();
                         <?php
 
                         $sql_category = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND (category_archived_at > '$revenue_created_at' OR category_archived_at IS NULL) ORDER BY category_name ASC");
-                        while ($row = mysqli_fetch_array($sql_category)) {
+                        while ($row = mysqli_fetch_assoc($sql_category)) {
                             $category_id_select = intval($row['category_id']);
                             $category_name = nullable_htmlentities($row['category_name']);
                             ?>
@@ -153,7 +153,7 @@ ob_start();
                         <?php
 
                         $sql_categories = mysqli_query($mysqli, "SELECT * FROM payment_methods ORDER BY payment_method_name ASC");
-                        while ($row = mysqli_fetch_array($sql_categories)) {
+                        while ($row = mysqli_fetch_assoc($sql_categories)) {
                             $payment_method_name_select = nullable_htmlentities($row['payment_method_name']);
                             ?>
                             <option <?php if ($revenue_payment_method == $payment_method_name_select) { echo "selected"; } ?>><?php echo "$payment_method_name_select"; ?></option>

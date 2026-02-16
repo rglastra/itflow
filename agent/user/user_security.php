@@ -39,7 +39,7 @@ $remember_token_count = mysqli_num_rows($sql_remember_tokens);
                 </button>
 
                 <?php require_once "modals/user_mfa_modal.php"; ?>
-            
+
             <?php } else { ?>
                 <a href="post.php?disable_mfa&csrf_token=<?php echo $_SESSION['csrf_token'] ?>" class="btn btn-danger"><i class="fas fa-unlock mr-2"></i>Disable MFA</a>
             <?php } ?>
@@ -56,7 +56,7 @@ $remember_token_count = mysqli_num_rows($sql_remember_tokens);
         <div class="card-body">
 
             <ul>
-                <?php while ($row = mysqli_fetch_array($sql_remember_tokens)) {
+                <?php while ($row = mysqli_fetch_assoc($sql_remember_tokens)) {
                     $token_id = intval($row['remember_token_id']);
                     $token_created = nullable_htmlentities($row['remember_token_created_at']);
 

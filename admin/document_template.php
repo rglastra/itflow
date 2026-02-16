@@ -66,7 +66,7 @@
                 <tbody>
                     <?php
 
-                        while ($row = mysqli_fetch_array($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql)) {
                             $document_template_id = intval($row['document_template_id']);
                             $document_template_name = nullable_htmlentities($row['document_template_name']);
                             $document_template_description = nullable_htmlentities($row['document_template_description']);

@@ -8,7 +8,7 @@ $update_frequency_array = ['Manual', 'Annually', '2 Year', '3 Year', '5 Year', '
 
 // Fetch existing template
 $sql = mysqli_query($mysqli, "SELECT * FROM contract_templates WHERE contract_template_id = $contract_template_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 
 // Assign locals
 $name          = nullable_htmlentities($row['contract_template_name']);

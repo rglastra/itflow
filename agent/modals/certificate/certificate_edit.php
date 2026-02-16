@@ -6,7 +6,7 @@ $certificate_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM certificates WHERE certificate_id = $certificate_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $certificate_name = nullable_htmlentities($row['certificate_name']);
 $certificate_description = nullable_htmlentities($row['certificate_description']);
 $certificate_domain = nullable_htmlentities($row['certificate_domain']);
@@ -86,7 +86,7 @@ ob_start();
                             <option value="">- Select Domain -</option>
                             <?php
                             $domains_sql = mysqli_query($mysqli, "SELECT domain_id, domain_name FROM domains WHERE domain_client_id = $client_id");
-                            while ($row = mysqli_fetch_array($domains_sql)) {
+                            while ($row = mysqli_fetch_assoc($domains_sql)) {
                                 $domain_id = intval($row['domain_id']);
                                 $domain_name = nullable_htmlentities($row['domain_name']);
                             ?>
@@ -165,7 +165,7 @@ ob_start();
                         </thead>
                         <tbody>
                         <?php
-                        while ($row = mysqli_fetch_array($history_sql)) {
+                        while ($row = mysqli_fetch_assoc($history_sql)) {
                             $certificate_modified_at = nullable_htmlentities($row['certificate_history_modified_at']);
                             $certificate_field = nullable_htmlentities($row['certificate_history_column']);
                             $certificate_before_value = nullable_htmlentities($row['certificate_history_old_value']);

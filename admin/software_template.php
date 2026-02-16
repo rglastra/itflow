@@ -9,7 +9,7 @@ require_once "includes/inc_all_admin.php";
 $sql = mysqli_query(
     $mysqli,
     "SELECT SQL_CALC_FOUND_ROWS * FROM software_templates
-    WHERE software_template_name LIKE '%$q%' OR software_template_type LIKE '%$q%' 
+    WHERE software_template_name LIKE '%$q%' OR software_template_type LIKE '%$q%'
     ORDER BY $sort $order LIMIT $record_from, $record_to"
 );
 
@@ -68,7 +68,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tbody>
                 <?php
 
-                while($row = mysqli_fetch_array($sql)){
+                while($row = mysqli_fetch_assoc($sql)){
                     $software_template_id = intval($row['software_template_id']);
                     $software_template_name = nullable_htmlentities($row['software_template_name']);
                     $software_template_version = nullable_htmlentities($row['software_template_version']);

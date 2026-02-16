@@ -23,7 +23,7 @@ if (mysqli_num_rows($sql_ticket_template) == 0) {
     exit();
 }
 
-$row = mysqli_fetch_array($sql_ticket_template);
+$row = mysqli_fetch_assoc($sql_ticket_template);
 
 $ticket_template_name = nullable_htmlentities($row['ticket_template_name']);
 $ticket_template_description = nullable_htmlentities($row['ticket_template_description']);
@@ -98,7 +98,7 @@ $sql_task_templates = mysqli_query($mysqli, "SELECT * FROM task_templates WHERE 
                 </form>
                 <table class="table table-sm" id="tasks">
                     <?php
-                    while($row = mysqli_fetch_array($sql_task_templates)){
+                    while($row = mysqli_fetch_assoc($sql_task_templates)){
                         $task_id = intval($row['task_template_id']);
                         $task_name = nullable_htmlentities($row['task_template_name']);
                         $task_completion_estimate = intval($row['task_template_completion_estimate']);

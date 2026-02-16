@@ -6,7 +6,7 @@ $product_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM products WHERE product_id = $product_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $product_name = nullable_htmlentities($row['product_name']);
 $product_type = nullable_htmlentities($row['product_type']);
 $product_description = nullable_htmlentities($row['product_description']);
@@ -51,7 +51,7 @@ ob_start();
                     <?php
 
                     $sql_select = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND (category_archived_at > '$product_created_at' OR category_archived_at IS NULL)");
-                    while ($row = mysqli_fetch_array($sql_select)) {
+                    while ($row = mysqli_fetch_assoc($sql_select)) {
                         $category_id_select = intval($row['category_id']);
                         $category_name_select = nullable_htmlentities($row['category_name']);
                         ?>
@@ -94,7 +94,7 @@ ob_start();
                             <?php
 
                             $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE (tax_archived_at > '$product_created_at' OR tax_archived_at IS NULL) ORDER BY tax_name ASC");
-                            while ($row = mysqli_fetch_array($taxes_sql)) {
+                            while ($row = mysqli_fetch_assoc($taxes_sql)) {
                                 $tax_id_select = intval($row['tax_id']);
                                 $tax_name = nullable_htmlentities($row['tax_name']);
                                 $tax_percent = floatval($row['tax_percent']);

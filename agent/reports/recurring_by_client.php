@@ -37,7 +37,7 @@ $sql = mysqli_query($mysqli, "
                 <tbody>
                 <?php
 
-                while ($row = mysqli_fetch_array($sql)) {
+                while ($row = mysqli_fetch_assoc($sql)) {
                     $client_id = intval($row['client_id']);
                     $client_name = nullable_htmlentities($row['client_name']);
                     $recurring_monthly_total = floatval($row['recurring_monthly_total']);

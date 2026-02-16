@@ -1,7 +1,7 @@
 <?php
 require_once "includes/inc_all_user.php";
 
-$row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT user_config_calendar_first_day, user_config_language FROM user_settings WHERE user_id = $session_user_id"));
+$row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT user_config_calendar_first_day, user_config_language FROM user_settings WHERE user_id = $session_user_id"));
 $user_config_calendar_first_day = intval($row['user_config_calendar_first_day']);
 $user_config_language = sanitizeInput($row['user_config_language']);
 

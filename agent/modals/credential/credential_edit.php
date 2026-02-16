@@ -6,7 +6,7 @@ $credential_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM credentials WHERE credential_id = $credential_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $client_id = intval($row['credential_client_id']);
 $credential_name = nullable_htmlentities($row['credential_name']);
 $credential_description = nullable_htmlentities($row['credential_description']);
@@ -20,14 +20,14 @@ $credential_otp_secret = nullable_htmlentities($row['credential_otp_secret']);
 $credential_note = nullable_htmlentities($row['credential_note']);
 $credential_created_at = nullable_htmlentities($row['credential_created_at']);
 $credential_archived_at = nullable_htmlentities($row['credential_archived_at']);
-$credential_important = intval($row['credential_important']);
+$credential_favorite = intval($row['credential_favorite']);
 $credential_contact_id = intval($row['credential_contact_id']);
 $credential_asset_id = intval($row['credential_asset_id']);
 
 // Tags
 $credential_tag_id_array = array();
 $sql_credential_tags = mysqli_query($mysqli, "SELECT tag_id FROM credential_tags WHERE credential_id = $credential_id");
-while ($row = mysqli_fetch_array($sql_credential_tags)) {
+while ($row = mysqli_fetch_assoc($sql_credential_tags)) {
     $credential_tag_id = intval($row['tag_id']);
     $credential_tag_id_array[] = $credential_tag_id;
 }
@@ -75,7 +75,13 @@ ob_start();
                         <input type="text" class="form-control" name="name" placeholder="Name of Credential" maxlength="200" value="<?php echo $credential_name; ?>" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="important" value="1" <?php if ($credential_important == 1) { echo "checked"; } ?>>
+                                <label class="star-toggle mb-0" title="Favorite">
+                                    <input type="checkbox"
+                                            name="favorite"
+                                            value="1"
+                                            <?php if($credential_favorite) { echo 'checked'; } ?>>
+                                    <i class="far fa-star"></i>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -178,7 +184,7 @@ ob_start();
                             <?php
 
                             $sql_contacts = mysqli_query($mysqli, "SELECT contact_id, contact_name FROM contacts WHERE contact_client_id = $client_id ORDER BY contact_name ASC");
-                            while ($row = mysqli_fetch_array($sql_contacts)) {
+                            while ($row = mysqli_fetch_assoc($sql_contacts)) {
                                 $contact_id_select = intval($row['contact_id']);
                                 $contact_name_select = nullable_htmlentities($row['contact_name']);
                                 ?>
@@ -199,7 +205,7 @@ ob_start();
                             <?php
 
                             $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, location_name  FROM assets LEFT JOIN locations on asset_location_id = location_id WHERE asset_client_id = $client_id AND asset_archived_at IS NULL ORDER BY asset_name ASC");
-                            while ($row = mysqli_fetch_array($sql_assets)) {
+                            while ($row = mysqli_fetch_assoc($sql_assets)) {
                                 $asset_id_select = intval($row['asset_id']);
                                 $asset_name_select = nullable_htmlentities($row['asset_name']);
                                 $asset_location_select = nullable_htmlentities($row['location_name']);
@@ -235,7 +241,7 @@ ob_start();
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT tag_id, tag_name FROM tags WHERE tag_type = 4 ORDER BY tag_name ASC");
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id_select = intval($row['tag_id']);
                                 $tag_name_select = nullable_htmlentities($row['tag_name']);
                                 ?>

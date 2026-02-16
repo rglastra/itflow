@@ -79,15 +79,23 @@ if (isset($_GET['assigned']) & !empty($_GET['assigned'])) {
     }
 }
 
-// Ticket client access snippet
-$ticket_permission_snippet = '';
-if (!empty($client_access_string)) {
-    $ticket_permission_snippet = "AND ticket_client_id IN ($client_access_string)";
+// Project filter
+// Default - any (including tickets without a project)
+$ticket_project_snippet = '';
+$ticket_project_filter_id = '';
+if (isset($_GET['project']) & !empty($_GET['project']) && $_GET['project'] > '0') {
+    $ticket_project_snippet = 'AND ticket_project_id = ' . intval($_GET['project']);
+    $ticket_project_filter_id = intval($_GET['project']);
+}
+
+// Ticket client access overide - This is the only way to show tickets without a client to agents with restricted client access
+$access_permission_query_overide = '';
+if ($client_access_string) {
+    $access_permission_query_overide = "AND ticket_client_id IN (0,$client_access_string)";
 }
 
 // Main ticket query:
-$sql = mysqli_query(
-    $mysqli,
+$query =
     "SELECT SQL_CALC_FOUND_ROWS * FROM tickets
     LEFT JOIN clients ON ticket_client_id = client_id
     LEFT JOIN contacts ON ticket_contact_id = contact_id
@@ -102,7 +110,8 @@ $sql = mysqli_query(
     AND DATE(ticket_created_at) BETWEEN '$dtf' AND '$dtt'
     AND (CONCAT(ticket_prefix,ticket_number) LIKE '%$q%' OR client_name LIKE '%$q%' OR ticket_subject LIKE '%$q%' OR ticket_status_name LIKE '%$q%' OR ticket_priority LIKE '%$q%' OR user_name LIKE '%$q%' OR contact_name LIKE '%$q%' OR asset_name LIKE '%$q%' OR vendor_name LIKE '%$q%' OR ticket_vendor_ticket_number LIKE '%q%')
     $ticket_billable_snippet
-    $ticket_permission_snippet
+    $ticket_project_snippet
+    $access_permission_query_overide
     $client_query
     ORDER BY
         CASE
@@ -116,29 +125,30 @@ $sql = mysqli_query(
             ELSE NULL
         END $order,
         $sort $order  -- Apply normal sorting by $sort and $order
-    LIMIT $record_from, $record_to"
-);
+    LIMIT $record_from, $record_to";
+
+$sql = mysqli_query($mysqli,$query);
 
 $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 //Get Total tickets open
-$sql_total_tickets_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_open FROM tickets WHERE ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_open);
+$sql_total_tickets_open = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_open FROM tickets WHERE ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
+$row = mysqli_fetch_assoc($sql_total_tickets_open);
 $total_tickets_open = intval($row['total_tickets_open']);
 
 //Get Total tickets closed
-$sql_total_tickets_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_closed FROM tickets WHERE ticket_resolved_at IS NOT NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_closed);
+$sql_total_tickets_closed = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_closed FROM tickets WHERE ticket_resolved_at IS NOT NULL $client_query $access_permission_query_overide");
+$row = mysqli_fetch_assoc($sql_total_tickets_closed);
 $total_tickets_closed = intval($row['total_tickets_closed']);
 
 //Get Unassigned tickets
-$sql_total_tickets_unassigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_unassigned FROM tickets WHERE ticket_assigned_to = '0' AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_unassigned);
+$sql_total_tickets_unassigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_unassigned FROM tickets WHERE ticket_assigned_to = '0' AND ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
+$row = mysqli_fetch_assoc($sql_total_tickets_unassigned);
 $total_tickets_unassigned = intval($row['total_tickets_unassigned']);
 
 //Get Total tickets assigned to me
-$sql_total_tickets_assigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_assigned FROM tickets WHERE ticket_assigned_to = $session_user_id AND ticket_resolved_at IS NULL $client_query $ticket_permission_snippet");
-$row = mysqli_fetch_array($sql_total_tickets_assigned);
+$sql_total_tickets_assigned = mysqli_query($mysqli, "SELECT COUNT(ticket_id) AS total_tickets_assigned FROM tickets WHERE ticket_assigned_to = $session_user_id AND ticket_resolved_at IS NULL $client_query $access_permission_query_overide");
+$row = mysqli_fetch_assoc($sql_total_tickets_assigned);
 $user_active_assigned_tickets = intval($row['total_tickets_assigned']);
 
 $sql_categories_filter = mysqli_query(
@@ -148,8 +158,6 @@ $sql_categories_filter = mysqli_query(
     AND category_archived_at IS NULL
     ORDER BY category_name"
 );
-
-
 
 ?>
     <style>
@@ -190,6 +198,7 @@ $sql_categories_filter = mysqli_query(
                     <input type="hidden" name="client_id" value="<?= $client_id ?>">
                 <?php } ?>
                 <input type="hidden" name="status" value="<?= $status ?>">
+                <input type="hidden" name="view" value="<?= nullable_htmlentities($_GET['view'] ?? 'list') ?>">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
@@ -203,26 +212,20 @@ $sql_categories_filter = mysqli_query(
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-light"><i class="fas fa-layer-group"></i></span>
-                                </div>
-                                <select class="form-control select2" name="category" onchange="this.form.submit()">
-                                    <option value="">- All Categories -</option>
+                            <select class="form-control select2" name="category" onchange="this.form.submit()">
+                                <option value="">- All Categories -</option>
 
-                                    <?php
-                                    while ($row = mysqli_fetch_array($sql_categories_filter)) {
-                                        $category_id = intval($row['category_id']);
-                                        $category_name = nullable_htmlentities($row['category_name']);
-                                    ?>
-                                        <option <?php if ($category_filter == $category_id) { echo "selected"; } ?> value="<?php echo $category_id; ?>"><?php echo $category_name; ?></option>
-                                    <?php
-                                    }
-                                    ?>
+                                <?php
+                                while ($row = mysqli_fetch_assoc($sql_categories_filter)) {
+                                    $category_id = intval($row['category_id']);
+                                    $category_name = nullable_htmlentities($row['category_name']);
+                                ?>
+                                    <option <?php if ($category_filter == $category_id) { echo "selected"; } ?> value="<?php echo $category_id; ?>"><?php echo $category_name; ?></option>
+                                <?php
+                                }
+                                ?>
 
-                                </select>
-
-                            </div>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -235,8 +238,8 @@ $sql_categories_filter = mysqli_query(
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'list']))); ?>">List</a>
                                     <?php if ($status !== 'Closed') {?>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item " href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'kanban']))); ?>">Kanban</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item " href="<?=htmlspecialchars('?' . http_build_query(array_merge($_GET, ['view' => 'kanban']))); ?>">Kanban</a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -347,7 +350,7 @@ $sql_categories_filter = mysqli_query(
                                 <select onchange="this.form.submit()" class="form-control select2" name="status[]" data-placeholder="Select Status" multiple>
 
                                         <?php $sql_ticket_status = mysqli_query($mysqli, "SELECT * FROM ticket_statuses WHERE ticket_status_active = 1 ORDER BY ticket_status_order");
-                                        while ($row = mysqli_fetch_array($sql_ticket_status)) {
+                                        while ($row = mysqli_fetch_assoc($sql_ticket_status)) {
                                             $ticket_status_id = intval($row['ticket_status_id']);
                                             $ticket_status_name = nullable_htmlentities($row['ticket_status_name']); ?>
 
@@ -366,11 +369,33 @@ $sql_categories_filter = mysqli_query(
 
                                     <?php
                                     $sql_assign_to = mysqli_query($mysqli, "SELECT * FROM users WHERE user_type = 1 AND user_archived_at IS NULL ORDER BY user_name ASC");
-                                    while ($row = mysqli_fetch_array($sql_assign_to)) {
+                                    while ($row = mysqli_fetch_assoc($sql_assign_to)) {
                                         $user_id = intval($row['user_id']);
                                         $user_name = nullable_htmlentities($row['user_name']);
                                         ?>
                                         <option <?php if ($ticket_assigned_filter_id == $user_id) { echo "selected"; } ?> value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Project</label>
+                                <select onchange="this.form.submit()" class="form-control select2" name="project">
+                                    <option value="" <?php if ($ticket_project_filter_id == "") { echo "selected"; } ?>>Any</option>
+
+                                    <?php
+                                    $sql_projects = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_completed_at IS NULL and project_archived_at IS NULL ORDER BY project_name ASC");
+                                    while ($row = mysqli_fetch_assoc($sql_projects)) {
+                                        $project_id = intval($row['project_id']);
+                                        $project_prefix = nullable_htmlentities($row['project_prefix']);
+                                        $project_number = intval($row['project_number']);
+                                        $project_name = nullable_htmlentities($row['project_name']);
+                                        ?>
+                                        <option <?php if ($ticket_project_filter_id == $project_id) { echo "selected"; } ?> value="<?php echo $project_id; ?>"><?php echo $project_prefix . $project_number . " - " . $project_name; ?></option>
                                         <?php
                                     }
                                     ?>

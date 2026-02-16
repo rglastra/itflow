@@ -5,7 +5,7 @@ $ticket_id = intval($_GET['ticket_id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM tickets WHERE ticket_id = $ticket_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $vendor_id = intval($row['ticket_vendor_id']);
@@ -37,7 +37,7 @@ ob_start();
                     <?php
 
                     $sql_vendors = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = $client_id AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
-                    while ($row = mysqli_fetch_array($sql_vendors)) {
+                    while ($row = mysqli_fetch_assoc($sql_vendors)) {
                         $vendor_id_select = intval($row['vendor_id']);
                         $vendor_name = nullable_htmlentities($row['vendor_name']);
                         ?>

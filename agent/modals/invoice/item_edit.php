@@ -5,7 +5,7 @@ require_once '../../../includes/modal_header.php';
 $item_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM invoice_items WHERE item_id = $item_id LIMIT 1");
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $item_name = nullable_htmlentities($row['item_name']);
 $item_description = nullable_htmlentities($row['item_description']);
 $item_quantity = floatval($row['item_quantity']);
@@ -82,7 +82,7 @@ ob_start();
                     <option value="0">No Tax</option>
                     <?php
                         $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE (tax_archived_at > '$item_created_at' OR tax_archived_at IS NULL) ORDER BY tax_name ASC");
-                        while ($row = mysqli_fetch_array($taxes_sql)) {
+                        while ($row = mysqli_fetch_assoc($taxes_sql)) {
                             $tax_id_select = intval($row['tax_id']);
                             $tax_name = nullable_htmlentities($row['tax_name']);
                             $tax_percent = floatval($row['tax_percent']);

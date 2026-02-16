@@ -49,7 +49,7 @@ ob_start();
                                 <?php
 
                                 $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-                                while ($row = mysqli_fetch_array($sql)) {
+                                while ($row = mysqli_fetch_assoc($sql)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id == $client_id_select) { echo "selected"; } ?> value="<?php echo $client_id_select; ?>"><?php echo $client_name; ?></option>
@@ -92,7 +92,7 @@ ob_start();
                             <option value="">- Domain -</option>
                             <?php
                             $domains_sql = mysqli_query($mysqli, "SELECT * FROM domains WHERE domain_archived_at IS NULL AND domain_client_id = $client_id ORDER BY domain_name ASC");
-                            while ($domain_row = mysqli_fetch_array($domains_sql)) {
+                            while ($domain_row = mysqli_fetch_assoc($domains_sql)) {
                                 $domain_id = intval($domain_row['domain_id']);
                                 $domain_name = nullable_htmlentities($domain_row['domain_name']);
                                 echo "<option value=\"$domain_id\">$domain_name</option>";
@@ -102,7 +102,7 @@ ob_start();
                     </div>
                 </div>
                 <?php } ?>
-            
+
             </div>
 
             <div class="tab-pane fade" id="pills-certificate">

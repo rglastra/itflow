@@ -6,7 +6,7 @@ $quote_id = intval($_GET['quote_id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM quotes WHERE quote_id = $quote_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $quote_prefix = nullable_htmlentities($row['quote_prefix']);
 $quote_number = intval($row['quote_number']);
 

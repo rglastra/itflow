@@ -110,7 +110,7 @@ if (isset($_POST['rename_file'])) {
 
     // Get File Details Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $old_file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -134,7 +134,7 @@ if (isset($_POST['move_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -159,7 +159,7 @@ if (isset($_GET['archive_file'])) {
 
     // Get Contact Name and Client ID for logging and alert message
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -168,6 +168,28 @@ if (isset($_GET['archive_file'])) {
     logAction("File", "Archive", "$session_name archived file $file_name", $client_id, $file_id);
 
     flash_alert("File <strong>$file_name</strong> archived", 'error');
+
+    redirect();
+
+}
+
+if (isset($_GET['restore_file'])) {
+
+    enforceUserPermission('module_support', 2);
+
+    $file_id = intval($_GET['restore_file']);
+
+    // Get Document Name and Client ID for logging and alert message
+    $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
+    $row = mysqli_fetch_assoc($sql);
+    $file_name = sanitizeInput($row['file_name']);
+    $client_id = intval($row['file_client_id']);
+
+    mysqli_query($mysqli,"UPDATE files SET file_archived_at = NULL WHERE file_id = $file_id");
+
+    logAction("File", "Restore", "$session_name restored file $file_name", $client_id, $file_id);
+
+    flash_alert("File <strong>$file_name</strong> Restored");
 
     redirect();
 
@@ -182,7 +204,7 @@ if (isset($_POST['delete_file'])) {
     $file_id = intval($_POST['file_id']);
 
     $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql_file);
+    $row = mysqli_fetch_assoc($sql_file);
     $client_id = intval($row['file_client_id']);
     $file_name = sanitizeInput($row['file_name']);
     $file_reference_name = sanitizeInput($row['file_reference_name']);
@@ -208,6 +230,65 @@ if (isset($_POST['delete_file'])) {
 
 }
 
+if (isset($_POST['bulk_archive_files'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 3);
+
+    // Archive file loop
+    if (isset($_POST['file_ids'])) {
+
+        // Get selected file Count
+        $file_count = count($_POST['file_ids']);
+
+        foreach($_POST['file_ids'] as $file_id) {
+
+            $file_id = intval($file_id);
+
+            $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
+            $row = mysqli_fetch_assoc($sql_file);
+            $client_id = intval($row['file_client_id']);
+            $file_name = sanitizeInput($row['file_name']);
+
+            mysqli_query($mysqli,"UPDATE files SET file_archived_at = NOW() WHERE file_id = $file_id");
+
+            logAction("File", "Archive", "$session_name archived file $file_name", $client_id, $file_id);
+        }
+
+    }
+
+    // Archive documents loop
+    if (isset($_POST['document_ids'])) {
+
+        // Get selected document count
+        $document_count = count($_POST['document_ids']);
+
+        // Delete document loop
+        foreach($_POST['document_ids'] as $document_id) {
+            $document_id = intval($document_id);
+            // Get document name for logging
+            $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
+            $row = mysqli_fetch_assoc($sql);
+            $document_name = sanitizeInput($row['document_name']);
+            $client_id = intval($row['document_client_id']);
+
+            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NOW(), document_updated_at = document_updated_at WHERE document_id = $document_id");
+
+            logAction("Document", "Archive", "$session_name archived document $document_name", $client_id, $document_id);
+
+        }
+
+    }
+
+    logAction("File", "Bulk Archive", "$session_name archived $document_count document(s) and $file_count file(s)", $client_id);
+
+    flash_alert("Archived <strong>$document_count</strong> Documents and <strong>$file_count</strong> files", 'error');
+
+    redirect();
+
+}
+
 if (isset($_POST['bulk_delete_files'])) {
 
     validateCSRFToken($_POST['csrf_token']);
@@ -225,7 +306,7 @@ if (isset($_POST['bulk_delete_files'])) {
             $file_id = intval($file_id);
 
             $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
-            $row = mysqli_fetch_array($sql_file);
+            $row = mysqli_fetch_assoc($sql_file);
             $client_id = intval($row['file_client_id']);
             $file_name = sanitizeInput($row['file_name']);
             $file_reference_name = sanitizeInput($row['file_reference_name']);
@@ -246,10 +327,99 @@ if (isset($_POST['bulk_delete_files'])) {
             logAction("File", "Delete", "$session_name deleted file $file_name", $client_id);
         }
 
-        logAction("File", "Bulk Delete", "$session_name deleted $file_count file(s)", $client_id);
-
-        flash_alert("You deleted <strong>$file_count</strong> files", 'error');
     }
+
+    // Delete documents loop
+    if (isset($_POST['document_ids'])) {
+
+        // Get selected document count
+        $document_count = count($_POST['document_ids']);
+
+        // Delete document loop
+        foreach($_POST['document_ids'] as $document_id) {
+            $document_id = intval($document_id);
+            // Get Document Name and Client ID for logging
+            $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
+            $row = mysqli_fetch_assoc($sql);
+            $client_id = intval($row['document_client_id']);
+            $document_name = sanitizeInput($row['document_name']);
+
+            mysqli_query($mysqli,"DELETE FROM documents WHERE document_id = $document_id");
+
+            // Delete all versions associated with the master document
+            mysqli_query($mysqli,"DELETE FROM document_versions WHERE document_version_document_id = $document_id");
+
+            // Delete uploads/document/$document_id if exists
+            removeDirectory($_SERVER['DOCUMENT_ROOT'] . "/uploads/documents/" . $document_id);
+
+            logAction("Document", "Delete", "$session_name deleted document $document_name and all versions", $client_id);
+
+        }
+
+    }
+
+    logAction("File", "Bulk Delete", "$session_name deleted $document_count document(s) and $file_count file(s)", $client_id);
+
+    flash_alert("Deleted <strong>$document_count</strong> Documents and <strong>$file_count</strong> files", 'error');
+
+    redirect();
+
+}
+
+if (isset($_POST['bulk_restore_files'])) {
+
+    validateCSRFToken($_POST['csrf_token']);
+
+    enforceUserPermission('module_support', 2);
+
+    // Restore file loop
+    if (isset($_POST['file_ids'])) {
+
+        // Get selected file Count
+        $file_count = count($_POST['file_ids']);
+
+        foreach($_POST['file_ids'] as $file_id) {
+
+            $file_id = intval($file_id);
+
+            $sql_file = mysqli_query($mysqli,"SELECT * FROM files WHERE file_id = $file_id");
+            $row = mysqli_fetch_assoc($sql_file);
+            $client_id = intval($row['file_client_id']);
+            $file_name = sanitizeInput($row['file_name']);
+
+            mysqli_query($mysqli,"UPDATE files SET file_archived_at = NULL WHERE file_id = $file_id");
+
+            logAction("File", "Restore", "$session_name restored file $file_name", $client_id, $file_id);
+        }
+
+    }
+
+    // Restore documents loop
+    if (isset($_POST['document_ids'])) {
+
+        // Get selected document count
+        $document_count = count($_POST['document_ids']);
+
+        // Restore document loop
+        foreach($_POST['document_ids'] as $document_id) {
+            $document_id = intval($document_id);
+            // Get document name for logging
+            $sql = mysqli_query($mysqli,"SELECT document_name, document_client_id FROM documents WHERE document_id = $document_id");
+            $row = mysqli_fetch_assoc($sql);
+            $document_name = sanitizeInput($row['document_name']);
+            $client_id = intval($row['document_client_id']);
+
+            mysqli_query($mysqli,"UPDATE documents SET document_archived_at = NULL, document_updated_at = document_updated_at WHERE document_id = $document_id");
+
+            logAction("Document", "Restore", "$session_name restored document $document_name", $client_id, $document_id);
+
+        }
+
+    }
+
+    logAction("File", "Bulk Restore", "$session_name restored $document_count document(s) and $file_count file(s)", $client_id);
+
+    flash_alert("Restored <strong>$document_count</strong> Documents and <strong>$file_count</strong> files");
 
     redirect();
 
@@ -270,7 +440,7 @@ if (isset($_POST['bulk_move_files'])) {
     // If moving into a real folder, get folder name + client for logging
     if ($folder_id > 0) {
         $sql = mysqli_query($mysqli,"SELECT folder_name, folder_client_id FROM folders WHERE folder_id = $folder_id");
-        if ($row = mysqli_fetch_array($sql)) {
+        if ($row = mysqli_fetch_assoc($sql)) {
             $folder_name   = sanitizeInput($row['folder_name']);
             $log_client_id = intval($row['folder_client_id']);
         }
@@ -328,7 +498,7 @@ if (isset($_POST['bulk_move_files'])) {
             $document_name = sanitizeInput(getFieldById('documents', $document_id, 'document_name'));
 
             // Move document
-            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id WHERE document_id = $document_id");
+            mysqli_query($mysqli,"UPDATE documents SET document_folder_id = $folder_id, document_updated_at = document_updated_at WHERE document_id = $document_id");
 
             // Per-document log
             logAction(
@@ -375,7 +545,7 @@ if (isset($_POST['link_asset_to_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 
@@ -402,7 +572,7 @@ if (isset($_GET['unlink_asset_from_file'])) {
 
     // Get File Name and  Client ID for Logging
     $sql = mysqli_query($mysqli,"SELECT file_name, file_client_id FROM files WHERE file_id = $file_id");
-    $row = mysqli_fetch_array($sql);
+    $row = mysqli_fetch_assoc($sql);
     $file_name = sanitizeInput($row['file_name']);
     $client_id = intval($row['file_client_id']);
 

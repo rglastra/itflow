@@ -10,7 +10,7 @@ $sql = mysqli_query($mysqli, "SELECT * FROM tickets
     LIMIT 1"
 );
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $ticket_prefix = nullable_htmlentities($row['ticket_prefix']);
 $ticket_number = intval($row['ticket_number']);
 $ticket_priority = nullable_htmlentities($row['ticket_priority']);
@@ -31,7 +31,7 @@ ob_start();
 <form action="post.php" method="post" autocomplete="off">
     <input type="hidden" name="ticket_id" value="<?php echo $ticket_id; ?>">
     <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
-    
+
     <div class="modal-body">
 
         <div class="form-group">

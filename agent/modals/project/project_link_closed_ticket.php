@@ -13,7 +13,7 @@ if ($client_id) {
 
 $sql = mysqli_query($mysqli, "SELECT * FROM projects WHERE project_id = $project_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $project_name = nullable_htmlentities($row['project_name']);
 
 ob_start();
@@ -35,7 +35,7 @@ ob_start();
                 <div class="input-group-prepend">
                     <?php
                     // Show the ticket prefix, or just the tag icon
-                    $config_row = mysqli_fetch_array(mysqli_query($mysqli, "SELECT config_ticket_prefix FROM settings WHERE company_id = 1"));
+                    $config_row = mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT config_ticket_prefix FROM settings WHERE company_id = 1"));
                     $config_ticket_prefix = $config_row['config_ticket_prefix'];
                     if (empty($config_ticket_prefix)) {
                         echo "<span class=\"input-group-text\"><i class=\"fa fa-fw fa-tag\"></i></span>";

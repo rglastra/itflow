@@ -12,7 +12,7 @@ enforceUserPermission('module_support');
 $sql = mysqli_query(
     $mysqli,
     "SELECT SQL_CALC_FOUND_ROWS * FROM racks
-    LEFT JOIN locations ON location_id = rack_location_id 
+    LEFT JOIN locations ON location_id = rack_location_id
     WHERE rack_client_id = $client_id
     AND rack_$archive_query
     AND (rack_name LIKE '%$q%' OR rack_type LIKE '%$q%' OR rack_units LIKE '%$q%')
@@ -49,7 +49,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-8">
                     <div class="float-right">
-                        <a href="?client_id=<?php echo $client_id; ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>" 
+                        <a href="?client_id=<?php echo $client_id; ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
                             <i class="fa fa-fw fa-archive mr-2"></i>Archived
                         </a>
@@ -61,9 +61,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
         <hr>
 
         <div class="row">
-        
+
             <?php
-            while ($row = mysqli_fetch_array($sql)) {
+            while ($row = mysqli_fetch_assoc($sql)) {
                 $rack_id = intval($row['rack_id']);
                 $rack_name = nullable_htmlentities($row['rack_name']);
                 $rack_description = nullable_htmlentities($row['rack_description']);
@@ -91,7 +91,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="card card-dark">
                         <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-fw fa-server mr-2"></i><?php echo "$rack_name - $rack_units"; ?>U</h3>
-                            
+
                             <div class="card-tools">
                                 <div class="dropdown dropleft">
                                     <button class="btn btn-tool" type="button" data-toggle="dropdown">
@@ -188,18 +188,18 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php 
+                                        <?php
                                         // Keep track of which device_ids we've already printed
                                         $printedDevices = [];
 
                                         for ($i = $rack_units; $i >= 1; $i--) {
-                                            
+
                                             // Find all devices that occupy the current unit $i
                                             $unit_devices = [];
                                             foreach ($rack_units_data as $unit_data) {
                                                 $start = (int) $unit_data['unit_start_number'];
                                                 $end   = (int) $unit_data['unit_end_number'];
-                                                
+
                                                 // If $i is between start and end, device occupies this unit
                                                 if ($i >= $start && $i <= $end) {
                                                     $unit_devices[] = [
@@ -246,13 +246,13 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                         ?>
                                                         <td class="text-center align-middle" rowspan="<?php echo $span; ?>">
                                                             <!-- DEVICE INFO HERE -->
-                                                            <?php 
-                                                            echo $d['unit_device']; 
+                                                            <?php
+                                                            echo $d['unit_device'];
                                                             if (!empty($d['asset_name'])) {
                                                                 $icon = $d['icon']; // already from getAssetIcon
                                                                 ?>
                                                                 <i class="fa fa-<?php echo $icon; ?>"></i>
-                                                                <a href="asset_details.php?client_id=<?php echo $client_id; ?>&asset_id=<?php echo $d['asset_id']; ?>" 
+                                                                <a href="asset_details.php?client_id=<?php echo $client_id; ?>&asset_id=<?php echo $d['asset_id']; ?>"
                                                                    target="_blank">
                                                                    <?php echo $d['asset_name']; ?>
                                                                    <i class="fas fa-external-link-alt ml-1"></i>
@@ -261,7 +261,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                             }
                                                             ?>
                                                         </td>
-                                                        
+
                                                         <td class="px-0 text-right align-middle" rowspan="<?php echo $span; ?>">
                                                             <!-- ACTION ICON / DROPDOWN -->
                                                             <div class="dropdown dropleft">
@@ -269,7 +269,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                                     <i class="fas fa-fw fa-ellipsis-v"></i>
                                                                 </button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item text-danger text-bold confirm-link" 
+                                                                    <a class="dropdown-item text-danger text-bold confirm-link"
                                                                        href="post.php?remove_rack_unit=<?php echo $d['unit_id']; ?>">
                                                                        <i class="fas fa-fw fa-minus mr-2"></i>Remove
                                                                     </a>
@@ -284,7 +284,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                                                 } elseif (count($unit_devices) > 1) {
                                                     // If your data might have multiple devices in the same row,
-                                                    // you have to decide how to handle them. 
+                                                    // you have to decide how to handle them.
                                                     // For now, we can fallback to older logic or display them all in one cell, etc.
                                                     ?>
                                                     <td class="text-center">
@@ -293,7 +293,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                             <?php // Could also show asset_name, etc. ?>
                                                         <?php } ?>
                                                     </td>
-                                                    
+
                                                     <td class="text-right">
                                                         <div class="dropdown dropleft">
                                                             <button class="btn btn-tool" type="button" data-toggle="dropdown">
@@ -301,7 +301,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <?php foreach ($unit_devices as $d) { ?>
-                                                                    <a class="dropdown-item text-danger text-bold confirm-link" 
+                                                                    <a class="dropdown-item text-danger text-bold confirm-link"
                                                                        href="post.php?remove_rack_unit=<?php echo $d['unit_id']; ?>">
                                                                        <i class="fas fa-fw fa-minus mr-2"></i>Remove
                                                                     </a>
@@ -330,9 +330,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
-                
+
             <?php } ?>
 
         </div>

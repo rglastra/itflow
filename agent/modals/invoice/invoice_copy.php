@@ -6,7 +6,7 @@ $invoice_id = intval($_GET['id']);
 
 $sql = mysqli_query($mysqli, "SELECT * FROM invoices LEFT JOIN clients ON invoice_client_id = client_id WHERE invoice_id = $invoice_id LIMIT 1");
 
-$row = mysqli_fetch_array($sql);
+$row = mysqli_fetch_assoc($sql);
 $invoice_prefix = nullable_htmlentities($row['invoice_prefix']);
 $invoice_number = intval($row['invoice_number']);
 $client_name = nullable_htmlentities($row['client_name']);
@@ -23,7 +23,7 @@ ob_start();
 </div>
 <form action="post.php" method="post" autocomplete="off">
     <input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>">
-    
+
     <div class="modal-body">
 
         <div class="form-group">
@@ -35,7 +35,7 @@ ob_start();
                 <input type="date" class="form-control" name="date" max="2999-12-31" value="<?php echo date("Y-m-d"); ?>" required>
             </div>
         </div>
-        
+
     </div>
     <div class="modal-footer">
         <button type="submit" name="add_invoice_copy" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Copy</button>

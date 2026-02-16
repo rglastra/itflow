@@ -8,7 +8,7 @@ if ($client_id) {
      $sql_location_select = mysqli_query($mysqli, "SELECT location_id, location_name FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
 } else {
     $sql_client_select = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients WHERE client_archived_at IS NULL $access_permission_query ORDER BY client_name ASC");
-}   
+}
 
 $sql_tags_select = mysqli_query($mysqli, "SELECT tag_id, tag_name FROM tags WHERE tag_type = 3 ORDER BY tag_name ASC");
 
@@ -60,7 +60,7 @@ ob_start();
                                 <option value="">- Select Client -</option>
                                 <?php
 
-                                while ($row = mysqli_fetch_array($sql_client_select)) {
+                                while ($row = mysqli_fetch_assoc($sql_client_select)) {
                                     $client_id_select = intval($row['client_id']);
                                     $client_name = nullable_htmlentities($row['client_name']); ?>
                                     <option <?php if ($client_id_select == $client_id) { echo "selected"; } ?> value="<?= $client_id_select ?>"><?= $client_name ?></option>
@@ -127,7 +127,7 @@ ob_start();
                     </div>
                 </div>
 
-                <label>Mobile</label>    
+                <label>Mobile</label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -166,7 +166,7 @@ ob_start();
                             <option value="">- Select Location -</option>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_location_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_location_select)) {
                                 $location_id = intval($row['location_id']);
                                 $location_name = nullable_htmlentities($row['location_name']);
                             ?>
@@ -235,7 +235,7 @@ ob_start();
                         </div>
                     </div>
                 <?php } ?>
-                
+
                 <label>Roles:</label>
                 <div class="form-row">
 
@@ -286,7 +286,7 @@ ob_start();
                         <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
                             <?php
 
-                            while ($row = mysqli_fetch_array($sql_tags_select)) {
+                            while ($row = mysqli_fetch_assoc($sql_tags_select)) {
                                 $tag_id = intval($row['tag_id']);
                                 $tag_name = nullable_htmlentities($row['tag_name']);
                                 ?>
