@@ -15,7 +15,7 @@ ob_start();
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <?php foreach ($interface_ids as $interface_id) { ?><input type="hidden" name="interface_ids[]" value="<?= $interface_id ?>"><?php } ?>
     <div class="modal-header bg-dark">
-        <h5 class="modal-title"><i class="fa fa-fw fa-network-wired mr-2"></i>Bulk Assign Network</h5>
+        <h5 class="modal-title"><i class="fa fa-fw fa-network-wired mr-2"></i><?php echo __('Bulk Assign Network'); ?></h5>
         <button type="button" class="close text-white" data-dismiss="modal">
             <span>&times;</span>
         </button>
@@ -25,13 +25,13 @@ ob_start();
 
         <!-- Network -->
         <div class="form-group">
-            <label>Network</label>
+            <label><?php echo __('Network'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-network-wired"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_network">
-                    <option value="">- Select a Network -</option>
+                    <option value=""><?php echo __('- Select a Network -'); ?></option>
                     <?php
                     $sql_network_select = mysqli_query($mysqli, "
                         SELECT network_id, network_name, network
@@ -56,8 +56,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_asset_interface_network" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Assign</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_asset_interface_network" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Assign'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

@@ -1066,6 +1066,45 @@ $lang['Physical Location'] = 'Fysieke Locatie';
 $lang['physical location eg. floor 2, closet b'] = 'fysieke locatie bijv. verdieping 2, kast b';
 $lang['set physical location'] = 'fysieke locatie instellen';
 $lang['Set Physical Location'] = 'Fysieke Locatie Instellen';
+
+// Asset Documents
+$lang['Documents'] = 'Documenten';
+
+// Asset Interface Export
+$lang['Export Interfaces to CSV'] = 'Exporteer Interfaces naar CSV';
+
+// Asset Interface Import
+$lang['Import Interfaces'] = 'Importeer Interfaces';
+$lang['Name, Description, Type, MAC, IP, NAT IP, IPv6, Network'] = 'Naam, Beschrijving, Type, MAC, IP, NAT IP, IPv6, Netwerk';
+$lang['sample csv template'] = 'csv voorbeeldsjabloon';
+
+// Asset Interface Bulk Edit Type
+$lang['Bulk Set Interface Type'] = 'Bulk Stel Interface Type in';
+$lang['Interface Type'] = 'Interface Type';
+$lang['- Select a Type -'] = '- Selecteer een Type -';
+$lang['Set'] = 'Instellen';
+
+// Asset Interface Bulk Edit Network
+$lang['Bulk Assign Network'] = 'Bulk Wijs Netwerk toe';
+$lang['network'] = 'netwerk';
+$lang['Network'] = 'Netwerk';
+$lang['- Select a Network -'] = '- Selecteer een Netwerk -';
+$lang['Assign'] = 'Toewijzen';
+
+// Asset Interface Multiple Add
+$lang['Creating Multiple Interfaces:'] = 'Meerdere Interfaces Aanmaken:';
+$lang['Starting Interface Number'] = 'Startnummer Interface';
+$lang['e.g., 1'] = 'bijv., 1';
+$lang['Number of Interfaces / Ports'] = 'Aantal Interfaces / Poorten';
+$lang['How many interfaces to create?'] = 'Hoeveel interfaces aanmaken?';
+$lang['Interface Name / Port Prefix (Optional)'] = 'Interface Naam / Poort Prefix (Optioneel)';
+$lang['e.g., eth-'] = 'bijv., eth-';
+$lang['Network Assignment'] = 'Netwerktoewijzing';
+$lang['- Select Network -'] = '- Selecteer Netwerk -';
+$lang['Choose the network for these interfaces or leave as None.'] = 'Kies het netwerk voor deze interfaces of laat leeg.';
+$lang['Additional Notes'] = 'Aanvullende Notities';
+$lang['Enter any additional details or notes'] = 'Voer aanvullende details of notities in';
+$lang['Create Interfaces'] = 'Interfaces Aanmaken';
 ?>
 
 
