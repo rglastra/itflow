@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i>Set Physical Location for <strong><?= $count ?></strong> Assets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i><?php echo sprintf(__('Set Physical Location for %s Assets'), "<strong>$count</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -22,20 +22,20 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Physical Location</label>
+            <label><?php echo __('Physical Location'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" name="physical_location" placeholder="Physical location eg. Floor 2, Closet B" maxlength="200">
+                <input type="text" class="form-control" name="physical_location" placeholder="<?php echo __('physical location eg. floor 2, closet b'); ?>" maxlength="200">
             </div>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_assign_asset_physical_location" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Set Physical Location</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_assign_asset_physical_location" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Set Physical Location'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i>Create Tickets for <strong><?= $count ?></strong> Assets</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo sprintf(__('Create Tickets for %s Assets'), "<strong>$count</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -24,12 +24,12 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Subject <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Subject'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
-                <input type="text" class="form-control" name="bulk_subject" placeholder="Asset Name will be prepended to Subject" maxlength="200" required>
+                <input type="text" class="form-control" name="bulk_subject" placeholder="<?php echo __('asset name will be prepended to subject'); ?>" maxlength="200" required>
             </div>
         </div>
 
@@ -41,15 +41,15 @@ ob_start();
 
             <div class="col">
                 <div class="form-group">
-                    <label>Priority <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('priority'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-thermometer-half"></i></span>
                         </div>
                         <select class="form-control select2" name="bulk_priority" required>
-                            <option>Low</option>
-                            <option>Medium</option>
-                            <option>High</option>
+                            <option><?php echo __('low'); ?></option>
+                            <option><?php echo __('medium'); ?></option>
+                            <option><?php echo __('high'); ?></option>
                         </select>
                     </div>
                 </div>
@@ -57,13 +57,13 @@ ob_start();
 
             <div class="col">
                 <div class="form-group">
-                    <label>Category</label>
+                    <label><?php echo __('category'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-layer-group"></i></span>
                         </div>
                         <select class="form-control select2" name="bulk_category">
-                            <option value="0">- Not Categorized -</option>
+                            <option value="0"><?php echo __('- not categorized -'); ?></option>
                             <?php
                             $sql_categories = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND category_archived_at IS NULL ORDER BY category_name ASC");
                             while ($row = mysqli_fetch_assoc($sql_categories)) {

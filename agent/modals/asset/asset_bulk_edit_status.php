@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-info mr-2"></i>Set Status for <strong><?= $count ?></strong> Assets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-info mr-2"></i><?php echo sprintf(__('Set Status for %s Assets'), "<strong>$count</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -23,13 +23,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Status</label>
+            <label><?php echo __('status'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-info"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_status">
-                    <option value="">- Status -</option>
+                    <option value=""><?php echo __('- Status -'); ?></option>
                     <?php foreach($asset_status_array as $asset_status) { ?>
                         <option><?php echo $asset_status; ?></option>
                     <?php } ?>
@@ -40,8 +40,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_edit_asset_status" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Set Status</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_edit_asset_status" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Set Status'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

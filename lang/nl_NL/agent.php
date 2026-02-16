@@ -1028,6 +1028,44 @@ $lang['remove existing tags'] = 'verwijder bestaande tags';
 $lang['Remove Existing Tags'] = 'Verwijder Bestaande Tags';
 $lang['assign tags'] = 'tags toewijzen';
 $lang['Assign Tags'] = 'Tags Toewijzen';
+
+// Asset modals - bulk operations
+$lang['assign location to %s assets'] = 'wijs locatie toe aan %s assets';
+$lang['Assign Location to %s Assets'] = 'Wijs Locatie toe aan %s Assets';
+$lang['- location -'] = '- locatie -';
+$lang['- Location -'] = '- Locatie -';
+$lang['assign location'] = 'locatie toewijzen';
+$lang['Assign Location'] = 'Locatie Toewijzen';
+$lang['assign contact to %s assets'] = 'wijs contactpersoon toe aan %s assets';
+$lang['Assign Contact to %s Assets'] = 'Wijs Contactpersoon toe aan %s Assets';
+$lang['- contact -'] = '- contactpersoon -';
+$lang['- Contact -'] = '- Contactpersoon -';
+$lang['assign contact'] = 'contactpersoon toewijzen';
+$lang['Assign Contact'] = 'Contactpersoon Toewijzen';
+$lang['set status for %s assets'] = 'stel status in voor %s assets';
+$lang['Set Status for %s Assets'] = 'Stel Status in voor %s Assets';
+$lang['- status -'] = '- status -';
+$lang['- Status -'] = '- Status -';
+$lang['set status'] = 'status instellen';
+$lang['Set Status'] = 'Status Instellen';
+$lang['create tickets for %s assets'] = 'maak tickets aan voor %s assets';
+$lang['Create Tickets for %s Assets'] = 'Maak Tickets aan voor %s Assets';
+$lang['asset name will be prepended to subject'] = 'assetnaam wordt vooraan onderwerp geplaatst';
+$lang['Asset Name will be prepended to Subject'] = 'Assetnaam wordt vooraan Onderwerp geplaatst';
+$lang['transfer %s asset(s) to client'] = 'draag %s asset(s) over aan klant';
+$lang['Transfer %s Asset(s) to Client'] = 'Draag %s Asset(s) over aan Klant';
+$lang['- select client -'] = '- selecteer klant -';
+$lang['- Select Client -'] = '- Selecteer Klant -';
+$lang['the current asset will be archived and content copied to a new asset.'] = 'Het huidige asset wordt gearchiveerd en de inhoud wordt gekopieerd naar een nieuw asset.';
+$lang['transfer to client'] = 'overdragen aan klant';
+$lang['Transfer to Client'] = 'Overdragen aan Klant';
+$lang['set physical location for %s assets'] = 'stel fysieke locatie in voor %s assets';
+$lang['Set Physical Location for %s Assets'] = 'Stel Fysieke Locatie in voor %s Assets';
+$lang['physical location'] = 'fysieke locatie';
+$lang['Physical Location'] = 'Fysieke Locatie';
+$lang['physical location eg. floor 2, closet b'] = 'fysieke locatie bijv. verdieping 2, kast b';
+$lang['set physical location'] = 'fysieke locatie instellen';
+$lang['Set Physical Location'] = 'Fysieke Locatie Instellen';
 ?>
 
 
