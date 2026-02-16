@@ -82,7 +82,7 @@ ob_start();
     </div>
     <div class="modal-footer">
         <button type="submit" name="add_rack_unit" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Add to Rack</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

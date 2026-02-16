@@ -79,7 +79,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Shortened Name</label>
+                    <label><?php echo __('Shortened Name'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
@@ -89,7 +89,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Industry</label>
+                    <label><?php echo __('Industry'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-briefcase"></i></span>
@@ -100,7 +100,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Referral</label>
+                    <label><?php echo __('Referral'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
@@ -133,7 +133,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Website</label>
+                    <label><?php echo __('Website'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
@@ -144,7 +144,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Tags</label>
+                    <label><?php echo __('Tags'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
@@ -193,7 +193,7 @@ ob_start();
                 <div class="tab-pane fade" id="pills-client-billing<?php echo $client_id; ?>">
 
                     <div class="form-group">
-                        <label>Hourly Rate</label>
+                        <label><?php echo __('Hourly Rate'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>
@@ -205,7 +205,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Invoice Net Terms</label>
+                        <label><?php echo __('Invoice Net Terms'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -224,7 +224,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Tax ID</label>
+                        <label><?php echo __('Tax ID'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-balance-scale"></i></span>

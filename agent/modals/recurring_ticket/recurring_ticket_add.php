@@ -68,9 +68,9 @@ ob_start();
                                     <span class="input-group-text"><i class="fa fa-fw fa-thermometer-half"></i></span>
                                 </div>
                                 <select class="form-control select2" name="priority" required>
-                                    <option>Low</option>
-                                    <option>Medium</option>
-                                    <option>High</option>
+                                    <option><?php echo __('Low'); ?></option>
+                                    <option><?php echo __('Medium'); ?></option>
+                                    <option><?php echo __('High'); ?></option>
                                 </select>
                             </div>
                         </div>
@@ -78,7 +78,7 @@ ob_start();
 
                     <div class="col">
                         <div class="form-group">
-                            <label>Category</label>
+                            <label><?php echo __('Category'); ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-fw fa-layer-group"></i></span>
@@ -109,7 +109,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Assign to</label>
+                    <label><?php echo __('Assign to'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user-check"></i></span>
@@ -136,7 +136,7 @@ ob_start();
                 <div class="form-group">
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="billable" <?php if ($config_ticket_default_billable == 1) { echo "checked"; } ?> value="1" id="billable">
-                        <label class="custom-control-label" for="billable">Mark Billable</label>
+                        <label class="custom-control-label" for="billable"><?php echo __('Mark Billable'); ?></label>
                     </div>
                 </div>
                 <?php } ?>
@@ -173,7 +173,7 @@ ob_start();
 
 
                 <div class="form-group">
-                    <label>Contact </label>
+                    <label><?php echo __('Contact'); ?> </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
@@ -231,7 +231,7 @@ ob_start();
                 <?php if ($client_id) { ?>
 
                     <div class="form-group">
-                        <label>Asset</label>
+                        <label><?php echo __('Asset'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>
@@ -283,7 +283,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Additional Assets</label>
+                        <label><?php echo __('Additional Assets'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>

@@ -26,11 +26,11 @@ ob_start();
 
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" name="bulk_remove_tags" value="1">
-            <label class="form-check-label text-danger">Remove Existing Tags</label>
+            <label class="form-check-label text-danger"><?php echo __('Remove Existing Tags'); ?></label>
         </div>
 
         <div class="form-group">
-            <label>Tags</label>
+            <label><?php echo __('Tags'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>

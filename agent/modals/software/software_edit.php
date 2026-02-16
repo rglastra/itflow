@@ -105,7 +105,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Short description" value="<?php echo $software_description; ?>">
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('Short description'); ?>" value="<?php echo $software_description; ?>">
                     </div>
                 </div>
 
@@ -170,7 +170,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                         </div>
-                        <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]*" name="seats" placeholder="Number of seats" value="<?php echo $software_seats; ?>">
+                        <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]*" name="seats" placeholder="<?php echo __('Number of seats'); ?>" value="<?php echo $software_seats; ?>">
                     </div>
                 </div>
 
@@ -180,7 +180,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="key" placeholder="License key" maxlength="200" value="<?php echo $software_key; ?>">
+                        <input type="text" class="form-control" name="key" placeholder="<?php echo __('License key'); ?>" maxlength="200" value="<?php echo $software_key; ?>">
                     </div>
                 </div>
 
@@ -300,7 +300,7 @@ ob_start();
 
             <div class="tab-pane fade" id="pills-notes<?php echo $software_id; ?>">
 
-                <textarea class="form-control" rows="12" placeholder="Enter some notes" name="notes"><?php echo $software_notes; ?></textarea>
+                <textarea class="form-control" rows="12" placeholder="<?php echo __('Enter some notes'); ?>" name="notes"><?php echo $software_notes; ?></textarea>
 
             </div>
 

@@ -100,7 +100,7 @@ ob_start();
 
         <div class="form-group">
             <label>Purpose <strong class="text-danger">*</strong></label>
-            <textarea rows="4" class="form-control" placeholder="Enter a purpose" name="purpose" maxlength="200" required><?php echo $trip_purpose; ?></textarea>
+            <textarea rows="4" class="form-control" placeholder="<?php echo __('Enter a purpose'); ?>" name="purpose" maxlength="200" required><?php echo $trip_purpose; ?></textarea>
         </div>
 
         <div class="form-group">

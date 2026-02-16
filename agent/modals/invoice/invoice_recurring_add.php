@@ -30,15 +30,15 @@ ob_start();
                 </div>
                 <select class="form-control select2" name="frequency" required>
                     <option value="">- Frequency -</option>
-                    <option value="month">Monthly</option>
-                    <option value="year">Yearly</option>
+                    <option value="month"><?php echo __('Monthly'); ?></option>
+                    <option value="year"><?php echo __('Yearly'); ?></option>
                 </select>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_invoice_recurring" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create Recurring Invoice</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_invoice_recurring" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create Recurring Invoice'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

@@ -288,7 +288,7 @@ ob_start();
 
             <div class="tab-pane fade" id="pills-notes">
 
-                <textarea class="form-control" rows="12" placeholder="Enter some notes" name="notes"></textarea>
+                <textarea class="form-control" rows="12" placeholder="<?php echo __('Enter some notes'); ?>" name="notes"></textarea>
 
             </div>
 

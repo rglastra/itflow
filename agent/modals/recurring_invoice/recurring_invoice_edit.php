@@ -50,8 +50,8 @@ ob_start();
                 </div>
                 <select class="form-control select2" name="frequency" required>
                     <option value="">- Frequency -</option>
-                    <option <?php if ($recurring_invoice_frequency == 'month') { echo "selected"; } ?> value="month">Monthly</option>
-                    <option <?php if ($recurring_invoice_frequency == 'year') { echo "selected"; } ?> value="year">Yearly</option>
+                    <option <?php if ($recurring_invoice_frequency == 'month') { echo "selected"; } ?> value="month"><?php echo __('Monthly'); ?></option>
+                    <option <?php if ($recurring_invoice_frequency == 'year') { echo "selected"; } ?> value="year"><?php echo __('Yearly'); ?></option>
                 </select>
             </div>
         </div>
@@ -97,7 +97,7 @@ ob_start();
         </div>
 
         <div class='form-group'>
-            <label>Discount Amount</label>
+            <label><?php echo __('Discount Amount'); ?></label>
             <div class='input-group'>
                 <div class='input-group-prepend'>
                     <span class='input-group-text'><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -125,8 +125,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_recurring_invoice" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_recurring_invoice" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

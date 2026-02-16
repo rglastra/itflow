@@ -23,7 +23,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Referral</label>
+            <label><?php echo __('Referral'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
@@ -51,7 +51,7 @@ ob_start();
 
     <div class="modal-footer">
         <button type="submit" name="bulk_edit_client_referral" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Set</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

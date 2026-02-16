@@ -68,7 +68,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Shortened Name</label>
+                    <label><?php echo __('Shortened Name'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
@@ -78,7 +78,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Industry</label>
+                    <label><?php echo __('Industry'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-briefcase"></i></span>
@@ -88,7 +88,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Referral</label>
+                    <label><?php echo __('Referral'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-link"></i></span>
@@ -113,7 +113,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Website</label>
+                    <label><?php echo __('Website'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
@@ -123,7 +123,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Tags</label>
+                    <label><?php echo __('Tags'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
@@ -153,7 +153,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-location">
 
                 <div class="form-group">
-                    <label>Address</label>
+                    <label><?php echo __('Address'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
@@ -163,7 +163,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>City</label>
+                    <label><?php echo __('City'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-city"></i></span>
@@ -173,7 +173,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>State / Province</label>
+                    <label><?php echo __('State / Province'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-flag"></i></span>
@@ -183,7 +183,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Postal Code</label>
+                    <label><?php echo __('Postal Code'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fab fa-fw fa-usps"></i></span>
@@ -193,7 +193,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Country</label>
+                    <label><?php echo __('Country'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe-americas"></i></span>
@@ -228,7 +228,7 @@ ob_start();
                     </div>
                 </div>
 
-                <label>Location Fax</label>
+                <label><?php echo __('Location Fax'); ?></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -258,7 +258,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Title</label>
+                    <label><?php echo __('Title'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-id-badge"></i></span>
@@ -287,7 +287,7 @@ ob_start();
                     </div>
                 </div>
 
-                <label>Mobile</label>
+                <label><?php echo __('Mobile'); ?></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -319,7 +319,7 @@ ob_start();
                 <div class="tab-pane fade" id="pills-billing">
 
                     <div class="form-group">
-                        <label>Hourly Rate</label>
+                        <label><?php echo __('Hourly Rate'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>
@@ -329,7 +329,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Payment Terms</label>
+                        <label><?php echo __('Payment Terms'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -343,7 +343,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Tax ID</label>
+                        <label><?php echo __('Tax ID'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-balance-scale"></i></span>

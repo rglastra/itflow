@@ -45,7 +45,7 @@ ob_start();
             </div>
         </div>
 
-        <label>Recipients</label>
+        <label><?php echo __('Recipients'); ?></label>
         <div class="form-row">
 
             <div class="col-md-3">
@@ -105,7 +105,7 @@ ob_start();
 
     <div class="modal-footer">
         <button type="submit" name="bulk_send_client_email" class="btn btn-primary text-bold"><i class="fas fa-paper-plane mr-2"></i>Send</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 
