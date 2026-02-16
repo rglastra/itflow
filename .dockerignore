@@ -1,0 +1,50 @@
+# Git and version control
+.git
+.gitignore
+.github
+
+# Docker files (don't copy these into the image)
+.dockerignore
+docker-compose.yml
+.env
+.env.example
+
+# Critical - NEVER copy config.php into the image
+# This file is managed by the persistent volume
+config.php
+
+# Node modules and dependencies
+node_modules
+
+# IDE and editor files
+.idea
+.vscode
+.DS_Store
+
+# Uploads and user data (managed by persistent volume)
+uploads/clients/*
+uploads/custom/*
+uploads/documents/*
+uploads/document_templates/*
+uploads/expenses/*
+uploads/recurring_tickets/*
+uploads/settings/*
+uploads/users/*
+uploads/tmp/*
+uploads/tickets/*
+uploads/ticket_templates/*
+
+# Cache and temporary files
+plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/HTML/*
+plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/URI/*
+plugins/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer/CSS/*
+
+# Custom directories
+admin/custom/*
+agent/custom/*
+client/custom/*
+guest/custom/*
+cron/custom/*
+scripts/custom/*
+setup/custom/*
+api/v1/custom/*

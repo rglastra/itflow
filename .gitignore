@@ -1,5 +1,10 @@
 node_modules
+
+# CRITICAL: Never commit config.php - it's managed by persistent volume
 config.php
+
+# Docker environment files (use .env.example as template)
+.env
 
 uploads/favicon.ico
 uploads/clients/*

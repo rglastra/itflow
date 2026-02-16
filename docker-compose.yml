@@ -1,0 +1,74 @@
+########################### NETWORKS
+networks:
+  wan:
+    name: wan
+    driver: bridge
+
+  itflow-db:
+    name: itflow-db
+    external: false
+
+########################### VOLUMES
+
+volumes:
+  itflow-db:
+  itflow-data:
+
+########################### ITFLOW
+services:
+  itflow:
+    platform: linux/amd64
+    hostname: itflow
+    container_name: itflow
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on: 
+      - itflow-db
+    networks:
+      - wan
+      - itflow-db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${ITFLOW_PORT:-8080}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    volumes:
+      - itflow-data:/var/itflow-data
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      ITFLOW_NAME: ${ITFLOW_NAME:-ITFlow}
+      ITFLOW_URL: ${ITFLOW_URL:-demo.itflow.org}
+      ITFLOW_HTTPS: ${ITFLOW_HTTPS:-true}
+      ITFLOW_PORT: ${ITFLOW_PORT:-8080}
+      ITFLOW_REPO_BRANCH: ${ITFLOW_REPO_BRANCH:-master}
+      ITFLOW_LOG_LEVEL: ${ITFLOW_LOG_LEVEL:-info}
+      ITFLOW_DB_HOST: ${ITFLOW_DB_HOST:-itflow-db}
+      ITFLOW_DB_PASS: ${ITFLOW_DB_PASS:?Database password required}
+
+  itflow-db:
+    hostname: itflow-db
+    container_name: itflow-db
+    image: mariadb:11.4
+    restart: always
+    networks:
+      - itflow-db
+    command: >
+      --innodb-buffer-pool-size=128M
+      --max-connections=50
+      --innodb-log-file-size=32M
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: "true"
+      MARIADB_DATABASE: ${ITFLOW_DB_NAME:-itflow}
+      MARIADB_USER: ${ITFLOW_DB_USER:-itflow}
+      MARIADB_PASSWORD: ${ITFLOW_DB_PASS:?Database password required}
+    volumes:
+      - itflow-db:/var/lib/mysql/    
