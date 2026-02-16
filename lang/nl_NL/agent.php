@@ -1105,6 +1105,34 @@ $lang['Choose the network for these interfaces or leave as None.'] = 'Kies het n
 $lang['Additional Notes'] = 'Aanvullende Notities';
 $lang['Enter any additional details or notes'] = 'Voer aanvullende details of notities in';
 $lang['Create Interfaces'] = 'Interfaces Aanmaken';
+
+// Asset Interface Add
+$lang['New Network Interface'] = 'Nieuwe Netwerk Interface';
+$lang['Details'] = 'Details';
+$lang['Notes'] = 'Notities';
+$lang['Interface Name or Port / '] = 'Interface Naam of Poort / ';
+$lang['Primary'] = 'Primair';
+$lang['interface name or port number'] = 'interface naam of poortnummer';
+$lang['Mark Interface as primary'] = 'Markeer Interface als primair';
+$lang['Short Description'] = 'Korte Beschrijving';
+$lang['MAC Address'] = 'MAC Adres';
+$lang['IP or DHCP'] = 'IP of DHCP';
+$lang['IP Address'] = 'IP Adres';
+$lang['Check to mark address as DHCP controlled'] = 'Vink aan om adres als DHCP beheerd te markeren';
+$lang['NAT IP'] = 'NAT IP';
+$lang['Nat IP'] = 'Nat IP';
+$lang['IPv6'] = 'IPv6';
+$lang['IPv6 Address'] = 'IPv6 Adres';
+$lang['Connected to'] = 'Verbonden met';
+$lang['- Select Asset and Interface -'] = '- Selecteer Asset en Interface -';
+$lang['Enter some notes'] = 'Voer enkele notities in';
+$lang['Create'] = 'Aanmaken';
+$lang['Close'] = 'Sluiten';
+
+// Asset Interface Edit
+$lang['Editing Interface:'] = 'Interface Bewerken:';
+$lang['IPv4 or DHCP'] = 'IPv4 of DHCP';
+$lang['Save'] = 'Opslaan';
 ?>
 
 

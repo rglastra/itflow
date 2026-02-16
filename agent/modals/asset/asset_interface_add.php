@@ -9,7 +9,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-ethernet mr-2"></i>New Network Interface</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-ethernet mr-2"></i><?php echo __('New Network Interface'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -23,13 +23,13 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-interface-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-interface-details"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-interface-network">Network</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-interface-network"><?php echo __('Network'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-interface-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-interface-notes"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -41,15 +41,15 @@ ob_start();
 
                 <!-- Interface Name -->
                 <div class="form-group">
-                    <label>Interface Name or Port / <span class="text-secondary">Primary</span></label>
+                    <label><?php echo __('Interface Name or Port / '); ?><span class="text-secondary"><?php echo __('Primary'); ?></span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Interface name or port number" maxlength="200" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('interface name or port number'); ?>" maxlength="200" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="primary_interface" value="1" title="Mark Interface as primary">
+                                <input type="checkbox" name="primary_interface" value="1" title="<?php echo __('Mark Interface as primary'); ?>">
                             </div>
                         </div>
                     </div>
@@ -57,13 +57,13 @@ ob_start();
 
                 <!-- Type -->
                 <div class="form-group">
-                    <label for="network">Type</label>
+                    <label for="network"><?php echo __('Type'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-plug"></i></span>
                         </div>
                         <select class="form-control select2" name="type">
-                            <option value="">- Select Type -</option>
+                            <option value=""><?php echo __('- Select Type -'); ?></option>
                             <?php foreach($interface_types_array as $interface_type) { ?>
                                 <option><?php echo $interface_type; ?></option>
                             <?php } ?>
@@ -73,7 +73,7 @@ ob_start();
 
                 <!-- Interface Description -->
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
@@ -82,7 +82,7 @@ ob_start();
                             type="text"
                             class="form-control"
                             name="description"
-                            placeholder="Short Description"
+                            placeholder="<?php echo __('Short Description'); ?>"
                             maxlength="200"
                         >
                     </div>
@@ -94,26 +94,26 @@ ob_start();
 
                 <!-- MAC Address -->
                 <div class="form-group">
-                    <label>MAC Address</label>
+                    <label><?php echo __('MAC Address'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="mac" placeholder="MAC Address" data-inputmask="'alias': 'mac'" maxlength="200" data-mask>
+                        <input type="text" class="form-control" name="mac" placeholder="<?php echo __('MAC Address'); ?>" data-inputmask="'alias': 'mac'" maxlength="200" data-mask>
                     </div>
                 </div>
 
                 <!-- IP (with optional DHCP checkbox) -->
                 <div class="form-group">
-                    <label>IP or DHCP</label>
+                    <label><?php echo __('IP or DHCP'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="ip" placeholder="IP Address" data-inputmask="'alias': 'ip'" maxlength="200" data-mask>
+                        <input type="text" class="form-control" name="ip" placeholder="<?php echo __('IP Address'); ?>" data-inputmask="'alias': 'ip'" maxlength="200" data-mask>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="dhcp" value="1" title="Check to mark address as DHCP controlled">
+                                <input type="checkbox" name="dhcp" value="1" title="<?php echo __('Check to mark address as DHCP controlled'); ?>">
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ ob_start();
 
                 <!-- NAT IP -->
                 <div class="form-group">
-                    <label>NAT IP</label>
+                    <label><?php echo __('NAT IP'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
@@ -130,7 +130,7 @@ ob_start();
                             type="text"
                             class="form-control"
                             name="nat_ip"
-                            placeholder="Nat IP"
+                            placeholder="<?php echo __('Nat IP'); ?>"
                             maxlength="200"
                             data-inputmask="'alias': 'ip'"
                             data-mask
@@ -140,24 +140,24 @@ ob_start();
 
                 <!-- IPv6 -->
                 <div class="form-group">
-                    <label>IPv6</label>
+                    <label><?php echo __('IPv6'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="ipv6" placeholder="IPv6 Address" maxlength="200">
+                        <input type="text" class="form-control" name="ipv6" placeholder="<?php echo __('IPv6 Address'); ?>" maxlength="200">
                     </div>
                 </div>
 
                 <!-- Network -->
                 <div class="form-group">
-                    <label>Network</label>
+                    <label><?php echo __('Network'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-network-wired"></i></span>
                         </div>
                         <select class="form-control select2" name="network">
-                            <option value="">- Select Network -</option>
+                            <option value=""><?php echo __('- Select Network -'); ?></option>
                             <?php
                             $sql_network_select = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_archived_at IS NULL AND network_client_id = $client_id ORDER BY network_name ASC");
                             while ($row = mysqli_fetch_assoc($sql_network_select)) {
@@ -174,13 +174,13 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Connected to</label>
+                    <label><?php echo __('Connected to'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>
                         </div>
                         <select class="form-control select2" name="connected_to">
-                            <option value="">- Select Asset and Interface -</option>
+                            <option value=""><?php echo __('- Select Asset and Interface -'); ?></option>
                             <?php
                             $sql_interfaces_select = mysqli_query($mysqli, "
                                 SELECT interface_id, interface_name, asset_name
@@ -212,7 +212,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-interface-notes">
                 <!-- Notes -->
                 <div class="form-group">
-                    <textarea class="form-control" rows="8" placeholder="Enter some notes" name="notes"></textarea>
+                    <textarea class="form-control" rows="8" placeholder="<?php echo __('Enter some notes'); ?>" name="notes"></textarea>
                 </div>
             </div>
 
@@ -221,9 +221,9 @@ ob_start();
     </div>
     <div class="modal-footer">
         <button type="submit" name="add_asset_interface" class="btn btn-primary text-bold">
-            <i class="fas fa-check mr-2"></i>Create
+            <i class="fas fa-check mr-2"></i><?php echo __('Create'); ?>
         </button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Close</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('Close'); ?></button>
     </div>
 </form>
 
