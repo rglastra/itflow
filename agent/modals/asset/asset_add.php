@@ -33,7 +33,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>New <?php if ($type) { echo $type; } ?> Asset</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo sprintf(__('New %s Asset'), $type); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -46,22 +46,22 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-asset-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-asset-details"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-asset-network">Network</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-asset-network"><?php echo __('Network'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-asset-assignment">Assignment</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-asset-assignment"><?php echo __('Assignment'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-asset-purchase">Purchase</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-asset-purchase"><?php echo __('Purchase'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-asset-login">Login</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-asset-login"><?php echo __('Login'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-asset-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-asset-notes"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -506,8 +506,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

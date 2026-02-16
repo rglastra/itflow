@@ -63,7 +63,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fa fa-fw fa-<?= $device_icon ?> mr-2'></i>Editing asset: <strong><?= $asset_name ?></strong></h5>
+    <h5 class="modal-title"><i class='fa fa-fw fa-<?= $device_icon ?> mr-2'></i><?php echo sprintf(__('Editing asset: %s'), $asset_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -77,22 +77,22 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-network">Network</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-network"><?php echo __('Network'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-assignment">Assignment</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-assignment"><?php echo __('Assignment'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-purchase">Purchase</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-purchase"><?php echo __('Purchase'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes"><?php echo __('Notes'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-history">History</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-history"><?php echo __('History'); ?></a>
             </li>
         </ul>
 
@@ -516,7 +516,7 @@ ob_start();
             <div class="tab-pane fade" id="pills-history">
 
                 <div class="form-group">
-                    <label>Asset History</label>
+                    <label><?php echo __('History'); ?></label>
                     <ul>
                         <?php
                         while ($row = mysqli_fetch_assoc($sql_asset_history)) {
@@ -535,8 +535,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

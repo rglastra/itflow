@@ -1198,6 +1198,25 @@ $lang['- Select Client -'] = '- Selecteer Klant -';
 
 // Asset edit specific
 $lang['Editing asset:'] = 'Asset bewerken:';
+
+// Asset details modal
+$lang['Network'] = 'Netwerk';
+$lang['URI 2'] = 'URI 2';
+$lang['Primary Network Interface'] = 'Primaire Netwerkinterface';
+$lang['Credentials'] = 'Inloggegevens';
+$lang['Interfaces'] = 'Interfaces';
+$lang['Files'] = 'Bestanden';
+$lang['More Details'] = 'Meer Details';
+$lang['Never'] = 'Nooit';
+$lang['Software'] = 'Software';
+$lang['Key'] = 'Sleutel';
+$lang['Seats'] = 'Licenties';
+$lang['Document Title'] = 'Documenttitel';
+$lang['By'] = 'Door';
+$lang['Created'] = 'Aangemaakt';
+$lang['Updated'] = 'Bijgewerkt';
+$lang['Uploaded'] = 'Geüpload';
+$lang['Cancel'] = 'Annuleren';
 ?>
 
 

@@ -234,41 +234,41 @@ ob_start();
 
     <ul class="nav nav-pills nav-justified mb-3">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="pill" href="#pills-asset-details<?php echo $asset_id; ?>"><i class="fas fa-fw fa-<?php echo $device_icon; ?> fa-2x"></i><br>Details</a>
+            <a class="nav-link active" data-toggle="pill" href="#pills-asset-details<?php echo $asset_id; ?>"><i class="fas fa-fw fa-<?php echo $device_icon; ?> fa-2x"></i><br><?php echo __('Details'); ?></a>
         </li>
         <?php if ($interface_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-interfaces<?php echo $asset_id; ?>"><i class="fas fa-fw fa-ethernet fa-2x"></i><br>Interfaces (<?php echo $interface_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-interfaces<?php echo $asset_id; ?>"><i class="fas fa-fw fa-ethernet fa-2x"></i><br><?php echo __('Interfaces'); ?> (<?php echo $interface_count; ?>)</a>
         </li>
         <?php } ?>
         <?php if ($credential_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-credentials<?php echo $asset_id; ?>"><i class="fas fa-fw fa-key fa-2x"></i><br>Credentials (<?php echo $credential_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-credentials<?php echo $asset_id; ?>"><i class="fas fa-fw fa-key fa-2x"></i><br><?php echo __('Credentials'); ?> (<?php echo $credential_count; ?>)</a>
         </li>
         <?php } ?>
         <?php if ($ticket_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-tickets<?php echo $asset_id; ?>"><i class="fas fa-fw fa-life-ring fa-2x"></i><br>Tickets (<?php echo $ticket_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-tickets<?php echo $asset_id; ?>"><i class="fas fa-fw fa-life-ring fa-2x"></i><br><?php echo __('Tickets'); ?> (<?php echo $ticket_count; ?>)</a>
         </li>
         <?php } ?>
         <?php if ($recurring_ticket_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-recurring-tickets<?php echo $asset_id; ?>"><i class="fas fa-fw fa-redo-alt fa-2x"></i><br>Recurring Tickets (<?php echo $recurring_ticket_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-recurring-tickets<?php echo $asset_id; ?>"><i class="fas fa-fw fa-redo-alt fa-2x"></i><br><?php echo __('Recurring Tickets'); ?> (<?php echo $recurring_ticket_count; ?>)</a>
         </li>
         <?php } ?>
          <?php if ($software_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-licenses<?php echo $asset_id; ?>"><i class="fas fa-fw fa-cube fa-2x"></i><br>Licenses (<?php echo $software_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-licenses<?php echo $asset_id; ?>"><i class="fas fa-fw fa-cube fa-2x"></i><br><?php echo __('Licenses'); ?> (<?php echo $software_count; ?>)</a>
         </li>
         <?php } ?>
         <?php if ($document_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-documents<?php echo $asset_id; ?>"><i class="fas fa-fw fa-file-alt fa-2x"></i><br>Documents (<?php echo $document_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-documents<?php echo $asset_id; ?>"><i class="fas fa-fw fa-file-alt fa-2x"></i><br><?php echo __('Documents'); ?> (<?php echo $document_count; ?>)</a>
         </li>
         <?php } ?>
         <?php if ($file_count) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-asset-files<?php echo $asset_id; ?>"><i class="fas fa-fw fa-briefcase fa-2x"></i><br>Files (<?php echo $file_count; ?>)</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-asset-files<?php echo $asset_id; ?>"><i class="fas fa-fw fa-briefcase fa-2x"></i><br><?php echo __('Files'); ?> (<?php echo $file_count; ?>)</a>
         </li>
         <?php } ?>
     </ul>
@@ -322,7 +322,7 @@ ob_start();
 
             <div class="card card-dark">
                 <div class="card-header">
-                    <h5 class="card-title">Primary Network Interface</h5>
+                    <h5 class="card-title"><?php echo __('Primary Network Interface'); ?></h5>
                 </div>
                 <div class="card-body">
                     <?php if ($asset_ip) { ?>
@@ -350,7 +350,7 @@ ob_start();
 
             <div class="card card-dark">
                 <div class="card-header">
-                    <h5 class="card-title">Assignment</h5>
+                    <h5 class="card-title"><?php echo __('Assignment'); ?></h5>
                 </div>
                 <div class="card-body">
                     <?php if ($location_name) { ?>
@@ -377,7 +377,7 @@ ob_start();
 
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h5 class="card-title">Additional Notes</h5>
+                    <h5 class="card-title"><?php echo __('Additional Notes'); ?></h5>
                 </div>
                 <textarea class="form-control" rows=6 id="assetNotes" placeholder="Enter quick notes here" onblur="updateAssetNotes(<?php echo $asset_id ?>)"><?php echo $asset_notes ?></textarea>
             </div>
@@ -407,12 +407,12 @@ ob_start();
                 <table class="table table-striped table-borderless table-hover table-sm">
                     <thead class="<?php if ($interface_count == 0) { echo "d-none"; } ?>">
                         <tr>
-                            <th>Name / Port</th>
-                            <th>Type</th>
-                            <th>MAC</th>
-                            <th>IP</th>
-                            <th>Network</th>
-                            <th>Connected To</th>
+                            <th><?php echo __('Name'); ?> / <?php echo __('Port'); ?></th>
+                            <th><?php echo __('Type'); ?></th>
+                            <th><?php echo __('MAC Address'); ?></th>
+                            <th><?php echo __('IP Address'); ?></th>
+                            <th><?php echo __('Network'); ?></th>
+                            <th><?php echo __('Connected to'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -461,7 +461,7 @@ ob_start();
                         <tr>
                             <td>
                                 <i class="fa fa-fw fa-ethernet text-secondary mr-1"></i>
-                                <?php echo $interface_name; ?> <?php if($interface_primary) { echo "<small class='text-primary'>(Primary)</small>"; } ?>
+                                <?php echo $interface_name; ?> <?php if($interface_primary) { echo "<small class='text-primary'>(" . __('Primary') . ")</small>"; } ?>
                             </td>
                             <td><?php echo $interface_type_display; ?></td>
                             <td><?php echo $interface_mac_display; ?></td>
@@ -482,11 +482,11 @@ ob_start();
                 <table class="table table-sm table-striped table-borderless table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>OTP</th>
-                        <th>URI</th>
+                        <th><?php echo __('Name'); ?></th>
+                        <th><?php echo __('Username'); ?></th>
+                        <th><?php echo __('Password'); ?></th>
+                        <th><?php echo __('OTP'); ?></th>
+                        <th><?php echo __('URI'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -578,12 +578,12 @@ ob_start();
                 <table class="table table-sm table-striped table-borderless table-hover">
                     <thead class="text-dark">
                     <tr>
-                        <th>Number</th>
-                        <th>Subject</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Assigned</th>
-                        <th>Last Response</th>
+                        <th><?php echo __('Number'); ?></th>
+                        <th><?php echo __('Subject'); ?></th>
+                        <th><?php echo __('Priority'); ?></th>
+                        <th><?php echo __('Status'); ?></th>
+                        <th><?php echo __('Assigned'); ?></th>
+                        <th><?php echo __('Last Response'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -602,9 +602,9 @@ ob_start();
                         $ticket_updated_at = nullable_htmlentities($row['ticket_updated_at']);
                         if (empty($ticket_updated_at)) {
                             if ($ticket_status_name == "Closed") {
-                                $ticket_updated_at_display = "<p>Never</p>";
+                                $ticket_updated_at_display = "<p><?php echo __('Never'); ?></p>";
                             } else {
-                                $ticket_updated_at_display = "<p class='text-danger'>Never</p>";
+                                $ticket_updated_at_display = "<p class='text-danger'><?php echo __('Never'); ?></p>";
                             }
                         } else {
                             $ticket_updated_at_display = $ticket_updated_at;
@@ -623,9 +623,9 @@ ob_start();
                         $ticket_assigned_to = intval($row['ticket_assigned_to']);
                         if (empty($ticket_assigned_to)) {
                             if ($ticket_status_id == 5) {
-                                $ticket_assigned_to_display = "<p>Not Assigned</p>";
+                                $ticket_assigned_to_display = "<p><?php echo __('Not Assigned'); ?></p>";
                             } else {
-                                $ticket_assigned_to_display = "<p class='text-danger'>Not Assigned</p>";
+                                $ticket_assigned_to_display = "<p class='text-danger'><?php echo __('Not Assigned'); ?></p>";
                             }
                         } else {
                             $ticket_assigned_to_display = nullable_htmlentities($row['user_name']);
@@ -667,10 +667,10 @@ ob_start();
                 <table class="table table-sm table-striped table-borderless table-hover">
                     <thead class="text-dark">
                     <tr>
-                        <th>Subject</th>
-                        <th>Priority</th>
-                        <th>Frequency</th>
-                        <th>Next Run</th>
+                        <th><?php echo __('Subject'); ?></th>
+                        <th><?php echo __('Priority'); ?></th>
+                        <th><?php echo __('Frequency'); ?></th>
+                        <th><?php echo __('Next Date'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -705,10 +705,10 @@ ob_start();
                 <table class="table table-striped table-borderless table-hover">
                     <thead class="text-dark">
                     <tr>
-                        <th>Software</th>
-                        <th>Type</th>
-                        <th>Key</th>
-                        <th>Seats</th>
+                        <th><?php echo __('Software'); ?></th>
+                        <th><?php echo __('Type'); ?></th>
+                        <th><?php echo __('Key'); ?></th>
+                        <th><?php echo __('Seats'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -773,10 +773,10 @@ ob_start();
                 <table class="table table-sm table-striped table-borderless table-hover">
                     <thead class="text-dark">
                     <tr>
-                        <th>Document Title</th>
-                        <th>By</th>
-                        <th>Created</th>
-                        <th>Updated</th>
+                        <th><?php echo __('Document Title'); ?></th>
+                        <th><?php echo __('By'); ?></th>
+                        <th><?php echo __('Created'); ?></th>
+                        <th><?php echo __('Updated'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -826,9 +826,9 @@ ob_start();
                 <table class="table table-sm table-striped table-borderless table-hover">
                     <thead class="text-dark">
                     <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Uploaded</th>
+                        <th><?php echo __('Name'); ?></th>
+                        <th><?php echo __('Type'); ?></th>
+                        <th><?php echo __('Uploaded'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -890,12 +890,12 @@ ob_start();
 
 <div class="modal-footer">
     <a href="asset_details.php?client_id=<?php echo $client_id; ?>&asset_id=<?php echo $asset_id; ?>"
-        class="btn btn-primary text-bold"><span class="text-white"><i class="fas fa-info-circle mr-2"></i>More Details</span>
+        class="btn btn-primary text-bold"><span class="text-white"><i class="fas fa-info-circle mr-2"></i><?php echo __('More Details'); ?></span>
     </a>
     <a href="#" class="btn btn-secondary ajax-modal" data-modal-url="modals/asset/asset_edit.php?id=<?= $asset_id ?>">
-        <span class="text-white"><i class="fas fa-edit mr-2"></i>Edit</span>
+        <span class="text-white"><i class="fas fa-edit mr-2"></i><?php echo __('Edit'); ?></span>
     </a>
-    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Close</button>
+    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Close'); ?></button>
 </div>
 
 <?php
