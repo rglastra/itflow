@@ -12,7 +12,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i>Assign Location to <strong><?= $count ?></strong> Contacts</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i><?php echo __('Assign Location to'); ?> <strong><?= $count ?></strong> <?php echo __('Contacts'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -23,13 +23,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Location</label>
+            <label><?php echo __('Location'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_location_id">
-                    <option value="">- Select Location -</option>
+                    <option value=""><?php echo __('- Select Location -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT location_id, location_name FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
@@ -47,8 +47,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_assign_contact_location" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Assign Location</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_assign_contact_location" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Assign Location'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

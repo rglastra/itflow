@@ -574,5 +574,36 @@ $lang['Creating note:'] = 'Notitie aanmaken:';
 $lang['type'] = 'type';
 $lang['Type'] = 'Type';
 $lang['notes, eg personal tidbits to spark convo, temperment, etc'] = 'notities, bijv persoonlijke details om gesprek te starten, temperament, etc';
+$lang['set roles for'] = 'rollen instellen voor';
+$lang['Set Roles for'] = 'Rollen instellen voor';
+$lang['contacts'] = 'contactpersonen';
+$lang['Contacts'] = 'Contactpersonen';
+$lang['important person and pins them to the top of the contact list'] = 'belangrijk persoon en zet ze bovenaan de contactenlijst';
+$lang['receives invoices and receipts and has access to billing via the portal'] = 'ontvangt facturen en bonnen en heeft toegang tot facturatie via de portal';
+$lang['person to contact for technical related things and has access to all tickets and documents via the portal'] = 'contactpersoon voor technische zaken en heeft toegang tot alle tickets en documenten via de portal';
+$lang['set roles'] = 'rollen instellen';
+$lang['Set Roles'] = 'Rollen instellen';
+$lang['assign location to'] = 'locatie toewijzen aan';
+$lang['Assign Location to'] = 'Locatie toewijzen aan';
+$lang['location'] = 'locatie';
+$lang['Location'] = 'Locatie';
+$lang['- select location -'] = '- selecteer locatie -';
+$lang['- Select Location -'] = '- Selecteer locatie -';
+$lang['assign location'] = 'locatie toewijzen';
+$lang['Assign Location'] = 'Locatie toewijzen';
+$lang['assign tags for'] = 'tags toewijzen voor';
+$lang['Assign Tags for'] = 'Tags toewijzen voor';
+$lang['remove existing tags'] = 'bestaande tags verwijderen';
+$lang['Remove Existing Tags'] = 'Bestaande tags verwijderen';
+$lang['tags'] = 'tags';
+$lang['Tags'] = 'Tags';
+$lang['add some tags'] = 'tags toevoegen';
+$lang['assign tags'] = 'tags toewijzen';
+$lang['Assign Tags'] = 'Tags toewijzen';
+
+// Locations
+$lang['export locations to csv'] = 'exporteer locaties naar csv';
+$lang['Export Locations to CSV'] = 'Exporteer locaties naar CSV';
 ?>
+
 

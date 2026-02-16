@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-tags mr-2"></i>Assign Tags for <strong><?= $count ?></strong> Contacts</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-tags mr-2"></i><?php echo __('Assign Tags for'); ?> <strong><?= $count ?></strong> <?php echo __('Contacts'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -25,16 +25,16 @@ ob_start();
 
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" name="bulk_remove_tags" value="1">
-            <label class="form-check-label text-danger">Remove Existing Tags</label>
+            <label class="form-check-label text-danger"><?php echo __('Remove Existing Tags'); ?></label>
         </div>
 
         <div class="form-group">
-            <label>Tags</label>
+            <label><?php echo __('Tags'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
                 </div>
-                <select class="form-control select2" name="bulk_tags[]" data-placeholder="Add some tags" multiple>
+                <select class="form-control select2" name="bulk_tags[]" data-placeholder="<?php echo __('add some tags'); ?>" multiple>
                     <?php
 
                     $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 3 ORDER BY tag_name ASC");
@@ -52,8 +52,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_assign_contact_tags" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Assign Tags</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_assign_contact_tags" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Assign Tags'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
