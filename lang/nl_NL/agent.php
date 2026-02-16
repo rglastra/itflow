@@ -1383,6 +1383,24 @@ $lang['Link License'] = 'Licentie Koppelen';
 $lang['Link Vendor to %s'] = 'Leverancier aan %s Koppelen';
 $lang['- Select a Vendor -'] = '- Selecteer een Leverancier -';
 $lang['Link Vendor'] = 'Leverancier Koppelen';
+
+// File modals
+$lang['Upload File(s)'] = 'Bestand(en) Uploaden';
+$lang['Description of the file(s)'] = 'Beschrijving van het/de bestand(en)';
+$lang['Folder'] = 'Map';
+$lang['Up to 20 files can be uploaded at once by holding down CTRL and selecting files'] = 'Tot 20 bestanden kunnen tegelijk worden geüpload door CTRL ingedrukt te houden en bestanden te selecteren';
+$lang['You can only upload up to %s files at a time and the total file size must not exceed 500MB.'] = 'U kunt tegelijk maximaal %s bestanden uploaden en de totale bestandsgrootte mag niet meer dan 500 MB bedragen.';
+$lang['Renaming file: %s'] = 'Bestand Hernoemen: %s';
+$lang['File Name'] = 'Bestandsnaam';
+$lang['Move %s Item(s)'] = '%s Item(s) Verplaatsen';
+$lang['Files: %s'] = 'Bestanden: %s';
+$lang['Documents: %s'] = 'Documenten: %s';
+$lang['Are you sure?'] = 'Weet u het zeker?';
+$lang['Do you really want to delete this file?'] = 'Wilt u dit bestand echt verwijderen?';
+$lang['Moving File: %s'] = 'Bestand Verplaatsen: %s';
+$lang['Move File to'] = 'Bestand Verplaatsen naar';
+$lang['Yes, Delete!'] = 'Ja, Verwijderen!';
+$lang['Move Files'] = 'Bestanden Verplaatsen';
 ?>
 
 

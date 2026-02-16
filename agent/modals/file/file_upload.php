@@ -11,7 +11,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-cloud-upload-alt mr-2"></i>Upload File(s)</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-cloud-upload-alt mr-2"></i><?php echo __('Upload File(s)'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -23,23 +23,23 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Description</label>
+            <label><?php echo __('Description'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                 </div>
-                <input type="text" class="form-control" name="description" maxlength="250" placeholder="Description of the file(s)">
+                <input type="text" class="form-control" name="description" maxlength="250" placeholder="<?php echo __('Description of the file(s)'); ?>">
             </div>
         </div>
 
         <div class="form-group mb-4">
-            <label>Folder</label>
+            <label><?php echo __('Folder'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
                 <select class="form-control select2" name="folder_id">
-                    <option value="0">/</option>
+                    <option value="0"><?php echo __('/'); ?></option>
                     <?php
                     // Start displaying folder options from the root (parent_folder = 0)
                     display_folder_options(0, $client_id, 1);
@@ -51,12 +51,12 @@ ob_start();
         <div class="form-group">
             <input type="file" class="form-control-file" name="file[]" multiple id="fileInput" accept=".jpg, .jpeg, .gif, .png, .webp, .pdf, .txt, .md, .doc, .docx, .odt, .csv, .xls, .xlsx, .ods, .pptx, .odp, .zip, .tar, .gz, .msg, .json, .wav, .mp3, .ogg, .mov, .mp4, .av1, .ovpn, .cfg, .ps1, .vsdx, .drawio, .pfx, .unf, .key, .stk, .bat">
         </div>
-        <small class="text-secondary">Up to 20 files can be uploaded at once by holding down CTRL and selecting files</small>
+        <small class="text-secondary"><?php echo __('Up to 20 files can be uploaded at once by holding down CTRL and selecting files'); ?></small>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="upload_files" class="btn btn-primary text-bold"><i class="fa fa-upload mr-2"></i>Upload</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="upload_files" class="btn btn-primary text-bold"><i class="fa fa-upload mr-2"></i><?php echo __('Upload'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

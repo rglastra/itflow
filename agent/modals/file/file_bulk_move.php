@@ -20,7 +20,7 @@ ob_start();
 <div class="modal-header bg-dark">
     <h5 class="modal-title">
         <i class="fa fa-fw fa-exchange-alt mr-2"></i>
-        Move <strong><?= $total ?></strong> Item<?= $total === 1 ? '' : 's' ?>
+        <?php echo sprintf(__('Move %s Item(s)'), $total); ?>
     </h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
@@ -41,18 +41,18 @@ ob_start();
     <div class="modal-body">
 
         <p>
-            Files: <strong><?= $count_files ?></strong><br>
-            Documents: <strong><?= $count_docs ?></strong>
+            <?php echo __('Files:'); ?> <strong><?= $count_files ?></strong><br>
+            <?php echo __('Documents:'); ?> <strong><?= $count_docs ?></strong>
         </p>
 
         <div class="form-group">
-            <label>Target Folder</label>
+            <label><?php echo __('Target Folder'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
                 <select class="form-control select2" name="bulk_folder_id">
-                    <option value="0">/</option>
+                    <option value="0"><?php echo __('/'); ?></option>
                     <?php
                     // NOTE: folder_location is gone now, so just use folder_client_id
                     $sql_all_folders = mysqli_query(
@@ -123,10 +123,10 @@ ob_start();
 
     <div class="modal-footer">
         <button type="submit" name="bulk_move_files" class="btn btn-primary text-bold">
-            <i class="fa fa-check mr-2"></i>Move Files
+            <i class="fa fa-check mr-2"></i><?php echo __('Move Files'); ?>
         </button>
         <button type="button" class="btn btn-light" data-dismiss="modal">
-            <i class="fa fa-times mr-2"></i>Cancel
+            <i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?>
         </button>
     </div>
 </form>

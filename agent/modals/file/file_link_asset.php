@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>Link Asset to <strong><?php echo $file_name; ?></strong></h5>
+                <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo sprintf(__('Link Asset to %s'), $file_name); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -17,7 +17,7 @@
                                 <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>
                             </div>
                             <select class="form-control select2" name="asset_id">
-                                <option value="">- Select an Asset -</option>
+                                <option value=""><?php echo __('- Select an Asset -'); ?></option>
                                 <?php
 
                                 $sql_assets_select = mysqli_query($mysqli, "SELECT * FROM assets
@@ -66,8 +66,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="link_asset_to_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+                    <button type="submit" name="link_asset_to_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link'); ?></button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
                 </div>
             </form>
         </div>

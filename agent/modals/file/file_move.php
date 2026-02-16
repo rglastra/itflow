@@ -39,7 +39,7 @@ if ($file_ext == 'pdf') {
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-<?php echo $file_icon; ?> mr-2"></i>Moving File: <strong><?php echo $file_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-<?php echo $file_icon; ?> mr-2"></i><?php echo sprintf(__('Moving File: %s'), $file_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -49,13 +49,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Move File to</label>
+            <label><?php echo __('Move File to'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-folder"></i></span>
                 </div>
                 <select class="form-control select2" name="folder_id">
-                    <option value="0">/</option>
+                    <option value="0"><?php echo __('/'); ?></option>
                     <?php
                     // Fetch all folders for the client
                     $sql_all_folders = mysqli_query($mysqli, "SELECT folder_id, folder_name, parent_folder FROM folders WHERE folder_client_id = $client_id ORDER BY folder_name ASC");
@@ -123,8 +123,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="move_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Move</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="move_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Move'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 
