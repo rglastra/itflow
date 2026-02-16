@@ -1750,4 +1750,7 @@ $lang['MX Records'] = 'MX-records';
 $lang['TXT Records'] = 'TXT-records';
 $lang['Raw WHOIS'] = 'Raw WHOIS';
 $lang['Primary Contacts'] = 'Primaire contacten';
+// Additional final translation keys
+$lang['Webhost'] = 'Webhost';
+$lang['Import'] = 'Importeren';
 ?>

@@ -44,7 +44,7 @@ ob_start();
                         </div>
                         <select class="form-control select2" name="bulk_priority" required>
                             <option>Low</option>
-                            <option>Medium</option>
+                            <option><?php echo __('Medium'); ?></option>
                             <option>High</option>
                         </select>
                     </div>
@@ -53,7 +53,7 @@ ob_start();
 
             <div class="col">
                 <div class="form-group">
-                    <label>Category</label>
+                    <label><?php echo __('Category'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-layer-group"></i></span>
@@ -108,7 +108,7 @@ ob_start();
             <div class="col">
 
                 <div class="form-group">
-                    <label>Project</label>
+                    <label><?php echo __('Project'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-project-diagram"></i></span>

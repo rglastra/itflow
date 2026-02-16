@@ -24,7 +24,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Industry</label>
+            <label><?php echo __('Industry'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-briefcase"></i></span>
