@@ -1736,7 +1736,7 @@ $lang['Income Category'] = 'Inkomsatencategorie';
 $lang['Status'] = 'Status';
 $lang['Credit Amount'] = 'Kredietbedrag';
 $lang['Select related Contacts'] = 'Selecteer gerelateerde contacten';
-?>            
+
 // Additional modals - domain, vendor, and client specific labels
 $lang['Template Base'] = 'Sjabloongronds';
 $lang['Support Hours'] = 'Ondersteuningsuren';
