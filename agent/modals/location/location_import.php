@@ -9,7 +9,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-	<h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i>Import Locations</h5>
+	<h5 class="modal-title"><i class="fa fa-fw fa-map-marker-alt mr-2"></i><?php echo __('Import Locations'); ?></h5>
 	<button type="button" class="close text-white" data-dismiss="modal">
 		<span>&times;</span>
 	</button>
@@ -18,17 +18,17 @@ ob_start();
 	<input type="hidden" name="client_id" value="<?= $client_id ?>">
 
 	<div class="modal-body">
-		<p><strong>Format csv file with headings & data:</strong><br>Name, Description, Address, City, State, Postal Code, Phone, Hours</p>
+		<p><strong><?php echo __('Format csv file with headings & data:'); ?></strong><br>Name, Description, Address, City, State, Postal Code, Phone, Hours</p>
 		<hr>
 		<div class="form-group my-4">
 			<input type="file" class="form-control-file" name="file" accept=".csv" required>
 		</div>
 		<hr>
-		<div>Download: <a class="text-bold" href="post.php?download_locations_csv_template=<?= $client_id ?>">sample csv template</a></div>
+		<div><?php echo __('Download:'); ?> <a class="text-bold" href="post.php?download_locations_csv_template=<?= $client_id ?>"><?php echo __('sample csv template'); ?></a></div>
 	</div>
 	<div class="modal-footer">
-		<button type="submit" name="import_locations_csv" class="btn btn-primary text-bold"><i class="fa fa-upload mr-2"></i>Import</button>
-		<button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+		<button type="submit" name="import_locations_csv" class="btn btn-primary text-bold"><i class="fa fa-upload mr-2"></i><?php echo __('Import'); ?></button>
+		<button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
 	</div>
 </form>
 

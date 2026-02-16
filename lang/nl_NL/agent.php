@@ -658,7 +658,21 @@ $lang['- select a file -'] = '- selecteer een bestand -';
 $lang['- Select a File -'] = '- Selecteer een bestand -';
 $lang['link'] = 'koppelen';
 $lang['Link'] = 'Koppelen';
+$lang['assign tags to'] = 'tags toewijzen aan';
+$lang['Assign Tags to'] = 'Tags toewijzen aan';
+$lang['locations'] = 'locaties';
+$lang['Locations'] = 'Locaties';
+$lang['import locations'] = 'locaties importeren';
+$lang['Import Locations'] = 'Locaties importeren';
+$lang['format csv file with headings & data:'] = 'formatteer csv-bestand met koppen & data:';
+$lang['Format csv file with headings & data:'] = 'Formatteer csv-bestand met koppen & data:';
+$lang['download:'] = 'download:';
+$lang['Download:'] = 'Download:';
+$lang['sample csv template'] = 'voorbeeld csv sjabloon';
+$lang['import'] = 'importeren';
+$lang['Import'] = 'Importeren';
 ?>
+
 
 
 
