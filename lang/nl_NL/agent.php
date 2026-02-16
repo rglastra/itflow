@@ -243,4 +243,22 @@ $lang['paid'] = 'Betaald';
 $lang['credit'] = 'Krediet';
 $lang['monthly'] = 'Maandelijks';
 $lang['hourly_rate'] = 'Uurtarief';
+
+// Dashboard Statistics
+$lang['new_leads'] = 'Nieuwe Leads';
+$lang['new_clients'] = 'Nieuwe Klanten';
+$lang['new_vendors'] = 'Nieuwe Leveranciers';
+$lang['new_contacts'] = 'Nieuwe Contacten';
+$lang['new_assets'] = 'Nieuwe Apparaten';
+$lang['active_tickets'] = 'Actieve Tickets';
+$lang['expiring_domains'] = 'Verlopende Domeinen';
+$lang['expiring_certificates'] = 'Verlopende Certificaten';
+$lang['day'] = 'Dag';
+$lang['receivables'] = 'Vorderingen';
+$lang['profit'] = 'Winst';
+$lang['monthly_recurring_income'] = 'Maandelijks Terugkerende Inkomsten';
+$lang['monthly_recurring_expense'] = 'Maandelijks Terugkerende Uitgaven';
+$lang['unbilled_ticket'] = 'Ongefactureerd Ticket';
+$lang['recurring_invoices_added'] = 'Terugkerende Facturen Toegevoegd';
+$lang['miles_traveled'] = 'Afgelegde Kilometers';
 ?>
