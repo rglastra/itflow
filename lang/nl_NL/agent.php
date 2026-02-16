@@ -1452,6 +1452,24 @@ $lang['Support Hours'] = 'Ondersteuningsuren';
 $lang['SLA'] = 'SLA';
 $lang['Code'] = 'Code';
 $lang['Not Available'] = 'Niet Beschikbaar';
+
+// Recurring Ticket modals
+$lang['New Recurring Ticket'] = 'Nieuwe Terugkerende Ticket';
+$lang['Editing Recurring Ticket: %s'] = 'Terugkerende Ticket Bewerken: %s';
+$lang['Details'] = 'Details';
+$lang['Schedule'] = 'Schema';
+$lang['Assets'] = 'Apparaten';
+$lang['Set Priority for %s Tickets'] = 'Prioriteit Instellen voor %s Tickets';
+$lang['Set Priority'] = 'Prioriteit Instellen';
+$lang['Set Category for %s Tickets'] = 'Categorie Instellen voor %s Tickets';
+$lang['- Uncategorized -'] = '- Niet Gecategoriseerd -';
+$lang['Set Category'] = 'Categorie Instellen';
+$lang['Assign Agent to %s Tickets'] = 'Agent Toewijzen aan %s Tickets';
+$lang['Agent'] = 'Agent';
+$lang['Assign Agent'] = 'Agent Toewijzen';
+$lang['Mark %s Tickets Billable'] = '%s Tickets als Factureerbaar Markeren';
+$lang['Mark Billable'] = 'Als Factureerbaar Markeren';
+$lang['Set Next Run Date for %s Tickets'] = 'Volgende Uitvoeringsdatum Instellen voor %s Tickets';
 ?>
 
 
