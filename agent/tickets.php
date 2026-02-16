@@ -177,7 +177,7 @@ $sql_categories_filter = mysqli_query(
                 <div class="card-tools">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/ticket/ticket_add_v2.php?<?= $client_url ?>" data-modal-size="lg">
-                            <i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2">New Ticket</span>
+                            <i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2"><?php echo __('New Ticket'); ?></span>
                         </button>
                         <?php if ($num_rows[0] > 0) { ?>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
@@ -202,7 +202,7 @@ $sql_categories_filter = mysqli_query(
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Tickets">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Tickets'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -213,7 +213,7 @@ $sql_categories_filter = mysqli_query(
                     <div class="col-sm-3">
                         <div class="form-group">
                             <select class="form-control select2" name="category" onchange="this.form.submit()">
-                                <option value="">- All Categories -</option>
+                                <option value=""><?php echo __('- all categories -'); ?></option>
 
                                 <?php
                                 while ($row = mysqli_fetch_assoc($sql_categories_filter)) {

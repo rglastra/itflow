@@ -517,4 +517,11 @@ $lang['Note'] = 'Notitie';
 $lang['enter a note'] = 'voer een notitie in';
 $lang['add'] = 'toevoegen';
 $lang['Add'] = 'Toevoegen';
+
+// Tickets
+$lang['new ticket'] = 'nieuw ticket';
+$lang['New Ticket'] = 'Nieuw Ticket';
+$lang['search tickets'] = 'zoek tickets';
+$lang['Search Tickets'] = 'Zoek Tickets';
+$lang['- all categories -'] = '- alle categorieën -';
 ?>
