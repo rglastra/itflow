@@ -1765,8 +1765,8 @@ $lang['Income by Category (Top 5)'] = 'Inkomsten per categorie (Top 5)';
 $lang['Expenses by Category (Top 5)'] = 'Uitgaven per categorie (Top 5)';
 $lang['Expenses by Vendor (Top 5)'] = 'Uitgaven per leverancier (Top 5)';
 $lang['Account Balances'] = 'Accountsaldi';
-$lang['Latest Income'] = 'Laatst inkomsten';
-$lang['Latest Expenses'] = 'Laatst uitgaven';
+$lang['Latest Income'] = 'Recente inkomsten';
+$lang['Latest Expenses'] = 'Recente uitgaven';
 $lang['Trip Flow'] = 'Reisschema';
 
 // Month abbreviations for charts
