@@ -1139,7 +1139,67 @@ $lang['Assign'] = 'Toewijzen';
 $lang['Send email notification'] = 'Stuur e-mailnotificatie';
 $lang['Additional Assets'] = 'Extra Assets';
 $lang['- Select Additional Assets -'] = '- Selecteer Extra Assets -';
+
+// Asset add/edit/copy modals - shared strings
+$lang['Assignment'] = 'Toewijzing';
+$lang['Purchase'] = 'Aankoop';
+$lang['Login'] = 'Inloggegevens';
+$lang['name'] = 'naam';
+$lang['Name'] = 'Naam';
+$lang['asset name or asset tag'] = 'asset naam of asset tag';
+$lang['Asset name or asset tag'] = 'Asset naam of asset tag';
+$lang['Favorite'] = 'Favoriet';
+$lang['Pin to Overview'] = 'Vastzetten op Overzicht';
+$lang['Description'] = 'Beschrijving';
+$lang['description of the asset'] = 'beschrijving van het asset';
+$lang['Type'] = 'Type';
+$lang['- Select Type -'] = '- Selecteer Type -';
+$lang['Make'] = 'Merk';
+$lang['Manufacturer'] = 'Fabrikant';
+$lang['Model'] = 'Model';
+$lang['Model Number'] = 'Modelnummer';
+$lang['Serial Number'] = 'Serienummer';
+$lang['serial number'] = 'serienummer';
+$lang['Operating System'] = 'Besturingssysteem';
+$lang['ex Windows 10 Pro'] = 'bijv. Windows 10 Pro';
+$lang['IP Address or DHCP'] = 'IP Adres of DHCP';
+$lang['NAT IP Address'] = 'NAT IP Adres';
+$lang['ex. 2001:0db8:0000:0000:0000:ff00:0042:8329'] = 'bijv. 2001:0db8:0000:0000:0000:ff00:0042:8329';
+$lang['URI http:// ftp:// ssh: etc'] = 'URI http:// ftp:// ssh: etc';
+$lang['URI http:// ftp:// ssh: etc -- viewable in Client Portal'] = 'URI http:// ftp:// ssh: etc -- zichtbaar in Klantportaal';
+$lang['Client URI'] = 'Klant URI';
+$lang['Physical location eg. Floor 2, Closet B'] = 'Fysieke locatie bijv. Verdieping 2, Kast B';
+$lang['- Select Location -'] = '- Selecteer Locatie -';
+$lang['Assign To'] = 'Toewijzen aan';
+$lang['- Select Contact -'] = '- Selecteer Contact -';
+$lang['status'] = 'status';
+$lang['Status'] = 'Status';
+$lang['Vendor'] = 'Leverancier';
+$lang['- Select Vendor -'] = '- Selecteer Leverancier -';
+$lang['Install Date'] = 'Installatiedatum';
+$lang['Purchase Reference'] = 'Aankoopreferentie';
+$lang['eg. Invoice, PO Number'] = 'bijv. Factuur, PO Nummer';
+$lang['Purchase Date'] = 'Aankoopdatum';
+$lang['Warranty Expire'] = 'Garantie Verloopt';
+$lang['Username'] = 'Gebruikersnaam';
+$lang['username'] = 'gebruikersnaam';
+$lang['Password'] = 'Wachtwoord';
+$lang['password'] = 'wachtwoord';
+$lang['Upload Photo'] = 'Upload Foto';
+$lang['Copy'] = 'Kopiëren';
+$lang['History'] = 'Geschiedenis';
+
+// Asset copy specific
+$lang['Copying asset:'] = 'Asset kopiëren:';
+
+// Asset add specific
+$lang['New %s Asset'] = 'Nieuw %s Asset';
+$lang['- Select Client -'] = '- Selecteer Klant -';
+
+// Asset edit specific
+$lang['Editing asset:'] = 'Asset bewerken:';
 ?>
+
 
 
 

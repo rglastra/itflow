@@ -46,7 +46,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fa fa-fw fa-<?php echo $device_icon; ?> mr-2'></i>Copying asset: <strong><?php echo $asset_name; ?></strong></h5>
+    <h5 class="modal-title"><i class='fa fa-fw fa-<?php echo $device_icon; ?> mr-2'></i><?php echo __('Copying asset:'); ?> <strong><?php echo $asset_name; ?></strong></h5>
     <button type="button" class="close text-light" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -59,22 +59,22 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pillsDetailsCopy<?php echo $asset_id; ?>">Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pillsDetailsCopy<?php echo $asset_id; ?>"><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsNetworkCopy<?php echo $asset_id; ?>">Network</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsNetworkCopy<?php echo $asset_id; ?>"><?php echo __('Network'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsAssignmentCopy<?php echo $asset_id; ?>">Assignment</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsAssignmentCopy<?php echo $asset_id; ?>"><?php echo __('Assignment'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsPurchaseCopy<?php echo $asset_id; ?>">Purchase</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsPurchaseCopy<?php echo $asset_id; ?>"><?php echo __('Purchase'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsLoginCopy<?php echo $asset_id; ?>">Login</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsLoginCopy<?php echo $asset_id; ?>"><?php echo __('Login'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pillsNotesCopy<?php echo $asset_id; ?>">Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pillsNotesCopy<?php echo $asset_id; ?>"><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -85,27 +85,27 @@ ob_start();
             <div class="tab-pane fade show active" id="pillsDetailsCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Name the asset" value="<?php echo $asset_name; ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('name the asset'); ?>" value="<?php echo $asset_name; ?>" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="description" placeholder="Description of the asset" value="<?php echo $asset_description; ?>">
+                        <input type="text" class="form-control" name="description" placeholder="<?php echo __('description of the asset'); ?>" value="<?php echo $asset_description; ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Type <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Type'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
@@ -121,44 +121,44 @@ ob_start();
                 <?php //Do not display Make Model or Serial if Virtual is selected
                 if ($asset_type !== 'virtual') { ?>
                     <div class="form-group">
-                        <label>Make </label>
+                        <label><?php echo __('Make'); ?> </label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="make" placeholder="Manufacturer" value="<?php echo $asset_make; ?>">
+                            <input type="text" class="form-control" name="make" placeholder="<?php echo __('Manufacturer'); ?>" value="<?php echo $asset_make; ?>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Model</label>
+                        <label><?php echo __('Model'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="model" placeholder="Model Number" value="<?php echo $asset_model; ?>">
+                            <input type="text" class="form-control" name="model" placeholder="<?php echo __('Model Number'); ?>" value="<?php echo $asset_model; ?>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Serial Number</label>
+                        <label><?php echo __('Serial Number'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-barcode"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="serial" placeholder="Serial number">
+                            <input type="text" class="form-control" name="serial" placeholder="<?php echo __('serial number'); ?>">
                         </div>
                     </div>
                 <?php } ?>
 
                 <?php if ($asset_type !== 'Phone' && $asset_type !== 'Mobile Phone' && $asset_type !== 'Tablet' && $asset_type !== 'Access Point' && $asset_type !== 'Printer' && $asset_type !== 'Camera' && $asset_type !== 'TV' && $asset_type !== 'Other') { ?>
                     <div class="form-group">
-                        <label>Operating System</label>
+                        <label><?php echo __('Operating System'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fab fa-fw fa-windows"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="os" placeholder="ex Windows 10 Pro" value="<?php echo $asset_os; ?>">
+                            <input type="text" class="form-control" name="os" placeholder="<?php echo __('ex Windows 10 Pro'); ?>" value="<?php echo $asset_os; ?>">
                         </div>
                     </div>
                 <?php } ?>
@@ -168,13 +168,13 @@ ob_start();
             <div class="tab-pane fade" id="pillsNetworkCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Network</label>
+                    <label><?php echo __('Network'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-network-wired"></i></span>
                         </div>
                         <select class="form-control select2" name="network">
-                            <option value="">- Select Network -</option>
+                            <option value=""><?php echo __('- Select Network -'); ?></option>
                             <?php
 
                             $sql_networks = mysqli_query($mysqli, "SELECT * FROM networks WHERE network_archived_at IS NULL AND network_client_id = $client_id ORDER BY network_name ASC");
@@ -192,7 +192,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>IP Address or DHCP</label>
+                    <label><?php echo __('IP Address or DHCP'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
@@ -207,7 +207,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>NAT IP</label>
+                    <label><?php echo __('NAT IP'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-random"></i></span>
@@ -217,22 +217,22 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>IPv6 Address</label>
+                    <label><?php echo __('IPv6 Address'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="ipv6" value="<?php echo $asset_ipv6; ?>" placeholder="ex. 2001:0db8:0000:0000:0000:ff00:0042:8329">
+                        <input type="text" class="form-control" name="ipv6" value="<?php echo $asset_ipv6; ?>" placeholder="<?php echo __('ex. 2001:0db8:0000:0000:0000:ff00:0042:8329'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>MAC Address</label>
+                    <label><?php echo __('MAC Address'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-ethernet"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="mac" placeholder="MAC Address" data-inputmask="'alias': 'mac'" data-mask>
+                        <input type="text" class="form-control" name="mac" placeholder="<?php echo __('MAC Address'); ?>" data-inputmask="'alias': 'mac'" data-mask>
                     </div>
                 </div>
 
@@ -242,7 +242,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="uri" placeholder="URI http:// ftp:// ssh: etc">
+                        <input type="text" class="form-control" name="uri" placeholder="<?php echo __('URI http:// ftp:// ssh: etc'); ?>">
                     </div>
                 </div>
 
@@ -252,7 +252,7 @@ ob_start();
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="uri_2" placeholder="URI http:// ftp:// ssh: etc">
+                        <input type="text" class="form-control" name="uri_2" placeholder="<?php echo __('URI http:// ftp:// ssh: etc'); ?>">
                     </div>
                 </div>
 
@@ -261,23 +261,23 @@ ob_start();
             <div class="tab-pane fade" id="pillsAssignmentCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Physical Location</label>
+                    <label><?php echo __('Physical Location'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="physical_location" placeholder="Physical location eg. Floor 2, Closet B">
+                        <input type="text" class="form-control" name="physical_location" placeholder="<?php echo __('Physical location eg. Floor 2, Closet B'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Location</label>
+                    <label><?php echo __('Location'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                         </div>
                         <select class="form-control select2" name="location">
-                            <option value="">- Select Location -</option>
+                            <option value=""><?php echo __('- Select Location -'); ?></option>
                             <?php
 
                             $sql_locations = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
@@ -293,13 +293,13 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Assign To</label>
+                    <label><?php echo __('Assign To'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                         </div>
                         <select class="form-control select2" name="contact">
-                            <option value="">- Select Contact -</option>
+                            <option value=""><?php echo __('- Select Contact -'); ?></option>
                             <?php
 
                             $sql_contacts = mysqli_query($mysqli, "SELECT * FROM contacts WHERE contact_archived_at IS NULL AND contact_client_id = $client_id ORDER BY contact_name ASC");
@@ -315,7 +315,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Status</label>
+                    <label><?php echo __('Status'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-info"></i></span>
@@ -333,13 +333,13 @@ ob_start();
             <div class="tab-pane fade" id="pillsPurchaseCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Vendor</label>
+                    <label><?php echo __('Vendor'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                         </div>
                         <select class="form-control select2" name="vendor">
-                            <option value="">- Select Vendor -</option>
+                            <option value=""><?php echo __('- Select Vendor -'); ?></option>
                             <?php
 
                             $sql_vendors = mysqli_query($mysqli, "SELECT * FROM vendors WHERE vendor_archived_at IS NULL AND vendor_client_id = $client_id ORDER BY vendor_name ASC");
@@ -355,7 +355,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Install Date</label>
+                    <label><?php echo __('Install Date'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-check"></i></span>
@@ -366,17 +366,17 @@ ob_start();
 
                 <?php if ($asset_type !== 'Virtual Machine') { ?>
                     <div class="form-group">
-                        <label>Purchase Reference</label>
+                        <label><?php echo __('Purchase Reference'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-shopping-cart"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="purchase_reference" placeholder="eg. Invoice, PO Number" value="<?php echo $asset_purchase_reference; ?>">
+                            <input type="text" class="form-control" name="purchase_reference" placeholder="<?php echo __('eg. Invoice, PO Number'); ?>" value="<?php echo $asset_purchase_reference; ?>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Purchase Date</label>
+                        <label><?php echo __('Purchase Date'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-shopping-cart"></i></span>
@@ -386,7 +386,7 @@ ob_start();
                     </div>
 
                     <div class="form-group">
-                        <label>Warranty Expire</label>
+                        <label><?php echo __('Warranty Expire'); ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-fw fa-calendar-times"></i></span>
@@ -401,22 +401,22 @@ ob_start();
             <div class="tab-pane fade" id="pillsLoginCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Username</label>
+                    <label><?php echo __('Username'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa  fa-fw fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        <input type="text" class="form-control" name="username" placeholder="<?php echo __('username'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
+                    <label><?php echo __('Password'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="password" placeholder="Password" autocomplete="off">
+                        <input type="text" class="form-control" name="password" placeholder="<?php echo __('password'); ?>" autocomplete="off">
                     </div>
                 </div>
 
@@ -425,12 +425,12 @@ ob_start();
             <div class="tab-pane fade" id="pillsNotesCopy<?php echo $asset_id; ?>">
 
                 <div class="form-group">
-                    <label>Upload Photo</label>
+                    <label><?php echo __('Upload Photo'); ?></label>
                     <input type="file" class="form-control-file" name="file">
                 </div>
 
                 <div class="form-group">
-                    <textarea class="form-control" rows="8" placeholder="Enter some notes" name="notes"><?php echo $asset_notes; ?></textarea>
+                    <textarea class="form-control" rows="8" placeholder="<?php echo __('Enter some notes'); ?>" name="notes"><?php echo $asset_notes; ?></textarea>
                 </div>
 
             </div>
@@ -438,8 +438,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Copy</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Copy'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
