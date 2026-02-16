@@ -203,26 +203,26 @@ ob_start();
                 <?php if ($config_client_portal_enable == 1) { ?>
                     <div class="authForm">
                         <div class="form-group">
-                            <label>Client Portal</label>
+                            <label><?php echo __('Client Portal'); ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-fw fa-user-circle"></i></span>
                                 </div>
                                 <select class="form-control select2 authMethod" name="auth_method">
-                                    <option value="">- No Access -</option>
-                                    <option value="local">Using Set Password</option>
-                                    <option value="azure">Using Azure Credentials</option>
+                                    <option value=""><?php echo __('- No Access -'); ?></option>
+                                    <option value="local"><?php echo __('Using Set Password'); ?></option>
+                                    <option value="azure"><?php echo __('Using Azure Credentials'); ?></option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group passwordGroup" style="display: none;">
-                            <label>Password</label>
+                            <label><?php echo __('Password'); ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" data-toggle="password" id="password" name="contact_password" placeholder="Password" autocomplete="new-password">
+                                <input type="password" class="form-control" data-toggle="password" id="password" name="contact_password" placeholder="<?php echo __('password'); ?>" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                                 </div>
@@ -236,15 +236,15 @@ ob_start();
                     </div>
                 <?php } ?>
 
-                <label>Roles:</label>
+                <label><?php echo __('Roles:'); ?></label>
                 <div class="form-row">
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactImportantCheckbox" name="contact_important" value="1">
-                                <label class="custom-control-label" for="contactImportantCheckbox">Important</label>
-                                <p class="text-secondary"><small>Pin Top</small></p>
+                                <label class="custom-control-label" for="contactImportantCheckbox"><?php echo __('Important'); ?></label>
+                                <p class="text-secondary"><small><?php echo __('Pin Top'); ?></small></p>
                             </div>
                         </div>
                     </div>
@@ -252,8 +252,8 @@ ob_start();
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactBillingCheckbox" name="contact_billing" value="1">
-                                <label class="custom-control-label" for="contactBillingCheckbox">Billing</label>
-                                <p class="text-secondary"><small>Receives Invoices</small></p>
+                                <label class="custom-control-label" for="contactBillingCheckbox"><?php echo __('Billing'); ?></label>
+                                <p class="text-secondary"><small><?php echo __('Receives Invoices'); ?></small></p>
                             </div>
                         </div>
                     </div>
@@ -261,8 +261,8 @@ ob_start();
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactTechnicalCheckbox" name="contact_technical" value="1">
-                                <label class="custom-control-label" for="contactTechnicalCheckbox">Technical</label>
-                                <p class="text-secondary"><small>Access </small></p>
+                                <label class="custom-control-label" for="contactTechnicalCheckbox"><?php echo __('Technical'); ?></label>
+                                <p class="text-secondary"><small><?php echo __('Access'); ?> </small></p>
                             </div>
                         </div>
                     </div>
@@ -274,16 +274,16 @@ ob_start();
             <div class="tab-pane fade" id="pills-notes">
 
                 <div class="form-group">
-                    <textarea class="form-control" rows="8" name="notes" placeholder="Enter some notes"></textarea>
+                    <textarea class="form-control" rows="8" name="notes" placeholder="<?php echo __('enter some notes'); ?>"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Tags</label>
+                    <label><?php echo __('Tags'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
                         </div>
-                        <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
+                        <select class="form-control select2" name="tags[]" data-placeholder="<?php echo __('add some tags'); ?>" multiple>
                             <?php
 
                             while ($row = mysqli_fetch_assoc($sql_tags_select)) {
@@ -309,8 +309,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 <!-- JavaScript to Show/Hide Password Form Group -->

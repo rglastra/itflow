@@ -28,7 +28,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-tasks mr-2"></i>Editing task</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-tasks mr-2"></i><?php echo __('Editing task'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -39,37 +39,37 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Name <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
-                <input type="text" class="form-control" name="name" placeholder="Name the task" maxlength="255" value="<?php echo $task_name; ?>" required autofocus>
+                <input type="text" class="form-control" name="name" placeholder="<?php echo __('name the task'); ?>" maxlength="255" value="<?php echo $task_name; ?>" required autofocus>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Estimated Completion Time <span class="text-secondary">(Minutes)</span></label>
+            <label><?php echo __('Estimated Completion Time'); ?> <span class="text-secondary"><?php echo __('(minutes)'); ?></span></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-clock"></i></span>
                 </div>
-                <input type="number" class="form-control" name="completion_estimate" placeholder="Estimated time to complete task in mins" value="<?php echo $task_completion_estimate; ?>">
+                <input type="number" class="form-control" name="completion_estimate" placeholder="<?php echo __('estimated time to complete task in mins'); ?>" value="<?php echo $task_completion_estimate; ?>">
             </div>
         </div>
 
         <?php if (mysqli_num_rows($sql_task_approvals) > 0) { ?>
             <hr>
             <div class="form-group">
-                <b>Task Approvals</b>
+                <b><?php echo __('Task Approvals'); ?></b>
 
                 <table class="table table-sm table-bordered" style="margin-top:10px;">
                     <thead>
                     <tr>
-                        <th>Scope</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th><?php echo __('Scope'); ?></th>
+                        <th><?php echo __('Type'); ?></th>
+                        <th><?php echo __('status'); ?></th>
+                        <th><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>

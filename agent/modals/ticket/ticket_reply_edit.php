@@ -23,7 +23,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-edit mr-2"></i>Editing Ticket Reply</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-edit mr-2"></i><?php echo __('Editing Ticket Reply'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -37,10 +37,10 @@ ob_start();
         <div class="form-group">
             <div class="btn-group btn-block btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-outline-secondary <?php if ($ticket_reply_type == 'Internal') { echo "active"; } ?>">
-                    <input type="radio" name="ticket_reply_type" value="Internal" <?php if ($ticket_reply_type == 'Internal') { echo "checked"; } ?>>Internal Note
+                    <input type="radio" name="ticket_reply_type" value="Internal" <?php if ($ticket_reply_type == 'Internal') { echo "checked"; } ?>><?php echo __('Internal Note'); ?>
                 </label>
                 <label class="btn btn-outline-secondary <?php if ($ticket_reply_type == 'Public') { echo "active"; } ?>">
-                    <input type="radio" name="ticket_reply_type" value="Public" <?php if ($ticket_reply_type == 'Public') { echo "checked"; } ?>>Public Comment
+                    <input type="radio" name="ticket_reply_type" value="Public" <?php if ($ticket_reply_type == 'Public') { echo "checked"; } ?>><?php echo __('Public Comment'); ?>
                 </label>
             </div>
         </div>
@@ -52,7 +52,7 @@ ob_start();
         <?php if (!empty($ticket_reply_time_worked)) { ?>
             <div class="col-3">
                 <div class="form-group">
-                    <label>Time worked</label>
+                    <label><?php echo __('time worked'); ?></label>
                     <input class="form-control" name="time" type="text" placeholder="HH:MM:SS" pattern="([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])" value="<?php echo $ticket_reply_time_worked_formatted; ?>" required>
                 </div>
             </div>
@@ -60,8 +60,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_ticket_reply" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_ticket_reply" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

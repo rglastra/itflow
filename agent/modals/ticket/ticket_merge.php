@@ -28,7 +28,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-clone mr-2"></i>Merge & Close <?= "$ticket_prefix$ticket_number" ?> into another ticket</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-clone mr-2"></i><?php echo sprintf(__('Merge & Close %s into another ticket'), "$ticket_prefix$ticket_number"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -38,17 +38,17 @@ ob_start();
     <div class="modal-body">
 
         <div class="alert alert-dark">
-            The current ticket <strong><?= "$ticket_prefix$ticket_number" ?></strong> will be closed once merging is complete.
+            <?php echo sprintf(__('the current ticket %s will be closed once merging is complete.'), "<strong>$ticket_prefix$ticket_number</strong>"); ?>
         </div>
 
         <div class="form-group">
-            <label>Ticket number to merge this ticket into <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Ticket number to merge this ticket into'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
                 <select class="form-control select2" name="merge_into_ticket_id" required>
-                    <option value=''>- Select a Ticket -</option>
+                    <option value=''><?php echo __('- Select a Ticket -'); ?></option>
                     <?php
                     while ($row = mysqli_fetch_assoc($sql_merge)) {
                         $ticket_id_merge = intval($row['ticket_id']);
@@ -67,12 +67,12 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Reason for merge <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Reason for merge'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-sticky-note"></i></span>
                 </div>
-                <input type="text" class="form-control" name="merge_comment" placeholder="Comments" required>
+                <input type="text" class="form-control" name="merge_comment" placeholder="<?php echo __('comments'); ?>" required>
             </div>
         </div>
 
@@ -80,15 +80,15 @@ ob_start();
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="merge_move_replies" value="1">
                 <label class="form-check-label" for="checkMoveReplies">
-                    Move notes & replies to the new parent ticket
+                    <?php echo __('move notes & replies to the new parent ticket'); ?>
                 </label>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="merge_ticket" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Merge</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="merge_ticket" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Merge'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

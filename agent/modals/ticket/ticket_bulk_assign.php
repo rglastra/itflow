@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-user-check mr-2"></i>Assign Agent to <strong><?= $count ?></strong> Tickets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-user-check mr-2"></i><?php echo sprintf(__('Assign Agent to %s Tickets'), "<strong>$count</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -24,13 +24,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Assign to</label>
+            <label><?php echo __('Assign to'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user-check"></i></span>
                 </div>
                 <select class="form-control select2" name="assign_to">
-                    <option value="0">Not Assigned</option>
+                    <option value="0"><?php echo __('Not Assigned'); ?></option>
                     <?php
                     $sql_users_select = mysqli_query($mysqli, "SELECT user_id, user_name FROM users
                         WHERE user_type = 1
@@ -51,8 +51,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_assign_ticket" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Assign</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_assign_ticket" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Assign'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

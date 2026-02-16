@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_assoc($sql_contact_tags)) {
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fas fa-user-edit mr-2'></i>Editing Contact: <strong><?php echo $contact_name; ?></strong></h5>
+    <h5 class="modal-title"><i class='fas fa-user-edit mr-2'></i><?php echo sprintf(__('Editing Contact: %s'), "<strong>$contact_name</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -59,16 +59,16 @@ ob_start();
 
         <ul class="nav nav-pills nav-justified mb-3">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $contact_id; ?>"><i class="fa fa-fw fa-id-badge mr-2"></i>Details</a>
+                <a class="nav-link active" data-toggle="pill" href="#pills-details<?php echo $contact_id; ?>"><i class="fa fa-fw fa-id-badge mr-2"></i><?php echo __('Details'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-photo<?php echo $contact_id; ?>"><i class="fa fa-fw fa-image mr-2"></i>Photo</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-photo<?php echo $contact_id; ?>"><i class="fa fa-fw fa-image mr-2"></i><?php echo __('Photo'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-access<?php echo $contact_id; ?>"><i class="fa fa-fw fa-lock mr-2"></i>Access</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-access<?php echo $contact_id; ?>"><i class="fa fa-fw fa-lock mr-2"></i><?php echo __('Access'); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $contact_id; ?>"><i class="fa fa-fw fa-edit mr-2"></i>Notes</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-notes<?php echo $contact_id; ?>"><i class="fa fa-fw fa-edit mr-2"></i><?php echo __('Notes'); ?></a>
             </li>
         </ul>
 
@@ -79,12 +79,12 @@ ob_start();
             <div class="tab-pane fade show active" id="pills-details<?php echo $contact_id; ?>">
 
                 <div class="form-group">
-                    <label>Name <strong class="text-danger">*</strong> / <span class="text-secondary">Primary Contact</span></label>
+                    <label><?php echo __('Name'); ?> <strong class="text-danger">*</strong> / <span class="text-secondary"><?php echo __('/ Primary Contact'); ?></span></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="name" placeholder="Full Name" maxlength="200" value="<?php echo $contact_name; ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="<?php echo __('full name'); ?>" maxlength="200" value="<?php echo $contact_name; ?>" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <input type="checkbox" name="contact_primary" value="1" <?php if ($contact_primary == 1) { echo "checked"; } ?>>
@@ -104,16 +104,16 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Department / Group</label>
+                    <label><?php echo __('Department / Group'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="department" placeholder="Department or group" maxlength="200" value="<?php echo $contact_department; ?>">
+                        <input type="text" class="form-control" name="department" placeholder="<?php echo __('department or group'); ?>" maxlength="200" value="<?php echo $contact_department; ?>">
                     </div>
                 </div>
 
-                <label>Phone / <span class="text-secondary">Extension</span></label>
+                <label><?php echo __('Phone / Extension'); ?></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -122,18 +122,18 @@ ob_start();
                                     <span class="input-group-text"><i class="fa fa-fw fa-phone"></i></span>
                                 </div>
                                 <input type="tel" class="form-control col-2" name="phone_country_code" value="<?php echo "$contact_phone_country_code"; ?>" placeholder="+" maxlength="4">
-                                <input type="tel" class="form-control" name="phone" value="<?php echo $contact_phone; ?>" placeholder="Phone Number" maxlength="200">
+                                <input type="tel" class="form-control" name="phone" value="<?php echo $contact_phone; ?>" placeholder="<?php echo __('phone number'); ?>" maxlength="200">
                             </div>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="extension" value="<?php echo $contact_extension; ?>" placeholder="ext." maxlength="200">
+                            <input type="text" class="form-control" name="extension" value="<?php echo $contact_extension; ?>" placeholder="<?php echo __('ext.'); ?>" maxlength="200">
                         </div>
                     </div>
                 </div>
 
-                <label>Mobile</label>
+                <label><?php echo __('Mobile'); ?></label>
                 <div class="form-row">
                     <div class="col-9">
                         <div class="form-group">
@@ -142,30 +142,30 @@ ob_start();
                                     <span class="input-group-text"><i class="fa fa-fw fa-mobile-alt"></i></span>
                                 </div>
                                 <input type="tel" class="form-control col-2" name="mobile_country_code" value="<?php echo "$contact_mobile_country_code"; ?>" placeholder="+" maxlength="4">
-                                <input type="tel" class="form-control" name="mobile" value="<?php echo $contact_mobile; ?>" placeholder="Phone Number">
+                                <input type="tel" class="form-control" name="mobile" value="<?php echo $contact_mobile; ?>" placeholder="<?php echo __('phone number'); ?>">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
+                    <label><?php echo __('Email'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
                         </div>
-                        <input type="email" class="form-control" name="email" placeholder="Email Address" maxlength="200" value="<?php echo $contact_email; ?>">
+                        <input type="email" class="form-control" name="email" placeholder="<?php echo __('email address'); ?>" maxlength="200" value="<?php echo $contact_email; ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Location</label>
+                    <label><?php echo __('Location'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                         </div>
                         <select class="form-control select2" name="location">
-                            <option value="">- Select Location -</option>
+                            <option value=""><?php echo __('- Select Location -'); ?></option>
                             <?php
 
                             $sql_locations = mysqli_query($mysqli, "SELECT * FROM locations WHERE location_id = $contact_location_id OR location_archived_at IS NULL AND location_client_id = $client_id ORDER BY location_name ASC");
@@ -193,37 +193,37 @@ ob_start();
             <div class="tab-pane fade" id="pills-access<?php echo $contact_id; ?>">
 
                 <div class="form-group">
-                    <label>Pin</label>
+                    <label><?php echo __('Pin'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="pin" placeholder="Security code or pin" maxlength="255" value="<?php echo $contact_pin; ?>">
+                        <input type="text" class="form-control" name="pin" placeholder="<?php echo __('security code or pin'); ?>" maxlength="255" value="<?php echo $contact_pin; ?>">
                     </div>
                 </div>
 
                 <?php if ($config_client_portal_enable == 1) { ?>
                     <div class="authForm">
                         <div class="form-group">
-                            <label>Client Portal</label>
+                            <label><?php echo __('Client Portal'); ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-fw fa-user-circle"></i></span>
                                 </div>
                                 <select class="form-control select2 authMethod" name="auth_method">
-                                    <option value="">- No Access -</option>
-                                    <option value="local" <?php if ($auth_method == "local") { echo "selected"; } ?>>Using Set Password</option>
-                                    <option value="azure" <?php if ($auth_method == "azure") { echo "selected"; } ?>>Using Azure Credentials</option>
+                                    <option value=""><?php echo __('- No Access -'); ?></option>
+                                    <option value="local" <?php if ($auth_method == "local") { echo "selected"; } ?>><?php echo __('Using Set Password'); ?></option>
+                                    <option value="azure" <?php if ($auth_method == "azure") { echo "selected"; } ?>><?php echo __('Using Azure Credentials'); ?></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group passwordGroup" style="display: none;">
-                            <label>Password <strong class="text-danger">*</strong></label>
+                            <label><?php echo __('Password'); ?> <strong class="text-danger">*</strong></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
                                 </div>
-                                <input type="password" class="form-control" data-toggle="password" id="password" name="contact_password" placeholder="Password" autocomplete="new-password">
+                                <input type="password" class="form-control" data-toggle="password" id="password" name="contact_password" placeholder="<?php echo __('password'); ?>" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-fw fa-eye"></i></span>
                                 </div>
@@ -238,12 +238,12 @@ ob_start();
 
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="send_email" value="1" />
-                        <label class="form-check-label">Send user e-mail with login details?</label>
+                        <label class="form-check-label"><?php echo __('send user e-mail with login details?'); ?></label>
                     </div>
 
                 <?php } ?>
 
-                <label>Roles:</label>
+                <label><?php echo __('Roles:'); ?></label>
 
                 <div class="form-row">
 
@@ -251,8 +251,8 @@ ob_start();
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactImportantCheckbox<?php echo $contact_id; ?>" name="contact_important" value="1" <?php if ($contact_important == 1) { echo "checked"; } ?>>
-                                <label class="custom-control-label" for="contactImportantCheckbox<?php echo $contact_id; ?>">Important</label>
-                                <p class="text-secondary"><small>Pin Top</small></p>
+                                <label class="custom-control-label" for="contactImportantCheckbox<?php echo $contact_id; ?>"><?php echo __('Important'); ?></label>
+                                <p class="text-secondary"><small><?php echo __('Pin Top'); ?></small></p>
                             </div>
                         </div>
                     </div>
@@ -260,8 +260,8 @@ ob_start();
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactBillingCheckbox<?php echo $contact_id; ?>" name="contact_billing" value="1" <?php if ($contact_billing == 1) { echo "checked"; } ?>>
-                                <label class="custom-control-label" for="contactBillingCheckbox<?php echo $contact_id; ?>">Billing</label>
-                                <p class="text-secondary"><small>Receives Invoices</small></p>
+                                <label class="custom-control-label" for="contactBillingCheckbox<?php echo $contact_id; ?>"><?php echo __('Billing'); ?></label>
+                                <p class="text-secondary"><small><?php echo __('Receives Invoices'); ?></small></p>
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ ob_start();
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="contactTechnicalCheckbox<?php echo $contact_id; ?>" name="contact_technical" value="1" <?php if ($contact_technical == 1) { echo "checked"; } ?>>
-                                <label class="custom-control-label" for="contactTechnicalCheckbox<?php echo $contact_id; ?>">Technical</label>
+                                <label class="custom-control-label" for="contactTechnicalCheckbox<?php echo $contact_id; ?>"><?php echo __('Technical'); ?></label>
                             </div>
                         </div>
                     </div>
@@ -300,16 +300,16 @@ ob_start();
             <div class="tab-pane fade" id="pills-notes<?php echo $contact_id; ?>">
 
                 <div class="form-group">
-                    <textarea class="form-control" rows="8" name="notes" placeholder="Notes, eg Personal tidbits to spark convo, temperment, etc"><?php echo $contact_notes; ?></textarea>
+                    <textarea class="form-control" rows="8" name="notes" placeholder="<?php echo __('notes, eg personal tidbits to spark convo, temperment, etc'); ?>"><?php echo $contact_notes; ?></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Tags</label>
+                    <label><?php echo __('Tags'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-tags"></i></span>
                         </div>
-                        <select class="form-control select2" name="tags[]" data-placeholder="Add some tags" multiple>
+                        <select class="form-control select2" name="tags[]" data-placeholder="<?php echo __('add some tags'); ?>" multiple>
                             <?php
 
                             $sql_tags_select = mysqli_query($mysqli, "SELECT * FROM tags WHERE tag_type = 3 ORDER BY tag_name ASC");
@@ -330,7 +330,7 @@ ob_start();
                     </div>
                 </div>
 
-                <p class="text-muted text-right">Contact ID: <?= $contact_id ?></p>
+                <p class="text-muted text-right"><?php echo sprintf(__('Contact ID: %s'), $contact_id); ?></p>
 
             </div>
 
@@ -338,8 +338,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_contact" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
