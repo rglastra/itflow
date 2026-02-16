@@ -402,4 +402,32 @@ $lang['sla response time'] = 'SLA Reactietijd';
 $lang['phone number'] = 'Telefoonnummer';
 $lang['Phone Number'] = 'Telefoonnummer';
 $lang['ext.'] = 'toest.';
+
+// Invoice modals
+$lang['new invoice'] = 'nieuwe factuur';
+$lang['New Invoice'] = 'Nieuwe Factuur';
+$lang['Invoice Date'] = 'Factuurdatum';
+$lang['invoice date'] = 'factuurdatum';
+$lang['Invoice Due'] = 'Vervaldatum';
+$lang['invoice due'] = 'vervaldatum';
+$lang['copying invoice'] = 'factuur kopiëren';
+$lang['Copy'] = 'Kopiëren';
+$lang['editing invoice'] = 'factuur bewerken';
+$lang['income category'] = 'inkomstencategorie';
+$lang['Income Category'] = 'Inkomstencategorie';
+$lang['discount amount'] = 'kortingsbedrag';
+$lang['Discount Amount'] = 'Kortingsbedrag';
+$lang['editing line item'] = 'regelitem bewerken';
+$lang['item'] = 'item';
+$lang['Item'] = 'Item';
+$lang['enter item name'] = 'voer itemnaam in';
+$lang['quantity'] = 'hoeveelheid';
+$lang['Quantity'] = 'Hoeveelheid';
+$lang['price'] = 'prijs';
+$lang['Price'] = 'Prijs';
+$lang['enter a description'] = 'voer een beschrijving in';
+$lang['tax'] = 'belasting';
+$lang['Tax'] = 'Belasting';
+$lang['no tax'] = 'geen belasting';
+$lang['No Tax'] = 'Geen Belasting';
 ?>

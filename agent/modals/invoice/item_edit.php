@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-edit mr-2"></i>Editing Line Item: <strong><?php echo $item_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Editing Line Item'); ?>: <strong><?php echo $item_name; ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -30,19 +30,19 @@ ob_start();
 
     <div class="modal-body">
         <div class="form-group">
-            <label>Item <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Item'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-box"></i></span>
                 </div>
-                <input type="text" class="form-control" name="name" maxlength="200" value="<?php echo $item_name; ?>" placeholder="Enter item name" required>
+                <input type="text" class="form-control" name="name" maxlength="200" value="<?php echo $item_name; ?>" placeholder="<?php echo __('enter item name'); ?>" required>
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label>Quantity <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Quantity'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-balance-scale"></i></span>
@@ -54,7 +54,7 @@ ob_start();
 
             <div class="col-sm">
                 <div class="form-group">
-                    <label>Price <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Price'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-dollar-sign"></i></span>
@@ -66,20 +66,20 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Description</label>
+            <label><?php echo __('description'); ?></label>
             <div class="input-group">
-                <textarea class="form-control" rows="5" name="description" placeholder="Enter a description"><?php echo $item_description; ?></textarea>
+                <textarea class="form-control" rows="5" name="description" placeholder="<?php echo __('enter a description'); ?>"><?php echo $item_description; ?></textarea>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Tax <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Tax'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
                 </div>
                 <select class="form-control select2" name="tax_id" required>
-                    <option value="0">No Tax</option>
+                    <option value="0"><?php echo __('No Tax'); ?></option>
                     <?php
                         $taxes_sql = mysqli_query($mysqli, "SELECT * FROM taxes WHERE (tax_archived_at > '$item_created_at' OR tax_archived_at IS NULL) ORDER BY tax_name ASC");
                         while ($row = mysqli_fetch_assoc($taxes_sql)) {
@@ -97,8 +97,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_item" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_item" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

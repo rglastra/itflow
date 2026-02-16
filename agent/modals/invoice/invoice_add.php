@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-file-invoice mr-2"></i>New Invoice</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-file-invoice mr-2"></i><?php echo __('New Invoice'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -18,12 +18,12 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Scope</label>
+            <label><?php echo __('Scope'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-comment"></i></span>
                 </div>
-                <input type="text" class="form-control" name="scope" placeholder="Quick description" maxlength="255">
+                <input type="text" class="form-control" name="scope" placeholder="<?php echo __('quick description'); ?>" maxlength="255">
             </div>
         </div>
 
@@ -32,13 +32,13 @@ ob_start();
         <?php }else{ ?>
 
             <div class="form-group">
-                <label>Client <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                     </div>
                     <select class="form-control select2" name="client" required>
-                        <option value="">- Client -</option>
+                        <option value=""><?php echo __('- client -'); ?></option>
                         <?php
                         //select unarchived clients
                         $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at IS NULL ORDER BY client_name ASC");
@@ -58,13 +58,13 @@ ob_start();
         <?php } ?>
 
         <div class="form-group">
-            <label>Category <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Category'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
                 </div>
                 <select class="form-control select2" name="category" required>
-                    <option value="">- Category -</option>
+                    <option value=""><?php echo __('- category -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM categories WHERE category_type = 'Income' AND category_archived_at IS NULL ORDER BY category_name ASC");
@@ -88,7 +88,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Invoice Date <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Invoice Date'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -98,7 +98,7 @@ ob_start();
         </div>
 
         <div class='form-group'>
-            <label>Discount Amount</label>
+            <label><?php echo __('Discount Amount'); ?></label>
             <div class='input-group'>
                 <div class='input-group-prepend'>
                     <span class='input-group-text'><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -109,8 +109,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_invoice" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_invoice" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
