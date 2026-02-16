@@ -64,7 +64,7 @@ $sql_clients = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw fa-life-ring mr-2"></i>Tickets By Client</h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo __('tickets_by_client'); ?></h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-primary d-print-none" onclick="window.print();"><i class="fas fa-fw fa-print mr-2"></i>Print</button>
             </div>
@@ -79,39 +79,39 @@ $sql_clients = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients
                     <?php } ?>
                 </select>
                 <select onchange="this.form.submit()" class="form-control" name="month">
-                    <option <?php if ($month == 1) { echo 'selected'; } ?> value="1">January</option>
-                    <option <?php if ($month == 2) { echo 'selected'; } ?> value="2">February</option>
-                    <option <?php if ($month == 3) { echo 'selected'; } ?> value="3">March</option>
-                    <option <?php if ($month == 4) { echo 'selected'; } ?> value="4">April</option>
-                    <option <?php if ($month == 5) { echo 'selected'; } ?> value="5">May</option>
-                    <option <?php if ($month == 6) { echo 'selected'; } ?> value="6">June</option>
-                    <option <?php if ($month == 7) { echo 'selected'; } ?> value="7">July</option>
-                    <option <?php if ($month == 8) { echo 'selected'; } ?> value="8">August</option>
-                    <option <?php if ($month == 9) { echo 'selected'; } ?> value="9">September</option>
-                    <option <?php if ($month == 10) { echo 'selected'; } ?> value="10">October</option>
-                    <option <?php if ($month == 11) { echo 'selected'; } ?> value="11">November</option>
-                    <option <?php if ($month == 12) { echo 'selected'; } ?> value="12">December</option>
+                    <option <?php if ($month == 1) { echo 'selected'; } ?> value="1"><?php echo __('january'); ?></option>
+                    <option <?php if ($month == 2) { echo 'selected'; } ?> value="2"><?php echo __('february'); ?></option>
+                    <option <?php if ($month == 3) { echo 'selected'; } ?> value="3"><?php echo __('march'); ?></option>
+                    <option <?php if ($month == 4) { echo 'selected'; } ?> value="4"><?php echo __('april'); ?></option>
+                    <option <?php if ($month == 5) { echo 'selected'; } ?> value="5"><?php echo __('may'); ?></option>
+                    <option <?php if ($month == 6) { echo 'selected'; } ?> value="6"><?php echo __('june'); ?></option>
+                    <option <?php if ($month == 7) { echo 'selected'; } ?> value="7"><?php echo __('july'); ?></option>
+                    <option <?php if ($month == 8) { echo 'selected'; } ?> value="8"><?php echo __('august'); ?></option>
+                    <option <?php if ($month == 9) { echo 'selected'; } ?> value="9"><?php echo __('september'); ?></option>
+                    <option <?php if ($month == 10) { echo 'selected'; } ?> value="10"><?php echo __('october'); ?></option>
+                    <option <?php if ($month == 11) { echo 'selected'; } ?> value="11"><?php echo __('november'); ?></option>
+                    <option <?php if ($month == 12) { echo 'selected'; } ?> value="12"><?php echo __('december'); ?></option>
                 </select>
             </form>
 
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i>Yearly (<?php echo $year; ?>)</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i><?php echo __('yearly'); ?> (<?php echo $year; ?>)</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Client</th>
-                                <th class="text-right">Raised</th>
-                                <th class="text-right">Priority: Low</th>
-                                <th class="text-right">Priority: Med</th>
-                                <th class="text-right">Priority: High</th>
-                                <th class="text-right">Resolved</th>
-                                <th class="text-right">Total Time worked <i>(H:M:S)</i></th>
-                                <th class="text-right">Avg time to respond</th>
-                                <th class="text-right">Avg time to resolve</th>
+                                <th><?php echo __('client'); ?></th>
+                                <th class="text-right"><?php echo __('raised'); ?></th>
+                                <th class="text-right"><?php echo __('priority_low'); ?></th>
+                                <th class="text-right"><?php echo __('priority_med'); ?></th>
+                                <th class="text-right"><?php echo __('priority_high'); ?></th>
+                                <th class="text-right"><?php echo __('resolved'); ?></th>
+                                <th class="text-right"><?php echo __('total_time_worked'); ?> <i>(H:M:S)</i></th>
+                                <th class="text-right"><?php echo __('avg_time_to_respond'); ?></th>
+                                <th class="text-right"><?php echo __('avg_time_to_resolve'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -217,22 +217,22 @@ $sql_clients = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients
 
             <div class="card card-dark mb-3">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i>Monthly (<?php echo date("F", mktime(1, 1, 1, $month, 1)) . ' ' . $year; ?>)</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-chart-area mr-2"></i><?php echo __('monthly'); ?> (<?php echo date("F", mktime(1, 1, 1, $month, 1)) . ' ' . $year; ?>)</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Client</th>
-                                <th class="text-right">Raised</th>
-                                <th class="text-right">Priority: Low</th>
-                                <th class="text-right">Priority: Med</th>
-                                <th class="text-right">Priority: High</th>
-                                <th class="text-right">Resolved</th>
-                                <th class="text-right">Total Time worked <i>(H:M:S)</i></th>
-                                <th class="text-right">Avg time to respond</th>
-                                <th class="text-right">Avg time to resolve</th>
+                                <th><?php echo __('client'); ?></th>
+                                <th class="text-right"><?php echo __('raised'); ?></th>
+                                <th class="text-right"><?php echo __('priority_low'); ?></th>
+                                <th class="text-right"><?php echo __('priority_med'); ?></th>
+                                <th class="text-right"><?php echo __('priority_high'); ?></th>
+                                <th class="text-right"><?php echo __('resolved'); ?></th>
+                                <th class="text-right"><?php echo __('total_time_worked'); ?> <i>(H:M:S)</i></th>
+                                <th class="text-right"><?php echo __('avg_time_to_respond'); ?></th>
+                                <th class="text-right"><?php echo __('avg_time_to_resolve'); ?></th>
                             </tr>
                             </thead>
                             <tbody>
