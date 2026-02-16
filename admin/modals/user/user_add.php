@@ -88,6 +88,26 @@ ob_start();
                 </div>
 
                 <div class="form-group">
+                    <label>Language</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
+                        </div>
+                        <select class="form-control select2" name="language">
+                            <option value="">Auto-detect from browser</option>
+                            <?php
+                                $available_languages = i18n_get_available_languages();
+                                foreach ($available_languages as $lang_code => $lang_name):
+                            ?>
+                                <option value="<?php echo htmlspecialchars($lang_code, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <?php echo htmlspecialchars($lang_name, ENT_QUOTES, 'UTF-8'); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>Avatar</label>
                     <input type="file" class="form-control-file" accept="image/*" name="file">
                 </div>

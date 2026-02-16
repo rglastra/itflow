@@ -64,7 +64,7 @@ function i18n_init($locale = null) {
     
     // Priority 2: Get user's preferred language from database if logged in
     if (empty($locale) && isset($session_user_id) && !empty($session_user_id)) {
-        $sql = mysqli_query($mysqli, "SELECT user_config_language FROM users WHERE user_id = $session_user_id");
+        $sql = mysqli_query($mysqli, "SELECT user_config_language FROM user_settings WHERE user_id = $session_user_id");
         if ($sql && mysqli_num_rows($sql) > 0) {
             $row = mysqli_fetch_assoc($sql);
             if (!empty($row['user_config_language'])) {
