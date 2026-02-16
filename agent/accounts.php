@@ -23,15 +23,15 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fa fa-fw fa-piggy-bank mr-2"></i>Accounts</h3>
+            <h3 class="card-title mt-2"><i class="fa fa-fw fa-piggy-bank mr-2"></i><?php echo __('Accounts'); ?></h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/account/account_add.php"><i class="fas fa-plus mr-2"></i>New Account</button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/account/account_add.php"><i class="fas fa-plus mr-2"></i><?php echo __('New Account'); ?></button>
             </div>
         </div>
         <div class="card-body">
             <form autocomplete="off">
                 <div class="input-group">
-                    <input type="search" class="form-control col-md-4" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Accounts">
+                    <input type="search" class="form-control col-md-4" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Accounts'); ?>">
                     <div class="input-group-append">
                         <button class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </div>
@@ -44,16 +44,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=account_name&order=<?php echo $disp; ?>">
-                                Name <?php if ($sort == 'account_name') { echo $order_icon; } ?>
+                                <?php echo __('Name'); ?> <?php if ($sort == 'account_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=account_currency_code&order=<?php echo $disp; ?>">
-                                Currency <?php if ($sort == 'account_currency_code') { echo $order_icon; } ?>
+                                <?php echo __('Currency'); ?> <?php if ($sort == 'account_currency_code') { echo $order_icon; } ?>
                             </a>
                         </th>
-                        <th class="text-right">Balance</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-right"><?php echo __('Balance'); ?></th>
+                        <th class="text-center"><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -98,12 +98,12 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/account/account_edit.php?id=<?= $account_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                         </a>
                                         <?php if ($balance == 0 && $account_id != $config_stripe_account) { //Cannot Archive an Account until it reaches 0 Balance and cant be selected as an online account ?>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="post.php?archive_account=<?php echo $account_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token'] ?>">
-                                                <i class="fas fa-fw fa-archive mr-2"></i>Archive
+                                                <i class="fas fa-fw fa-archive mr-2"></i><?php echo __('Archive'); ?>
                                             </a>
                                         <?php } ?>
                                     </div>

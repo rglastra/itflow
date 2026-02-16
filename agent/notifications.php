@@ -35,13 +35,13 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 <div class="card card-dark">
     <div class="card-header py-2">
         <h3 class="card-title mt-2">
-            <i class="fas fa-fw fa-bell mr-2"></i><?php if($dismissed_filter) { echo "Dismissed "; } ?>Notifications
+            <i class="fas fa-fw fa-bell mr-2"></i><?php if($dismissed_filter) { echo __('Dismissed') . " "; } ?><?php echo __('Notifications'); ?>
         </h3>
         <div class="card-tools">
             <?php if($dismissed_filter) { ?>
-            <a href="notifications.php" class="btn btn-primary"><i class="fas fa-fw fa-history mr-2"></i>Dismissed</a>
+            <a href="notifications.php" class="btn btn-primary"><i class="fas fa-fw fa-history mr-2"></i><?php echo __('Dismissed'); ?></a>
             <?php } else { ?>
-            <a href="notifications.php?dismissed" class="btn btn-outline-secondary"><i class="fas fa-fw fa-history mr-2"></i>Dismissed</a>
+            <a href="notifications.php?dismissed" class="btn btn-outline-secondary"><i class="fas fa-fw fa-history mr-2"></i><?php echo __('Dismissed'); ?></a>
             <?php } ?>
         </div>
     </div>
@@ -53,7 +53,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
             <div class="row">
                 <div class="col-sm-4">
                     <div class="input-group">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search <?php if($dismissed_filter) { echo "Dismissed "; } ?>Notifications">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search'); ?> <?php if($dismissed_filter) { echo __('Dismissed') . " "; } ?><?php echo __('Notifications'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-primary text-strong"><i class="fa fa-search"></i></button>
                             <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
@@ -69,13 +69,13 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label>Date From</label>
+                            <label><?php echo __('Date From'); ?></label>
                             <input type="date" class="form-control" name="dtf" max="2999-12-31" value="<?php echo nullable_htmlentities($dtf); ?>">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label>Date To</label>
+                            <label><?php echo __('Date To'); ?></label>
                             <input type="date" class="form-control" name="dtt" max="2999-12-31" value="<?php echo nullable_htmlentities($dtt); ?>">
                         </div>
                     </div>
@@ -88,23 +88,23 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tr>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=notification_timestamp&order=<?php echo $disp; ?>">
-                            Timestamp <?php if ($sort == 'notification_timestamp') { echo $order_icon; } ?>
+                            <?php echo __('Timestamp'); ?> <?php if ($sort == 'notification_timestamp') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=notification_type&order=<?php echo $disp; ?>">
-                            Type <?php if ($sort == 'notification_type') { echo $order_icon; } ?>
+                            <?php echo __('Type'); ?> <?php if ($sort == 'notification_type') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=notification&order=<?php echo $disp; ?>">
-                            Notification <?php if ($sort == 'notification') { echo $order_icon; } ?>
+                            <?php echo __('Notification'); ?> <?php if ($sort == 'notification') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <?php if($dismissed_filter) { ?>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=notification_dismissed_at&order=<?php echo $disp; ?>">
-                            Dismissed At <?php if ($sort == 'notification_dismissed_at') { echo $order_icon; } ?>
+                            <?php echo __('Dismissed At'); ?> <?php if ($sort == 'notification_dismissed_at') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <?php } ?>
@@ -112,7 +112,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <th class="text-center p-0">
                         <?php if (mysqli_num_rows($sql) > 0) { ?>
                         <a href="post.php?dismiss_all_notifications&csrf_token=<?php echo $_SESSION["csrf_token"]; ?>" 
-                            class="btn btn-sm btn-dark mb-2" title="Dismiss All">
+                            class="btn btn-sm btn-dark mb-2" title="<?php echo __('Dismiss All'); ?>">
                             <i class="fas fa-fw fa-check-double"></i>
                         </a>
                         <?php } ?>

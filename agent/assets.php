@@ -161,27 +161,27 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
     <div class="btn-toolbar">
         <div class="btn-group btn-block">
             <?php if($all_count) { ?>
-            <a href="?<?php echo $url_query_strings_sort; ?>&type=" class="btn <?php if ($_GET['type'] == 'all' || empty($_GET['type'])) { echo 'btn-primary'; } else { echo 'btn-default'; } ?>">All Assets<span class="right badge badge-light ml-2"><?php echo $all_count; ?></span></a>
+            <a href="?<?php echo $url_query_strings_sort; ?>&type=" class="btn <?php if ($_GET['type'] == 'all' || empty($_GET['type'])) { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><?php echo __('all_assets'); ?><span class="right badge badge-light ml-2"><?php echo $all_count; ?></span></a>
             <?php } ?>
             <?php
             if ($workstation_count > 0) { ?>
-                <a href="?<?php echo $url_query_strings_sort; ?>&type=workstation" class="btn <?php if ($_GET['type'] == 'workstation') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-desktop mr-2"></i>Workstations<span class="right badge badge-light ml-2"><?php echo $workstation_count; ?></span></a>
+                <a href="?<?php echo $url_query_strings_sort; ?>&type=workstation" class="btn <?php if ($_GET['type'] == 'workstation') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo __('workstations'); ?><span class="right badge badge-light ml-2"><?php echo $workstation_count; ?></span></a>
                 <?php
             }
             if ($server_count > 0) { ?>
-                <a href="?<?php echo $url_query_strings_sort; ?>&type=server" class="btn <?php if ($_GET['type'] == 'server') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-server mr-2"></i>Servers<span class="right badge badge-light ml-2"><?php echo $server_count; ?></span></a>
+                <a href="?<?php echo $url_query_strings_sort; ?>&type=server" class="btn <?php if ($_GET['type'] == 'server') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-server mr-2"></i><?php echo __('servers'); ?><span class="right badge badge-light ml-2"><?php echo $server_count; ?></span></a>
                 <?php
             }
             if ($virtual_count > 0) { ?>
-                <a href="?<?php echo $url_query_strings_sort; ?>&type=virtual" class="btn <?php if ($_GET['type'] == 'virtual') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-cloud mr-2"></i>Virtual<span class="right badge badge-light ml-2"><?php echo $virtual_count; ?></span></a>
+                <a href="?<?php echo $url_query_strings_sort; ?>&type=virtual" class="btn <?php if ($_GET['type'] == 'virtual') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-cloud mr-2"></i><?php echo __('virtual'); ?><span class="right badge badge-light ml-2"><?php echo $virtual_count; ?></span></a>
                 <?php
             }
             if ($network_count > 0) { ?>
-                <a href="?<?php echo $url_query_strings_sort; ?>&type=network" class="btn <?php if ($_GET['type'] == 'network') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-network-wired mr-2"></i>Network<span class="right badge badge-light ml-2"><?php echo $network_count; ?></span></a>
+                <a href="?<?php echo $url_query_strings_sort; ?>&type=network" class="btn <?php if ($_GET['type'] == 'network') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-network-wired mr-2"></i><?php echo __('network'); ?><span class="right badge badge-light ml-2"><?php echo $network_count; ?></span></a>
                 <?php
             }
             if ($other_count > 0) { ?>
-                <a href="?<?php echo $url_query_strings_sort; ?>&type=other" class="btn <?php if ($_GET['type'] == 'other') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-tag mr-2"></i>Other<span class="right badge badge-light ml-2"><?php echo $other_count; ?></span></a>
+                <a href="?<?php echo $url_query_strings_sort; ?>&type=other" class="btn <?php if ($_GET['type'] == 'other') { echo 'btn-primary'; } else { echo 'btn-default'; } ?>"><i class="fa fa-fw fa-tag mr-2"></i><?php echo __('other'); ?><span class="right badge badge-light ml-2"><?php echo $other_count; ?></span></a>
                 <?php
             } ?>
         </div>
@@ -190,7 +190,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-desktop mr-2"></i>Assets</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-desktop mr-2"></i><?php echo __('assets'); ?></h3>
         <div class="card-tools">
             <?php if (lookupUserPermission("module_support") >= 2) { ?>
             <div class="btn-group">
@@ -202,7 +202,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <?php if ($client_url) { ?>
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                         data-modal-url="modals/asset/asset_import.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-upload mr-2"></i>Import
+                        <i class="fa fa-fw fa-upload mr-2"></i><?php echo __('import'); ?>
                     </a>
                     <div class="dropdown-divider"></div>
                     <?php } ?>
@@ -210,7 +210,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/asset/asset_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     <?php } ?>
                 </div>
@@ -238,7 +238,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="location" onchange="this.form.submit()">
-                            <option value="">- All Locations -</option>
+                            <option value=""><?php echo __('all_locations'); ?></option>
 
                             <?php
                             $sql_locations_filter = mysqli_query($mysqli, "
@@ -264,7 +264,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="client" onchange="this.form.submit()">
-                            <option value="" <?php if ($client == "") { echo "selected"; } ?>>- All Clients -</option>
+                            <option value="" <?php if ($client == "") { echo "selected"; } ?>><?php echo __('all_clients'); ?></option>
 
                             <?php
                             $sql_clients_filter = mysqli_query($mysqli, "
@@ -290,7 +290,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <?php } ?>
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
-                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="- Select Tags -" multiple>
+                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="<?php echo __('select_tags'); ?>" multiple>
 
                             <?php
                             $sql_tags_filter = mysqli_query($mysqli, "
@@ -315,7 +315,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <select onchange="this.form.submit()" class="form-control select2" name="show_column[]" data-placeholder="- Show Additional Columns -" multiple>
+                        <select onchange="this.form.submit()" class="form-control select2" name="show_column[]" data-placeholder="<?php echo __('show_additional_columns'); ?>" multiple>
                             <option
                                 <?php if (isset($_GET['show_column']) && is_array($_GET['show_column']) && in_array('Mac_Address', $_GET['show_column'])) { echo 'selected'; } ?>>Mac_Address
                             </option>
@@ -338,56 +338,56 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <a href="?<?php echo $client_url; ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                            <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                            <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                         </a>
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount"></span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount"></span>)
                             </button>
                             <div class="dropdown-menu">
                                 <?php if ($client_url) { ?>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_contact.php?<?= $client_url ?>"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-user mr-2"></i>Assign Contact
+                                    <i class="fas fa-fw fa-user mr-2"></i><?php echo __('assign_contact'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_location.php?<?= $client_url ?>"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-map-marker-alt mr-2"></i>Assign Location
+                                    <i class="fas fa-fw fa-map-marker-alt mr-2"></i><?php echo __('assign_location'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <?php } ?>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_tags.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-tags mr-2"></i>Assign Tags
+                                    <i class="fas fa-fw fa-tags mr-2"></i><?php echo __('assign_tags'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_assign_physical_location.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-map-marker-alt mr-2"></i>Set Physical Location
+                                    <i class="fas fa-fw fa-map-marker-alt mr-2"></i><?php echo __('set_physical_location'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_edit_status.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-info mr-2"></i>Set Status
+                                    <i class="fas fa-fw fa-info mr-2"></i><?php echo __('set_status'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_add_ticket.php"
                                     data-modal-size="lg"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-life-ring mr-2"></i>Create Tickets
+                                    <i class="fas fa-fw fa-life-ring mr-2"></i><?php echo __('create_tickets'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#"
                                     data-modal-url="modals/asset/asset_bulk_transfer_client.php?<?= $client_url ?>"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-arrow-right mr-2"></i>Transfer to Client
+                                    <i class="fas fa-fw fa-arrow-right mr-2"></i><?php echo __('transfer_to_client'); ?>
                                 </a>
                                 <?php if ($archived) { ?>
                                     <div class="dropdown-divider"></div>
@@ -435,19 +435,19 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         <?php if ($_GET['type'] !== 'virtual' && $_GET['type'] !== 'server') { ?>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=asset_type&order=<?php echo $disp; ?>">
-                                    Type <?php if ($sort == 'asset_type') { echo $order_icon; } ?>
+                                    <?php echo __('type'); ?> <?php if ($sort == 'asset_type') { echo $order_icon; } ?>
                                 </a>
                             </th>
                         <?php } ?>
                         <?php if ($_GET['type'] !== 'virtual') { ?>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=asset_make&order=<?php echo $disp; ?>">
-                                    Model <?php if ($sort == 'asset_make') { echo $order_icon; } ?>
+                                    <?php echo __('model'); ?> <?php if ($sort == 'asset_make') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=asset_serial&order=<?php echo $disp; ?>">
-                                    Serial <?php if ($sort == 'asset_serial') { echo $order_icon; } ?>
+                                    <?php echo __('serial'); ?> <?php if ($sort == 'asset_serial') { echo $order_icon; } ?>
                                 </a>
                             </th>
                         <?php } ?>
@@ -496,28 +496,28 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         <?php if ($_GET['type'] !== 'network' && $_GET['type'] !== 'server' && $_GET['type'] !== 'other') { ?>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=contact_name&order=<?php echo $disp; ?>">
-                                    Assigned To <?php if ($sort == 'contact_name') { echo $order_icon; } ?>
+                                <?php echo __('assigned_to'); ?> <?php if ($sort == 'contact_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                         <?php } ?>
                         <th>
                             <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=location_name&order=<?php echo $disp; ?>">
-                                Location <?php if ($sort == 'location_name') { echo $order_icon; } ?>
+                                <?php echo __('location'); ?> <?php if ($sort == 'location_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=asset_status&order=<?php echo $disp; ?>">
-                                Status <?php if ($sort == 'asset_status') { echo $order_icon; } ?>
+                                <?php echo __('status'); ?> <?php if ($sort == 'asset_status') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php if (!$client_url) { ?>
                         <th>
                             <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                <?php echo __('client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('action'); ?></th>
                     </tr>
 
                     </thead>
@@ -748,10 +748,10 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/asset/asset_edit.php?id=<?= $asset_id ?>">
-                                                <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                                <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                             </a>
                                             <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/asset/asset_copy.php?id=<?= $asset_id ?>">
-                                                <i class="fas fa-fw fa-copy mr-2"></i>Copy
+                                                <i class="fas fa-fw fa-copy mr-2"></i><?php echo __('copy'); ?>
                                             </a>
                                             <?php if ($session_user_role > 2) { ?>
                                                 <?php if ($asset_archived_at) { ?>

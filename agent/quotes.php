@@ -36,17 +36,17 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-comment-dollar mr-2"></i>Quotes</h3>
+        <h3 class="card-title mt-2"><i class="fa fa-comment-dollar mr-2"></i><?php echo __('Quotes'); ?></h3>
         <div class="card-tools">
         <?php if (lookupUserPermission("module_sales") >= 2) { ?>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/quote/quote_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i>New Quote</button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/quote/quote_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i><?php echo __('New Quote'); ?></button>
                 <?php if ($num_rows[0] > 0) { ?>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/quote/quote_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('Export'); ?>
                         </a>
                     </div>
                 <?php } ?>
@@ -63,7 +63,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
             <div class="row">
                 <div class="col-sm-4">
                     <div class="input-group">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Quotes">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Quotes'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                             <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -80,7 +80,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Date range</label>
+                            <label><?php echo __('Date range'); ?></label>
                             <input type="text" id="dateFilter" class="form-control" autocomplete="off">
                             <input type="hidden" name="canned_date" id="canned_date" value="<?php echo nullable_htmlentities($_GET['canned_date']) ?? ''; ?>">
                             <input type="hidden" name="dtf" id="dtf" value="<?php echo nullable_htmlentities($dtf ?? ''); ?>">
@@ -97,47 +97,47 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <tr>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_number&order=<?php echo $disp; ?>">
-                            Number <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
+                            <?php echo __('Number'); ?> <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_scope&order=<?php echo $disp; ?>">
-                            Scope <?php if ($sort == 'quote_scope') { echo $order_icon; } ?>
+                            <?php echo __('Scope'); ?> <?php if ($sort == 'quote_scope') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <?php if (!$client_url) { ?>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                            Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                            <?php echo __('Client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <?php } ?>
                     <th class="text-right">
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_amount&order=<?php echo $disp; ?>">
-                            Amount <?php if ($sort == 'quote_amount') { echo $order_icon; } ?>
+                            <?php echo __('Amount'); ?> <?php if ($sort == 'quote_amount') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_date&order=<?php echo $disp; ?>">
-                            Date <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
+                            <?php echo __('Date'); ?> <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_expire&order=<?php echo $disp; ?>">
-                            Expire <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
+                            <?php echo __('Expire'); ?> <?php if ($sort == 'quote_number') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=category_name&order=<?php echo $disp; ?>">
-                            Category <?php if ($sort == 'category_name') { echo $order_icon; } ?>
+                            <?php echo __('Category'); ?> <?php if ($sort == 'category_name') { echo $order_icon; } ?>
                         </a>
                     </th>
                     <th>
                         <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=quote_status&order=<?php echo $disp; ?>">
-                            Status <?php if ($sort == 'quote_status') { echo $order_icon; } ?>
+                            <?php echo __('Status'); ?> <?php if ($sort == 'quote_status') { echo $order_icon; } ?>
                         </a>
                     </th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center"><?php echo __('Action'); ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -215,23 +215,23 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item ajax-modal" href="#"
                                         data-modal-url="modals/quote/quote_edit.php?id=<?= $quote_id ?>">
-                                        <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                        <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                     </a>
                                     <?php if (lookupUserPermission("module_sales") >= 2) { ?>
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/quote/quote_copy.php?id=<?= $quote_id ?>">
-                                            <i class="fas fa-fw fa-copy mr-2"></i>Copy
+                                            <i class="fas fa-fw fa-copy mr-2"></i><?php echo __('Copy'); ?>
                                         </a>
                                         <?php if (!empty($config_smtp_host)) { ?>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="post.php?email_quote=<?php echo $quote_id; ?>">
-                                                <i class="fas fa-fw fa-paper-plane mr-2"></i>Email
+                                                <i class="fas fa-fw fa-paper-plane mr-2"></i><?php echo __('Email'); ?>
                                             </a>
                                         <?php } ?>
                                         <?php if (lookupUserPermission("module_sales") >= 3) { ?>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_quote=<?php echo $quote_id; ?>">
-                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                             </a>
                                         <?php } ?>
                                     <?php } ?>

@@ -51,10 +51,10 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-project-diagram mr-2"></i>Projects</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-project-diagram mr-2"></i><?php echo __('projects'); ?></h3>
         <?php if (lookupUserPermission("module_support") >= 2) { ?>
             <div class="card-tools">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/project/project_add.php?<?= $client_url ?>"><i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2">New Project</span></button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/project/project_add.php?<?= $client_url ?>"><i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2"><?php echo __('new_project'); ?></span></button>
             </div>
         <?php } ?>
     </div>
@@ -69,7 +69,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
             <div class="row">
                 <div class="col-sm-4">
                     <div class="input-group mb-3 mb-sm-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="Search Projects">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="<?php echo __('search_projects'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedFilter"><i class="fas fa-filter"></i></button>
                             <button class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -79,14 +79,14 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-8">
                     <div class="btn-toolbar float-right">
                         <div class="btn-group mr-2">
-                            <a href="?<?php echo $client_url; ?>status=0" class="btn btn-<?php if ($status == 0){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-door-open mr-2"></i>Open</a>
-                            <a href="?<?php echo $client_url; ?>status=1" class="btn btn-<?php if ($status == 1){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-door-closed mr-2"></i>Closed</a>
+                            <a href="?<?php echo $client_url; ?>status=0" class="btn btn-<?php if ($status == 0){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-door-open mr-2"></i><?php echo __('open'); ?></a>
+                            <a href="?<?php echo $client_url; ?>status=1" class="btn btn-<?php if ($status == 1){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-door-closed mr-2"></i><?php echo __('closed'); ?></a>
                         </div>
 
                         <div class="btn-group">
                             <a href="?<?php echo $url_query_strings_sort ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                                class="btn btn-<?php if ($archived == 1) { echo "primary"; } else { echo "default"; } ?>">
-                                <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                                <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                             </a>
                         </div>
 
@@ -275,7 +275,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <?php if (empty($project_completed_at)) { ?>
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url = "modals/project/project_edit.php?id=<?= $project_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                         </a>
                                     <?php } ?>
                                     <?php if (!empty($project_completed_at) && lookupUserPermission("module_support" >= 2)) { ?>

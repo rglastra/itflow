@@ -34,24 +34,24 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 <div class="card card-dark">
     <div class="card-header py-2">
         <h3 class="card-title mt-2">
-            <i class="fas fa-fw fa-building mr-2"></i>Vendors
+            <i class="fas fa-fw fa-building mr-2"></i><?php echo __('vendors'); ?>
         </h3>
         <div class="card-tools">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/vendor/vendor_add.php?<?= $client_url ?>">
-                    <i class="fas fa-plus mr-2"></i>New Vendor
+                    <i class="fas fa-plus mr-2"></i><?php echo __('new_vendor'); ?>
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                         data-modal-url="modals/vendor/vendor_add_from_template.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-puzzle-piece mr-2"></i>Create from Template
+                        <i class="fa fa-fw fa-puzzle-piece mr-2"></i><?php echo __('create_from_template'); ?>
                     </a>
                     <?php if ($num_rows[0] > 0) { ?>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/vendor/vendor_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     <?php } ?>
                 </div>
@@ -68,7 +68,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-4">
                     <div class="input-group mb-3 mb-md-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Vendors">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('search_vendors'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                         </div>
@@ -79,11 +79,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <a href="?<?php echo "$client_url"; ?>archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                            <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                            <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                         </a>
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <?php if ($archived) { ?>
@@ -143,7 +143,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </a>
                         </th>
                         <th></th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -242,7 +242,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/vendor/vendor_edit.php?id=<?= $vendor_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                         </a>
                                         <?php if ($session_user_role == 3) { ?>
                                             <?php if ($vendor_archived_at) { ?>

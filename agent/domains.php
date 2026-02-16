@@ -73,16 +73,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-fw fa-globe mr-2"></i>Domains</h3>
+        <h3 class="card-title mt-2"><i class="fa fa-fw fa-globe mr-2"></i><?php echo __('domains'); ?></h3>
         <div class="card-tools">
             <div class="btn-group">
-                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/domain/domain_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i>New Domain</button>
+                <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/domain/domain_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i><?php echo __('new_domain'); ?></button>
                 <?php if ($num_rows[0] > 0) { ?>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-dark ajax-modal" href="#"
                             data-modal-url="modals/domain/domain_export.php?<?= $client_url ?>">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     </div>
                 <?php } ?>
@@ -99,7 +99,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
             <div class="row">
                 <div class="col-md-4">
                     <div class="input-group mb-3 mb-md-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Domains">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('search_domains'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                         </div>
@@ -112,7 +112,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="client" onchange="this.form.submit()">
-                            <option value="" <?php if ($client == "") { echo "selected"; } ?>>- All Clients -</option>
+                            <option value="" <?php if ($client == "") { echo "selected"; } ?>><?php echo __('all_clients'); ?></option>
 
                             <?php
                                 $sql_clients_filter = mysqli_query($mysqli, "
@@ -141,11 +141,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <a href="?<?php echo $client_url; ?>archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                            <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                            <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                         </a>
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <?php if ($archived) { ?>
@@ -224,7 +224,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -325,7 +325,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-size="lg"
                                             data-modal-url="modals/domain/domain_edit.php?<?= $client_url ?>&id=<?= $domain_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                         </a>
                                         <?php if ($session_user_role == 3) { ?>
                                             <?php if ($domain_archived_at) { ?>

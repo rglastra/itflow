@@ -47,10 +47,10 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 ?>
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fa fa-fw fa-stream mr-2"></i>Services</h3>
+            <h3 class="card-title mt-2"><i class="fa fa-fw fa-stream mr-2"></i><?php echo __('Services'); ?></h3>
             <div class="card-tools">
                 <?php if (lookupUserPermission("module_support") >= 2) { ?>
-                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/service/service_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i>New Service</button>
+                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/service/service_add.php?<?= $client_url ?>"><i class="fas fa-plus mr-2"></i><?php echo __('New Service'); ?></button>
                 <?php } ?>
             </div>
         </div>
@@ -64,7 +64,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group mb-3 mb-md-0">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Services">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Services'); ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                             </div>
@@ -77,7 +77,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="col-md-2">
                         <div class="input-group">
                             <select class="form-control select2" name="client" onchange="this.form.submit()">
-                                <option value="" <?php if ($client == "") { echo "selected"; } ?>>- All Clients -</option>
+                                <option value="" <?php if ($client == "") { echo "selected"; } ?>>- <?php echo __('All Clients'); ?> -</option>
 
                                 <?php
                                 $sql_clients_filter = mysqli_query($mysqli, "
@@ -116,32 +116,32 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <tr>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=service_name&order=<?php echo $disp; ?>">
-                                Name <?php if ($sort == 'service_name') { echo $order_icon; } ?>
+                                <?php echo __('Name'); ?> <?php if ($sort == 'service_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=service_category&order=<?php echo $disp; ?>">
-                                Category <?php if ($sort == 'service_category') { echo $order_icon; } ?>
+                                <?php echo __('Category'); ?> <?php if ($sort == 'service_category') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=service_importance&order=<?php echo $disp; ?>">
-                                Importance <?php if ($sort == 'service_importance') { echo $order_icon; } ?>
+                                <?php echo __('Importance'); ?> <?php if ($sort == 'service_importance') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=service_updated_at&order=<?php echo $disp; ?>">
-                                Updated <?php if ($sort == 'service_updated_at') { echo $order_icon; } ?>
+                                <?php echo __('Updated'); ?> <?php if ($sort == 'service_updated_at') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php if (!$client_url) { ?>
                         <th>
                             <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                <?php echo __('Client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('Action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -195,12 +195,12 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#"
                                             data-modal-url="modals/service/service_edit.php?id=<?= $service_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                         </a>
                                         <?php if (lookupUserPermission("module_support") >= 3) { ?>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_service=<?php echo $service_id; ?>&csrf_token=<?php echo $_SESSION['csrf_token']; ?>">
-                                                <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                             </a>
                                         <?php } ?>
                                     </div>

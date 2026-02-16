@@ -87,11 +87,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fa fa-fw fa-address-book mr-2"></i>Contacts</h3>
+        <h3 class="card-title mt-2"><i class="fa fa-fw fa-address-book mr-2"></i><?php echo __('contacts'); ?></h3>
         <div class="card-tools">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/contact/contact_add.php?client_id=<?= $client_id ?>">
-                    <i class="fas fa-plus mr-2"></i>New Contact
+                    <i class="fas fa-plus mr-2"></i><?php echo __('new_contact'); ?>
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                 <div class="dropdown-menu">
@@ -100,13 +100,13 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 <!--                    <div class="dropdown-divider"></div>-->
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                         data-modal-url="modals/contact/contact_import.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-upload mr-2"></i>Import
+                        <i class="fa fa-fw fa-upload mr-2"></i><?php echo __('import'); ?>
                     </a>
                     <div class="dropdown-divider"></div>
                     <?php } ?>
                     <a class="dropdown-item text-dark ajax-modal" href="#"
                         data-modal-url="modals/contact/contact_export.php?<?= $client_url ?>">
-                        <i class="fa fa-fw fa-download mr-2"></i>Export
+                        <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                     </a>
                 </div>
             </div>
@@ -122,7 +122,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-4">
                     <div class="input-group mb-3 mb-md-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Contacts">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('search_contacts'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                         </div>
@@ -131,7 +131,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-3">
                     <div class="input-group mb-3 mb-md-0">
-                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="- Select Tags -" multiple>
+                        <select onchange="this.form.submit()" class="form-control select2" name="tags[]" data-placeholder="<?php echo __('select_tags'); ?>" multiple>
 
                             <?php
                             $sql_tags_filter = mysqli_query($mysqli, "
@@ -159,7 +159,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="location" onchange="this.form.submit()">
-                            <option value="">- All Locations -</option>
+                            <option value=""><?php echo __('all_locations'); ?></option>
 
                             <?php
                             $sql_locations_filter = mysqli_query($mysqli, "
@@ -185,7 +185,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-md-2">
                     <div class="input-group mb-3 mb-md-0">
                         <select class="form-control select2" name="client" onchange="this.form.submit()">
-                            <option value="" <?php if ($client == "") { echo "selected"; } ?>>- All Clients -</option>
+                            <option value="" <?php if ($client == "") { echo "selected"; } ?>><?php echo __('all_clients'); ?></option>
 
                             <?php
                             $sql_clients_filter = mysqli_query($mysqli, "
@@ -214,11 +214,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="btn-group float-right">
                         <a href="?<?php echo $client_url; ?>archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                             class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                            <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                            <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                         </a>
                         <div class="dropdown ml-2" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <?php if ($client_url) { ?>
@@ -321,7 +321,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </a>
                         </th>
                         <?php } ?>
-                        <th class="text-center">Action</th>
+                        <th class="text-center"><?php echo __('action'); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -515,13 +515,13 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="contact_details.php?<?= $client_url ?>contact_id=<?= $contact_id ?>">
-                                            <i class="fas fa-fw fa-eye mr-2"></i>Details
+                                            <i class="fas fa-fw fa-eye mr-2"></i><?php echo __('details'); ?>
                                         </a>
                                         <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/contact/contact_note_add.php?id=<?= $contact_id ?>">
                                             <i class="fas fa-fw fa-sticky-note mr-2"></i>Make Note
                                         </a>
                                         <a class="dropdown-item ajax-modal" href="#" data-modal-url="modals/contact/contact_edit.php?id=<?= $contact_id ?>">
-                                            <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                            <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                         </a>
                                         <?php if ($session_user_role == 3 && $contact_primary == 0) { ?>
                                             <?php if ($contact_archived_at) { ?>
