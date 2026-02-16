@@ -13,8 +13,7 @@ if (!isset($_SESSION)) {
 
 }
 
-// Initialize i18n system after session is started
+// Load i18n functions (but don't initialize yet - wait for user session to load)
 if (!function_exists('i18n_init')) {
     require_once __DIR__ . "/i18n.php";
 }
-i18n_init();

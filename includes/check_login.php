@@ -5,6 +5,10 @@ require_once "redirect_if_setup_enabled.php";
 require_once "auth_check.php";
 require_once "inc_set_timezone.php";
 require_once "load_user_session.php";
+
+// Initialize i18n system AFTER user session is loaded so we can get user language preference
+i18n_init();
+
 require_once "load_company_settings.php";
 require_once "load_global_settings.php";
 require_once "detect_device_type.php";
