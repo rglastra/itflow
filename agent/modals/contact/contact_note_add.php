@@ -13,7 +13,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fa fa-fw fa-sticky-note mr-2'></i>Creating note: <strong><?php echo $contact_name; ?></strong></h5>
+    <h5 class="modal-title"><i class='fa fa-fw fa-sticky-note mr-2'></i><?php echo __('Creating note:'); ?> <strong><?php echo $contact_name; ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -25,7 +25,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Type</label>
+            <label><?php echo __('Type'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-comment"></i></span>
@@ -39,14 +39,14 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <textarea class="form-control" rows="6" name="note" placeholder="Notes, eg Personal tidbits to spark convo, temperment, etc"></textarea>
+            <textarea class="form-control" rows="6" name="note" placeholder="<?php echo __('notes, eg personal tidbits to spark convo, temperment, etc'); ?>"></textarea>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="add_contact_note" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_contact_note" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
