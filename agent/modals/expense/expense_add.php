@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-cart-plus mr-2"></i>New Expense</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-cart-plus mr-2"></i><?php echo __('New Expense'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -18,7 +18,7 @@ ob_start();
 
         <div class="form-row">
             <div class="form-group col-md">
-                <label>Date <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Date'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -28,7 +28,7 @@ ob_start();
             </div>
 
             <div class="form-group col-md">
-                <label>Amount <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Amount'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -40,13 +40,13 @@ ob_start();
 
         <div class="form-row">
             <div class="form-group col-md">
-                <label>Account <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Account'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
                     </div>
                     <select class="form-control select2" name="account" required>
-                        <option value="">- Account -</option>
+                        <option value=""><?php echo __('- account -'); ?></option>
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT account_id, account_name, opening_balance FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
@@ -80,13 +80,13 @@ ob_start();
             </div>
 
             <div class="form-group col-md">
-                <label>Vendor <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Vendor'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                     </div>
                     <select class="form-control select2" name="vendor" required>
-                        <option value="">- Vendor -</option>
+                        <option value=""><?php echo __('- vendor -'); ?></option>
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = 0 AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
@@ -108,30 +108,30 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Description <strong class="text-danger">*</strong></label>
-            <textarea class="form-control" rows="6" name="description" placeholder="Enter a description" required></textarea>
+            <label><?php echo __('description'); ?> <strong class="text-danger">*</strong></label>
+            <textarea class="form-control" rows="6" name="description" placeholder="<?php echo __('enter a description'); ?>" required></textarea>
         </div>
 
         <div class="form-group">
-            <label>Reference</label>
+            <label><?php echo __('reference'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-file-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" name="reference" placeholder="Enter a reference" maxlength="200">
+                <input type="text" class="form-control" name="reference" placeholder="<?php echo __('enter a reference'); ?>" maxlength="200">
             </div>
         </div>
 
         <div class="form-row">
 
             <div class="form-group col-md">
-                <label>Category <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Category'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-list"></i></span>
                     </div>
                     <select class="form-control select2" name="category" required>
-                        <option value="">- Category -</option>
+                        <option value=""><?php echo __('- category -'); ?></option>
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Expense' AND category_archived_at IS NULL ORDER BY category_name ASC");
@@ -159,13 +159,13 @@ ob_start();
             <?php } else { ?>
 
                 <div class="form-group col-md">
-                    <label>Client</label>
+                    <label><?php echo __('Client'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                         </div>
                         <select class="form-control select2" name="client" required>
-                            <option value="0">- Client (Optional) -</option>
+                            <option value="0"><?php echo __('- client -'); ?> (<?php echo __('optional'); ?>)</option>
                             <?php
 
                             $sql = mysqli_query($mysqli, "SELECT client_id, client_name FROM clients ORDER BY client_name ASC");
@@ -187,14 +187,14 @@ ob_start();
         </div>
 
         <div class="form-group col-md">
-            <label>Receipt</label>
+            <label><?php echo __('Receipt'); ?></label>
             <input type="file" class="form-control-file" name="file" accept="image/*, application/pdf">
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_expense" class="btn btn-primary text-bold"><i class="fa fa-fw fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_expense" class="btn btn-primary text-bold"><i class="fa fa-fw fa-check mr-2"></i><?php echo __('create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

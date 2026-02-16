@@ -299,4 +299,47 @@ $lang['monthly_recurring_expense'] = 'Maandelijks Terugkerende Uitgaven';
 $lang['unbilled_ticket'] = 'Ongefactureerd Ticket';
 $lang['recurring_invoices_added'] = 'Terugkerende Facturen Toegevoegd';
 $lang['miles_traveled'] = 'Afgelegde Kilometers';
+
+// Modal Titles
+$lang['transfering_funds'] = 'Geld Overboeken';
+$lang['editing_recurring_expense'] = 'Terugkerende uitgave bewerken';
+$lang['create_recurring_expense'] = 'Terugkerende Uitgave Aanmaken';
+
+// Modal Form Labels & Placeholders
+$lang['account'] = 'Rekening';
+$lang['Account'] = 'Rekening';
+$lang['- account -'] = '- Rekening -';
+$lang['- account from -'] = '- Rekening Van -';
+$lang['- account to -'] = '- Rekening Naar -';
+$lang['- method of transfer -'] = '- Methode van Overboeking -';
+$lang['enter some notes'] = 'Voer enkele notities in';
+$lang['select a payment to add to notes'] = 'Selecteer een betaling om aan notities toe te voegen';
+$lang['transfer method'] = 'Overboekingsmethode';
+$lang['transfer'] = 'Overboeking';
+$lang['Transfer'] = 'Overboeking';
+$lang['roundtrip'] = 'Retour';
+$lang['Roundtrip'] = 'Retour';
+$lang['location'] = 'Locatie';
+$lang['Location'] = 'Locatie';
+$lang['enter your starting location'] = 'Voer uw startlocatie in';
+$lang['- select or enter a destination -'] = '- Selecteer of voer een bestemming in -';
+$lang['vendor'] = 'Leverancier';
+$lang['Vendor'] = 'Leverancier';
+$lang['- vendor -'] = '- Leverancier -';
+$lang['- category -'] = '- Categorie -';
+$lang['- client -'] = '- Klant -';
+$lang['- select client -'] = '- Selecteer Klant -';
+$lang['enter a description'] = 'Voer een beschrijving in';
+$lang['receipt'] = 'Ontvangstbewijs';
+$lang['Receipt'] = 'Ontvangstbewijs';
+$lang['attach receipt'] = 'Ontvangstbewijs bijvoegen';
+$lang['enter a reference'] = 'Voer een referentie in';
+$lang['- driver -'] = '- Chauffeur -';
+$lang['- select a month -'] = '- Selecteer een maand -';
+$lang['enter a day (1-28)'] = 'Voer een dag in (1-28)';
+$lang['Month'] = 'Maand';
+$lang['month'] = 'maand';
+$lang['Day'] = 'Dag';
+$lang['Monthly'] = 'Maandelijks';
+$lang['Annually'] = 'Jaarlijks';
 ?>

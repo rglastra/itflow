@@ -6,7 +6,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-exchange-alt mr-2"></i>Transfering Funds</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-exchange-alt mr-2"></i><?php echo __('transfering_funds'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -17,7 +17,7 @@ ob_start();
         <div class="form-row">
 
             <div class="form-group col">
-                <label>Date <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Date'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -27,7 +27,7 @@ ob_start();
             </div>
 
             <div class="form-group col">
-                <label>Amount <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Amount'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-dollar-sign"></i></span>
@@ -39,13 +39,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Transfer <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Transfer'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
                 </div>
                 <select class="form-control select2" name="account_from" required>
-                    <option value="">- Account From -</option>
+                    <option value=""><?php echo __('- account from -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
@@ -83,7 +83,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-arrow-right"></i></span>
                 </div>
                 <select class="form-control select2" name="account_to" required>
-                    <option value="">- Account To -</option>
+                    <option value=""><?php echo __('- account to -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
@@ -115,13 +115,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <textarea class="form-control" rows="5" name="notes" id="transferNotes" placeholder="Enter some notes"></textarea>
+            <textarea class="form-control" rows="5" name="notes" id="transferNotes" placeholder="<?php echo __('enter some notes'); ?>"></textarea>
         </div>
 
         <div class="form-group">
             <div class="input-group">
                 <select class="form-control" id="paymentSelect">
-                    <option value="">Select a Payment to Add to Notes</option>
+                    <option value=""><?php echo __('select a payment to add to notes'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT client_name, payment_method, payment_reference, payment_amount FROM payments
@@ -148,13 +148,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Transfer Method</label>
+            <label><?php echo __('transfer method'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-money-check-alt"></i></span>
                 </div>
                 <select class="form-control select2" name="transfer_method">
-                    <option value="">- Method of Transfer -</option>
+                    <option value=""><?php echo __('- method of transfer -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM payment_methods ORDER BY payment_method_name ASC");
@@ -173,8 +173,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="add_transfer" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Transfer</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_transfer" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Transfer'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

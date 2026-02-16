@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-route mr-2"></i>New Trip</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-route mr-2"></i><?php echo __('New Trip'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -19,7 +19,7 @@ ob_start();
 
         <div class="form-row">
             <div class="form-group col">
-                <label>Date <strong class="text-danger">*</strong></label>
+                <label><?php echo __('Date'); ?> <strong class="text-danger">*</strong></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -29,7 +29,7 @@ ob_start();
             </div>
 
             <div class="form-group col">
-                <label>Miles <strong class="text-danger">*</strong> / <span class="text-secondary">Roundtrip</span></label>
+                <label><?php echo __('Miles'); ?> <strong class="text-danger">*</strong> / <span class="text-secondary"><?php echo __('Roundtrip'); ?></span></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-bicycle"></i></span>
@@ -45,12 +45,12 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Location <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Location'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-map-marker-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" name="source" placeholder="Enter your starting location" maxlength="200" required>
+                <input type="text" class="form-control" name="source" placeholder="<?php echo __('enter your starting location'); ?>" maxlength="200" required>
             </div>
         </div>
 
@@ -59,7 +59,7 @@ ob_start();
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-arrow-right"></i></span>
                 </div>
-                <select class="form-control select2" name="destination" data-tags="true" data-placeholder="- Select or Enter a Destination -" required>
+                <select class="form-control select2" name="destination" data-tags="true" data-placeholder="<?php echo __('- select or enter a destination -'); ?>" required>
                     <option value=""></option>
                     <?php
                     if ($client_id) {
@@ -80,18 +80,18 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Purpose <strong class="text-danger">*</strong></label>
-            <textarea rows="4" class="form-control" placeholder="Enter a purpose" name="purpose" maxlength="200" required></textarea>
+            <label><?php echo __('Purpose'); ?> <strong class="text-danger">*</strong></label>
+            <textarea rows="4" class="form-control" placeholder="<?php echo __('enter a description'); ?>" name="purpose" maxlength="200" required></textarea>
         </div>
 
         <div class="form-group">
-            <label>Driver</label>
+            <label><?php echo __('Driver'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                 </div>
                 <select class="form-control select2" name="user" required>
-                    <option value="">- Driver -</option>
+                    <option value=""><?php echo __('- driver -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT user_id, user_name FROM users
@@ -115,13 +115,13 @@ ob_start();
         <?php }else{ ?>
 
             <div class="form-group">
-                <label>Client</label>
+                <label><?php echo __('Client'); ?></label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                     </div>
                     <select class="form-control select2" name="client" required>
-                        <option value="0">- Client (Optional) -</option>
+                        <option value="0"><?php echo __('- client -'); ?> (<?php echo __('optional'); ?>)</option>
                         <?php
 
                         $sql = mysqli_query($mysqli, "SELECT * FROM clients WHERE client_archived_at is NULL ORDER BY client_name ASC");
@@ -143,8 +143,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="add_trip" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_trip" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

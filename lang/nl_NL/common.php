@@ -50,6 +50,7 @@ $lang['no'] = 'Nee';
 $lang['all'] = 'Alle';
 $lang['none'] = 'Geen';
 $lang['never'] = 'Nooit';
+$lang['optional'] = 'Optioneel';
 $lang['invoiced'] = 'Gefactureerd';
 $lang['client'] = 'Klant';
 $lang['Client'] = 'Klant';
@@ -278,6 +279,7 @@ $lang['daily'] = 'Dagelijks';
 $lang['weekly'] = 'Wekelijks';
 $lang['quarterly'] = 'Kwartaallijks';
 $lang['biannually'] = 'Halfjaarlijks';
+$lang['annually'] = 'Jaarlijks';
 
 // Status values
 $lang['draft'] = 'Concept';
