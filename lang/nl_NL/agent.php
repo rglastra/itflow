@@ -985,6 +985,49 @@ $lang['Who can approve?'] = 'Wie kan goedkeuren?';
 $lang['select specific internal approver'] = 'selecteer specifieke interne goedkeurder';
 $lang['Select specific internal approver'] = 'Selecteer Specifieke Interne Goedkeurder';
 $lang['select user...'] = 'selecteer gebruiker...';
+
+// Asset modals
+$lang['export assets to csv'] = 'exporteer assets naar csv';
+$lang['Export Assets to CSV'] = 'Exporteer Assets naar CSV';
+$lang['download csv'] = 'csv downloaden';
+$lang['Download CSV'] = 'CSV Downloaden';
+$lang['import assets'] = 'importeer assets';
+$lang['Import Assets'] = 'Importeer Assets';
+$lang['format csv file with headings & data:'] = 'Formatteer csv-bestand met koppen & gegevens:';
+$lang['download sample csv template'] = 'download voorbeeld csv-sjabloon';
+$lang['sample csv template'] = 'voorbeeld csv-sjabloon';
+$lang['note: purchase date must be in the format yyyy-mm-dd. spreadsheet tools may automatically reformat dates.'] = 'Let op: aankoopdatum moet in het formaat JJJJ-MM-DD zijn. Spreadsheet-tools kunnen datums automatisch herformatteren.';
+$lang['import'] = 'importeren';
+$lang['Import'] = 'Importeren';
+$lang['link credential to %s'] = 'koppel inloggegevens aan %s';
+$lang['Link Credential to %s'] = 'Koppel Inloggegevens aan %s';
+$lang['- select a credential -'] = '- selecteer inloggegevens -';
+$lang['- Select a Credential -'] = '- Selecteer Inloggegevens -';
+$lang['link'] = 'koppelen';
+$lang['Link'] = 'Koppelen';
+$lang['license software to %s'] = 'licentie software aan %s';
+$lang['License Software to %s'] = 'Licentie Software aan %s';
+$lang['- select a device software license -'] = '- selecteer een apparaat softwarelicentie -';
+$lang['- Select a Device Software License -'] = '- Selecteer een Apparaat Softwarelicentie -';
+$lang['link software to asset'] = 'koppel software aan asset';
+$lang['link document to %s'] = 'koppel document aan %s';
+$lang['Link Document to %s'] = 'Koppel Document aan %s';
+$lang['- select a document -'] = '- selecteer een document -';
+$lang['- Select a Document -'] = '- Selecteer een Document -';
+$lang['link file to %s'] = 'koppel bestand aan %s';
+$lang['Link File to %s'] = 'Koppel Bestand aan %s';
+$lang['- select a file -'] = '- selecteer een bestand -';
+$lang['- Select a File -'] = '- Selecteer een Bestand -';
+$lang['link service to %s'] = 'koppel dienst aan %s';
+$lang['Link Service to %s'] = 'Koppel Dienst aan %s';
+$lang['- select a service -'] = '- selecteer een dienst -';
+$lang['- Select a Service -'] = '- Selecteer een Dienst -';
+$lang['assign tags for %s assets'] = 'wijs tags toe voor %s assets';
+$lang['Assign Tags for %s Assets'] = 'Wijs Tags toe voor %s Assets';
+$lang['remove existing tags'] = 'verwijder bestaande tags';
+$lang['Remove Existing Tags'] = 'Verwijder Bestaande Tags';
+$lang['assign tags'] = 'tags toewijzen';
+$lang['Assign Tags'] = 'Tags Toewijzen';
 ?>
 
 

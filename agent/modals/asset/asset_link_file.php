@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-paperclip mr-2"></i>Link File to <strong><?php echo $asset_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-paperclip mr-2"></i><?php echo sprintf(__('Link File to %s'), "<strong>$asset_name</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-paperclip"></i></span>
                 </div>
                 <select class="form-control select2" name="file_id">
-                    <option value="">- Select a File -</option>
+                    <option value=""><?php echo __('- Select a File -'); ?></option>
                     <?php
                     $sql_files_select = mysqli_query($mysqli, "
                         SELECT files.file_id, files.file_name, folders.folder_name
@@ -63,8 +63,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="link_asset_to_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_asset_to_file" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

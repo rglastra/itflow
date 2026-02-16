@@ -19,7 +19,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-key mr-2"></i>Link Credential to <strong><?php echo $asset_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-key mr-2"></i><?php echo sprintf(__('Link Credential to %s'), "<strong>$asset_name</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-key"></i></span>
                 </div>
                 <select class="form-control select2" name="credential_id">
-                    <option value="">- Select a Credential -</option>
+                    <option value=""><?php echo __('- Select a Credential -'); ?></option>
                     <?php
                     $sql_credentials_select = mysqli_query($mysqli, "
                         SELECT credentials.credential_id, credentials.credential_name
@@ -59,8 +59,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="link_asset_to_credential" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_asset_to_credential" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

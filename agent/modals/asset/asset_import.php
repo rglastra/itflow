@@ -9,7 +9,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>Import Assets</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo __('Import Assets'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -19,17 +19,17 @@ ob_start();
     <input type="hidden" name="client_id" value="<?= $client_id ?>">
 
     <div class="modal-body">
-        <p><strong>Format csv file with headings & data:</strong><br>Name, Description, Type, Make, Model, Serial, OS, Purchase Date, Assigned To, Location, Physical Location, Notes</p>
+        <p><strong><?php echo __('format csv file with headings & data:'); ?></strong><br><?php echo __('Name'); ?>, <?php echo __('description'); ?>, <?php echo __('type'); ?>, <?php echo __('make'); ?>, <?php echo __('model'); ?>, <?php echo __('serial'); ?>, <?php echo __('os'); ?>, <?php echo __('purchase date'); ?>, <?php echo __('assigned to'); ?>, <?php echo __('location'); ?>, <?php echo __('physical location'); ?>, <?php echo __('notes'); ?></p>
         <hr>
         <div class="form-group my-4">
             <input type="file" class="form-control-file" name="file" accept=".csv" required>
         </div>
         <hr>
-        <div>Download <a href="post.php?download_assets_csv_template=<?php echo $client_id; ?>">sample csv template</a></div>
-        <small class="text-muted">Note: Purchase date must be in the format YYYY-MM-DD. Spreadsheet tools may automatically reformat dates.</small>
+        <div><?php echo __('download'); ?> <a href="post.php?download_assets_csv_template=<?php echo $client_id; ?>"><?php echo __('sample csv template'); ?></a></div>
+        <small class="text-muted"><?php echo __('note: purchase date must be in the format yyyy-mm-dd. spreadsheet tools may automatically reformat dates.'); ?></small>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="import_assets_csv" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Import</button>
+        <button type="submit" name="import_assets_csv" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Import'); ?></button>
     </div>
 </form>
 

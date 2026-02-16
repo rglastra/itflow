@@ -20,7 +20,7 @@ ob_start();
 
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i>License Software to <strong><?php echo $asset_name; ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-cube mr-2"></i><?php echo sprintf(__('License Software to %s'), "<strong>$asset_name</strong>"); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -35,7 +35,7 @@ ob_start();
                     <span class="input-group-text"><i class="fa fa-fw fa-cube"></i></span>
                 </div>
                 <select class="form-control select2" name="software_id">
-                    <option value="">- Select a Device Software License -</option>
+                    <option value=""><?php echo __('- Select a Device Software License -'); ?></option>
                     <?php
                     $sql_software_select = mysqli_query($mysqli, "
                         SELECT software.software_id, software.software_name
@@ -64,8 +64,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="link_software_to_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Link</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="link_software_to_asset" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Link'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
