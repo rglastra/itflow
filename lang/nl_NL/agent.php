@@ -1782,4 +1782,11 @@ $lang['Sep'] = 'Sep';
 $lang['Oct'] = 'Okt';
 $lang['Nov'] = 'Nov';
 $lang['Dec'] = 'Dec';
+
+// New Ticket v2 Modal
+$lang['New Ticket (v2)'] = 'Nieuw Ticket (v2)';
+$lang['- Choose a Template -'] = '- Kies een sjabloon -';
+$lang['- Client -'] = '- Cliënt -';
+$lang['Vendor Ticket Number'] = 'Ticket nummer leverancier';
+$lang['Client'] = 'Cliënt';
 ?>
