@@ -158,10 +158,32 @@ if (isset($_POST['edit_your_user_preferences'])) {
 
     $calendar_first_day = intval($_POST['calendar_first_day']);
     $dark_mode = intval($_POST['dark_mode'] ?? 0);
+    $language = sanitizeInput($_POST['language']);
 
-    // Calendar
+    // Validate language against whitelist
+    if (!empty($language)) {
+        $allowed_languages = array_keys(i18n_get_available_languages());
+        if (!in_array($language, $allowed_languages, true)) {
+            $language = ''; // Invalid language, clear it
+        }
+    }
+
+    // If language is empty string (auto-detect), store NULL in database
+    if (empty($language)) {
+        $language_value = 'NULL';
+    } else {
+        $language_value = "'$language'";
+    }
+
+    // Update user settings including language preference
     if (isset($calendar_first_day)) {
-        mysqli_query($mysqli, "UPDATE user_settings SET user_config_calendar_first_day = $calendar_first_day, user_config_theme_dark = $dark_mode WHERE user_id = $session_user_id");
+        mysqli_query($mysqli, "UPDATE user_settings SET user_config_calendar_first_day = $calendar_first_day, user_config_theme_dark = $dark_mode, user_config_language = $language_value WHERE user_id = $session_user_id");
+    }
+
+    // Clear language cookie if user sets a database preference
+    // This ensures the database preference takes effect
+    if (isset($_COOKIE['itflow_language'])) {
+        setcookie('itflow_language', '', time() - 3600, '/', '', false, true);
     }
 
     // Enable extension access, only if it isn't already setup (user doesn't have cookie)

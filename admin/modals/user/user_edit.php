@@ -15,8 +15,12 @@ $user_email = nullable_htmlentities($row['user_email']);
 $user_avatar = nullable_htmlentities($row['user_avatar']);
 $user_token = nullable_htmlentities($row['user_token']);
 $user_config_force_mfa = intval($row['user_config_force_mfa']);
+$user_config_language = sanitizeInput($row['user_config_language']);
 $user_role_id = intval($row['user_role_id']);
 $user_initials = nullable_htmlentities(initials($user_name));
+
+// Get available languages for dropdown
+$available_languages = i18n_get_available_languages();
 
 // Get User Client Access Permissions
 $user_client_access_sql = mysqli_query($mysqli,"SELECT client_id FROM user_client_permissions WHERE user_id = $user_id");
@@ -122,6 +126,23 @@ ob_start();
                                 <option <?php if ($role_id == $user_role_id) {echo "selected";} ?> value="<?php echo $role_id; ?>"><?php echo $role_name; ?></option>
                             <?php } ?>
 
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Language</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>
+                        </div>
+                        <select class="form-control select2" name="language">
+                            <option value="">Auto-detect from browser</option>
+                            <?php foreach ($available_languages as $lang_code => $lang_name): ?>
+                                <option value="<?php echo htmlspecialchars($lang_code, ENT_QUOTES, 'UTF-8'); ?>" <?php if ($user_config_language == $lang_code) { echo "selected"; } ?>>
+                                    <?php echo htmlspecialchars($lang_name, ENT_QUOTES, 'UTF-8'); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>

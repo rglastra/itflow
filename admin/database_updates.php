@@ -4145,10 +4145,18 @@ if (LATEST_DATABASE_VERSION > CURRENT_DATABASE_VERSION) {
         mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.3.9'");
     }
 
-    // if (CURRENT_DATABASE_VERSION == '2.3.9') {
-    //     // Insert queries here required to update to DB version 2.4.0
+    if (CURRENT_DATABASE_VERSION == '2.3.9') {
+        // Add user_config_language column for per-user language preferences (i18n support)
+        mysqli_query($mysqli, "ALTER TABLE `user_settings` ADD COLUMN `user_config_language` varchar(10) DEFAULT NULL AFTER `user_config_theme_dark`");
+        
+        // Update to next version
+        mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.4.0'");
+    }
+
+    // if (CURRENT_DATABASE_VERSION == '2.4.0') {
+    //     // Insert queries here required to update to DB version 2.4.1
     //     // Then, update the database to the next sequential version
-    //     mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.4.0'");
+    //     mysqli_query($mysqli, "UPDATE `settings` SET `config_current_database_version` = '2.4.1'");
     // }
 
 } else {

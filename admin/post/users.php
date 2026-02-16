@@ -49,8 +49,8 @@ if (isset($_POST['add_user'])) {
         }
     }
 
-    // Create Settings
-    mysqli_query($mysqli, "INSERT INTO user_settings SET user_id = $user_id, user_config_force_mfa = $force_mfa");
+    // Create Settings including language preference
+    mysqli_query($mysqli, "INSERT INTO user_settings SET user_id = $user_id, user_config_force_mfa = $force_mfa, user_config_language = $language_value");
 
     $sql = mysqli_query($mysqli,"SELECT * FROM companies WHERE company_id = 1");
     $row = mysqli_fetch_array($sql);
@@ -167,8 +167,8 @@ if (isset($_POST['edit_user'])) {
         mysqli_query($mysqli, "INSERT INTO logs SET log_type = 'User', log_action = 'Modify', log_description = '$session_name disabled 2FA for $name', log_ip = '$session_ip', log_user_agent = '$session_user_agent', log_user_id = $session_user_id");
     }
 
-    //Update User Settings
-    mysqli_query($mysqli, "UPDATE user_settings SET user_config_force_mfa = $force_mfa WHERE user_id = $user_id");
+    //Update User Settings including language preference
+    mysqli_query($mysqli, "UPDATE user_settings SET user_config_force_mfa = $force_mfa, user_config_language = $language_value WHERE user_id = $user_id");
 
     logAction("User", "Edit", "$session_name edited user $name", 0, $user_id);
 

@@ -2758,6 +2758,7 @@ CREATE TABLE `user_settings` (
   `user_config_calendar_first_day` tinyint(1) NOT NULL DEFAULT 0,
   `user_config_signature` text DEFAULT NULL,
   `user_config_theme_dark` tinyint(1) NOT NULL DEFAULT 0,
+  `user_config_language` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
