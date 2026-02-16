@@ -236,4 +236,11 @@ $lang['active_quotes'] = 'Actieve Offertes';
 $lang['open_invoices'] = 'Open Facturen';
 $lang['active_recurring_invoices'] = 'Actieve Terugkerende Facturen';
 $lang['recurring_expenses_count'] = 'Terugkerende Uitgaven';
+
+// Financial - Client Billing
+$lang['balance'] = 'Saldo';
+$lang['paid'] = 'Betaald';
+$lang['credit'] = 'Krediet';
+$lang['monthly'] = 'Maandelijks';
+$lang['hourly_rate'] = 'Uurtarief';
 ?>
