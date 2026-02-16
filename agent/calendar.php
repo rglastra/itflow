@@ -105,12 +105,14 @@ while ($row = mysqli_fetch_assoc($sql)) {
 ?>
 
 <script src='/plugins/fullcalendar/dist/index.global.js'></script>
+<script src='/plugins/fullcalendar/packages/core/locales/nl.global.js'></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'nl',
             themeSystem: 'bootstrap',
             defaultView: 'dayGridMonth',
             customButtons: {
