@@ -26,7 +26,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i>Editing ticket Asset: <strong><?php echo "$ticket_prefix$ticket_number"; ?></strong> - <?php echo $client_name; ?></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-desktop mr-2"></i><?php echo __('Editing ticket Asset:'); ?> <strong><?php echo "$ticket_prefix$ticket_number"; ?></strong> - <?php echo $client_name; ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -36,13 +36,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Asset</label>
+            <label><?php echo __('Asset'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-desktop"></i></span>
                 </div>
                 <select class="form-control select2" name="asset">
-                    <option value="0">- None -</option>
+                    <option value="0"><?php echo __('- None -'); ?></option>
                     <?php
 
                     $sql_assets = mysqli_query($mysqli, "SELECT asset_id, asset_name, contact_name FROM assets LEFT JOIN contacts ON contact_id = asset_contact_id WHERE asset_client_id = $client_id AND asset_archived_at IS NULL ORDER BY asset_name ASC");

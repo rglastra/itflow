@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-paper-plane mr-2"></i>Update & Reply <strong><?= $count ?></strong> Tickets</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-paper-plane mr-2"></i><?php echo __('Update & Reply'); ?> <strong><?= $count ?></strong> <?php echo __('Tickets'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -44,12 +44,12 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <textarea class="form-control tinymce" rows="5" name="bulk_reply_details" placeholder="Type an update here"></textarea>
+            <textarea class="form-control tinymce" rows="5" name="bulk_reply_details" placeholder="<?php echo __('type an update here'); ?>"></textarea>
         </div>
 
         <div class="col-3">
             <div class="form-group">
-                <label>Time worked</label>
+                <label><?php echo __('Time worked'); ?></label>
                 <input class="form-control timepicker" id="time_worked" name="time" type="text" placeholder="HH:MM:SS" pattern="([01]?[0-9]|2[0-3]):([0-5]?[0-9]):([0-5]?[0-9])" value="00:01:00" required/>
             </div>
         </div>
@@ -57,15 +57,15 @@ ob_start();
         <div class="form-group">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="bulkPrivateReplyCheckbox" name="bulk_private_reply" value="1">
-                <label class="custom-control-label" for="bulkPrivateReplyCheckbox">Mark as internal</label>
-                <small class="form-text text-muted">If checked this note will only be visible to agents.</small>
+                <label class="custom-control-label" for="bulkPrivateReplyCheckbox"><?php echo __('Mark as internal'); ?></label>
+                <small class="form-text text-muted"><?php echo __('if checked this note will only be visible to agents.'); ?></small>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="bulk_ticket_reply" class="btn btn-primary text-bold"><i class="fas fa-paper-plane mr-2"></i>Update & Reply</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_ticket_reply" class="btn btn-primary text-bold"><i class="fas fa-paper-plane mr-2"></i><?php echo __('Update & Reply'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

@@ -760,7 +760,53 @@ $lang['no'] = 'nee';
 $lang['No'] = 'Nee';
 $lang['save'] = 'opslaan';
 $lang['Save'] = 'Opslaan';
+$lang['adding a ticket watcher'] = 'ticket volger toevoegen';
+$lang['Adding a ticket Watcher'] = 'Ticket volger toevoegen';
+$lang['watcher email'] = 'volger e-mail';
+$lang['Watcher Email'] = 'Volger e-mail';
+$lang['- select a contact or enter an email(s) -'] = '- selecteer een contactpersoon of voer e-mailadres(sen) in -';
+$lang['- Select a contact or enter an email(s) -'] = '- Selecteer een contactpersoon of voer e-mailadres(sen) in -';
+$lang['send email notification'] = 'stuur e-mailnotificatie';
+$lang['editing ticket asset:'] = 'ticket activa bewerken:';
+$lang['Editing ticket Asset:'] = 'Ticket activa bewerken:';
+$lang['asset'] = 'activa';
+$lang['Asset'] = 'Activa';
+$lang['- none -'] = '- geen -';
+$lang['- None -'] = '- Geen -';
+$lang['editing vendor:'] = 'leverancier bewerken:';
+$lang['Editing Vendor:'] = 'Leverancier bewerken:';
+$lang['vendor'] = 'leverancier';
+$lang['Vendor'] = 'Leverancier';
+$lang['update & reply %s tickets'] = 'update & antwoord %s tickets';
+$lang['Update & Reply %s Tickets'] = 'Update & antwoord %s tickets';
+$lang['type an update here'] = 'typ hier een update';
+$lang['time worked'] = 'gewerkte tijd';
+$lang['Time worked'] = 'Gewerkte tijd';
+$lang['mark as internal'] = 'markeer als intern';
+$lang['Mark as internal'] = 'Markeer als intern';
+$lang['if checked this note will only be visible to agents.'] = 'indien aangevinkt is deze notitie alleen zichtbaar voor medewerkers.';
+$lang['update & reply'] = 'update & antwoord';
+$lang['Update & Reply'] = 'Update & antwoord';
+$lang['resolve %s tickets'] = 'los %s tickets op';
+$lang['Resolve %s Tickets'] = 'Los %s tickets op';
+$lang['enter closing remarks'] = 'voer afsluitende opmerkingen in';
+$lang['mark as internal'] = 'markeer als intern';
+$lang['Mark as Internal'] = 'Markeer als intern';
+$lang['if checked this note will only be visible to agents. the contact / watcher will not be informed this ticket was resolved.'] = 'indien aangevinkt is deze notitie alleen zichtbaar voor medewerkers. de contactpersoon / volger wordt niet geïnformeerd dat dit ticket is opgelost.';
+$lang['resolve tickets'] = 'tickets oplossen';
+$lang['Resolve Tickets'] = 'Tickets oplossen';
+$lang['set category for'] = 'categorie instellen voor';
+$lang['Set Category for'] = 'Categorie instellen voor';
+$lang['tickets'] = 'tickets';
+$lang['Tickets'] = 'Tickets';
+$lang['category'] = 'categorie';
+$lang['Category'] = 'Categorie';
+$lang['- uncategorized -'] = '- ongecategoriseerd -';
+$lang['- Uncategorized -'] = '- Ongecategoriseerd -';
+$lang['set'] = 'instellen';
+$lang['Set'] = 'Instellen';
 ?>
+
 
 
 

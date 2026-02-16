@@ -17,7 +17,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-building mr-2"></i>Editing Vendor: <strong><?= "$ticket_prefix$ticket_number" ?></strong></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-building mr-2"></i><?php echo __('Editing Vendor:'); ?> <strong><?= "$ticket_prefix$ticket_number" ?></strong></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -27,13 +27,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Vendor</label>
+            <label><?php echo __('Vendor'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-building"></i></span>
                 </div>
                 <select class="form-control select2" name="vendor">
-                    <option value="0">- None -</option>
+                    <option value="0"><?php echo __('- None -'); ?></option>
                     <?php
 
                     $sql_vendors = mysqli_query($mysqli, "SELECT vendor_id, vendor_name FROM vendors WHERE vendor_client_id = $client_id AND vendor_archived_at IS NULL ORDER BY vendor_name ASC");
@@ -53,8 +53,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_ticket_vendor" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_ticket_vendor" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 
 </form>

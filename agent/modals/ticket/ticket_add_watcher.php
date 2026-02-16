@@ -9,7 +9,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-eye mr-2"></i>Adding a ticket Watcher</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-eye mr-2"></i><?php echo __('Adding a ticket Watcher'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -19,13 +19,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Watcher Email</label>
+            <label><?php echo __('Watcher Email'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
                 </div>
                 <select class="form-control select2" data-tags="true" name="watcher_email">
-                    <option value="">- Select a contact or enter an email(s) -</option>
+                    <option value=""><?php echo __('- Select a contact or enter an email(s) -'); ?></option>
                     <?php
 
                     $sql_client_contacts_select = mysqli_query($mysqli, "SELECT contact_id, contact_name, contact_email FROM contacts WHERE contact_client_id = $client_id AND contact_email <> '' ORDER BY contact_name ASC");
@@ -48,7 +48,7 @@ ob_start();
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="watcher_notify" value="1" id="checkNotifyWatcher">
                     <label class="form-check-label" for="checkNotifyWatcher">
-                        Send email notification
+                        <?php echo __('send email notification'); ?>
                     </label>
                 </div>
             </div>
@@ -57,8 +57,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="add_ticket_watcher" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Add</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_ticket_watcher" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('add'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 
 </form>
