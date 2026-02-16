@@ -85,11 +85,11 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
 <div class="card card-dark">
     <div class="card-header py-2">
-        <h3 class="card-title mt-2"><i class="fas fa-fw fa-redo-alt mr-2"></i>Recurring Tickets</h3>
+        <h3 class="card-title mt-2"><i class="fas fa-fw fa-redo-alt mr-2"></i><?php echo __('Recurring Tickets'); ?></h3>
         <div class='card-tools'>
             <div class="float-left">
                 <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/recurring_ticket/recurring_ticket_add.php?<?= $client_url ?>" data-modal-size="lg">
-                    <i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2">New Recurring Ticket</span>
+                    <i class="fas fa-plus"></i><span class="d-none d-lg-inline ml-2"><?php echo __('New Recurring Ticket'); ?></span>
                 </button>
             </div>
         </div>
@@ -105,7 +105,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
                 <div class="col-md-4">
                     <div class="input-group mb-3 mb-md-0">
-                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="Search Recurring Tickets">
+                        <input type="search" class="form-control" name="q" value="<?php if (isset($q)) { echo stripslashes(nullable_htmlentities($q)); } ?>" placeholder="<?php echo __('Search Recurring Tickets'); ?>">
                         <div class="input-group-append">
                             <button class="btn btn-dark"><i class="fa fa-search"></i></button>
                         </div>
@@ -114,7 +114,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-2">
                     <div class="form-group">
                         <select class="form-control select2" name="category" onchange="this.form.submit()">
-                            <option value="">- All Categories -</option>
+                            <option value="">- <?php echo __('All Categories'); ?> -</option>
 
                             <?php
                             $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Ticket' AND EXISTS (SELECT 1 FROM recurring_tickets WHERE recurring_ticket_category = category_id $client_query) ORDER BY category_name ASC");
@@ -133,7 +133,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-2">
                     <div class="form-group">
                         <select class="form-control select2" name="assigned_agent" onchange="this.form.submit()">
-                            <option value="">- All Agents -</option>
+                            <option value="">- <?php echo __('All Agents'); ?> -</option>
 
                             <?php
                             $sql_assigned_agents_filter = mysqli_query($mysqli, "SELECT user_id, user_name FROM users WHERE user_type = 1 AND EXISTS (SELECT 1 FROM recurring_tickets WHERE recurring_ticket_assigned_to = user_id $client_query) ORDER BY user_name ASC");
@@ -152,9 +152,9 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="col-sm-2">
                     <div class="form-group">
                         <select class="form-control select2" name="billable" onchange="this.form.submit()">
-                            <option value="">- Billable Status -</option>                    
-                            <option <?php if ($billable_filter == 1) { echo "selected"; } ?> value="1">Billable</option>
-                            <option <?php if ($billable_filter == 0) { echo "selected"; } ?> value="0">Non-Billable</option>
+                            <option value="">- <?php echo __('Billable Status'); ?> -</option>                    
+                            <option <?php if ($billable_filter == 1) { echo "selected"; } ?> value="1"><?php echo __('Billable'); ?></option>
+                            <option <?php if ($billable_filter == 0) { echo "selected"; } ?> value="0"><?php echo __('Non-Billable'); ?></option>
                         </select>
                     </div>
                 </div>
@@ -163,45 +163,45 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <?php if (lookupUserPermission("module_support") >= 2) { ?>
                         <div class="dropdown float-right" id="bulkActionButton" hidden>
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('Bulk Action'); ?> (<span id="selectedCount">0</span>)
                             </button>
                             <div class="dropdown-menu">
                                 <button class="dropdown-item confirm-link" type="submit" form="bulkActions" name="bulk_force_recurring_tickets">
-                                    <i class="fas fa-fw fa-paper-plane mr-2"></i>Force Reoccur
+                                    <i class="fas fa-fw fa-paper-plane mr-2"></i><?php echo __('Force Reoccur'); ?>
                                 </button>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#" 
                                     data-modal-url="modals/recurring_ticket/recurring_ticket_bulk_agent_edit.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-user-check mr-2"></i>Assign Agent
+                                    <i class="fas fa-fw fa-user-check mr-2"></i><?php echo __('Assign Agent'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#" 
                                     data-modal-url="modals/recurring_ticket/recurring_ticket_bulk_category_edit.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-layer-group mr-2"></i>Set Category
+                                    <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('Set Category'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#" 
                                     data-modal-url="modals/recurring_ticket/recurring_ticket_bulk_priority_edit.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-thermometer-half mr-2"></i>Set Priority
+                                    <i class="fas fa-fw fa-thermometer-half mr-2"></i><?php echo __('Set Priority'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#" 
                                     data-modal-url="modals/recurring_ticket/recurring_ticket_bulk_billable_edit.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-dollar-sign mr-2"></i>Set Billable
+                                    <i class="fas fa-fw fa-dollar-sign mr-2"></i><?php echo __('Set Billable'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item ajax-modal" href="#" 
                                     data-modal-url="modals/recurring_ticket/recurring_ticket_bulk_next_run_edit.php"
                                     data-bulk="true">
-                                    <i class="fas fa-fw fa-calendar-day mr-2"></i>Set Next Run Date
+                                    <i class="fas fa-fw fa-calendar-day mr-2"></i><?php echo __('Set Next Run Date'); ?>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <button class="dropdown-item text-danger text-bold" type="submit" form="bulkActions" name="bulk_delete_recurring_tickets">
-                                    <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                    <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                 </button>
                             </div>
                         </div>
@@ -227,49 +227,49 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </td>
                             <th>
                                 <a class="text-secondary" href="?<?= $url_query_strings_sort ?>&sort=recurring_ticket_next_run&order=<?= $disp ?>">
-                                    Next Run Date <?php if ($sort == 'recurring_ticket_next_run') { echo $order_icon; } ?>
+                                    <?php echo __('Next Run Date'); ?> <?php if ($sort == 'recurring_ticket_next_run') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_ticket_subject&order=<?php echo $disp; ?>">
-                                    Subject <?php if ($sort == 'recurring_ticket_subject') { echo $order_icon; } ?>
+                                    <?php echo __('Subject'); ?> <?php if ($sort == 'recurring_ticket_subject') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=category_name&order=<?php echo $disp; ?>">
-                                    Category <?php if ($sort == 'category_name') { echo $order_icon; } ?>
+                                    <?php echo __('Category'); ?> <?php if ($sort == 'category_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_ticket_priority&order=<?php echo $disp; ?>">
-                                    Priority <?php if ($sort == 'recurring_ticket_priority') { echo $order_icon; } ?>
+                                    <?php echo __('Priority'); ?> <?php if ($sort == 'recurring_ticket_priority') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_ticket_frequency&order=<?php echo $disp; ?>">
-                                    Frequency <?php if ($sort == 'recurring_ticket_frequency') { echo $order_icon; } ?>
+                                    <?php echo __('Frequency'); ?> <?php if ($sort == 'recurring_ticket_frequency') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th class="text-center">
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=recurring_ticket_billable&order=<?php echo $disp; ?>">
-                                    Billable <?php if ($sort == 'recurring_ticket_billable') { echo $order_icon; } ?>
+                                    <?php echo __('Billable'); ?> <?php if ($sort == 'recurring_ticket_billable') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=user_name&order=<?php echo $disp; ?>">
-                                    Agent <?php if ($sort == 'user_name') { echo $order_icon; } ?>
+                                    <?php echo __('Agent'); ?> <?php if ($sort == 'user_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             
                             <?php if (!$client_url) { ?>
                             <th>
                                 <a class="text-secondary" href="?<?php echo $url_query_strings_sort; ?>&sort=client_name&order=<?php echo $disp; ?>">
-                                    Client <?php if ($sort == 'client_name') { echo $order_icon; } ?>
+                                    <?php echo __('Client'); ?> <?php if ($sort == 'client_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php } ?>
                             <?php if (lookupUserPermission("module_support") >= 2) { ?>
-                                <th class="text-center">Action</th>
+                                <th class="text-center"><?php echo __('Action'); ?></th>
                             <?php } ?>
                         </tr>
                     </thead>
@@ -330,16 +330,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                                 <a class="dropdown-item ajax-modal" href="#"
                                                     data-modal-size="lg"
                                                     data-modal-url="modals/recurring_ticket/recurring_ticket_edit.php?id=<?= $recurring_ticket_id ?>">
-                                                    <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                                    <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('Edit'); ?>
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="post.php?force_recurring_ticket=<?= $recurring_ticket_id ?>&csrf_token=<?= $_SESSION['csrf_token'] ?>">
-                                                    <i class="fa fa-fw fa-paper-plane text-secondary mr-2"></i>Force Reoccur
+                                                    <i class="fa fa-fw fa-paper-plane text-secondary mr-2"></i><?php echo __('Force Reoccur'); ?>
                                                 </a>
                                                 <?php if (lookupUserPermission("module_support") == 3) { ?>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item text-danger text-bold confirm-link" href="post.php?delete_recurring_ticket=<?= $recurring_ticket_id ?>&csrf_token=<?= $_SESSION['csrf_token'] ?>">
-                                                        <i class="fas fa-fw fa-trash mr-2"></i>Delete
+                                                        <i class="fas fa-fw fa-trash mr-2"></i><?php echo __('Delete'); ?>
                                                     </a>
                                                 <?php } ?>
                                             </div>

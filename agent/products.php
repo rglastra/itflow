@@ -57,15 +57,15 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
 
     <div class="card card-dark">
         <div class="card-header py-2">
-            <h3 class="card-title mt-2"><i class="fas fa-fw <?= $type_icon ?> mr-2"></i><?= $type_display ?></h3>
+            <h3 class="card-title mt-2"><i class="fas fa-fw <?= $type_icon ?> mr-2"></i><?php if ($type_filter == 'service') { echo __('services'); } else { echo __('products'); } ?></h3>
             <div class="card-tools">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/product/product_add.php?type=<?= $type_filter ?>"><i class="fas fa-plus mr-2"></i>New <strong><?= ucwords($type_filter); ?></strong></button>
+                    <button type="button" class="btn btn-primary ajax-modal" data-modal-url="modals/product/product_add.php?type=<?= $type_filter ?>"><i class="fas fa-plus mr-2"></i><?php if ($type_filter == 'service') { echo __('new_service'); } else { echo __('new_product'); } ?></button>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-dark ajax-modal"
                             data-modal-url="modals/product/product_export.php">
-                            <i class="fa fa-fw fa-download mr-2"></i>Export
+                            <i class="fa fa-fw fa-download mr-2"></i><?php echo __('export'); ?>
                         </a>
                     </div>
                 </div>
@@ -80,7 +80,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="input-group mb-3 mb-sm-0">
-                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="Search <?= $type_display ?>">
+                            <input type="search" class="form-control" name="q" value="<?php if (isset($q)) {echo stripslashes(nullable_htmlentities($q));} ?>" placeholder="<?php if ($type_filter == 'service') { echo __('search_services'); } else { echo __('search_products'); } ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
                             </div>
@@ -89,7 +89,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                     <div class="col-sm-3">
                         <div class="input-group mb-3 mb-sm-0">
                             <select class="form-control select2" name="category" onchange="this.form.submit()">
-                                <option value="">- All Categories -</option>
+                                <option value=""><?php echo __('all_categories'); ?></option>
 
                                 <?php
                                 $sql_categories_filter = mysqli_query($mysqli, "SELECT category_id, category_name FROM categories WHERE category_type = 'Income' AND EXISTS (SELECT 1 FROM products WHERE product_category_id = category_id AND product_$archive_query $type_query) ORDER BY category_name ASC");
@@ -117,16 +117,16 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                         <div class="btn-toolbar form-group float-right">
                             <div class="btn-group">
                                 <div class="btn-group mr-2">
-                                    <a href="?type=service" class="btn btn-<?php if ($type_filter == 'service'){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-wrench"></i><span class="d-none d-sm-inline ml-2">Service</span></a>
-                                    <a href="?type=product" class="btn btn-<?php if ($type_filter == 'product'){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-cube"></i><span class="d-none d-sm-inline ml-2">Product</span></a>
+                                    <a href="?type=service" class="btn btn-<?php if ($type_filter == 'service'){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-wrench"></i><span class="d-none d-sm-inline ml-2"><?php echo __('service'); ?></span></a>
+                                    <a href="?type=product" class="btn btn-<?php if ($type_filter == 'product'){ echo "primary"; } else { echo "default"; } ?>"><i class="fa fa-fw fa-cube"></i><span class="d-none d-sm-inline ml-2"><?php echo __('product'); ?></span></a>
                                 </div>
                                 <a href="?<?php echo $url_query_strings_sort ?>&archived=<?php if($archived == 1){ echo 0; } else { echo 1; } ?>"
                                     class="btn btn-<?php if($archived == 1){ echo "primary"; } else { echo "default"; } ?>">
-                                    <i class="fa fa-fw fa-archive mr-2"></i>Archived
+                                    <i class="fa fa-fw fa-archive mr-2"></i><?php echo __('archived'); ?>
                                 </a>
                                 <div class="dropdown ml-2" id="bulkActionButton" hidden>
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <i class="fas fa-fw fa-layer-group mr-2"></i>Bulk Action (<span id="selectedCount">0</span>)
+                                        <i class="fas fa-fw fa-layer-group mr-2"></i><?php echo __('bulk_action'); ?> (<span id="selectedCount">0</span>)
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item ajax-modal" href="#"
@@ -174,17 +174,17 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                             </td>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=product_name&order=<?php echo $disp; ?>">
-                                    Name <?php if ($sort == 'product_name') { echo $order_icon; } ?>
+                                    <?php echo __('name'); ?> <?php if ($sort == 'product_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=category_name&order=<?php echo $disp; ?>">
-                                    Category <?php if ($sort == 'category_name') { echo $order_icon; } ?>
+                                    <?php echo __('category'); ?> <?php if ($sort == 'category_name') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <th>
                                 <a class="text-dark" href="?<?php echo $url_query_strings_sort; ?>&sort=product_description&order=<?php echo $disp; ?>">
-                                    Description <?php if ($sort == 'product_description') { echo $order_icon; } ?>
+                                    <?php echo __('description'); ?> <?php if ($sort == 'product_description') { echo $order_icon; } ?>
                                 </a>
                             </th>
                             <?php if ($type_filter == 'product') { ?>
@@ -214,7 +214,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                     Price <?php if ($sort == 'product_price') { echo $order_icon; } ?>
                                 </a>
                             </th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center"><?php echo __('action'); ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -282,7 +282,7 @@ $num_rows = mysqli_fetch_row(mysqli_query($mysqli, "SELECT FOUND_ROWS()"));
                                             <?php } ?>
                                             <a class="dropdown-item ajax-modal" href="#"
                                                 data-modal-url="modals/product/product_edit.php?id=<?= $product_id ?>">
-                                                <i class="fas fa-fw fa-edit mr-2"></i>Edit
+                                                <i class="fas fa-fw fa-edit mr-2"></i><?php echo __('edit'); ?>
                                             </a>
                                             <?php if ($session_user_role == 3) { ?>
                                                 <?php if ($product_archived_at) { ?>
