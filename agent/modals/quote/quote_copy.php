@@ -17,7 +17,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-copy mr-2"></i>Copying quote: <strong><?php echo "$quote_prefix$quote_number"; ?></strong> - <?php echo $client_name; ?></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-copy mr-2"></i><?php echo __('Copying Quote'); ?>: <strong><?php echo "$quote_prefix$quote_number"; ?></strong> - <?php echo $client_name; ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -29,7 +29,7 @@ ob_start();
         <input type="hidden" name="client" value="<?php echo $client_id; ?>">
         <?php } else { ?>
         <div class="form-group">
-            <label>Client <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Client'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
@@ -49,7 +49,7 @@ ob_start();
         <?php } ?>
 
         <div class="form-group">
-            <label>Set Date for New Quote <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Set Date for New Quote'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -59,7 +59,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Expire <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Expire'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -70,8 +70,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_quote_copy" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Copy</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="add_quote_copy" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Copy'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

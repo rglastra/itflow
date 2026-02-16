@@ -23,7 +23,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title text-white"><i class="fas fa-fw fa-comment-dollar mr-2"></i>Editing quote: <span class="text-bold"><?php echo "$quote_prefix$quote_number"; ?></span> - <span class="text"><?php echo $client_name; ?></span></h5>
+    <h5 class="modal-title text-white"><i class="fas fa-fw fa-comment-dollar mr-2"></i><?php echo __('Editing Quote'); ?>: <span class="text-bold"><?php echo "$quote_prefix$quote_number"; ?></span> - <span class="text"><?php echo $client_name; ?></span></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -34,7 +34,7 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Quote Date</label>
+            <label><?php echo __('Quote Date'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -44,7 +44,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Expire <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Expire'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -54,7 +54,7 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Income Category</label>
+            <label><?php echo __('Income Category'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-tag"></i></span>
@@ -83,7 +83,7 @@ ob_start();
 
 
         <div class='form-group'>
-            <label>Discount Amount</label>
+            <label><?php echo __('Discount Amount'); ?></label>
             <div class='input-group'>
                 <div class='input-group-prepend'>
                     <span class='input-group-text'><?php echo $currency_format->getSymbol(NumberFormatter::CURRENCY_SYMBOL); ?></span>
@@ -93,19 +93,19 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Scope</label>
+            <label><?php echo __('Scope'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-comment"></i></span>
                 </div>
-                <input type="text" class="form-control" name="scope" placeholder="Quick description" value="<?php echo $quote_scope; ?>" maxlength="255">
+                <input type="text" class="form-control" name="scope" placeholder="<?php echo __('quick description'); ?>" value="<?php echo $quote_scope; ?>" maxlength="255">
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_quote" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_quote" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

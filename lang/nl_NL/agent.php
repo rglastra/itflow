@@ -452,4 +452,22 @@ $lang['ticket number'] = 'ticketnummer';
 $lang['Ticket Number'] = 'Ticketnummer';
 $lang['add to invoice'] = 'toevoegen aan factuur';
 $lang['Add to Invoice'] = 'Toevoegen aan Factuur';
+
+// Quote modals
+$lang['new quote'] = 'nieuwe offerte';
+$lang['New Quote'] = 'Nieuwe Offerte';
+$lang['quote date'] = 'offertedatum';
+$lang['Quote Date'] = 'Offertedatum';
+$lang['expire'] = 'vervaldatum';
+$lang['Expire'] = 'Vervaldatum';
+$lang['editing quote'] = 'offerte bewerken';
+$lang['Editing Quote'] = 'Offerte Bewerken';
+$lang['copying quote'] = 'offerte kopiëren';
+$lang['Copying Quote'] = 'Offerte Kopiëren';
+$lang['set date for new quote'] = 'datum instellen voor nieuwe offerte';
+$lang['Set Date for New Quote'] = 'Datum Instellen voor Nieuwe Offerte';
+$lang['create invoice'] = 'factuur aanmaken';
+$lang['Create Invoice'] = 'Factuur Aanmaken';
+$lang['quote'] = 'offerte';
+$lang['Quote'] = 'Offerte';
 ?>
