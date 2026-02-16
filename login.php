@@ -744,12 +744,6 @@ $show_login_form = (!$show_role_choice && !$show_mfa_form);
     </div>
 </div>
 
-<?php
-if (!$config_whitelabel_enabled) {
-    echo '<small class="text-muted">Powered by ITFlow</small>';
-}
-?>
-
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/adminlte/js/adminlte.min.js"></script>
