@@ -470,4 +470,18 @@ $lang['create invoice'] = 'factuur aanmaken';
 $lang['Create Invoice'] = 'Factuur Aanmaken';
 $lang['quote'] = 'offerte';
 $lang['Quote'] = 'Offerte';
+
+// More quote and payment modals
+$lang['Quote Notes'] = 'Offerte Notities';
+$lang['quote notes'] = 'offerte notities';
+$lang['export quotes to csv'] = 'exporteer offertes naar CSV';
+$lang['Export Quotes to CSV'] = 'Exporteer Offertes naar CSV';
+$lang['edit payment'] = 'betaling bewerken';
+$lang['Edit Payment'] = 'Betaling Bewerken';
+$lang['reference'] = 'referentie';
+$lang['Reference'] = 'Referentie';
+$lang['save changes'] = 'wijzigingen opslaan';
+$lang['Save Changes'] = 'Wijzigingen Opslaan';
+$lang['export payments to csv'] = 'exporteer betalingen naar CSV';
+$lang['Export Payments to CSV'] = 'Exporteer Betalingen naar CSV';
 ?>

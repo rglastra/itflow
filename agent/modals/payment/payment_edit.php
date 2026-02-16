@@ -17,7 +17,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-credit-card mr-2"></i>Edit Payment</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-credit-card mr-2"></i><?php echo __('Edit Payment'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -30,7 +30,7 @@ ob_start();
             <div class="col-md">
 
                 <div class="form-group">
-                    <label>Date <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Date'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -44,7 +44,7 @@ ob_start();
             <div class="col-md">
 
                 <div class="form-group">
-                    <label>Amount <strong class="text-danger">*</strong></label>
+                    <label><?php echo __('Amount'); ?> <strong class="text-danger">*</strong></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-dollar-sign"></i></span>
@@ -58,13 +58,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Account <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Account'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-piggy-bank"></i></span>
                 </div>
                 <select class="form-control select2" name="account" required>
-                    <option value="">- Select an Account -</option>
+                    <option value=""><?php echo __('- select an account -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT * FROM accounts WHERE account_archived_at IS NULL ORDER BY account_name ASC");
@@ -101,13 +101,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Payment Method <strong class="text-danger">*</strong></label>
+            <label><?php echo __('Payment Method'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-money-check-alt"></i></span>
                 </div>
                 <select class="form-control select2" name="payment_method" required>
-                    <option value="">- Method of Payment -</option>
+                    <option value=""><?php echo __('- method of payment -'); ?></option>
                     <?php
 
                     $sql = mysqli_query($mysqli, "SELECT payment_method_name FROM payment_methods ORDER BY payment_method_name ASC");
@@ -124,20 +124,20 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>Reference</label>
+            <label><?php echo __('Reference'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-file-alt"></i></span>
                 </div>
-                <input type="text" class="form-control" name="reference" value="<?= $payment_reference ?>" placeholder="Check #, Trans #, etc" maxlength="200">
+                <input type="text" class="form-control" name="reference" value="<?= $payment_reference ?>" placeholder="<?php echo __('check #, trans #, etc'); ?>" maxlength="200">
             </div>
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_payment" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Save Changes</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_payment" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Save Changes'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 
