@@ -22,7 +22,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-project-diagram mr-2"></i>Project: <strong><?= "$ticket_prefix$ticket_number" ?></strong> - <?= $client_name ?></h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-project-diagram mr-2"></i><?php echo sprintf(__('Project: %s'), "<strong>$ticket_prefix$ticket_number</strong>"); ?> - <?= $client_name ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -32,13 +32,13 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Project</label>
+            <label><?php echo __('Project'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-project-diagram"></i></span>
                 </div>
                 <select class="form-control select2" name="project">
-                    <option value="0">- None -</option>
+                    <option value="0"><?php echo __('- none -'); ?></option>
                     <?php
                     while ($row = mysqli_fetch_assoc($sql_projects)) {
                         $project_id = intval($row['project_id']);
@@ -55,8 +55,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="edit_ticket_project" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_ticket_project" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 
 </form>

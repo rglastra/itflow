@@ -936,6 +936,55 @@ $lang['yes'] = 'ja';
 $lang['Yes'] = 'Ja';
 $lang['cancel scheduled time'] = 'geplande tijd annuleren';
 $lang['Cancel Scheduled Time'] = 'Geplande Tijd Annuleren';
+
+// Ticket modals - additional operations
+$lang['ticket summary'] = 'ticketsamenvatting';
+$lang['Ticket Summary'] = 'Ticketsamenvatting';
+$lang['generating summary...'] = 'samenvatting genereren...';
+$lang['error generating summary.'] = 'fout bij genereren van samenvatting.';
+$lang['invoice ticket'] = 'ticket factureren';
+$lang['Invoice ticket'] = 'Ticket Factureren';
+$lang['add to existing invoice'] = 'toevoegen aan bestaande factuur';
+$lang['Add to Existing Invoice'] = 'Toevoegen aan Bestaande Factuur';
+$lang['create new invoice'] = 'nieuwe factuur aanmaken';
+$lang['Create New Invoice'] = 'Nieuwe Factuur Aanmaken';
+$lang['assign project to %s tickets'] = 'wijs project toe aan %s tickets';
+$lang['Assign Project to %s Tickets'] = 'Wijs Project toe aan %s Tickets';
+$lang['project'] = 'project';
+$lang['Project'] = 'Project';
+$lang['no project'] = 'geen project';
+$lang['No Project'] = 'Geen Project';
+$lang['project:'] = 'project:';
+$lang['Project:'] = 'Project:';
+$lang['change %s to another client'] = 'wijzig %s naar andere klant';
+$lang['Change %s to another client'] = 'Wijzig %s naar andere klant';
+$lang['new client'] = 'nieuwe klant';
+$lang['New Client'] = 'Nieuwe Klant';
+$lang['new contact'] = 'nieuwe contactpersoon';
+$lang['New Contact'] = 'Nieuwe Contactpersoon';
+$lang['- select a contact -'] = '- selecteer een contactpersoon -';
+$lang['- Select a contact -'] = '- Selecteer een Contactpersoon -';
+$lang['change'] = 'wijzigen';
+$lang['Change'] = 'Wijzigen';
+$lang['redacting ticket reply'] = 'ticketreactie redigeren';
+$lang['Redacting Ticket Reply'] = 'Ticketreactie Redigeren';
+$lang['merge & close %s tickets'] = 'samenvoegen & sluiten %s tickets';
+$lang['Merge & close %s tickets'] = 'Samenvoegen & Sluiten %s Tickets';
+$lang['selected tickets will be closed once merging is complete.'] = 'Geselecteerde tickets worden gesloten zodra het samenvoegen voltooid is.';
+$lang['new approver for task %s'] = 'nieuwe goedkeurder voor taak %s';
+$lang['New approver for task %s'] = 'Nieuwe Goedkeurder voor Taak %s';
+$lang['approval scope'] = 'goedkeuringsbereik';
+$lang['Approval scope'] = 'Goedkeuringsbereik';
+$lang['select scope...'] = 'selecteer bereik...';
+$lang['internal'] = 'intern';
+$lang['Internal'] = 'Intern';
+$lang['client'] = 'klant';
+$lang['Client'] = 'Klant';
+$lang['who can approve?'] = 'wie kan goedkeuren?';
+$lang['Who can approve?'] = 'Wie kan goedkeuren?';
+$lang['select specific internal approver'] = 'selecteer specifieke interne goedkeurder';
+$lang['Select specific internal approver'] = 'Selecteer Specifieke Interne Goedkeurder';
+$lang['select user...'] = 'selecteer gebruiker...';
 ?>
 
 

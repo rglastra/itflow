@@ -9,14 +9,14 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title" id="summaryModalTitle">Ticket Summary</h5>
+    <h5 class="modal-title" id="summaryModalTitle"><?php echo __('Ticket Summary'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <div id="summaryContent">
-        <div class="text-center"><i class="fas fa-spinner fa-spin"></i> Generating summary...</div>
+        <div class="text-center"><i class="fas fa-spinner fa-spin"></i> <?php echo __('generating summary...'); ?></div>
     </div>
 </div>
 
@@ -30,7 +30,7 @@ $(function() {
             $('#summaryContent').html(response);
         },
         error: function() {
-            $('#summaryContent').html('Error generating summary.');
+            $('#summaryContent').html('<?php echo __('error generating summary.'); ?>');
         }
     });
 });

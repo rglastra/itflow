@@ -20,7 +20,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-edit mr-2"></i>Redacting Ticket Reply</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-edit mr-2"></i><?php echo __('Redacting Ticket Reply'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -37,8 +37,8 @@ ob_start();
 
     </div>
     <div class="modal-footer">
-        <button type="submit" name="redact_ticket_reply" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="redact_ticket_reply" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('save'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?></button>
     </div>
 </form>
 

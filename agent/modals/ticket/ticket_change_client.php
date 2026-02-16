@@ -18,7 +18,7 @@ ob_start();
 <div class="modal-header bg-dark">
     <h5 class="modal-title">
         <i class="fa fa-fw fa-people-carry mr-2"></i>
-        Change <?php echo "$ticket_prefix$ticket_number"; ?> to another client
+        <?php echo sprintf(__('Change %s to another client'), "$ticket_prefix$ticket_number"); ?>
     </h5>
     <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
 </div>
@@ -28,7 +28,7 @@ ob_start();
 
     <div class="modal-body">
         <div class="form-group">
-            <label>New Client <strong class="text-danger">*</strong></label>
+            <label><?php echo __('New Client'); ?> <strong class="text-danger">*</strong></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-users"></i></span>
@@ -49,13 +49,13 @@ ob_start();
         </div>
 
         <div class="form-group">
-            <label>New Contact</label>
+            <label><?php echo __('New Contact'); ?></label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
                 </div>
                 <select class="form-control select2" name="new_contact_id" id="contact_select">
-                    <option value="">- Select a contact -</option>
+                    <option value=""><?php echo __('- select a contact -'); ?></option>
                 </select>
             </div>
         </div>
@@ -63,10 +63,10 @@ ob_start();
 
     <div class="modal-footer">
         <button type="submit" name="change_client_ticket" class="btn btn-primary text-bold">
-            <i class="fa fa-check mr-2"></i>Change
+            <i class="fa fa-check mr-2"></i><?php echo __('Change'); ?>
         </button>
         <button type="button" class="btn btn-light" data-dismiss="modal">
-            <i class="fa fa-times mr-2"></i>Cancel
+            <i class="fa fa-times mr-2"></i><?php echo __('cancel'); ?>
         </button>
     </div>
 </form>
