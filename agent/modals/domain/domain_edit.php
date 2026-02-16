@@ -73,7 +73,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label><?php echo __('Description'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-angle-right"></i></span>
@@ -83,7 +83,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Domain Registrar</label>
+                    <label><?php echo __('Domain Registrar'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-server"></i></span>
@@ -149,7 +149,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Mail Host</label>
+                    <label><?php echo __('Mail Host'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
@@ -171,7 +171,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Expire Date</label>
+                    <label><?php echo __('Expire Date'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-times"></i></span>
@@ -195,7 +195,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Name Servers</label>
+                    <label><?php echo __('Name Servers'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-crown"></i></span>
@@ -205,7 +205,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>MX Records</label>
+                    <label><?php echo __('MX Records'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-mail-bulk"></i></span>
@@ -215,7 +215,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>TXT Records</label>
+                    <label><?php echo __('TXT Records'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-check-double"></i></span>
@@ -225,7 +225,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Raw WHOIS</label>
+                    <label><?php echo __('Raw WHOIS'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-search-plus"></i></span>

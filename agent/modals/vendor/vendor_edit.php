@@ -95,7 +95,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Template Base</label>
+                    <label><?php echo __('Template Base'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-puzzle-piece"></i></span>
@@ -140,7 +140,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Support Hours</label>
+                    <label><?php echo __('Support Hours'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
@@ -150,7 +150,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Support Email</label>
+                    <label><?php echo __('Support Email'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
@@ -160,7 +160,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Support Website URL</label>
+                    <label><?php echo __('Support Website URL'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-globe"></i></span>

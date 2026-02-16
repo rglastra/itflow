@@ -147,7 +147,7 @@ ob_start();
                 </div>
 
                 <div class="form-group">
-                    <label>Mail Host</label>
+                    <label><?php echo __('Mail Host'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
@@ -169,7 +169,7 @@ ob_start();
                 <?php } ?>
 
                 <div class="form-group">
-                    <label>Expire Date</label>
+                    <label><?php echo __('Expire Date'); ?></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-fw fa-calendar-times"></i></span>

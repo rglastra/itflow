@@ -52,7 +52,7 @@ ob_start();
                 <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="contactPrimaryCheckbox" name="primary_contacts" value="1">
-                        <label class="custom-control-label" for="contactPrimaryCheckbox">Primary Contacts</label>
+                        <label class="custom-control-label" for="contactPrimaryCheckbox"><?php echo __('Primary Contacts'); ?></label>
                     </div>
                 </div>
             </div>

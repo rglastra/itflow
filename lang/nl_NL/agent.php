@@ -1737,3 +1737,17 @@ $lang['Status'] = 'Status';
 $lang['Credit Amount'] = 'Kredietbedrag';
 $lang['Select related Contacts'] = 'Selecteer gerelateerde contacten';
 ?>            
+// Additional modals - domain, vendor, and client specific labels
+$lang['Template Base'] = 'Sjabloongronds';
+$lang['Support Hours'] = 'Ondersteuningsuren';
+$lang['Support Email'] = 'Ondersteunings-e-mail';
+$lang['Support Website URL'] = 'Ondersteuningswebsite-URL';
+$lang['Domain Registrar'] = 'Domeinregistrar';
+$lang['Mail Host'] = 'Mail Host';
+$lang['Expire Date'] = 'Vervaldatum';
+$lang['Name Servers'] = 'Naamservers';
+$lang['MX Records'] = 'MX-records';
+$lang['TXT Records'] = 'TXT-records';
+$lang['Raw WHOIS'] = 'Raw WHOIS';
+$lang['Primary Contacts'] = 'Primaire contacten';
+?>
