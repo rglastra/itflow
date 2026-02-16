@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title"><i class="fa fa-fw fa-file-pdf mr-2"></i>Export PDF</h5>
+                <h5 class="modal-title"><i class="fa fa-fw fa-file-pdf mr-2"></i><?php echo __('Export PDF'); ?></h5>
                 <button type="button" class="close text-white" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -176,8 +176,8 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="export_client_pdf" class="btn btn-primary text-bold"><i class="fa fa-fw fa-download mr-2"></i>Export</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+                    <button type="submit" name="export_client_pdf" class="btn btn-primary text-bold"><i class="fa fa-fw fa-download mr-2"></i><?php echo __('Export'); ?></button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
                 </div>
             </form>
         </div>

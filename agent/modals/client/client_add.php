@@ -15,7 +15,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-user-plus mr-2"></i>New <?php if($leads_filter == 0){ echo "Client"; } else { echo "Lead"; } ?></h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-user-plus mr-2"></i><?php if($leads_filter == 0){ echo __('New Client'); } else { echo __('New Lead'); } ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -23,21 +23,21 @@ ob_start();
 
 <ul class="modal-header nav nav-pills nav-justified">
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="pill" href="#pills-details">Details</a>
+        <a class="nav-link active" data-toggle="pill" href="#pills-details"><?php echo __('Details'); ?></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#pills-location">Location</a>
+        <a class="nav-link" data-toggle="pill" href="#pills-location"><?php echo __('Location'); ?></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#pills-contact" id="contactNavPill">Contact</a>
+        <a class="nav-link" data-toggle="pill" href="#pills-contact" id="contactNavPill"><?php echo __('Contact'); ?></a>
     </li>
     <?php if ($config_module_enable_accounting) { ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-billing">Billing</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-billing"><?php echo __('Billing'); ?></a>
         </li>
     <?php } ?>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#pills-notes">Notes</a>
+        <a class="nav-link" data-toggle="pill" href="#pills-notes"><?php echo __('Notes'); ?></a>
     </li>
 </ul>
 
@@ -365,8 +365,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="add_client" class="btn btn-primary text-bold" onclick="promptPrimaryContact()"><i class="fa fa-check mr-2"></i>Create Client</button>
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Close</button>
+        <button type="submit" name="add_client" class="btn btn-primary text-bold" onclick="promptPrimaryContact()"><i class="fa fa-check mr-2"></i><?php echo __('Create Client'); ?></button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Close'); ?></button>
     </div>
 </form>
 

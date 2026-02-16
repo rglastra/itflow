@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-tags mr-2"></i>Assign Tags for <strong><?= $count ?></strong> Clients</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-tags mr-2"></i><?php echo sprintf(__('Assign Tags for %s Clients'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -53,8 +53,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_assign_client_tags" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Assign</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_assign_client_tags" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Assign'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

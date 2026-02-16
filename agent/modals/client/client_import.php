@@ -6,7 +6,7 @@ ob_start();
 
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-users mr-2"></i>Import Clients</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-users mr-2"></i><?php echo __('Import Clients'); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>

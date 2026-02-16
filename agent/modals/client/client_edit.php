@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_assoc($sql_client_tags)) {
 ob_start();
 ?>
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class='fa fa-fw fa-user-edit mr-2'></i>Editing Client: <strong><?php echo $client_name; ?></strong></h5>
+    <h5 class="modal-title"><i class='fa fa-fw fa-user-edit mr-2'></i><?php echo sprintf(__('Editing Client: %s'), $client_name); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -44,15 +44,15 @@ ob_start();
 
     <ul class="modal-header nav nav-pills nav-justified mb-3">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="pill" href="#pills-client-details<?php echo $client_id; ?>">Details</a>
+            <a class="nav-link active" data-toggle="pill" href="#pills-client-details<?php echo $client_id; ?>"><?php echo __('Details'); ?></a>
         </li>
         <?php if ($config_module_enable_accounting) { ?>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-client-billing<?php echo $client_id; ?>">Billing</a>
+                <a class="nav-link" data-toggle="pill" href="#pills-client-billing<?php echo $client_id; ?>"><?php echo __('Billing'); ?></a>
             </li>
         <?php } ?>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#pills-client-notes<?php echo $client_id; ?>">Notes</a>
+            <a class="nav-link" data-toggle="pill" href="#pills-client-notes<?php echo $client_id; ?>"><?php echo __('Notes'); ?></a>
         </li>
     </ul>
 
@@ -249,8 +249,8 @@ ob_start();
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" name="edit_client" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i>Save</button>
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="edit_client" class="btn btn-primary text-bold"><i class="fa fa-check mr-2"></i><?php echo __('Save'); ?></button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

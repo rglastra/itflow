@@ -12,7 +12,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i>New Tickets for <strong><?= $count ?></strong> Client(s)</h5>
+    <h5 class="modal-title"><i class="fas fa-fw fa-life-ring mr-2"></i><?php echo sprintf(__('New Tickets for %s Client(s)'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
@@ -25,8 +25,8 @@ ob_start();
     <div class="modal-body">
 
         <div class="form-group">
-            <label>Subject <strong class="text-danger">*</strong></label>
-            <input type="text" class="form-control" name="bulk_subject" placeholder="Enter a subject" maxlength="200" required>
+            <label><?php echo __('Subject'); ?> <strong class="text-danger">*</strong></label>
+            <input type="text" class="form-control" name="bulk_subject" placeholder="<?php echo __('Enter a subject'); ?>" maxlength="200" required>
         </div>
 
         <div class="form-group">
@@ -142,8 +142,8 @@ ob_start();
     </div>
 
     <div class="modal-footer">
-        <button type="submit" name="bulk_add_client_ticket" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i>Create</button>
-        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Cancel</button>
+        <button type="submit" name="bulk_add_tickets" class="btn btn-primary text-bold"><i class="fas fa-check mr-2"></i><?php echo __('Create'); ?></button>
+        <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times mr-2"></i><?php echo __('Cancel'); ?></button>
     </div>
 </form>
 

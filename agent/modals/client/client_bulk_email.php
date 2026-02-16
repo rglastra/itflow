@@ -11,7 +11,7 @@ ob_start();
 ?>
 
 <div class="modal-header bg-dark">
-    <h5 class="modal-title"><i class="fa fa-fw fa-envelope-open mr-2"></i>Send Emails to <strong><?= $count ?></strong> Client(s)</h5>
+    <h5 class="modal-title"><i class="fa fa-fw fa-envelope-open mr-2"></i><?php echo sprintf(__('Send Emails to %s Client(s)'), $count); ?></h5>
     <button type="button" class="close text-white" data-dismiss="modal">
         <span>&times;</span>
     </button>
